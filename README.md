@@ -18,7 +18,9 @@ PEGI 12, para adolescentes y jóvenes. El juego no es muy complicado para que el
 ### Storyline & Characters
 Debido a X cosa de su mundo, los personajes necesitan esas gemas como sea. Por eso pelearán para conseguirlas.
 Mínimo cuatro personajes. Cada personaje tiene una habilidad especial, que no tienen los demás.
-
+| Characters | Description | Characteristics | Misc. info |
+|------------|-------------|-----------------|--------------------|
+| Character name | Describe de character | Abilities | Present any other notes about the character |
 
 ### Gameplay
 
