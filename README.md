@@ -21,9 +21,9 @@ Debido a X cosa de su mundo, los personajes necesitan esas gemas como sea. Por e
 Hay tres personajes.
 | Personaje | Imagen | Descripción | Características | Misc. info |
 |:------------:|:-------------:|:-------------:|:-----------------:|:--------------------:|
-| Chili | Imagen | Describe de character | Abilities | Present any other notes about the character |
-| Bernie | Imagen | Describe de character | Abilities | Present any other notes about the character |
-| Wasabi | Imagen | Describe de character | Abilities | Present any other notes about the character |
+| Chili | ![Chili!](/images/Pink_Monster.png) | Describe de character | Abilities | Present any other notes about the character |
+| Bernie |  ![Bernie!](/images/Owlet_Monster.png) | Describe de character | Abilities | Present any other notes about the character |
+| Wasabi |  ![Wasabi!](/images/Dude_Monster.png) | Describe de character | Abilities | Present any other notes about the character |
 
 ### Gameplay
 
