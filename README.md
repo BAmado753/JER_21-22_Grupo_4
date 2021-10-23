@@ -19,11 +19,11 @@ PEGI 12, para adolescentes y jóvenes. El juego no es muy complicado para que el
 Debido a X cosa de su mundo, los personajes necesitan esas gemas como sea. Por eso pelearán para conseguirlas.
 
 Hay tres personajes.
-| Personaje | Imagen | Descripción | Características | Misc. info |
-|:------------:|:-------------:|:-------------:|:-----------------:|:--------------------:|
-| Chili | ![Chili!](/images/Pink_Monster.png) | Describe de character | Abilities | Present any other notes about the character |
-| Bernie |  ![Bernie!](/images/Owlet_Monster.png) | Describe de character | Abilities | Present any other notes about the character |
-| Wasabi |  ![Wasabi!](/images/Dude_Monster.png) | Describe de character | Abilities | Present any other notes about the character |
+| Personaje | Imagen | Descripción | 
+|:------------:|:-------------:|:-------------:|
+| Chili | ![Chili!](/images/Pink_Monster.png) | Describe de character |
+| Bernie |  ![Bernie!](/images/Owlet_Monster.png) | Describe de character | 
+| Wasabi |  ![Wasabi!](/images/Dude_Monster.png) | Describe de character | 
 
 ### Gameplay
 
