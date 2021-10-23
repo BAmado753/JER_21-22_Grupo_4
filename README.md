@@ -41,6 +41,11 @@ El juego está enfocado a la diversión así que debería acercarse más a un Fo
 
 
 #### Level Design
+| Characters | 
+|------------|-------------|
+| Escenario 1: |                   | 
+| Escenario 2: |                   | 
+| Escenario 3: |                   | 
 
 ### Control Scheme
 
