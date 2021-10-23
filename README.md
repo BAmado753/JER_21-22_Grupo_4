@@ -44,6 +44,16 @@ El juego está enfocado a la diversión así que debería acercarse más a un Fo
 
 
 ### Control Scheme
+Los controles funcionan con teclado.
+
+|Input|Acción que se realiza|
+|:---:|:-------------------:|
+|A|Movimiento lateral izquierda|
+|D|Movimiento lateral derecha|
+|W|Subir escaleras|
+|S|Bajar escaleras|
+|Espacio|Saltar|
+|E|Disparar|
 
 ### Game Aesthetics, User Interface & Music
 
