@@ -41,7 +41,11 @@ El juego está enfocado a la diversión así que debería acercarse más a un Fo
 
 
 #### Level Design
-
+| Characters | 
+|------------|-------------|
+| Escenario 1: | List or describe the level’s look, difficulty, hazards, and objectives | 
+| Escenario 2: | List or describe the level’s look, difficulty, hazards, and objectives | 
+| Escenario 3: | List or describe the level’s look, difficulty, hazards, and objectives | 
 
 ### Control Scheme
 Los controles funcionan con teclado.
