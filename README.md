@@ -62,6 +62,5 @@ Los controles funcionan con teclado.
 |Espacio|Saltar|
 |E|Disparar|
 
-### Game Aesthetics, User Interface & Music
 
 
