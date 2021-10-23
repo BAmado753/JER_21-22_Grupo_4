@@ -47,7 +47,7 @@ Además de las acciones de los personajes hay objetos que pueden usar que son ú
 | Items | Items | Items | 
 |:------------:|:-------------:|:-------------:|
 | <strong>Imagen</strong>| <strong>Armas</strong> | <strong>Descripción</strong> |
-| Foto |  Cuchillo | Rápido pero  hace poco daño. Daño: 3 | 
+| Foto |  Cuchillo | Rápido pero  hace poco daño.<br> Daño: 3 | 
 | Foto | Pistola |No es automática. Daño por bala: 10 Cantidad de munición: 10 | 
 | <strong>Imagen<strong/> |<strong>Objetos de apoyo</strong> | <strong>Descripcion</strong> |
 | Foto |  Municion | Describe de character | 
