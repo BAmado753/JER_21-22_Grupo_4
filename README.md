@@ -41,6 +41,25 @@ Cada partida tiene límite de tiempo.
 El juego está enfocado a la diversión así que debería acercarse más a un Fornite que no a Doom. 
 
 #### Gameplay Mechanics
+Los personajes se mueven horizontalmente, también pueden saltar y usar escaleras para acceder a plataformas a las que no llegarían de otra forma. Respecto a atacar y disparar están limitados a hacerlo hacia los lados, nunca en diagonal ni arriba o abajo.
+Además de las acciones de los personajes hay objetos que pueden usar que son útiles durante la partida
+
+| items | Items | Items | 
+|:------------:|:-------------:|:-------------:|
+| <strong>Imagen</strong>| <strong>Armas</strong> | <strong>Descripción</strong> |
+| Bernie |  Cuchillo | Rápido pero  hace poco daño.
+Daño: 3 | 
+| Wasabi | Pistola |No es automática.
+Daño por bala: 10
+Cantidad de munición: 10 | 
+| Imagen |Objetos de apoyo | Descripcion |
+| Bernie |  Municion | Describe de character | 
+| Wasabi |  Comida | Describe de character | 
+| Chili | Escudo | Describe de character |
+| Bernie | Trampa | Describe de character | 
+| Wasabi |  Más daño | Describe de character |
+| Chili | Más velocidad | Describe de character |
+
 
 
 #### Level Design
