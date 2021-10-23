@@ -47,15 +47,15 @@ Además de las acciones de los personajes hay objetos que pueden usar que son ú
 | Items | Items | Items | 
 |:------------:|:-------------:|:-------------:|
 | <strong>Imagen</strong>| <strong>Armas</strong> | <strong>Descripción</strong> |
-| Bernie |  Cuchillo | Rápido pero  hace poco daño. Daño: 3 | 
-| Wasabi | Pistola |No es automática. Daño por bala: 10 Cantidad de munición: 10 | 
+| Foto |  Cuchillo | Rápido pero  hace poco daño. Daño: 3 | 
+| Foto | Pistola |No es automática. Daño por bala: 10 Cantidad de munición: 10 | 
 | <strong>Imagen<strong/> |<strong>Objetos de apoyo</strong> | <strong>Descripcion</strong> |
-| Bernie |  Municion | Describe de character | 
-| Wasabi |  Comida | Describe de character | 
-| Chili | Escudo | Describe de character |
-| Bernie | Trampa | Describe de character | 
-| Wasabi |  Más daño | Describe de character |
-| Chili | Más velocidad | Describe de character |
+| Foto |  Municion | Describe de character | 
+| Foto |  Comida | Describe de character | 
+| Foto | Escudo | Describe de character |
+| Foto | Trampa | Describe de character | 
+| Foto |  Más daño | Describe de character |
+| Foto | Más velocidad | Describe de character |
 
 
 
