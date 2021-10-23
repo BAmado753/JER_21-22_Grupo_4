@@ -44,15 +44,12 @@ El juego está enfocado a la diversión así que debería acercarse más a un Fo
 Los personajes se mueven horizontalmente, también pueden saltar y usar escaleras para acceder a plataformas a las que no llegarían de otra forma. Respecto a atacar y disparar están limitados a hacerlo hacia los lados, nunca en diagonal ni arriba o abajo.
 Además de las acciones de los personajes hay objetos que pueden usar que son útiles durante la partida
 
-| items | Items | Items | 
+| Items | Items | Items | 
 |:------------:|:-------------:|:-------------:|
 | <strong>Imagen</strong>| <strong>Armas</strong> | <strong>Descripción</strong> |
-| Bernie |  Cuchillo | Rápido pero  hace poco daño.
-Daño: 3 | 
-| Wasabi | Pistola |No es automática.
-Daño por bala: 10
-Cantidad de munición: 10 | 
-| Imagen |Objetos de apoyo | Descripcion |
+| Bernie |  Cuchillo | Rápido pero  hace poco daño. Daño: 3 | 
+| Wasabi | Pistola |No es automática. Daño por bala: 10 Cantidad de munición: 10 | 
+| <strong>Imagen<strong/> |<strong>Objetos de apoyo</strong> | <strong>Descripcion</strong> |
 | Bernie |  Municion | Describe de character | 
 | Wasabi |  Comida | Describe de character | 
 | Chili | Escudo | Describe de character |
