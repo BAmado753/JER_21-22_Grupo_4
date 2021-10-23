@@ -50,12 +50,14 @@ Además de las acciones de los personajes hay objetos que pueden usar que son ú
 | Foto |  Cuchillo | Rápido pero  hace poco daño.<br> Daño: 3 | 
 | Foto | Pistola |No es automática.<br> Daño por bala: 10 <br>Cantidad de munición: 10 | 
 | <strong>Imagen<strong/> |<strong>Objetos de apoyo</strong> | <strong>Descripcion</strong> |
-| Foto |  Municion | Describe de character | 
-| Foto |  Comida | Describe de character | 
-| Foto | Escudo | Describe de character |
-| Foto | Trampa | Describe de character | 
-| Foto |  Más daño | Describe de character |
-| Foto | Más velocidad | Describe de character |
+| Foto |  Municion | Recarga la munición de las escopetas y las metralletas | 
+| Foto |  Comida | Recupera vida | 
+| Foto | Escudo | Aguanta 10 disparos y luego se rompe |
+| Foto | Trampa | Stunea al jugador unos segundos | 
+| Foto |  Más daño | Hace que los ataques hagan más daño |
+| Foto | Más velocidad | Hace más veloz al jugador que la coja |
+| <strong>Imagen<strong/> |<strong>Objetos recoletables</strong> | <strong>Descripcion</strong> |
+| Foto | Gema | Objeto que los personajes deben recoger para ganar |
 
 
 
