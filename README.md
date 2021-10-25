@@ -60,6 +60,7 @@ Además de las acciones de los personajes hay objetos que pueden usar que son ú
 
 
  #### <strong>Level Design</strong>
+Habrá tres escenarios para jugar, cada uno representando un bioma diferente.
 | Levels | Description |
 |------------|-------------|
 | Escenario 1: | List or describe the level’s look, difficulty, hazards, and objectives | 
