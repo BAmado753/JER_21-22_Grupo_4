@@ -85,16 +85,16 @@ Los controles funcionan con teclado.
 Los personajes son de Craftpix <br>
 https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
 
-Los objetos de apoyo son de Cheekyinkling
+Los objetos de apoyo son de Cheekyinkling <br>
 https://cheekyinkling.itch.io/shikashis-fantasy-icons-pack
 
-Los tilesets de los escenarios son de Maytch
+Los tilesets de los escenarios son de Maytch <br>
 https://maytch.itch.io/pixel
 
-El icono de pistola es de MunStudios
+El icono de pistola es de MunStudios <br>
 https://munstudios.itch.io/2d-pixel-guns-pack
 
-El cuchillo es de antrixglow98
+El cuchillo es de antrixglow98 <br>
 https://antrixglow98.itch.io/32x32rpgweaponsicons
 
 
