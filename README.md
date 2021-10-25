@@ -44,7 +44,7 @@ El juego está enfocado a la diversión así que debería acercarse más a un Fo
 Los personajes se mueven horizontalmente, también pueden saltar y usar escaleras para acceder a plataformas a las que no llegarían de otra forma. Respecto a atacar y disparar están limitados a hacerlo hacia los lados, nunca en diagonal ni arriba o abajo.
 Además de las acciones de los personajes hay objetos que pueden usar que son útiles durante la partida
 
-| Items | Items | Items | 
+| Items |  |  | 
 |:------------:|:-------------:|:-------------:|
 | <strong>Imagen</strong>| <strong>Armas</strong> | <strong>Descripción</strong> |
 | ![Cuchillo!](/images/knife.png) |  Cuchillo | Rápido pero  hace poco daño.<br> Daño: 3 | 
