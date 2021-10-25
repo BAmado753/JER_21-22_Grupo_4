@@ -21,7 +21,7 @@ Chili, Bernie y Wasabi son los tres guerreros escogidos por las diferentes nacio
 Hay tres personajes para elegir. 
 | Personaje | Imagen | Descripción | 
 |:------------:|:-------------:|:-------------:|
-| Chili | ![Chili!](/images/Pink_Monster.png) | Describe de character |
+| Chili | ![Chili!](/images/Pink_Monster.png) |  |
 | Bernie |  ![Bernie!](/images/Owlet_Monster.png) | Describe de character | 
 | Wasabi |  ![Wasabi!](/images/Dude_Monster.png) | Describe de character | 
 
