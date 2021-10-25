@@ -63,7 +63,7 @@ Habrá tres escenarios para jugar, cada uno representando un bioma diferente.
 | Levels | Description |
 |------------|-------------|
 | ![Escenario 1!](/images/escenario1.png) | Fondo con plataformas cuya temática es el campo, con un ambiente diurno | 
-| ![Escenario 2!](/images/escenario2.png) | Fondo con plataformas que incluye una estructura china. Ambientado por la noche | 
+| ![Escenario 2!](/images/escenario2.png) | Fondo con plataformas que incluye una estructura china, con un ambiente nocturno | 
 | ![Escenario 3!](/images/escenario3.png) | Fondo con plataformas ambientado en una cueva con lava | 
 
 ### <strong>Control Scheme</strong>
