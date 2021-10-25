@@ -15,9 +15,8 @@ El juego está desarrollado para jugarse en navegador.
 PEGI 12, para adolescentes y jóvenes. Un juego apto para jugadores casuales con mecánicas sencillas fáciles de comprender cuyo objetivo es la diversión de competir entre ellos.
 
 ### Storyline & Characters
-Debido a X cosa de su mundo, los personajes necesitan esas gemas como sea. Por eso pelearán para conseguirlas.
 
-Hay tres personajes.
+Hay tres personajes para elegir. 
 | Personaje | Imagen | Descripción | 
 |:------------:|:-------------:|:-------------:|
 | Chili | ![Chili!](/images/Pink_Monster.png) | Describe de character |
