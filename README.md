@@ -31,9 +31,8 @@ En el escenario también aparecerán aleatoriamente las armas, la munición y po
 
 
 #### Player Experience
-Al comienzo de la partida deberás seleccionar la cantidad de jugadores (2-4) y cada uno tendrá que elegir un personaje del repertorio, teniendo en cuenta las habilidades de los mismos. Luego se eligen los modos de juego, y la cantidad de batallas que quieres hacer. Después podrás elegir entre 5 mapas, o dejar que el juego lo elija por ti. Una vez dentro de la batalla, coge las armas que puedas y derrota a los demás.
+Al comienzo de la partida cada jugador tendrá que elegir un personaje del repertorio. Luego se eligen la cantidad de batallas que quieren hacer. Después podrán elegir en cuál de los 3 escenarios quieren jugar, o dejar que el juego lo elija por ellos. Una vez dentro de la batalla, deberán coger las armas que puedan y derrotar a los demás. <br>
 Cada partida tiene límite de tiempo.
-
 
 #### Gameplay Guidelines
 El juego está enfocado a la diversión así que debería acercarse más a un Fornite que no a Doom. 
