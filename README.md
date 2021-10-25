@@ -79,6 +79,7 @@ Los controles funcionan con teclado.
 |Espacio|Saltar|
 |E|Disparar|
   
+ 
 <strong>Referencias</strong>
 
 Los personajes son de Craftpix
