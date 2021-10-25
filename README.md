@@ -15,6 +15,8 @@ El juego está desarrollado para jugarse en navegador.
 PEGI 12, para adolescentes y jóvenes. Un juego apto para jugadores casuales con mecánicas sencillas fáciles de comprender cuyo objetivo es la diversión de competir entre ellos.
 
 ### Storyline & Characters
+El planeta de Nulia organiza un torneo donde las tres naciones del mismo mandan a sus mejores guerreros a competir por la custodia de la gema que mantiene la paz en su mundo, la Telkeita, con lo que se juegan el honor de su país y la gran riqueza que supone ganar el torneo.
+Chili, Bernie y Wasabi son los tres guerreros escogidos por las diferentes naciones de Nulia para competir en el gran torneo y defender su orgullo, por lo que deberán emplear todo su potencial para hacerse con la victoria.
 
 Hay tres personajes para elegir. 
 | Personaje | Imagen | Descripción | 
