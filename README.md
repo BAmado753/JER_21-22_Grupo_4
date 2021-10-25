@@ -62,7 +62,7 @@ Además de las acciones de los personajes hay objetos que pueden usar que son ú
 
  #### <strong>Level Design</strong>
 Habrá tres escenarios para jugar, cada uno representando un bioma diferente.
-| Levels | Description |
+| Niveles | Descripción |
 |------------|-------------|
 | ![Escenario 1!](/images/escenario1.png) | Fondo con plataformas cuya temática es el campo, con un ambiente diurno | 
 | ![Escenario 2!](/images/escenario2.png) | Fondo con plataformas que incluye una estructura china, con un ambiente nocturno | 
