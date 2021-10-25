@@ -23,7 +23,7 @@ Hay tres personajes para elegir.
 |:------------:|:-------------:|:-------------:|
 | Chili | ![Chili!](/images/Pink_Monster.png) | Este personaje es capaz de crear un espejismo de sí mismo para hacer de señuelo. <br> El clon solo tiene una vida y crearlo gasta energía que debe ser recargada.|
 | Bernie |  ![Bernie!](/images/Owlet_Monster.png) |  | 
-| Wasabi |  ![Wasabi!](/images/Dude_Monster.png) |   | 
+| Wasabi |  ![Wasabi!](/images/Dude_Monster.png) | Este personaje tiene la habilidad de generar una pequeña explosión a su alrededor dañando a todo aquel que esté a su alrededor en un radio de 5 unidades. <br>| 
 
 ### Gameplay
 
