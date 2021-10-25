@@ -26,13 +26,14 @@ Hay tres personajes para elegir.
 ### Gameplay
 
 #### Overview of Gameplay
-Es un shooter plataformero en el que el jugador ganará si es el que tiene más gemas antes de que acabe el tiempo. Estas aparecerán por el mapa así que deberá recogerlas mientras tiene cuidado de no morir a manos del contrincante ya que cuando muere, pierde unas cuantas gemas que ya tenía y las puede recoger el otro jugador. <br>
-En el escenario también aparecerán aleatoriamente las armas, la munición y power-ups que pueden usar para acabar con el contrario.
+Es un shooter plataformero en el que el jugador ganará derrotando a los demás mediante las armas que hay repartidas por el mapa y con sus habilidades propias. Hay un sistema de vidas (corazones o barra de vida, ya se verá), y cada jugador tiene 20. 
+Las armas de fuego funcionan con balas, así que también aparecen balas repartidas en el mapa para recargarlas. Hay dos tipos de balas, y por lo tanto las armas se dividen en dos grupos según las balas que puedan usar.
 
 
 #### Player Experience
-Al comienzo de la partida cada jugador tendrá que elegir un personaje del repertorio. Luego se eligen la cantidad de batallas que quieren hacer. Después podrán elegir en cuál de los 3 escenarios quieren jugar, o dejar que el juego lo elija por ellos. Una vez dentro de la batalla, deberán coger las armas que puedan y derrotar a los demás. <br>
+Al comienzo de la partida deberás seleccionar la cantidad de jugadores (2-4) y cada uno tendrá que elegir un personaje del repertorio, teniendo en cuenta las habilidades de los mismos. Luego se eligen los modos de juego, y la cantidad de batallas que quieres hacer. Después podrás elegir entre 5 mapas, o dejar que el juego lo elija por ti. Una vez dentro de la batalla, coge las armas que puedas y derrota a los demás.
 Cada partida tiene límite de tiempo.
+
 
 #### Gameplay Guidelines
 El juego está enfocado a la diversión así que debería acercarse más a un Fornite que no a Doom. 
@@ -61,9 +62,9 @@ Además de las acciones de los personajes hay objetos que pueden usar que son ú
 Habrá tres escenarios para jugar, cada uno representando un bioma diferente.
 | Levels | Description |
 |------------|-------------|
-| Escenario 1: | List or describe the level’s look, difficulty, hazards, and objectives | 
-| Escenario 2: | List or describe the level’s look, difficulty, hazards, and objectives | 
-| Escenario 3: | List or describe the level’s look, difficulty, hazards, and objectives | 
+| ![Escenario 1!](/images/escenario1.png) | List or describe the level’s look, difficulty, hazards, and objectives | 
+| ![Escenario 2!](/images/escenario2.png) | List or describe the level’s look, difficulty, hazards, and objectives | 
+| ![Escenario 3!](/images/escenario3.png) | List or describe the level’s look, difficulty, hazards, and objectives | 
 
 ### <strong>Control Scheme</strong>
 Los controles funcionan con teclado.
