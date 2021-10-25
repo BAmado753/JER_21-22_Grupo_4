@@ -60,15 +60,14 @@ Además de las acciones de los personajes hay objetos que pueden usar que son ú
 | Foto | Gema | Objeto que los personajes deben recoger para ganar |
 
 
-
-#### Level Design
+ #### <strong>Level Design</strong>
 | Levels | Description |
 |------------|-------------|
 | Escenario 1: | List or describe the level’s look, difficulty, hazards, and objectives | 
 | Escenario 2: | List or describe the level’s look, difficulty, hazards, and objectives | 
 | Escenario 3: | List or describe the level’s look, difficulty, hazards, and objectives | 
 
-### Control Scheme
+### <strong>Control Scheme</strong>
 Los controles funcionan con teclado.
 
 |Input|Acción que se realiza|
@@ -79,6 +78,24 @@ Los controles funcionan con teclado.
 |S|Bajar escaleras|
 |Espacio|Saltar|
 |E|Disparar|
+  
+###<strong>Referencias</strong>
+
+Los personajes son de Craftpix
+https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
+
+Los objetos de apoyo son de Cheekyinkling
+https://cheekyinkling.itch.io/shikashis-fantasy-icons-pack
+
+Los tilesets de los escenarios son de Maytch
+https://maytch.itch.io/pixel
+
+El icono de pistola es de MunStudios
+https://munstudios.itch.io/2d-pixel-guns-pack
+
+El cuchillo es de antrixglow98
+https://antrixglow98.itch.io/32x32rpgweaponsicons
+
 
 
 
