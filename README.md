@@ -82,7 +82,7 @@ Los controles funcionan con teclado.
  
 ### <strong>Referencias</strong>
 
-Los personajes son de Craftpix
+Los personajes son de Craftpix <br>
 https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
 
 Los objetos de apoyo son de Cheekyinkling
