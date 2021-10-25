@@ -22,8 +22,8 @@ Hay tres personajes para elegir.
 | Personaje | Imagen | Descripción | 
 |:------------:|:-------------:|:-------------:|
 | Chili | ![Chili!](/images/Pink_Monster.png) |  |
-| Bernie |  ![Bernie!](/images/Owlet_Monster.png) | Describe de character | 
-| Wasabi |  ![Wasabi!](/images/Dude_Monster.png) | Describe de character | 
+| Bernie |  ![Bernie!](/images/Owlet_Monster.png) | | 
+| Wasabi |  ![Wasabi!](/images/Dude_Monster.png) |  | 
 
 ### Gameplay
 
