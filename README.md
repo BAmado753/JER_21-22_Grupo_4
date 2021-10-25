@@ -26,8 +26,8 @@ Hay tres personajes para elegir.
 ### Gameplay
 
 #### Overview of Gameplay
-Es un shooter plataformero en el que el jugador ganará derrotando a los demás mediante las armas que hay repartidas por el mapa y con sus habilidades propias. Hay un sistema de vidas (corazones o barra de vida, ya se verá), y cada jugador tiene 20. 
-Las armas de fuego funcionan con balas, así que también aparecen balas repartidas en el mapa para recargarlas. Hay dos tipos de balas, y por lo tanto las armas se dividen en dos grupos según las balas que puedan usar.
+Es un shooter plataformero en el que el jugador ganará si es el que tiene más gemas antes de que acabe el tiempo. Estas aparecerán por el mapa así que deberá recogerlas mientras tiene cuidado de no morir a manos del contrincante ya que cuando muere, pierde unas cuantas gemas que ya tenía y las puede recoger el otro jugador. <br>
+En el escenario también aparecerán aleatoriamente las armas, la munición y power-ups que pueden usar para acabar con el contrario.
 
 
 #### Player Experience
