@@ -80,7 +80,7 @@ Los controles funcionan con teclado.
 |E|Disparar|
   
  
-<strong>Referencias</strong>
+### <strong>Referencias</strong>
 
 Los personajes son de Craftpix
 https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
