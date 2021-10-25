@@ -55,7 +55,7 @@ Además de las acciones de los personajes hay objetos que pueden usar que son ú
 | ![Trampa!](/images/trampa.png) | Trampa | Stunea al jugador unos segundos | 
 | ![Boost fuerza!](/images/strenght.png) |  Más daño | Hace que los ataques hagan más daño |
 | ![Boost velocidad!](/images/feather.png) | Más velocidad | Hace más veloz al jugador que la coja |
-| <strong>Imagen<strong/> |<strong>Objetos recoletables</strong> | <strong>Descripcion</strong> |
+| <strong>Imagen<strong/> |<strong>Objetos recoletables</strong> | <strong>Descripción</strong> |
 | ![Gema!](/images/gem.png) | Gema | Objeto que los personajes deben recoger para ganar |
 
 
