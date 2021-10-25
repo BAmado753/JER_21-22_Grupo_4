@@ -48,7 +48,7 @@ Además de las acciones de los personajes hay objetos que pueden usar que son ú
 | <strong>Imagen</strong>| <strong>Armas</strong> | <strong>Descripción</strong> |
 | ![Cuchillo!](/images/knife.png) |  Cuchillo | Rápido pero  hace poco daño.<br> Daño: 3 | 
 | ![Pistola!](/images/pistol_icon.png) | Pistola |No es automática.<br> Daño por bala: 10 <br>Cantidad de munición: 10 | 
-| <strong>Imagen<strong/> |<strong>Objetos de apoyo</strong> | <strong>Descripcion</strong> |
+| <strong>Imagen<strong/> |<strong>Objetos de apoyo</strong> | <strong>Descripción</strong> |
 | Foto|  Municion | Recarga la munición de las escopetas y las metralletas | 
 | ![Comida!](/images/fruits.png) |  Comida | Recupera vida | 
 | ![Escudo!](/images/escudo.png) | Escudo | Aguanta 10 disparos y luego se rompe |
