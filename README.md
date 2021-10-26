@@ -136,10 +136,9 @@ El cuchillo es de antrixglow98 <br>
 https://antrixglow98.itch.io/32x32rpgweaponsicons
 
 Fuente utilizada para el logo del juego<br>
-Alba Font - 1001 Free Fonts
+https://www.1001freefonts.com/alba.font <br>
 Iconos de inputs<br>
-Pixel Button Prompts! (Keyboard/Gamepad) by Retrocade Media (itch.io)
-
+https://retrocademedia.itch.io/buttonprompts4
 
 
 
