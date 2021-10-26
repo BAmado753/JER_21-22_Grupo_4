@@ -69,7 +69,7 @@ Las armas de largo alcance tienen un número limitado de disparos, si estos se a
 | ![Cuchillo!](/images/knife.png) |  Cuchillo | Rápido pero  hace poco daño.<br> Daño: 3 | 
 | ![Pistola!](/images/pistol_icon.png) | Pistola |No es automática.<br> Daño por bala: 10 <br>Cantidad de munición: 10 | 
 | <strong>Imagen<strong/> |<strong>Objetos de apoyo</strong> | <strong>Descripción</strong> |
-| Foto|  Municion | Recarga la munición de las escopetas y las metralletas | 
+| ![Municion!](/images/Municion.png)|  Municion | Recarga la munición de las escopetas y las metralletas | 
 | ![Comida!](/images/fruits.png) |  Comida | Recupera vida | 
 | ![Escudo!](/images/escudo.png) | Escudo | Aguanta 10 disparos y luego se rompe |
 | ![Trampa!](/images/trampa.png) | Trampa | Stunea al jugador unos segundos | 
