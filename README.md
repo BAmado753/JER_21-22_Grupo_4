@@ -34,7 +34,7 @@ Chili, Bernie y Wasabi son los tres guerreros escogidos por las diferentes nacio
 | Personaje | Imagen | Descripción | 
 |:------------:|:-------------:|:-------------:|
 | Chili | ![Chili!](/images/Pink_Monster.png) | Este personaje es capaz de crear un espejismo de sí mismo para hacer de señuelo. <br> El clon solo tiene una vida y crearlo gasta energía que debe ser recargada.|
-| Bernie |  ![Bernie!](/images/Owlet_Monster.png) | Este personaje puede intimidar al resto de personajes haciendo que se muevan más lento durante 7 segundos. <br> La habilidad consume energía del personaje que debe ser recargada.| 
+| Bernie |  ![Bernie!](/images/Owlet_Monster.png) | Este personaje puede intimidar al resto de personajes haciendo que se muevan más lento durante 4 segundos. <br> La habilidad consume energía del personaje que debe ser recargada.| 
 | Wasabi |  ![Wasabi!](/images/Dude_Monster.png) | Este personaje tiene la habilidad de generar una pequeña explosión a su alrededor dañando a todo aquel que esté a su alrededor en un radio de 5 unidades. <br> Esta explosión requiere mucha energía que debe ser recargada. Además, los otros jugadores podrán ver que va a explotar y tendrán 3 segundos para huir.| 
 
  #### <h3>Localizaciones</h3>
