@@ -83,7 +83,7 @@ Los personajes se mueven horizontalmente, también pueden saltar y usar escalera
 
 |Input|Acción que se realiza|
 |:---:|:-------------------:|
-|Tecla A|Movimiento lateral izquierda|
+| ![TeclaA!](/images/TeclaA.png) Tecla A|Movimiento lateral izquierda|
 |Tecla D|Movimiento lateral derecha|
 |Tecla W|Subir escaleras|
 |Tecla S|Bajar escaleras|
