@@ -1,6 +1,6 @@
 # Tiny Tussle
 
-### Resumen ejecutivo
+### <h1>Resumen ejecutivo</h1>
 | Título | Tiny Tussle | 
 |:------------:|:-------------:|
 | Estudo (equipo) | Stormedia |
@@ -9,49 +9,58 @@
 |Plataformas| Navegador en PC | 
   
 
-### Game Analysis
-Tiny Tussle es un juego de disparos en el que los jugadores deberán recolectar las gemas para ganar. Pero por supuesto no es así de fácil, aparecerán armas aleatoriamente por el mapa y los jugadores deberán usarlas para matarse entre sí pues cuando uno se muere perderá un pequeña cantidad de las gemas que había recolectado y podrán ser recogidas por los demás. Aquel que tenga la mayor cantidad de gemas cuando termine la partida, será el ganador.
+### Concepto del juego
+Tiny Tussle es un juego de disparos en el que los jugadores deberán recolectar las gemas para ganar. Pero por supuesto no es así de fácil, aparecerán armas aleatoriamente por el mapa y los jugadores deberán usarlas para matarse entre sí, pues cuando uno se muere perderá una pequeña cantidad de las gemas que había recolectado y podrán ser recogidas por los demás. Aquel que tenga la mayor cantidad de gemas cuando termine la partida, será el ganador. 
 
 ### Mission Statement
 Tiny Tussle es un shooter 2D plataformero de hasta 3 jugadores pensado para jugarse en navegador y pasar un buen rato con los amigos.
-### Genre
-Shooter con plataformas.
-
-### Platforms
-El juego está desarrollado para jugarse en navegador.
 
 ### Target Audience
 PEGI 12, para adolescentes y jóvenes. Un juego apto para jugadores casuales con mecánicas sencillas fáciles de comprender cuyo objetivo es la diversión de competir entre ellos.
+
+### Estilo Visual
+La estética de los distintos elementos del juego se basa en un estilo minimalista, alegre y colorido, siguiendo una paleta de color acor
+
+<h1>Elementos del juego</h1>
 
 ### Storyline & Characters
 El planeta de Nulia organiza un torneo donde las tres naciones del mismo mandan a sus mejores guerreros a competir por la custodia de la gema que mantiene la paz en su mundo, la Telkeita, con lo que se juegan el honor de su país y la gran riqueza que supone ganar el torneo.
 Chili, Bernie y Wasabi son los tres guerreros escogidos por las diferentes naciones de Nulia para competir en el gran torneo y defender su orgullo, por lo que deberán emplear todo su potencial para hacerse con la victoria.
 
-Hay tres personajes para elegir. 
+### Personajes
+
 | Personaje | Imagen | Descripción | 
 |:------------:|:-------------:|:-------------:|
 | Chili | ![Chili!](/images/Pink_Monster.png) | Este personaje es capaz de crear un espejismo de sí mismo para hacer de señuelo. <br> El clon solo tiene una vida y crearlo gasta energía que debe ser recargada.|
 | Bernie |  ![Bernie!](/images/Owlet_Monster.png) |  | 
 | Wasabi |  ![Wasabi!](/images/Dude_Monster.png) | Este personaje tiene la habilidad de generar una pequeña explosión a su alrededor dañando a todo aquel que esté a su alrededor en un radio de 5 unidades. <br> Esta explosión requiere mucha energía que debe ser recargada. Además, los otros jugadores podrán ver que va a explotar y tendrán 3 segundos para huir.| 
 
-### Gameplay
+ #### <strong>Localizaciones</strong>
+Habrá tres escenarios para jugar, cada uno representando un bioma diferente.
+| Niveles | Descripción |
+|------------|-------------|
+| ![Escenario 1!](/images/escenario1.png) | Fondo con plataformas cuya temática es el campo, con un ambiente diurno | 
+| ![Escenario 2!](/images/escenario2.png) | Fondo con plataformas que incluye una estructura china, con un ambiente nocturno | 
+| ![Escenario 3!](/images/escenario3.png) | Fondo con plataformas ambientado en una cueva con lava | 
 
-#### Overview of Gameplay
-Es un shooter plataformero en el que el jugador ganará derrotando a los demás mediante las armas que hay repartidas por el mapa y con sus habilidades propias. Hay un sistema de vidas (corazones o barra de vida, ya se verá), y cada jugador tiene 20. 
-Las armas de fuego funcionan con balas, así que también aparecen balas repartidas en el mapa para recargarlas. Hay dos tipos de balas, y por lo tanto las armas se dividen en dos grupos según las balas que puedan usar.
+### <h1>Gameplay</h1>
 
+#### Objetivos/dinámicas
+El objetivo del juego es conseguir el mayor número de gemas que aparecen por el mapa mientras se derriba al resto de jugadores en un límite de tiempo determinado.
 
-#### Player Experience
-Al comienzo de la partida deberás seleccionar la cantidad de jugadores (2-4) y cada uno tendrá que elegir un personaje del repertorio, teniendo en cuenta las habilidades de los mismos. Luego se eligen los modos de juego, y la cantidad de batallas que quieres hacer. Después podrás elegir entre 5 mapas, o dejar que el juego lo elija por ti. Una vez dentro de la batalla, coge las armas que puedas y derrota a los demás.
-Cada partida tiene límite de tiempo.
+#### Progreso del juego
+Antes de comenzar el juego se podrá elegir el número de rondas que se desea jugar, cada una contará con un tiempo limitado de tiempo. Al final de cada ronda se acumularán en un contador los puntos ganados, para, al finalizar, poder determinar quién ha conseguido una mayor puntuación.
 
+### <h1>Mecánicas</h1>
 
-#### Gameplay Guidelines
-El juego está enfocado a la diversión así que debería acercarse más a un Fornite que no a Doom. 
+#### Reglas
+Al comienzo de la partida cada jugador tendrá que elegir un personaje del repertorio. Luego se eligen la cantidad de batallas que quieren hacer. Después podrán elegir en cuál de los 3 escenarios quieren jugar, o dejar que el juego lo elija por ellos
+Cada jugador empieza en un punto del mapa diferente y ambos deberán intentar alcanzar las gemas lo antes posible, las cuales indican la puntuación de cada jugador.
+Poco después de empezar, aparecerán aleatoriamente armas de distinto tipo en lugares diferentes del mapa, las cuales se utilizarán para atacar al resto pudiendo así adquirir gran parte de las gemas recolectadas.
+Si un jugador se queda sin vida, perderá el 30% de la puntuación adquirida y será automáticamente añadida al contador del atacante.
+Las armas de largo alcance tienen un número limitado de disparos, si estos se agotan será necesario recoger un item que recargue las balas.
 
-#### Gameplay Mechanics
-Los personajes se mueven horizontalmente, también pueden saltar y usar escaleras para acceder a plataformas a las que no llegarían de otra forma. Respecto a atacar y disparar están limitados a hacerlo hacia los lados, nunca en diagonal ni arriba o abajo.
-Además de las acciones de los personajes hay objetos que pueden usar que son útiles durante la partida.
+#### Items
 
 | Items |  |  | 
 |:------------:|:-------------:|:-------------:|
@@ -68,17 +77,8 @@ Además de las acciones de los personajes hay objetos que pueden usar que son ú
 | <strong>Imagen<strong/> |<strong>Objetos recoletables</strong> | <strong>Descripción</strong> |
 | ![Gema!](/images/gem.png) | Gema | Objeto que los personajes deben recoger para ganar |
 
-
- #### <strong>Level Design</strong>
-Habrá tres escenarios para jugar, cada uno representando un bioma diferente.
-| Niveles | Descripción |
-|------------|-------------|
-| ![Escenario 1!](/images/escenario1.png) | Fondo con plataformas cuya temática es el campo, con un ambiente diurno | 
-| ![Escenario 2!](/images/escenario2.png) | Fondo con plataformas que incluye una estructura china, con un ambiente nocturno | 
-| ![Escenario 3!](/images/escenario3.png) | Fondo con plataformas ambientado en una cueva con lava | 
-
-### <strong>Control Scheme</strong>
-Los controles funcionan con teclado.
+### <strong>Controles</strong>
+Los personajes se mueven horizontalmente, también pueden saltar y usar escaleras para acceder a plataformas a las que no llegarían de otra forma. Respecto a atacar y disparar están limitados a hacerlo hacia los lados, nunca en diagonal ni arriba o abajo.
 
 |Input|Acción que se realiza|
 |:---:|:-------------------:|
@@ -88,7 +88,11 @@ Los controles funcionan con teclado.
 |S|Bajar escaleras|
 |Espacio|Saltar|
 |E|Disparar|
-  
+
+
+### <h1>Assets</h1>
+
+
  
 ### <strong>Referencias</strong>
 
