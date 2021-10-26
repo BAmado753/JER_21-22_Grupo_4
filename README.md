@@ -19,7 +19,8 @@ Tiny Tussle es un shooter 2D plataformero de hasta 3 jugadores pensado para juga
 PEGI 12, para adolescentes y jóvenes. Un juego apto para jugadores casuales con mecánicas sencillas fáciles de comprender cuyo objetivo es la diversión de competir entre ellos.
 
 ### <h3>Estilo Visual</h3>
-La estética de los distintos elementos del juego se basa en un estilo minimalista, alegre y colorido, siguiendo una paleta de color acor
+La estética de los distintos elementos del juego se basa en un estilo minimalista, alegre y colorido, siguiendo una paleta de color donde harmonicen las interfaces y resulte atractivo para los jugadores. 
+Se ha optado por un estilo de dibujo en pixelart suponiendo que es el que mejor encaja con la estética que se escogió.
 
 <h2>Elementos del juego</h2>
 
@@ -36,7 +37,7 @@ Chili, Bernie y Wasabi son los tres guerreros escogidos por las diferentes nacio
 | Wasabi |  ![Wasabi!](/images/Dude_Monster.png) | Este personaje tiene la habilidad de generar una pequeña explosión a su alrededor dañando a todo aquel que esté a su alrededor en un radio de 5 unidades. <br> Esta explosión requiere mucha energía que debe ser recargada. Además, los otros jugadores podrán ver que va a explotar y tendrán 3 segundos para huir.| 
 
  #### <h3>Localizaciones</h3>
-Habrá tres escenarios para jugar, cada uno representando un bioma diferente.
+El juego tiene lugar en el planeta de los personajes, Nulia. Por otro lado, el torneo donde competirán los personajes se llevará a cabo en 3 escenarios diferentes.
 | Niveles | Descripción |
 |------------|-------------|
 | ![Escenario 1!](/images/escenario1.png) | Fondo con plataformas cuya temática es el campo, con un ambiente diurno | 
@@ -82,16 +83,39 @@ Los personajes se mueven horizontalmente, también pueden saltar y usar escalera
 
 |Input|Acción que se realiza|
 |:---:|:-------------------:|
-|A|Movimiento lateral izquierda|
-|D|Movimiento lateral derecha|
-|W|Subir escaleras|
-|S|Bajar escaleras|
+|Tecla A|Movimiento lateral izquierda|
+|Tecla D|Movimiento lateral derecha|
+|Tecla W|Subir escaleras|
+|Tecla S|Bajar escaleras|
 |Espacio|Saltar|
-|E|Disparar|
-
+|Tecla E|Disparar|
+|Tecla Q|Habilidad especial|
+|Enter|Avanzar pantalla, confirmar selección|
+|Retroceso|Retroceder pantalla, deshacer selección|
 
 ### <h2>Assets</h2>
+<h3> Música </h3>
+Se dispondrá de diferentes pistas de música que sigan la misma temática y estilo, rítmica y animada, para las diferentes pantallas del juego:
+<ul>
+  <li>Pantalla de inicio, selección de arena y jugadores</li>
+  <li>Pantalla de victoria/derrota y puntuación</li>
+  </ul>
+ Aunque los mapas de las diferentes arenas de combate tendrán cada uno su propia pista musical que se adecue a su temática sin dejar de ser rítmica y animada.
+<ul>
+  <li>Pista de música para ambientar la arena de bosque</li>
+  <li>Pista de música para ambientar la arena oriental/agua</li>
+  <li>Pista de música para ambientar la arena de fuego/tierra</li>
+  </ul>
 
+  <h3>Efectos de sonido</h3>
+  El videojuego dispondrá de efectos de sonido cuando se realicen acciones determinadas así como:
+  <ul>
+    <li>Disparo</li>
+    <li>Habilidades especiales</li>
+    <li>Recoger un objeto</li>
+    <li>Derrota</li>
+    <li>Recoger gemas</li>
+  </ul>
 
  
 ### <h2>Referencias</h2>
