@@ -1,6 +1,6 @@
 # Tiny Tussle
 
-### <h1>Resumen ejecutivo</h1>
+### <h2>Resumen ejecutivo</h2>
 | Título | Tiny Tussle | 
 |:------------:|:-------------:|
 | Estudo (equipo) | Stormedia |
@@ -21,7 +21,7 @@ PEGI 12, para adolescentes y jóvenes. Un juego apto para jugadores casuales con
 ### Estilo Visual
 La estética de los distintos elementos del juego se basa en un estilo minimalista, alegre y colorido, siguiendo una paleta de color acor
 
-<h1>Elementos del juego</h1>
+<h2>Elementos del juego</h2>
 
 ### Storyline & Characters
 El planeta de Nulia organiza un torneo donde las tres naciones del mismo mandan a sus mejores guerreros a competir por la custodia de la gema que mantiene la paz en su mundo, la Telkeita, con lo que se juegan el honor de su país y la gran riqueza que supone ganar el torneo.
@@ -43,7 +43,7 @@ Habrá tres escenarios para jugar, cada uno representando un bioma diferente.
 | ![Escenario 2!](/images/escenario2.png) | Fondo con plataformas que incluye una estructura china, con un ambiente nocturno | 
 | ![Escenario 3!](/images/escenario3.png) | Fondo con plataformas ambientado en una cueva con lava | 
 
-### <h1>Gameplay</h1>
+### <h2>Gameplay</h2>
 
 #### Objetivos/dinámicas
 El objetivo del juego es conseguir el mayor número de gemas que aparecen por el mapa mientras se derriba al resto de jugadores en un límite de tiempo determinado.
@@ -51,7 +51,7 @@ El objetivo del juego es conseguir el mayor número de gemas que aparecen por el
 #### Progreso del juego
 Antes de comenzar el juego se podrá elegir el número de rondas que se desea jugar, cada una contará con un tiempo limitado de tiempo. Al final de cada ronda se acumularán en un contador los puntos ganados, para, al finalizar, poder determinar quién ha conseguido una mayor puntuación.
 
-### <h1>Mecánicas</h1>
+### <h2>Mecánicas</h2>
 
 #### Reglas
 Al comienzo de la partida cada jugador tendrá que elegir un personaje del repertorio. Luego se eligen la cantidad de batallas que quieren hacer. Después podrán elegir en cuál de los 3 escenarios quieren jugar, o dejar que el juego lo elija por ellos
@@ -90,11 +90,11 @@ Los personajes se mueven horizontalmente, también pueden saltar y usar escalera
 |E|Disparar|
 
 
-### <h1>Assets</h1>
+### <h2>Assets</h2>
 
 
  
-### <strong>Referencias</strong>
+### <h2>Referencias</h2>
 
 Los personajes son de Craftpix <br>
 https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
