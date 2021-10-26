@@ -4,7 +4,7 @@
 |:------------:|:-------------:|
 | Estudio (equipo) | Stormedia |
 | Integrantes |  Barbara Amado Camuñas<br> Ana Barrio Gil <br> Laura Benavente Prieto <br> Clara Núñez Millán |  
-| Correos corporativos | b.amado.2019@alumnos.urjc.es<br> correo de Ana <br> l.benavente.2019@alumnos.urjc.es<br> correo de Clara |
+| Correos corporativos | b.amado.2019@alumnos.urjc.es<br> correo de Ana <br> l.benavente.2019@alumnos.urjc.es<br> c.nunez.2018@alumnos.urjc.es<br> |
 | Cuentas de GitHub | |
 | Género |  Shooter/plataformas |
 |Plataformas| Navegador en PC | 
