@@ -1,10 +1,11 @@
 # Tiny Tussle
-
 ### <h2>Resumen ejecutivo</h2>
 | Título | Tiny Tussle | 
 |:------------:|:-------------:|
 | Estudio (equipo) | Stormedia |
 | Integrantes |  Barbara Amado Camuñas<br> Ana Barrio Gil <br> Laura Benavente Prieto <br> Clara Núñez Millán |  
+| Correos corporativos | b.amado.2019@alumnos.urjc.es<br> correo de Ana <br> l.benavente.2019@alumnos.urjc.es<br> correo de Clara |
+| Cuentas de GitHub | |
 | Género |  Shooter/plataformas |
 |Plataformas| Navegador en PC | 
   
