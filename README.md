@@ -3,7 +3,7 @@
 ### <h2>Resumen ejecutivo</h2>
 | Título | Tiny Tussle | 
 |:------------:|:-------------:|
-| Estudo (equipo) | Stormedia |
+| Estudio (equipo) | Stormedia |
 | Integrantes |  Barbara Amado Camuñas<br> Ana Barrio Gil <br> Laura Benavente Prieto <br> Clara Núñez Millán |  
 | Género |  Shooter/plataformas |
 |Plataformas| Navegador en PC | 
@@ -83,15 +83,15 @@ Los personajes se mueven horizontalmente, también pueden saltar y usar escalera
 
 |Input|Acción que se realiza|
 |:---:|:-------------------:|
-|Tecla A|Movimiento lateral izquierda|
-|Tecla D|Movimiento lateral derecha|
-|Tecla W|Subir escaleras|
-|Tecla S|Bajar escaleras|
-|Espacio|Saltar|
-|Tecla E|Disparar|
-|Tecla Q|Habilidad especial|
-|Enter|Avanzar pantalla, confirmar selección|
-|Retroceso|Retroceder pantalla, deshacer selección|
+|![Tecla A!](/images/a_input.png)|Movimiento lateral izquierda|
+|![Tecla D!](/images/d_input.png)|Movimiento lateral derecha|
+|![Tecla W!](/images/w_input.png)|Subir escaleras|
+|![Tecla S!](/images/s_input.png)|Bajar escaleras|
+|![Space!](/images/space_input.png)|Saltar|
+|![Tecla E!](/images/e_input.png)|Atacar|
+|![Tecla Q!](/images/q_input.png)|Habilidad especial|
+|![Enter!](/images/enter_input.png)|Avanzar pantalla, confirmar selección|
+|![Retroceso!](/images/back_input.png)|Retroceder pantalla, deshacer selección|
 
 ### <h2>Assets</h2>
 <h3> Música </h3>
