@@ -83,8 +83,7 @@ A continuación se muestra una tabla con los diferentes items que se pueden reco
 ### <h3>Controles</h3>
 Los personajes se mueven horizontalmente además de saltar y usar escaleras para acceder a plataformas a las que no llegarían de otra forma. Respecto a atacar y disparar, están limitados a hacerlo hacia los lados, nunca en diagonal ni arriba o abajo.<br>
 Todas las acciones que se pueden llevar a cabo se activan mediante el teclado únicamente, no es necesario ningún periférico más allá de un dispositivo de salida para disfrutar del audio incluido.
-
-
+  
 |Input|Acción que se realiza|
 |:---:|:-------------------:|
 |![Tecla A!](/images/a_input.png)|Movimiento lateral izquierda|
@@ -97,6 +96,11 @@ Todas las acciones que se pueden llevar a cabo se activan mediante el teclado ú
 |![Enter!](/images/enter_input.png)|Avanzar pantalla, confirmar selección|
 |![Retroceso!](/images/back_input.png)|Retroceder pantalla, deshacer selección|
 
+ ### <h2>Flujo de pantallas</h2>
+  Este sería las pantallas por las que pasaría el jugador durante su experiencia con el juego.
+  
+  ![Diagrama de flujo!](/images/diagrama_de_flujo.png)
+  
 ### <h2>Assets</h2>
 <h3> Música </h3>
 Se dispondrá de diferentes pistas de música que sigan la misma temática y estilo, rítmica y animada, para las diferentes pantallas del juego:
