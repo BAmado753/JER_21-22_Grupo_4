@@ -2,6 +2,7 @@
 
 ### Resumen ejecutivo
 |Título|Tiny Tussle|
+|:------------:|:-------------:|:-------------:|
 |Estudio (equipo)|Stormedia|
 |Integrantes|Bárbara Amado Camuñas<br>Ana Barrio Gil<br>Laura Benavente Prieto<br>Clara Núñez Millán|
 |Género|Shooter, plataformas|
