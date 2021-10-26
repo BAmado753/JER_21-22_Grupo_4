@@ -63,6 +63,7 @@ Si un jugador se queda sin vida, perderá el 30% de la puntuación adquirida y s
 Las armas de largo alcance tienen un número limitado de disparos, si estos se agotan será necesario recoger un item que recargue las balas.
 
 #### <h3>Items</h3>
+A continuación se muestra una tabla con los diferentes items que se pueden recoger durante la partida y sus efectos.
 
 | Items |  |  | 
 |:------------:|:-------------:|:-------------:|
