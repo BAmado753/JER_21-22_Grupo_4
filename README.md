@@ -135,6 +135,11 @@ https://munstudios.itch.io/2d-pixel-guns-pack
 El cuchillo es de antrixglow98 <br>
 https://antrixglow98.itch.io/32x32rpgweaponsicons
 
+Fuente utilizada para el logo del juego<br>
+Alba Font - 1001 Free Fonts
+Iconos de inputs<br>
+Pixel Button Prompts! (Keyboard/Gamepad) by Retrocade Media (itch.io)
+
 
 
 
