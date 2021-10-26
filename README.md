@@ -1,13 +1,12 @@
 # Tiny Tussle
 
 ### Resumen ejecutivo
-| Título | Tiny Tussle |
+| Título | Tiny Tussle | Descripción | 
 |:------------:|:-------------:|:-------------:|
-| Estudio (equipo) | Stormedia |
-| Integrantes | Bárbara Amado Camuñas<br>Ana Barrio Gil<br>Laura Benavente Prieto<br>Clara Núñez Millán |
-| Género | Shooter, plataformas |
-| Plataformas|Navegador en PC |
-
+| Estudo (equipo) | Stormedia | Este personaje es capaz de crear un espejismo de sí mismo para hacer de señuelo. <br> El clon solo tiene una vida y crearlo gasta energía que debe ser recargada.|
+| Integrantes |  Barbara Amado Camuñas<br> Ana Barrio Gil <br> Laura Benavente Prieto <br> Clara Núñez Millán |  | 
+| Género |  Shooter/plataformas | Este personaje tiene la habilidad de generar una pequeña explosión a su alrededor dañando a todo aquel que esté a su alrededor en un radio de 5 unidades. <br> Esta explosión requiere mucha energía que debe ser recargada. Además, los otros jugadores podrán ver que va a explotar y tendrán 3 segundos para huir.| 
+|Plataformas| Navegador en PC | |
   
 
 ### Game Analysis
