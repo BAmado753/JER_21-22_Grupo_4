@@ -20,7 +20,7 @@ Tiny Tussle es un shooter 2D plataformero de hasta 3 jugadores pensado para juga
 PEGI 12, para adolescentes y jóvenes. Un juego apto para jugadores casuales con mecánicas sencillas fáciles de comprender cuyo objetivo es la diversión de competir entre ellos.
 
 ### <h3>Estilo Visual</h3>
-La estética de los distintos elementos del juego se basa en un estilo minimalista, alegre y colorido, siguiendo una paleta de color donde harmonicen las interfaces y resulte atractivo para los jugadores. 
+La estética de los distintos elementos del juego se basa en un estilo minimalista, alegre y colorido, siguiendo una paleta de color donde harmonicen las interfaces y resulte atractivo para los jugadores. <br>
 Se ha optado por un estilo de dibujo en pixelart suponiendo que es el que mejor encaja con la estética que se escogió.
 
 <h2>Elementos del juego</h2>
