@@ -1,20 +1,18 @@
-import { Inicio} from './scenes/PantallaDeInicio.js';
-import { Menu } from './scenes/Menu.js';
-import { Loading } from './scenes/PantallaCarga.js';
+import { PantallaDeInicio } from './scenes/PantallaDeInicio.js';
+import { MenuPersonajes } from './scenes/MenuPersonajes.js';
+import { MenuEscenarios } from './scenes/MenuEscenarios.js';
+import { PantallaCarga } from './scenes/PantallaCarga.js';
 import { Escenario1 } from './scenes/Escenario1.js';
 import { Escenario2 } from './scenes/Escenario2.js';
 import { Escenario3 } from './scenes/Escenario3.js';
+import { Resultados } from './scenes/Resultados.js';
 
-var config = {
+const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    scene: [Inicio, Menu, Loading, Escenario1, Escenario2, Escenario3],
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: [PantallaDeInicio, MenuPersonajes, MenuEscenarios, PantallaCarga, Escenario1, Escenario2,
+    Escenario3, Resultados]
 };
 
 var game = new Phaser.Game(config);
