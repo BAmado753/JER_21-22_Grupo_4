@@ -3,7 +3,7 @@ var config = {
     width: 800,
     height: 600,
     physics: {
-        default: 'this',
+        default: 'arcade',
         arcade: {
             gravity: { y: 300 },
             debug: false
@@ -61,11 +61,9 @@ var ammo = 0;
 var onWeaponFire;
 
 //objects
-var player;
-var floor;
-var floor1;
-var floor2;
-var floor3;
+var player1;
+var player2;
+var platforms;
 var playerWeapon;
 var enemies;
 var scoreDisplay;
@@ -82,8 +80,20 @@ var enemyWeapon;
 var weaponBox;
 var backgroundMusic;
 
-var this = new Phaser.this(config);
+var game = new Phaser.Game(config);
 var cursors;
+
+//Inputs Player 1
+var spaceBar;
+var input_A;
+var input_D;
+var input_E;
+
+//Inputs Player 2
+var input_0;
+var input_4;
+var input_6;
+var input_9;
 
 // load images and resources
 function preload()
@@ -93,13 +103,27 @@ function preload()
   this.load.image('platform',         'asset/platform.jpg');
   this.load.image('man',              'asset/man.gif');
   this.load.image('redMan',           'asset/redMan.gif');
-  this.load.image('player',           'asset/capMan.png');
   this.load.image('red',              'asset/red.png');
   this.load.image('yellow',           'asset/particleYellow.png');
   this.load.image('bullet',           'asset/bullet.png');
   this.load.image('shell',            'asset/shell.png');
-  this.load.image('bulletHitbox',     'asset/bulletHitbox.png')
-  
+  this.load.image('bulletHitbox',     'asset/bulletHitbox.png');
+//Player 1
+  this.load.spritesheet('player1_idl_r', 'asset/Pink_Monster_Idle_Right.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player1_idl_l', 'asset/Pink_Monster_Idle_Left.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player1_run_r', 'asset/Pink_Monster_Run_Right.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player1_run_l', 'asset/Pink_Monster_Run_Left.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player1_jump_r', 'asset/Pink_Monster_Jump_Right.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player1_jump_l', 'asset/Pink_Monster_Jump_Left.png', { frameWidth: 32, frameHeight: 32 });
+
+//Player 2
+  this.load.spritesheet('player2_idl_r', 'asset/Owlet_Monster_Idle_Right.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player2_idl_l', 'asset/Owlet_Monster_Idle_Left.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player2_run_r', 'asset/Owlet_Monster_Run_Right.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player2_run_l', 'asset/Owlet_Monster_Run_Left.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player2_jump_r', 'asset/Owlet_Monster_Jump_Right.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player2_jump_l', 'asset/Owlet_Monster_Jump_Left.png', { frameWidth: 32, frameHeight: 32 });
+
   this.load.spritesheet('weaponBox',  'asset/weaponBox.png',{frameWidth:13, frameHeight:13});
   this.load.spritesheet('pistol',     'asset/pistolHand.png',{frameWidth:46, frameHeight:47});
   this.load.spritesheet('rifle',      'asset/rifleHand.png', {frameWidth:73, frameHeight:47});
@@ -116,12 +140,201 @@ function preload()
 
 function create()
 {
+//Background
+this.add.image(400,300, 'gray').setScale(2,2);
 
+//Plataformas
+    platforms = this.physics.add.staticGroup();
+
+platforms.create(150,350,'platform').setScale(10,1).refreshBody();
+platforms.create(650,350,'platform').setScale(10,1).refreshBody();
+platforms.create(400,580,'platform').setScale(50,3).refreshBody();
+
+//Input 
+spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+input_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+input_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+input_E = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+
+input_0= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
+input_4=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
+input_6=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
+input_9=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
+
+//Player 1
+    player1 = this.physics.add.sprite(100, 450, 'player1_idl_r');
+    player1.setCollideWorldBounds(true);
+
+//Player 2
+  	player2 = this.physics.add.sprite(400, 450, 'player2_idl_l');
+    player2.setCollideWorldBounds(true);
+
+//Animaciones player1
+	//Idle
+	player1.anims.create({
+        key: 'idle_left',
+        frames: this.anims.generateFrameNumbers('player1_idl_l', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    player1.anims.create({
+        key: 'idle_right',
+        frames: this.anims.generateFrameNumbers('player1_idl_r', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	//Run
+	player1.anims.create({
+        key: 'run_left',
+        frames: this.anims.generateFrameNumbers('player1_run_l', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    player1.anims.create({
+        key: 'run_right',
+        frames: this.anims.generateFrameNumbers('player1_run_r', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	//Jump
+	player1.anims.create({
+        key: 'jump_left',
+        frames: this.anims.generateFrameNumbers('player1_jump_l', { start: 0, end: 7 }),
+        frameRate: 10,
+    });
+
+    player1.anims.create({
+        key: 'jump_right',
+        frames: this.anims.generateFrameNumbers('player1_jump_r', { start: 0, end: 7 }),
+        frameRate: 10,
+    });
+
+//Animaciones player1
+	//Idle
+	player2.anims.create({
+        key: 'idle_left',
+        frames: this.anims.generateFrameNumbers('player2_idl_l', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    player2.anims.create({
+        key: 'idle_right',
+        frames: this.anims.generateFrameNumbers('player2_idl_r', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	//Run
+	player2.anims.create({
+        key: 'run_left',
+        frames: this.anims.generateFrameNumbers('player2_run_l', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    player2.anims.create({
+        key: 'run_right',
+        frames: this.anims.generateFrameNumbers('player2_run_r', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	//Jump
+	player2.anims.create({
+        key: 'jump_left',
+        frames: this.anims.generateFrameNumbers('player2_jump_l', { start: 0, end: 7 }),
+        frameRate: 10,
+    });
+
+    player2.anims.create({
+        key: 'jump_right',
+        frames: this.anims.generateFrameNumbers('player2_jump_r', { start: 0, end: 7 }),
+        frameRate: 10,
+    });
+
+//Physics
+    this.physics.add.collider(player1, platforms);
+    this.physics.add.collider(player2, platforms);
+    this.physics.add.collider(player1, player2);
 
 }
 
 function update()
 {
+if (input_A.isDown)
+    {
+        player1.setVelocityX(-160);
+
+        player1.anims.play('run_left', true);
+    }
+    else if (input_D.isDown)
+    {
+        player1.setVelocityX(160);
+
+        player1.anims.play('run_right', true);
+    }
+
+    else
+    {
+        player1.setVelocityX(0);
+
+        player1.anims.play('idle_right');
+    }
+
+    if (input_A.isDown && spaceBar.isDown && player1.body.touching.down)
+    {
+        player1.setVelocityY(-100);
+        player1.playAfterRepeat('jump_left');
+        player1.chain([ 'jump_left', 'run_left' ]);
+          
+	   // player1.anims.play('jump_left', true);
+
+    }	
+ if (input_D.isDown && spaceBar.isDown && player1.body.touching.down)
+    {
+        player1.setVelocityY(-100);
+        player1.playAfterRepeat('jump_right');
+        player1.chain([ 'jump_right', 'run_right' ]);
+
+//	    player1.anims.play('jump_right');
+
+    }	
+
+//Player 2
+if (input_4.isDown)
+    {
+        player2.setVelocityX(-160);
+
+        player2.anims.play('run_left', true);
+    }
+    else if (input_6.isDown)
+    {
+        player2.setVelocityX(160);
+
+        player2.anims.play('run_right', true);
+    }
+
+    else
+    {
+        player2.setVelocityX(0);
+
+        player2.anims.play('idle_right');
+    }
+
+    if (input_4.isDown && input_0.isDown && player2.body.touching.down)
+    {
+        player2.setVelocityY(-100);
+		player2.anims.pause();
+	    player2.anims.play('jump_left', true);
+
+    }	
+ if (input_0.isDown && player2.body.touching.down)
+    {
+        player2.setVelocityY(-100);
+	    player2.anims.play('jump_right');
+
+    }	
 }//update
 
 function updatePlayerWeapon()
