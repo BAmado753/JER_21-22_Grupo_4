@@ -126,7 +126,15 @@ var Bullet = new Phaser.Class({
  		this.setActive(true);
         this.setVisible(true);
         this.direction =player_direction;
-        
+        if (this.direction==='right')
+        {
+            this.x += 20;
+            
+        }
+        else
+        {
+            this.x -= 20;
+        }
 
         this.born = 0; // Time since new bullet spawned
     },
@@ -157,6 +165,12 @@ var Bullet = new Phaser.Class({
 //objects
 var player1;
 var player2;
+var stateMachine_pink;
+var stateMachine_white;
+var item_pistol;
+var item_knife;
+//var knifeHitbox= Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+var knifeHitbox= Phaser.GameObjects.Rectangle;
 var platforms;
 var playerWeapon;
 var enemies;
@@ -184,10 +198,10 @@ var input_D;
 var input_E;
 
 //Inputs Player 2
-var input_0;
-var input_4;
-var input_6;
-var input_9;
+var input_N;
+var input_J;
+var input_L;
+var input_O;
 
 
 
@@ -197,34 +211,28 @@ var input_9;
 // load images and resources
 function preload()
 {
-
+  this.load.image('pistol_item',             'asset/pistol_icon.png');
+  this.load.image('knife_item',             'asset/knife.png');
   this.load.image('gray',             'asset/gray.jpg');
   this.load.image('platform',         'asset/platform.jpg');
   this.load.image('bullet',           'asset/bullet.png');
-  /*this.load.image('man',              'asset/man.gif');
-  this.load.image('redMan',           'asset/redMan.gif');
-  this.load.image('red',              'asset/red.png');
-  this.load.image('yellow',           'asset/particleYellow.png');
-  this.load.image('shell',            'asset/shell.png');
-  this.load.image('bulletHitbox',     'asset/bulletHitbox.png');*/
+  
 
 //Player 1
-        //this.load.setPath('assets/games/bank-panic/');
 
-  this.load.spritesheet('player1_idl_r', 'asset/Pink_Monster_Idle_Right.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player1_idl_l', 'asset/Pink_Monster_Idle_Left.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player1_run_r', 'asset/Pink_Monster_Run_Right.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player1_run_l', 'asset/Pink_Monster_Run_Left.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player1_jump_r', 'asset/Pink_Monster_Jump_Right.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player1_jump_l', 'asset/Pink_Monster_Jump_Left.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player1_idl', 'asset/Pink_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player1_run', 'asset/Pink_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player1_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player1_attack', 'asset/Pink_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player1_hurt', 'asset/Pink_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
+
 
 //Player 2
-  this.load.spritesheet('player2_idl_r', 'asset/Owlet_Monster_Idle_Right.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player2_idl_l', 'asset/Owlet_Monster_Idle_Left.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player2_run_r', 'asset/Owlet_Monster_Run_Right.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player2_run_l', 'asset/Owlet_Monster_Run_Left.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player2_jump_r', 'asset/Owlet_Monster_Jump_Right.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player2_jump_l', 'asset/Owlet_Monster_Jump_Left.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player2_idl', 'asset/Owlet_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player2_run', 'asset/Owlet_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player2_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player2_attack', 'asset/Owlet_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player2_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
 
   /*this.load.spritesheet('weaponBox',  'asset/weaponBox.png',{frameWidth:13, frameHeight:13});
   this.load.spritesheet('pistol',     'asset/pistolHand.png',{frameWidth:46, frameHeight:47});
@@ -252,137 +260,190 @@ platforms.create(150,350,'platform').setScale(10,1).refreshBody();
 platforms.create(650,350,'platform').setScale(10,1).refreshBody();
 platforms.create(400,580,'platform').setScale(50,3).refreshBody();
 
+//Items de prueba
+item_pistol=this.physics.add.sprite(200, 450, 'pistol_item');
+    item_pistol.setCollideWorldBounds(true);
+
+item_knife=this.physics.add.sprite(300, 450, 'knife_item');
+    item_knife.setCollideWorldBounds(true);
+
 //Input 
 spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 input_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 input_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 input_E = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
-input_0= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
-input_4=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
-input_6=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
-input_9=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
+input_N= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
+input_J=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
+input_L=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
+input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 
 //Player 1
-    player1 = this.physics.add.sprite(100, 450, 'player1_idl_r');
+    player1 = this.physics.add.sprite(100, 450, 'player1_idl');
+	player1.setBodySize(player1.width *0.5,player1.height *1);
 	player1.direction='right';
+	player1.hitted=false;
+	player1.hasPistol=false;
+	player1.hasKnife=false;
     player1.setCollideWorldBounds(true);
-	player1_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
 //Player 2
-  	player2 = this.physics.add.sprite(400, 450, 'player2_idl_l');
+  	player2 = this.physics.add.sprite(400, 450, 'player2_idl');
     player2.setCollideWorldBounds(true);
-
+	player2.setBodySize(player2.width *0.5,player2.height *1);
+	player2.direction='right';
+	player2.hitted=false;
+	player2.hasPistol=false;
+	player2.hasKnife=false;
+	
+	player_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
+//Knife
+knifeHitbox= this.add.rectangle(0,0,10,20, 0xffffff, 0);
+this.physics.add.existing(knifeHitbox);
+knifeHitbox.body.enable=false;
+this.physics.world.remove(knifeHitbox.body);
+knifeHitbox.body.setAllowGravity(false);
 //Create StateMachine
-this.stateMachine = new StateMachine('idle', {
-        idle: new IdleState(),
-        move: new MoveState(),
-        jump: new JumpState(),
+this.stateMachine_pink = new StateMachine('idle', {
+        idle: new IdleStatePink(),
+        move: new MoveStatePink(),
+        jump: new JumpStatePink(),
+        attack: new AttackStatePink(),
+		getHit: new GetHitStatePink(),
       }, [this, player1]);
 
+this.stateMachine_white = new StateMachine('idle', {
+        idle: new IdleStateWhite(),
+        move: new MoveStateWhite(),
+        jump: new JumpStateWhite(),
+        attack: new AttackStateWhite(),
+		getHit: new GetHitStateWhite(),
+      }, [this, player2]);
 
 //Animaciones player1
 	//Idle
-	player1.anims.create({
-        key: 'idle_left',
-        frames: this.anims.generateFrameNumbers('player1_idl_l', { start: 0, end: 3 }),
-        frameRate: 8,
-        repeat: -1
-    });
+	
 
     player1.anims.create({
-        key: 'idle_right',
-        frames: this.anims.generateFrameNumbers('player1_idl_r', { start: 0, end: 3 }),
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers('player1_idl', { start: 0, end: 3 }),
         frameRate: 8,
         repeat: -1
     });
 	//Run
-	player1.anims.create({
-        key: 'run_left',
-        frames: this.anims.generateFrameNumbers('player1_run_l', { start: 0, end: 5 }),
-        frameRate: 10,
-        repeat: -1
-    });
+	
 
     player1.anims.create({
-        key: 'run_right',
-        frames: this.anims.generateFrameNumbers('player1_run_r', { start: 0, end: 5 }),
+        key: 'run',
+        frames: this.anims.generateFrameNumbers('player1_run', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 	//Jump
-	player1.anims.create({
-        key: 'jump_left',
-        frames: this.anims.generateFrameNumbers('player1_jump_l', { start: 3, end: 7 }),
-        frameRate: 10,
-		repeat:0
-    });
+	
 
     player1.anims.create({
-        key: 'jump_right',
-        frames: this.anims.generateFrameNumbers('player1_jump_r', { start: 3, end: 7 }),
+        key: 'jump',
+        frames: this.anims.generateFrameNumbers('player1_jump', { start: 3, end: 7 }),
         frameRate: 10,
 		repeat:0
     });
 
+	//Attack
+
+    player1.anims.create({
+        key: 'attack',
+        frames: this.anims.generateFrameNumbers('player1_attack', { start: 2, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	 player1.anims.create({
+        key: 'hurt',
+        frames: this.anims.generateFrameNumbers('player1_hurt', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
 //Animaciones player2
 	//Idle
-	player2.anims.create({
-        key: 'idle_left',
-        frames: this.anims.generateFrameNumbers('player2_idl_l', { start: 0, end: 3 }),
-        frameRate: 10,
-        repeat: -1
-    });
+	
 
     player2.anims.create({
-        key: 'idle_right',
-        frames: this.anims.generateFrameNumbers('player2_idl_r', { start: 0, end: 3 }),
-        frameRate: 10,
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers('player2_idl', { start: 0, end: 3 }),
+        frameRate: 8,
         repeat: -1
     });
 	//Run
-	player2.anims.create({
-        key: 'run_left',
-        frames: this.anims.generateFrameNumbers('player2_run_l', { start: 0, end: 5 }),
-        frameRate: 10,
-        repeat: -1
-    });
+	
 
     player2.anims.create({
-        key: 'run_right',
-        frames: this.anims.generateFrameNumbers('player2_run_r', { start: 0, end: 5 }),
+        key: 'run',
+        frames: this.anims.generateFrameNumbers('player2_run', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 	//Jump
-	player2.anims.create({
-        key: 'jump_left',
-        frames: this.anims.generateFrameNumbers('player2_jump_l', { start: 0, end: 7 }),
+	
+
+    player2.anims.create({
+        key: 'jump',
+        frames: this.anims.generateFrameNumbers('player2_jump', { start: 3, end: 7 }),
         frameRate: 10,
 		repeat:0
     });
 
+	//Attack
+
     player2.anims.create({
-        key: 'jump_right',
-        frames: this.anims.generateFrameNumbers('player2_jump_r', { start: 0, end: 7 }),
+        key: 'attack',
+        frames: this.anims.generateFrameNumbers('player2_attack', { start: 2, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	 player2.anims.create({
+        key: 'hurt',
+        frames: this.anims.generateFrameNumbers('player2_hurt', { start: 0, end: 3 }),
         frameRate: 10,
 		repeat:0
     });
 
 //Physics
-player1.play('idle_right',true);
+player1.play('idle',true);
+player2.play('idle',true);
+
     this.physics.add.collider(player1, platforms);
     this.physics.add.collider(player2, platforms);
+    this.physics.add.collider(item_pistol, platforms);
+    this.physics.add.collider(item_knife, platforms);
     this.physics.add.collider(player1, player2);
+    this.physics.add.overlap(player2, knifeHitbox, PlayerKnifeHitted,null, this);
+    this.physics.add.overlap(player1, knifeHitbox, PlayerKnifeHitted,null, this);
+    this.physics.add.overlap(player1, item_pistol, getPistol, null, this);
+    this.physics.add.overlap(player2, item_pistol, getPistol, null, this);
+    this.physics.add.overlap(player1, item_knife, getKnife, null, this);
+    this.physics.add.overlap(player2, item_knife, getKnife, null, this);
+
+
+
 
 }
 
 function update()
 {
-	      this.stateMachine.step();
-if	(Phaser.Input.Keyboard.JustDown(input_E)){
+	if(player1.direction!=='right') {  player1.flipX = true; }
+	if(player1.direction!=='left') {  player1.flipX = false; }
+	if(player2.direction!=='right') {  player2.flipX = true;}
+	if(player2.direction!=='left') {  player2.flipX = false; }
+	      this.stateMachine_pink.step();
+	      this.stateMachine_white.step();
+//console.log('p1 has pistol'+player1.hasPistol);
+//console.log('p1 has knife'+player1.hasKnife);
+
+if	(Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true){
 	playerFire(player1, player1.direction, this);
 }
-	
+	if	(Phaser.Input.Keyboard.JustDown(input_O)&& player2.hasPistol===true){
+	playerFire(player2, player2.direction, this);
+}
 
 }//update
 
@@ -392,28 +453,59 @@ function playerFire (player, direction, gameObject) {
             return;
 
         // Get bullet from bullets group
-        var bullet = player1_Bullets.get().setActive(true).setVisible(true);
+        var bullet = player_Bullets.get().setActive(true).setVisible(true);
+			bullet.body.enable=true;
         if (bullet)
         {
 	
             bullet.fire(player.x,player.y, direction);
             gameObject.physics.add.collider(bullet, player2);
    		gameObject.physics.add.overlap(player2, bullet, PlayerHitted, null, this);
+   		gameObject.physics.add.overlap(player1, bullet, PlayerHitted, null, this);
 
 
         }
     }
+//Funcion hitteado
+function PlayerHitted(player,bullet){
+	bullet.setActive(false);
+    bullet.setVisible(false);
+	//player.setTint(0xff0000);
+	if	(bullet.body.enable){
+	player.hitted=true;
+	bullet.body.enable=false;
+	}
+	
+}
+function PlayerKnifeHitted(player,rectangle){
+	console.log('knife hiteado')
+	//rectangle.setActive(false);
+   // rectangle.setVisible(false);
+if	(knifeHitbox.body.enable){
+		player.hitted=true;
 
-///STATES//////////
-class IdleState extends State {
+}
+}
+
+function getPistol(player, pistol){
+	    pistol.disableBody(true, true);
+	player.setTint(0xFFEE58);
+	player.hasPistol=true;
+	player.hasKnife=false;
+
+}
+function getKnife(player, knife){
+	    knife.disableBody(true, true);
+	player.setTint(0xB0BEC5);
+	player.hasPistol=false;
+	player.hasKnife=true;
+
+}
+///STATES PINK//////////
+class IdleStatePink extends State {
   enter(scene, player1) {
     player1.setVelocityX(0);
-if(player1.direction==='left'){
-	player1.anims.play('idle_left',true);
-}else{
-	player1.anims.play('idle_right',true);
-}
-   
+	player1.anims.play('idle',true);
   }
   
   execute(scene, player1) {
@@ -424,63 +516,69 @@ if(player1.direction==='left'){
       this.stateMachine.transition('jump');
       return;
     }
-    
+    // Transition to attack if pressing e
+    if (input_E.isDown && player1.hasKnife===true) {
+      this.stateMachine.transition('attack');
+      return;
+    }
     // Transition to move if pressing a movement key
     if (input_A.isDown || input_D.isDown) {
       this.stateMachine.transition('move');
       return;
     }
+	// Transition to hurt if getting hit
+	if (player1.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
   }
 }
 
-class MoveState extends State {
-  execute(scene, player1) {
-   // const {input_A, input_D, spaceBar} = scene.keys;
-    
+class MoveStatePink extends State {
+  execute(scene, player1) {    
     // Transition to jump if pressing space
     if (spaceBar.isDown && player1.body.touching.down) {
       this.stateMachine.transition('jump');
       return;
     }
     
-   
+   // Transition to attack if pressing e
+    if (input_E.isDown && player1.hasKnife===true) {
+      this.stateMachine.transition('attack');
+      return;
+    }
     
     // Transition to idle if not pressing movement keys
     if (!(input_A.isDown || input_D.isDown)) {
       this.stateMachine.transition('idle');
       return;
     }
-    
+    // Transition to hurt if getting hit
+	if (player1.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
     player1.setVelocityX(0);
     if (input_A.isDown) {
       player1.setVelocityX(-100);
       player1.direction = 'left';
-	  player1.anims.play('run_left', true);
     } else if (input_D.isDown) {
       player1.setVelocityX(100);
       player1.direction = 'right';
-	  player1.anims.play('run_right', true);
     }
-    
+    player1.anims.play('run', true);
     
   }
 }
 
-class JumpState extends State {
+class JumpStatePink extends State {
   enter(scene, player1) {
 		    player1.setVelocityY(-250);
-
-if(player1.direction==='left'){
-	    player1.anims.play('jump_left');
-		player1.once('animationcomplete', () => {
-			this.stateMachine.transition('idle')
-   		 });
-}else{
-	    player1.anims.play('jump_right');
+	    player1.anims.play('jump');
 		player1.once('animationcomplete', () => {
 			this.stateMachine.transition('idle')
     	});
-}
+
     
   }
 execute(scene, player1){
@@ -488,18 +586,200 @@ execute(scene, player1){
 		this.stateMachine.transition('idle');
 		return;
 	}
+	// Transition to hurt if getting hit
+	if (player1.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
 }
 }
 
-function PlayerHitted(player,bullet){
-	bullet.setActive(false);
-    bullet.setVisible(false);
-	player.setTint(0xff0000);
+class AttackStatePink extends State {
+  enter(scene, player1) {
+
+	    player1.anims.play('attack');
+
+
+		if(player1.direction==='left'){
+	        knifeHitbox.x= player1.x - player1.width * 0.45;
+
+		}else{
+        knifeHitbox.x= player1.x + player1.width * 0.45;
+		}
+		knifeHitbox.y= player1.y + player1.height * 0.1;
+		knifeHitbox.body.enable=true;
+		scene.physics.world.add(knifeHitbox.body);
+		player1.once('animationcomplete', () => {
+			this.stateMachine.transition('idle');
+			knifeHitbox.body.enable=false;
+					scene.physics.world.remove(knifeHitbox.body);
+
+    	});
+
+    
+  }
+execute(scene,player1){
+	// Transition to getHit if getting hit
+	if (player1.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+}
+
 }
 
 
+class GetHitStatePink extends State {
+  enter(scene, player1) {
+
+    player1.setVelocityX(0);
+	player1.anims.play('hurt');
+			player1.once('animationcomplete', () => {
+			this.stateMachine.transition('idle');
+			player1.hitted=false;
+    	});
+  }
+}
+
+///STATES White//////////
+class IdleStateWhite extends State {
+  enter(scene, player2) {
+    player2.setVelocityX(0);
+	player2.anims.play('idle',true);
+  }
+  
+  execute(scene, player2) {    
+    // Transition to jump if pressing space
+    if (input_N.isDown  && player2.body.touching.down) {
+      this.stateMachine.transition('jump');
+      return;
+    }
+    // Transition to attack if pressing o
+    if (input_O.isDown && player2.hasKnife===true) {
+      this.stateMachine.transition('attack');
+      return;
+    }
+    // Transition to move if pressing a movement key
+    if (input_J.isDown || input_L.isDown) {
+      this.stateMachine.transition('move');
+      return;
+    }
+	// Transition to hurt if getting hit
+	if (player2.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+  }
+}
+
+class MoveStateWhite extends State {
+  execute(scene, player2) {
+   // const {input_A, input_D, spaceBar} = scene.keys;
+    
+    // Transition to jump if pressing space
+    if (input_N.isDown && player2.body.touching.down) {
+      this.stateMachine.transition('jump');
+      return;
+    }
+    
+   // Transition to attack if pressing space
+    if (input_O.isDown && player2.hasKnife===true) {
+      this.stateMachine.transition('attack');
+      return;
+    }
+    
+    // Transition to idle if not pressing movement keys
+    if (!(input_J.isDown || input_L.isDown)) {
+      this.stateMachine.transition('idle');
+      return;
+    }
+    // Transition to hurt if getting hit
+	if (player2.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+    player2.setVelocityX(0);
+    if (input_J.isDown) {
+      player2.setVelocityX(-100);
+      player2.direction = 'left';
+    } else if (input_L.isDown) {
+      player2.setVelocityX(100);
+      player2.direction = 'right';
+    }
+    player2.anims.play('run', true);
+    
+  }
+}
+
+class JumpStateWhite extends State {
+  enter(scene, player2) {
+		    player2.setVelocityY(-250);
+	    player2.anims.play('jump');
+		player2.once('animationcomplete', () => {
+			this.stateMachine.transition('idle')
+    	});
+
+    
+  }
+execute(scene, player2){
+	if(player2.body.touching.down){
+		this.stateMachine.transition('idle');
+		return;
+	}
+	// Transition to hurt if getting hit
+	if (player2.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+}
+}
+
+class AttackStateWhite extends State {
+  enter(scene, player2) {
+
+	    player2.anims.play('attack');
+
+//knifeHitbox.setActive(true);
+//knifeHitbox.setVisible(true);
+		if(player2.direction==='left'){
+	        knifeHitbox.x= player2.x - player2.width * 0.45;
+
+		}else{
+        knifeHitbox.x= player2.x + player2.width * 0.45;
+		}
+		knifeHitbox.y= player2.y + player2.height * 0.1;
+		knifeHitbox.body.enable=true;
+				scene.physics.world.add(knifeHitbox.body);
+		player2.once('animationcomplete', () => {
+			this.stateMachine.transition('idle');
+			knifeHitbox.body.enable=false;
+					scene.physics.world.remove(knifeHitbox.body);
+
+    	});
+
+    
+  }
+exectue(scene,player2){
+	// Transition to hurt if getting hit
+	if (player2.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+}
+}
 
 
+class GetHitStateWhite extends State {
+  enter(scene, player2) {
+
+    player2.setVelocityX(0);
+	player2.anims.play('hurt');
+			player2.once('animationcomplete', () => {
+			this.stateMachine.transition('idle');
+			player2.hitted=false;
+    	});
+  }
+}
 
 
 
