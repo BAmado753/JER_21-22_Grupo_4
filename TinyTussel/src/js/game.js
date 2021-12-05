@@ -197,12 +197,14 @@ var spaceBar;
 var input_A;
 var input_D;
 var input_W;
+var input_S;
 var input_E;
 
 //Inputs Player 2
 var input_N;
 var input_J;
 var input_I;
+var input_K;
 var input_L;
 var input_O;
 
@@ -229,6 +231,7 @@ function preload()
   this.load.spritesheet('player1_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player1_attack', 'asset/Pink_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player1_hurt', 'asset/Pink_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player1_death', 'asset/Pink_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player1_climb', 'asset/Pink_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
 
 
@@ -238,6 +241,7 @@ function preload()
   this.load.spritesheet('player2_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player2_attack', 'asset/Owlet_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player2_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player2_death', 'asset/Owlet_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
   this.load.spritesheet('player2_climb', 'asset/Owlet_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
 
   /*this.load.spritesheet('weaponBox',  'asset/weaponBox.png',{frameWidth:13, frameHeight:13});
@@ -285,32 +289,39 @@ spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 input_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 input_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 input_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+input_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 input_E = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
 input_N= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
 input_J=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
 input_L=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
 input_I=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
+input_K=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
 input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 
 //Player 1
     player1 = this.physics.add.sprite(100, 450, 'player1_idl');
 	player1.setBodySize(player1.width *0.5,player1.height *1);
+	player1.life = 5;
 	player1.direction='right';
 	player1.hitted=false;
 	player1.hasPistol=false;
 	player1.hasKnife=false;
 	player1.onLadder=false;
     player1.setCollideWorldBounds(true);
+
 //Player 2
   	player2 = this.physics.add.sprite(400, 450, 'player2_idl');
-    player2.setCollideWorldBounds(true);
 	player2.setBodySize(player2.width *0.5,player2.height *1);
+	player2.life = 5;
 	player2.direction='right';
 	player2.hitted=false;
 	player2.hasPistol=false;
 	player2.hasKnife=false;
 	player2.onLadder=false;
+	player2.setCollideWorldBounds(true);
+	
+	
 	player_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
 //Knife
 knifeHitbox= this.add.rectangle(0,0,10,20, 0xffffff, 0);
@@ -323,18 +334,20 @@ this.stateMachine_pink = new StateMachine('idle', {
         idle: new IdleStatePink(),
         move: new MoveStatePink(),
         jump: new JumpStatePink(),
+		climb: new ClimbStatePink(),
         attack: new AttackStatePink(),
 		getHit: new GetHitStatePink(),
-		climb: new ClimbStatePink(),
+		death: new DeathStatePink(),
       }, [this, player1]);
 
 this.stateMachine_white = new StateMachine('idle', {
         idle: new IdleStateWhite(),
         move: new MoveStateWhite(),
         jump: new JumpStateWhite(),
+		climb: new ClimbStateWhite(),
         attack: new AttackStateWhite(),
 		getHit: new GetHitStateWhite(),
-		climb: new ClimbStateWhite(),
+		death: new DeathStateWhite(),
       }, [this, player2]);
 
 //Animaciones player1
@@ -377,6 +390,12 @@ this.stateMachine_white = new StateMachine('idle', {
 	 player1.anims.create({
         key: 'hurt',
         frames: this.anims.generateFrameNumbers('player1_hurt', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player1.anims.create({
+        key: 'death',
+        frames: this.anims.generateFrameNumbers('player1_death', { start: 0, end: 7 }),
         frameRate: 10,
 		repeat:0
     });
@@ -430,6 +449,12 @@ this.stateMachine_white = new StateMachine('idle', {
 		repeat:0
     });
 	player2.anims.create({
+        key: 'death',
+        frames: this.anims.generateFrameNumbers('player2_death', { start: 0, end: 7 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player2.anims.create({
         key: 'climb',
         frames: this.anims.generateFrameNumbers('player2_climb', { start: 0, end: 3 }),
         frameRate: 10,
@@ -440,8 +465,8 @@ this.stateMachine_white = new StateMachine('idle', {
 player1.play('idle',true);
 player2.play('idle',true);
 
-    this.physics.add.collider(player1, platforms);
-    this.physics.add.collider(player2, platforms);
+    this.physics.add.collider(player1, platforms, null, checkUp);
+    this.physics.add.collider(player2, platforms, null, checkUp);
     this.physics.add.collider(item_pistol, platforms);
     this.physics.add.collider(item_knife, platforms);
     this.physics.add.collider(player1, player2);
@@ -479,7 +504,8 @@ if	(Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true){
 
 }//update
 
-//Funcion disparar
+
+////FUNCIONES CHECKEAR//////////////////
 function playerFire (player, direction, gameObject) {
         if (player.active === false)
             return;
@@ -520,23 +546,50 @@ if	(knifeHitbox.body.enable){
 }
 
 function getPistol(player, pistol){
-	    pistol.disableBody(true, true);
+	if(Phaser.Input.Keyboard.JustDown(input_S)||Phaser.Input.Keyboard.JustDown(input_K)){
+	pistol.disableBody(true, true);
 	player.setTint(0xFFEE58);
 	player.hasPistol=true;
 	player.hasKnife=false;
-
+	}
 }
 function getKnife(player, knife){
-	    knife.disableBody(true, true);
+	if(Phaser.Input.Keyboard.JustDown(input_S)||Phaser.Input.Keyboard.JustDown(input_K)){
+	knife.disableBody(true, true);
 	player.setTint(0xB0BEC5);
 	player.hasPistol=false;
 	player.hasKnife=true;
+	}
 
 }
 function checkLadder(player, ladder)
     {
         player.onLadder=true;
     }
+
+function checkUp(player){
+	if((player.onLadder===true) && (player.body.velocity.y<0)){
+		return false;
+	}	
+	return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///STATES PINK//////////
 class IdleStatePink extends State {
   enter(scene, player1) {
@@ -571,6 +624,11 @@ class IdleStatePink extends State {
 	// Transition to hurt if getting hit
 	if (player1.hitted) {
       this.stateMachine.transition('getHit');
+      return;
+    }
+	// Transition to death if no life
+	if(player1.life===0){
+	  this.stateMachine.transition('death');
       return;
     }
   }
@@ -682,12 +740,26 @@ execute(scene,player1){
 
 class GetHitStatePink extends State {
   enter(scene, player1) {
-
+	player1.life--;
+	console.log('player1 life' +player1.life);
     player1.setVelocityX(0);
 	player1.anims.play('hurt');
 			player1.once('animationcomplete', () => {
-			this.stateMachine.transition('idle');
-			player1.hitted=false;
+				player1.hitted=false;
+				this.stateMachine.transition('idle');
+    	});
+  }
+}
+class DeathStatePink extends State {
+  enter(scene, player1) {
+
+    player1.setVelocityX(0);
+	player1.anims.play('death');
+			player1.once('animationcomplete', () => {
+			//this.stateMachine.transition('idle');
+			player1.setVisible(false);
+			player1.body.enable=false;
+			
     	});
   }
 }
@@ -705,10 +777,19 @@ execute(scene, player1) {
       return;
     }
     
-    // Transition to idle if not pressing movement keys
-    if (!(input_A.isDown || input_D.isDown || input_W.isDown)) {
+	if ((input_A.isDown || input_D.isDown )) {
       this.stateMachine.transition('idle');
       return;
+
+    }
+
+    // Stop on ladder if not pressing movement keys
+    if (!(input_A.isDown || input_D.isDown || input_W.isDown || input_S.isDown)) {
+      //this.stateMachine.transition('idle');
+      //return;
+		player1.setVelocityY(0);
+		player1.anims.stop();
+
     }
 	
     // Transition to hurt if getting hit
@@ -718,7 +799,12 @@ execute(scene, player1) {
     }
 	player1.x=ladder.body.center.x;
     player1.setVelocityX(0);
-	player1.setVelocityY(-100);
+	if(input_W.isDown){
+		player1.setVelocityY(-100);
+	}else if (input_S.isDown){
+			player1.setVelocityY(100);
+
+	}
 	player1.anims.play('climb',true);
     
   }
@@ -757,6 +843,12 @@ class IdleStateWhite extends State {
       this.stateMachine.transition('getHit');
       return;
     }
+	// Transition to death if no life
+	if(player2.life===0){
+	  this.stateMachine.transition('death');
+      return;
+    }
+
   }
 }
 
@@ -867,16 +959,29 @@ exectue(scene,player2){
 
 class GetHitStateWhite extends State {
   enter(scene, player2) {
-
+	player2.life--;
+	console.log('player2 life' +player2.life);
     player2.setVelocityX(0);
 	player2.anims.play('hurt');
 			player2.once('animationcomplete', () => {
-			this.stateMachine.transition('idle');
 			player2.hitted=false;
+			this.stateMachine.transition('idle');
     	});
   }
 }
+class DeathStateWhite extends State {
+  enter(scene, player2) {
 
+    player2.setVelocityX(0);
+	player2.anims.play('death');
+	player2.once('animationcomplete', () => {
+		//this.stateMachine.transition('idle');	
+					player2.setVisible(false);
+					player2.body.enable=false;
+	
+    });
+  }
+}
 class ClimbStateWhite extends State {
 execute(scene, player2) {    
     // Transition to jump if pressing space
@@ -891,10 +996,13 @@ execute(scene, player2) {
       return;
     }
     
-    // Transition to idle if not pressing movement keys
-    if (!(input_J.isDown || input_L.isDown || input_I.isDown)) {
-      this.stateMachine.transition('idle');
-      return;
+    // Stop on ladder if not pressing movement keys
+    if (!(input_J.isDown || input_L.isDown || input_I.isDown || input_K.isDown)) {
+      //this.stateMachine.transition('idle');
+      //return;
+		player2.setVelocityY(0);
+		player2.anims.stop();
+
     }
 	
     // Transition to hurt if getting hit
@@ -904,547 +1012,15 @@ execute(scene, player2) {
     }
 	player2.x=ladder.body.center.x;
     player2.setVelocityX(0);
-	player2.setVelocityY(-100);
+	if(input_I.isDown){
+		player2.setVelocityY(-100);
+	}else if (input_K.isDown){
+			player2.setVelocityY(100);
+
+	}
 	player2.anims.play('climb',true);
     
   }
 }
-
-
-/////////////////Funciones del señor///////////////
-function updatePlayerWeapon()
-{
-  if(this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
-  {
-    playerWeapon.trackSprite(player, hand.width, -10);
-    if(player.width > 0)
-    {
-      playerWeapon.fireAngle = 0;
-    }
-    else
-    {
-      playerWeapon.fireAngle = 180;
-    }
-    if(playerWeapon.fire())
-    {
-      onWeaponFire();
-    }
-  }//if
-}
-
-function movePlayer()
-{
-  if (this.input.keyboard.isDown(Phaser.Keyboard.LEFT))
-  {
-    player.body.acceleration.x = -PLAYER_SPEED;
-    player.width = -Math.abs(player.width);
-    hand.width = -Math.abs(hand.width);
-  }
-  else if (this.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
-  {
-    player.body.acceleration.x = PLAYER_SPEED;
-    player.width = Math.abs(player.width);
-    hand.width = Math.abs(hand.width);
-  }
-  else
-  {
-    player.body.acceleration.x = 0;
-  }
-
-}//movePlayer
-
-function playerCollision()
-{
-  if(this.physics.arcade.collide(player, floor) ||
-    this.physics.arcade.collide(player, floor1) ||
-    this.physics.arcade.collide(player, floor2) ||
-    this.physics.arcade.collide(player, floor3) )
-  {
-    //jump
-    if (this.input.keyboard.isDown(Phaser.Keyboard.UP) &&
-        player.body.touching.down)
-    {
-      player.body.velocity.y = PLAYER_JUMP;
-    }
-  }
-
-}
-
-function friction()
-{
-  player.body.velocity.x *= PLAYER_FRICTION;
-}
-
-function speedLimit()
-{
-  if(Math.abs(player.body.velocity.x) >= PLAYER_MAX_SPEED)
-  {
-    player.body.velocity.x *= PLAYER_MAX_SPEED/Math.abs(player.body.velocity.x);
-  }
-}
-
-function spawnEnemy()
-{
-  //if this waited ENEMY_SPAWN_RATE amount since last spawn
-  if( this.time.now >= (lastSpawnTime + ENEMY_SPAWN_RATE) )
-  {
-    
-    lastSpawnTime = this.time.now + Math.floor(Math.random()*1000%4)*200;
-    
-    if(getEnemyLevel() == 1)
-    {
-      if(Math.random() < HARD_SPAWN_RATE)
-      {
-        hardEnemySpawn();
-        return;
-      }
-    }
-
-    //gets any element of enemies that is not objectified yet
-    var enemy = enemies.getFirstExists(false);
-
-    //if 'enemy' exists (enemies have at least one un-objectified element)
-    if (enemy)
-    {
-      enemy.reset(400, 120);//set position
-      enemy.loadTexture('man');
-      enemy.lifespan = ENEMY_LIFESPAN;//how long enemy lasts
-      this.physics.enable(enemy, Phaser.Physics.ARCADE);
-      enemy.body.allowGravity = true;
-      enemy.body.gravity.y = PLAYER_GRAVITY;
-      enemy.width = enemy.width * (Math.floor(Math.random()*1000%2)*2-1);
-      enemy.body.collideWorldBounds = true;//does enemy collided with world bound
-    }//if enemy
-    
-  }//if thistime
-  
-}
-
-function hardEnemySpawn()
-{
-  var enemy = enemies.getFirstExists(false);
-
-  //if 'enemy' exists (enemies have at least one un-objectified element)
-  if (enemy)
-  {
-    enemy.reset(400, 120);//set position
-    enemy.loadTexture('redMan');
-    enemy.lifespan = ENEMY_LIFESPAN;//how long enemy lasts
-    this.physics.enable(enemy, Phaser.Physics.ARCADE);
-    enemy.body.allowGravity = true;
-    enemy.body.gravity.y = PLAYER_GRAVITY;
-    enemy.width = enemy.width * (Math.floor(Math.random()*1000%2)*2-1);
-    enemy.body.collideWorldBounds = true;//does enemy collided with world bound
-  }//if enemy
-}
-
-function enemiesMove()
-{
-  //collide not only work with sprites but also group of sprites
-  this.physics.arcade.collide(enemies, floor);
-  this.physics.arcade.collide(enemies, floor1);
-  this.physics.arcade.collide(enemies, floor2);
-  this.physics.arcade.collide(enemies, floor3);
-
-  //run function called 'enemyMove' and put 
-  //'for each enemy that currently is objectified'
-  //as a parameter 
-  enemies.forEachExists(enemyMove, this);
-  if( this.time.now >= (lastEnemyShootTime + ENEMY_SHOOT_RATE) &&
-      getEnemyLevel() >= 2 )
-  {
-    var music;
-    music = this.add.audio('enemyFire');
-    music.play();
-    
-    enemies.forEachExists(
-      function(enemy)
-      {
-        enemyWeapon.trackSprite(enemy);
-        if(enemy.width > 0)
-        {
-          enemyWeapon.fireAngle = 0;
-        }
-        else
-        {
-          enemyWeapon.fireAngle = 180;
-        }
-        enemyWeapon.fire();
-      }, this);
-    lastEnemyShootTime = this.time.now;
-  }
-}
-
-function getEnemyLevel()
-{
-  for(var i = 0; i < enemy_level_cap.length; i++)
-  {
-    if(score < enemy_level_cap[i])
-      return i;
-  }
-  
-  return enemy_level_cap;
-}
-
-function getEnemySpeed()
-{
-  var speed = ENEMY_BASE_SPEED + score/60;
-  if(getEnemyLevel() >= 1 )
-  {
-    speed = ENEMY_BASE_SPEED + parseInt(enemy_level_cap[0])/60;
-  }
-  return speed;
-}
-
-function enemyMove(enemy)
-{
-  
-  if(enemy.body.onWall())
-  {
-    enemy.width = -enemy.width;
-  }
-  if(enemy.key == 'redMan')
-  {
-    if(enemy.width > 0)
-    {
-      enemy.body.velocity.x = HARD_ENEMY_SPEED;
-    }
-    else
-    {
-      enemy.body.velocity.x = -HARD_ENEMY_SPEED;
-    }
-  }
-  else
-  {
-    if(enemy.width > 0)
-    {
-      enemy.body.velocity.x = enemy_speed;
-    }
-    else
-    {
-      enemy.body.velocity.x = -enemy_speed;
-    }
-  }
-  playerWeapon.bullets.forEachExists(bulletHitEnemy, this, enemy);
-  
-  if(enemy.body.y >= 550)
-  {
-    hardEnemySpawn();
-    enemy.kill();
-  }
-
-}
-
-function bulletHitEnemy(bullet, enemy)
-{
-  if(this.physics.arcade.collide(enemy, bullet))
-  {
-    if(enemy.key == 'redMan')
-      deadHardEnemyEffect(enemy.body.x, enemy.body.y);
-    else
-      deadEnemyEffect(enemy.body.x, enemy.body.y);
-
-    bullet.kill();
-    enemy.kill();
-    score = score + 500;
-    if(Math.random() <= WEAPON_BOX_SPAWN_RATE)
-    {
-      spawnWeaponBox(bullet.x, bullet.y);
-    }
-    enemy_speed = getEnemySpeed();
-  }
-}
-
-function addScore()
-{
-  if( this.time.now >= (lastScoreGiven + TIME_SCORE_RATE) )
-  {
-    score = score + 100;
-    lastScoreGiven = this.time.now;
-    enemy_speed = getEnemySpeed();
-  }
-}
-
-function checkthisOver()
-{
-  if( this.physics.arcade.collide(enemies, player) ||
-      this.physics.arcade.collide(enemyWeapon.bullets, player) )
-  {
-    //thisover
-    player.kill();
-    enemies.killAll();
-    playerWeapon.killAll();
-    hand.kill();
-    enemyWeapon.bullets.killAll();
-    if(weaponBox != null)
-      weaponBox.kill();
-    stop = true;
-    
-  }
-}
-
-function deadEnemyEffect(x,y)
-{
-    deadEnemy.x = x
-    deadEnemy.y = y;
-
-    //  The first parameter sets the effect to 'explode' which means all particles are emitted at once
-    //  The second gives each particle a 2000ms lifespan
-    //  The third is ignored when using burst/explode mode
-    //  The final parameter (10) is how many particles will be emitted in this single burst
-    deadEnemy.setYSpeed(-400, -600);
-    deadEnemy.start(true, 2000, null, 1);
-}
-
-function deadHardEnemyEffect(x,y)
-{
-    deadHardEnemy.x = x
-    deadHardEnemy.y = y;
-    
-    deadHardEnemy.setYSpeed(-400, -600);
-    deadHardEnemy.start(true, 2000, null, 1);
-}
-
-function emptyShellEffect(x,y)
-{
-    emptyShell.x = x
-    emptyShell.y = y;
-    
-    emptyShell.setYSpeed(-400, -600);
-    emptyShell.start(true, 2000, null, 1);
-}
-
-function emptyShotShellEffect(x,y)
-{
-    emptyShotShell.x = x
-    emptyShotShell.y = y;
-    
-    emptyShotShell.setYSpeed(-400, -600);
-    emptyShotShell.start(true, 2000, null, 1);
-}
-
-function updateEffects()
-{
-  this.physics.arcade.collide(emptyShell, floor);
-  this.physics.arcade.collide(emptyShell, floor1);
-  this.physics.arcade.collide(emptyShell, floor2);
-  this.physics.arcade.collide(emptyShell, floor3);
-  
-  this.physics.arcade.collide(emptyShotShell, floor);
-  this.physics.arcade.collide(emptyShotShell, floor1);
-  this.physics.arcade.collide(emptyShotShell, floor2);
-  this.physics.arcade.collide(emptyShotShell, floor3);
-}
-
-function updateFloor()
-{
-  if(this.physics.arcade.collide(floor1, floor2))
-  {
-    floor1.body.velocity.x = -FLOOR_SPEED;
-    floor2.body.velocity.x = FLOOR_SPEED;
-  }
-  
-  if(floor1.body.onWall() || floor2.body.onWall())
-  {
-    floor1.body.velocity.x = FLOOR_SPEED;
-    floor2.body.velocity.x = -FLOOR_SPEED;
-  }
-}
-
-function rifleSetup()
-{
-  if(hand != null)
-    hand.kill();
-  
-  hand = this.add.sprite(300, 400, 'rifle');
-  this.physics.enable(hand, Phaser.Physics.ARCADE);
-  hand.anchor.set(0.15, 0.4);
-  hand.animations.add('shoot', [1,2,0]);
-  hand.animations.add('idle', [0]);
-  hand.animations.play('idle');
-  
-  if(player.width > 0)
-    hand.width = Math.abs(hand.width);
-  else
-    hand.width = -Math.abs(hand.width);
-  
-  //weapon
-  playerWeapon = this.add.weapon(20, 'bulletHitbox');
-  playerWeapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
-  playerWeapon.bulletSpeed = BULLET_SPEED;
-  playerWeapon.fireRate = RIFLE_FIRE_RATE;
-  
-  ammo = 15;
-  
-  onWeaponFire = function()
-  {
-    var music;
-    music = this.add.audio('rifleFire');
-    music.play();
-    hand.animations.play('shoot', 10);
-    emptyShellEffect(player.body.x + Math.abs(player.width/2) + player.width*6/7, player.body.y);
-    ammo--;
-    if(ammo <= 0)
-      pistolSetup();
-  }
-}
-
-function shotgunSetup()
-{
-  if(hand != null)
-    hand.kill();
-  
-  hand = this.add.sprite(300, 400, 'shotgun');
-  this.physics.enable(hand, Phaser.Physics.ARCADE);
-  hand.anchor.set(0.15, 0.4);
-  hand.animations.add('shoot', [1,2,0]);
-  hand.animations.add('idle', [0]);
-  hand.animations.play('idle');
-  
-  if(player.width > 0)
-    hand.width = Math.abs(hand.width);
-  else
-    hand.width = -Math.abs(hand.width);
-  
-  //weapon
-  playerWeapon = this.add.weapon(20, 'bulletHitbox');
-  playerWeapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
-  playerWeapon.bulletSpeed = BULLET_SPEED;
-  playerWeapon.fireRate = 0;
-  playerWeapon.bulletAngleVariance = 0;
-  
-  ammo = 8;
-  
-  onWeaponFire = function()
-  {
-    playerWeapon.fire();
-    playerWeapon.bulletAngleVariance = 20;
-    playerWeapon.fire();
-    playerWeapon.fire();
-    playerWeapon.fireRate = SHOTGUN_FIRE_RATE;
-    playerWeapon.fire();
-    playerWeapon.fireRate = 0;
-    playerWeapon.bulletAngleVariance = 0;
-    
-    var music;
-    music = this.add.audio('shotgunFire');
-    music.play();
-    hand.animations.play('shoot', 10);
-    emptyShotShellEffect(player.body.x + Math.abs(player.width/2) + player.width*6/7, player.body.y);
-    ammo--;
-    if(ammo <= 0)
-      pistolSetup();
-  }
-}
-
-function pistolSetup()
-{
-  if(hand != null)
-    hand.kill();
-  
-  hand = this.add.sprite(300, 400, 'pistol');
-  this.physics.enable(hand, Phaser.Physics.ARCADE);
-  hand.anchor.set(-0.1, 0.5);
-  hand.animations.add('shoot', [1,2,0]);
-  hand.animations.add('idle', [0]);
-  hand.animations.play('idle');
-  
-  if(player.width > 0)
-    hand.width = Math.abs(hand.width);
-  else
-    hand.width = -Math.abs(hand.width);
-  
-  //weapon
-  playerWeapon = this.add.weapon(20, 'bulletHitbox');
-  playerWeapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
-  playerWeapon.bulletSpeed = BULLET_SPEED;
-  playerWeapon.fireRate = PISTOL_FIRE_RATE;
-  
-  
-  onWeaponFire = function()
-  {
-    var music;
-    music = this.add.audio('pistolFire');
-    music.play();
-    hand.animations.play('shoot', 10);
-    emptyShellEffect(player.body.x + Math.abs(player.width/2) + player.width*6/7, player.body.y);
-  }
-  
-}
-
-function spawnWeaponBox(x, y)
-{
-  if(weaponBox != null)
-  {
-    weaponBox.kill();
-  }
-  // var x = ( (Math.random()*10000)%600 )+100;
-  // var y = ( (Math.random()*10000)%250 )+230;
-  weaponBox = this.add.sprite(x, y, 'weaponBox');
-  weaponBox.width = 26;
-  weaponBox.height = 24;
-  
-  this.physics.enable(weaponBox, Phaser.Physics.ARCADE);
-  weaponBox.anchor.set(0.5, 0.5);
-  weaponBox.animations.add('idle', [0, 1, 2, 3], 2, true);
-  weaponBox.animations.play('idle');
-}
-
-function updateWeaponBox()
-{
-  
-  if(this.physics.arcade.collide(player, weaponBox))
-  {
-    var music;
-    music = this.add.audio('reload');
-    music.play();
-    var numOfWeapons = 2;
-    var probability = 1/numOfWeapons;
-    var chance = Math.random();
-    
-    if(chance <= probability*1)
-    {
-      rifleSetup();
-    }
-    else if(chance <= probability*2)
-    {
-      shotgunSetup();
-    }
-    
-    weaponBox.kill();
-  }
-}
-
-function reinitialize()
-{
-  lastSpawnTime = 0;
-  score = 0;
-  lastScoreGiven = this.time.now;
-  enemy_speed = ENEMY_BASE_SPEED;
-  stop = false;
-  lastEnemyShootTime = 0;
-  ammo = 0;
-  deadEnemy.bounce.setTo(0.5,1);
-}
-
-function goFull()
-{
-      if (this.scale.isFullScreen) {
-          this.scale.stopFullScreen();
-      }
-      else {
-          this.scale.startFullScreen(false);
-      }
-}
-
-function debug(text)
-{
-  if(text == undefined)
-    debugDisplay.setText('debugging');
-  else
-    debugDisplay.setText(text);
-}
-
-
 
 
