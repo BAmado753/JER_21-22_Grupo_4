@@ -169,6 +169,7 @@ var stateMachine_pink;
 var stateMachine_white;
 var item_pistol;
 var item_knife;
+var ladder;
 //var knifeHitbox= Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
 var knifeHitbox= Phaser.GameObjects.Rectangle;
 var platforms;
@@ -195,11 +196,13 @@ var cursors;
 var spaceBar;
 var input_A;
 var input_D;
+var input_W;
 var input_E;
 
 //Inputs Player 2
 var input_N;
 var input_J;
+var input_I;
 var input_L;
 var input_O;
 
@@ -216,7 +219,8 @@ function preload()
   this.load.image('gray',             'asset/gray.jpg');
   this.load.image('platform',         'asset/platform.jpg');
   this.load.image('bullet',           'asset/bullet.png');
-  
+  this.load.image('ladder',         'asset/ladder.jpg');
+
 
 //Player 1
 
@@ -225,6 +229,7 @@ function preload()
   this.load.spritesheet('player1_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player1_attack', 'asset/Pink_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player1_hurt', 'asset/Pink_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player1_climb', 'asset/Pink_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
 
 
 //Player 2
@@ -233,6 +238,7 @@ function preload()
   this.load.spritesheet('player2_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player2_attack', 'asset/Owlet_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player2_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player2_climb', 'asset/Owlet_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
 
   /*this.load.spritesheet('weaponBox',  'asset/weaponBox.png',{frameWidth:13, frameHeight:13});
   this.load.spritesheet('pistol',     'asset/pistolHand.png',{frameWidth:46, frameHeight:47});
@@ -260,6 +266,13 @@ platforms.create(150,350,'platform').setScale(10,1).refreshBody();
 platforms.create(650,350,'platform').setScale(10,1).refreshBody();
 platforms.create(400,580,'platform').setScale(50,3).refreshBody();
 
+//Escaleras
+
+ladder = this.physics.add.image(150, 450, 'ladder').setScale(1,10).refreshBody();
+ladder.body.setAllowGravity(false);
+
+
+
 //Items de prueba
 item_pistol=this.physics.add.sprite(200, 450, 'pistol_item');
     item_pistol.setCollideWorldBounds(true);
@@ -271,11 +284,13 @@ item_knife=this.physics.add.sprite(300, 450, 'knife_item');
 spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 input_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 input_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+input_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 input_E = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
 input_N= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
 input_J=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
 input_L=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
+input_I=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
 input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 
 //Player 1
@@ -285,6 +300,7 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 	player1.hitted=false;
 	player1.hasPistol=false;
 	player1.hasKnife=false;
+	player1.onLadder=false;
     player1.setCollideWorldBounds(true);
 //Player 2
   	player2 = this.physics.add.sprite(400, 450, 'player2_idl');
@@ -294,7 +310,7 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 	player2.hitted=false;
 	player2.hasPistol=false;
 	player2.hasKnife=false;
-	
+	player2.onLadder=false;
 	player_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
 //Knife
 knifeHitbox= this.add.rectangle(0,0,10,20, 0xffffff, 0);
@@ -309,6 +325,7 @@ this.stateMachine_pink = new StateMachine('idle', {
         jump: new JumpStatePink(),
         attack: new AttackStatePink(),
 		getHit: new GetHitStatePink(),
+		climb: new ClimbStatePink(),
       }, [this, player1]);
 
 this.stateMachine_white = new StateMachine('idle', {
@@ -317,6 +334,7 @@ this.stateMachine_white = new StateMachine('idle', {
         jump: new JumpStateWhite(),
         attack: new AttackStateWhite(),
 		getHit: new GetHitStateWhite(),
+		climb: new ClimbStateWhite(),
       }, [this, player2]);
 
 //Animaciones player1
@@ -362,6 +380,12 @@ this.stateMachine_white = new StateMachine('idle', {
         frameRate: 10,
 		repeat:0
     });
+	player1.anims.create({
+        key: 'climb',
+        frames: this.anims.generateFrameNumbers('player1_climb', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:-1
+    });
 //Animaciones player2
 	//Idle
 	
@@ -405,6 +429,12 @@ this.stateMachine_white = new StateMachine('idle', {
         frameRate: 10,
 		repeat:0
     });
+	player2.anims.create({
+        key: 'climb',
+        frames: this.anims.generateFrameNumbers('player2_climb', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:-1
+    });
 
 //Physics
 player1.play('idle',true);
@@ -421,6 +451,8 @@ player2.play('idle',true);
     this.physics.add.overlap(player2, item_pistol, getPistol, null, this);
     this.physics.add.overlap(player1, item_knife, getKnife, null, this);
     this.physics.add.overlap(player2, item_knife, getKnife, null, this);
+	this.physics.add.overlap(player1, ladder, checkLadder, null, this);
+	this.physics.add.overlap(player2, ladder, checkLadder, null, this);
 
 
 
@@ -501,10 +533,15 @@ function getKnife(player, knife){
 	player.hasKnife=true;
 
 }
+function checkLadder(player, ladder)
+    {
+        player.onLadder=true;
+    }
 ///STATES PINK//////////
 class IdleStatePink extends State {
   enter(scene, player1) {
     player1.setVelocityX(0);
+	player1.onLadder=false;
 	player1.anims.play('idle',true);
   }
   
@@ -526,6 +563,11 @@ class IdleStatePink extends State {
       this.stateMachine.transition('move');
       return;
     }
+	// Transition to climb if pressing W
+    if (input_W.isDown && player1.onLadder) {
+      this.stateMachine.transition('climb');
+      return;
+    }
 	// Transition to hurt if getting hit
 	if (player1.hitted) {
       this.stateMachine.transition('getHit');
@@ -535,6 +577,10 @@ class IdleStatePink extends State {
 }
 
 class MoveStatePink extends State {
+	enter(scene, player1){
+			player1.onLadder=false;
+
+	}
   execute(scene, player1) {    
     // Transition to jump if pressing space
     if (spaceBar.isDown && player1.body.touching.down) {
@@ -551,6 +597,11 @@ class MoveStatePink extends State {
     // Transition to idle if not pressing movement keys
     if (!(input_A.isDown || input_D.isDown)) {
       this.stateMachine.transition('idle');
+      return;
+    }
+	// Transition to climb if pressing W
+    if (input_W.isDown && player1.onLadder) {
+      this.stateMachine.transition('climb');
       return;
     }
     // Transition to hurt if getting hit
@@ -640,10 +691,42 @@ class GetHitStatePink extends State {
     	});
   }
 }
-
+class ClimbStatePink extends State {
+execute(scene, player1) {    
+    // Transition to jump if pressing space
+    if (spaceBar.isDown && player1.body.touching.down) {
+      this.stateMachine.transition('jump');
+      return;
+    }
+    
+   // Transition to attack if pressing e
+    if (input_E.isDown && player1.hasKnife===true) {
+      this.stateMachine.transition('attack');
+      return;
+    }
+    
+    // Transition to idle if not pressing movement keys
+    if (!(input_A.isDown || input_D.isDown || input_W.isDown)) {
+      this.stateMachine.transition('idle');
+      return;
+    }
+	
+    // Transition to hurt if getting hit
+	if (player1.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+	player1.x=ladder.body.center.x;
+    player1.setVelocityX(0);
+	player1.setVelocityY(-100);
+	player1.anims.play('climb',true);
+    
+  }
+}
 ///STATES White//////////
 class IdleStateWhite extends State {
   enter(scene, player2) {
+	player2.onLadder=false;
     player2.setVelocityX(0);
 	player2.anims.play('idle',true);
   }
@@ -664,6 +747,11 @@ class IdleStateWhite extends State {
       this.stateMachine.transition('move');
       return;
     }
+// Transition to climb if pressing W
+    if (input_I.isDown && player2.onLadder) {
+      this.stateMachine.transition('climb');
+      return;
+    }
 	// Transition to hurt if getting hit
 	if (player2.hitted) {
       this.stateMachine.transition('getHit');
@@ -673,6 +761,9 @@ class IdleStateWhite extends State {
 }
 
 class MoveStateWhite extends State {
+	enter(scene,player2){
+		player2.onLadder=false;
+	}
   execute(scene, player2) {
    // const {input_A, input_D, spaceBar} = scene.keys;
     
@@ -691,6 +782,11 @@ class MoveStateWhite extends State {
     // Transition to idle if not pressing movement keys
     if (!(input_J.isDown || input_L.isDown)) {
       this.stateMachine.transition('idle');
+      return;
+    }
+	// Transition to climb if pressing W
+    if (input_I.isDown && player2.onLadder) {
+      this.stateMachine.transition('climb');
       return;
     }
     // Transition to hurt if getting hit
@@ -781,7 +877,38 @@ class GetHitStateWhite extends State {
   }
 }
 
-
+class ClimbStateWhite extends State {
+execute(scene, player2) {    
+    // Transition to jump if pressing space
+    if (spaceBar.isDown && player2.body.touching.down) {
+      this.stateMachine.transition('jump');
+      return;
+    }
+    
+   // Transition to attack if pressing e
+    if (input_O.isDown && player2.hasKnife===true) {
+      this.stateMachine.transition('attack');
+      return;
+    }
+    
+    // Transition to idle if not pressing movement keys
+    if (!(input_J.isDown || input_L.isDown || input_I.isDown)) {
+      this.stateMachine.transition('idle');
+      return;
+    }
+	
+    // Transition to hurt if getting hit
+	if (player2.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+	player2.x=ladder.body.center.x;
+    player2.setVelocityX(0);
+	player2.setVelocityY(-100);
+	player2.anims.play('climb',true);
+    
+  }
+}
 
 
 /////////////////Funciones del señor///////////////
