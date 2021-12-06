@@ -164,11 +164,14 @@ var Bullet = new Phaser.Class({
 
 //objects
 var player1;
+var text_p1_UI;
+var profile_p1_UI;
 var player2;
 var stateMachine_pink;
 var stateMachine_white;
 var item_pistol;
 var item_knife;
+var gems;
 var ladder;
 var lastTimeDebuff = 0;
 var knifeHitbox= Phaser.GameObjects.Rectangle;
@@ -218,6 +221,7 @@ var input_O;
 // load images and resources
 function preload()
 {
+  this.load.image('gem',             'asset/gem.png');
   this.load.image('pistol_item',             'asset/pistol_icon.png');
   this.load.image('knife_item',             'asset/knife.png');
   this.load.image('gray',             'asset/gray.jpg');
@@ -227,7 +231,7 @@ function preload()
 
 
 //Player 1
-
+  this.load.image('player1_profile', 'asset/Pink_Monster_closeUp.png');
   this.load.spritesheet('player1_idl', 'asset/Pink_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player1_run', 'asset/Pink_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player1_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
@@ -238,6 +242,7 @@ function preload()
 
 
 //Player 2
+  this.load.image('player2_profile', 'asset/Owlet_Monster_closeUp.png');
   this.load.spritesheet('player2_idl', 'asset/Owlet_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player2_run', 'asset/Owlet_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player2_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
@@ -245,19 +250,6 @@ function preload()
   this.load.spritesheet('player2_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player2_death', 'asset/Owlet_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
   this.load.spritesheet('player2_climb', 'asset/Owlet_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
-
-  /*this.load.spritesheet('weaponBox',  'asset/weaponBox.png',{frameWidth:13, frameHeight:13});
-  this.load.spritesheet('pistol',     'asset/pistolHand.png',{frameWidth:46, frameHeight:47});
-  this.load.spritesheet('rifle',      'asset/rifleHand.png', {frameWidth:73, frameHeight:47});
-  this.load.spritesheet('shotgun',    'asset/shotgunHand.png', {frameWidth:80, frameHeight:47});
-  
-  this.load.audio('enemyFire',        'asset/pulseGun.ogg');
-  this.load.audio('pistolFire',       'asset/pistolFire.wav');
-  this.load.audio('rifleFire',        'asset/rifleFire.wav');
-  this.load.audio('shotgunFire',      'asset/shotgunFire.wav');
-  this.load.audio('reload',           'asset/reload.wav');
-  
-  this.load.audio('steamTech',        'asset/Steamtech-Mayhem_Looping.mp3');*/
 }
 
 function create()
@@ -277,7 +269,12 @@ platforms.create(400,580,'platform').setScale(50,3).refreshBody();
 ladder = this.physics.add.image(150, 450, 'ladder').setScale(1,10).refreshBody();
 ladder.body.setAllowGravity(false);
 
-
+//Gemas
+ gems = this.physics.add.group({
+        key: 'gem',
+        repeat: 11,
+        setXY: { x: 12, y: 0, stepX: 70 }
+    });
 
 //Items de prueba
 item_pistol=this.physics.add.sprite(200, 450, 'pistol_item');
@@ -302,10 +299,13 @@ input_I=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
 input_K=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
 input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 
+
 //Player 1
     player1 = this.physics.add.sprite(100, 450, 'player1_idl');
 	player1.setBodySize(player1.width *0.5,player1.height *1);
+	player1.tag=1;
 	player1.life = 5;
+	player1.gemsOwned = 0;
 	player1.direction='right';
 	player1.hitted=false;
 	player1.hasPistol=false;
@@ -317,7 +317,9 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 //Player 2
   	player2 = this.physics.add.sprite(400, 450, 'player2_idl');
 	player2.setBodySize(player2.width *0.5,player2.height *1);
+	player2.tag=2;
 	player2.life = 5;
+	player2.gemsOwned = 0;
 	player2.direction='right';
 	player2.hitted=false;
 	player2.hasPistol=false;
@@ -328,6 +330,69 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 	
 	
 	player_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
+	
+	
+	//Interfaz
+	text_p1_UI = this.add.text(100, 550, '', { font: '16px Courier', fill: '#00ff00' });
+	profile_p1_UI = this.add.image(50, 560, 'player1_profile');
+
+        //  Store some data about this profile:
+        profile_p1_UI.setDataEnabled();
+
+        profile_p1_UI.data.set('name', 'Chilli');
+        profile_p1_UI.data.set('lives', player1.life);
+        profile_p1_UI.data.set('gems', player1.gemsOwned);
+
+        text_p1_UI.setText([
+            'Name: ' + profile_p1_UI.data.get('name'),
+            'Lives: ' + profile_p1_UI.data.get('lives'),
+            'Gems: ' + profile_p1_UI.data.get('gems') 
+        ]);
+		profile_p1_UI.on('changedata-gems', function (gameObject, value) {
+                text_p1_UI.setText([
+                    'Name: ' + profile_p1_UI.data.get('name'),
+            		'Lives: ' + profile_p1_UI.data.get('lives'),
+            'Gems: ' + profile_p1_UI.data.get('gems') 
+                ]);
+        });
+		profile_p1_UI.on('changedata-lives', function (gameObject, value) {
+                text_p1_UI.setText([
+                    'Name: ' + profile_p1_UI.data.get('name'),
+            		'Lives: ' + profile_p1_UI.data.get('lives'),
+            'Gems: ' + profile_p1_UI.data.get('gems') 
+                ]);
+        });
+
+    text_p2_UI = this.add.text(600, 550, '', { font: '16px Courier', fill: '#00ff00' });
+	profile_p2_UI = this.add.image(750, 560, 'player2_profile').setFlipX(true);
+
+        //  Store some data about this profile:
+        profile_p2_UI.setDataEnabled();
+
+        profile_p2_UI.data.set('name', 'Bernie');
+        profile_p2_UI.data.set('lives', player2.life);
+        profile_p2_UI.data.set('gems', player2.gemsOwned);
+
+        text_p2_UI.setText([
+            'Name: ' + profile_p2_UI.data.get('name'),
+            'Lives: ' + profile_p2_UI.data.get('lives'),
+            'Gems: ' + profile_p2_UI.data.get('gems') 
+        ]);
+		profile_p2_UI.on('changedata-gems', function (gameObject, value) {
+                text_p2_UI.setText([
+                    'Name: ' + profile_p2_UI.data.get('name'),
+            		'Lives: ' + profile_p2_UI.data.get('lives'),
+            'Gems: ' + profile_p2_UI.data.get('gems') 
+                ]);
+        });
+		profile_p2_UI.on('changedata-lives', function (gameObject, value) {
+                text_p2_UI.setText([
+                    'Name: ' + profile_p2_UI.data.get('name'),
+            		'Lives: ' + profile_p2_UI.data.get('lives'),
+            'Gems: ' + profile_p2_UI.data.get('gems') 
+                ]);
+        });
+	
 //Knife
 knifeHitbox= this.add.rectangle(0,0,10,20, 0xffffff, 0);
 this.physics.add.existing(knifeHitbox);
@@ -482,6 +547,7 @@ player2.play('idle',true);
     this.physics.add.collider(player2, platforms, null, checkUp);
     this.physics.add.collider(item_pistol, platforms);
     this.physics.add.collider(item_knife, platforms);
+    this.physics.add.collider(gems, platforms);
     this.physics.add.collider(player1, player2);
     this.physics.add.overlap(player2, knifeHitbox, PlayerKnifeHitted,null, this);
     this.physics.add.overlap(player1, knifeHitbox, PlayerKnifeHitted,null, this);
@@ -492,6 +558,8 @@ player2.play('idle',true);
     this.physics.add.overlap(player2, item_knife, getKnife, null, this);
 	this.physics.add.overlap(player1, ladder, checkLadder, null, this);
 	this.physics.add.overlap(player2, ladder, checkLadder, null, this);
+    this.physics.add.overlap(player1, gems, collectGem, null, this);
+    this.physics.add.overlap(player2, gems, collectGem, null, this);
 
 
 
@@ -561,6 +629,30 @@ function checkExplosion(){
 
 	}
 }
+function collectGem(player, gem){
+	gem.disableBody(true, true);
+
+    //  Add and update the score
+if(player.tag===2){
+	player.GemsOwned+=1;
+	profile_p2_UI.data.values.gems += 1;
+}else{
+	player.GemsOwned+=1;
+	profile_p1_UI.data.values.gems += 1;
+}
+    
+    if (gems.countActive(true) === 0)
+    {
+        //  A new batch of stars to collect
+        stars.children.iterate(function (child) {
+
+            child.enableBody(true, child.x, 0, true, true);
+
+        });
+
+
+    }
+}
 function playerFire (player, direction, gameObject) {
         if (player.active === false)
             return;
@@ -587,17 +679,34 @@ function PlayerHitted(player,bullet){
 	if	(bullet.body.enable){
 	player.hitted=true;
 	bullet.body.enable=false;
+	
+	if(player.tag===2){
+	profile_p2_UI.data.values.lives -= 1;
+	}else{
+	profile_p1_UI.data.values.lives -= 1;
+	}
 	}
 	
 }
 function PlayerKnifeHitted(player,rectangle){
-if	(knifeHitbox.body.enable){
+if	(rectangle.body.enable){
 		player.hitted=true;
+		rectangle.body.enable=false;
+		if(player.tag===2){
+		profile_p2_UI.data.values.lives -= 1;
+		}else{
+		profile_p1_UI.data.values.lives -= 1;
+		}
 }
 }
 function PlayerExplosionHitted(player,circle){
 if	(blueSpecialAttack_Area.body.enable){
 		player.hitted=true;
+		if(player.tag===2){
+		profile_p2_UI.data.values.lives -= 1;
+		}else{
+		profile_p1_UI.data.values.lives -= 1;
+		}
 }
 }
 
@@ -741,7 +850,7 @@ class MoveStatePink extends State {
 
 class JumpStatePink extends State {
   enter(scene, player1) {
-		    player1.setVelocityY(-250);
+		    player1.setVelocityY(-120);
 	    player1.anims.play('jump');
 		player1.once('animationcomplete', () => {
 			this.stateMachine.transition('idle')
@@ -962,7 +1071,7 @@ class MoveStateWhite extends State {
 
 class JumpStateWhite extends State {
   enter(scene, player2) {
-		    player2.setVelocityY(-250);
+		player2.setVelocityY(-120);
 	    player2.anims.play('jump');
 		player2.once('animationcomplete', () => {
 			this.stateMachine.transition('idle')
