@@ -170,8 +170,9 @@ var stateMachine_white;
 var item_pistol;
 var item_knife;
 var ladder;
-//var knifeHitbox= Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
+var lastTimeDebuff = 0;
 var knifeHitbox= Phaser.GameObjects.Rectangle;
+var blueSpecialAttack_Area= Phaser.GameObjects.Circle;
 var platforms;
 var playerWeapon;
 var enemies;
@@ -199,6 +200,7 @@ var input_D;
 var input_W;
 var input_S;
 var input_E;
+var input_Q;
 
 //Inputs Player 2
 var input_N;
@@ -291,6 +293,7 @@ input_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 input_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 input_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 input_E = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+input_Q = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 
 input_N= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
 input_J=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
@@ -307,6 +310,7 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 	player1.hitted=false;
 	player1.hasPistol=false;
 	player1.hasKnife=false;
+	player1.debuff=false;
 	player1.onLadder=false;
     player1.setCollideWorldBounds(true);
 
@@ -318,6 +322,7 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 	player2.hitted=false;
 	player2.hasPistol=false;
 	player2.hasKnife=false;
+	player2.debuff=false;
 	player2.onLadder=false;
 	player2.setCollideWorldBounds(true);
 	
@@ -329,6 +334,14 @@ this.physics.add.existing(knifeHitbox);
 knifeHitbox.body.enable=false;
 this.physics.world.remove(knifeHitbox.body);
 knifeHitbox.body.setAllowGravity(false);
+//Circle for explosion
+blueSpecialAttack_Area=this.add.circle(120,120,120, 0xffffff,0.5);
+this.physics.add.existing(blueSpecialAttack_Area);
+blueSpecialAttack_Area.body.enable=false;
+blueSpecialAttack_Area.setVisible(false);
+blueSpecialAttack_Area.body.setAllowGravity(false);
+
+
 //Create StateMachine
 this.stateMachine_pink = new StateMachine('idle', {
         idle: new IdleStatePink(),
@@ -472,6 +485,7 @@ player2.play('idle',true);
     this.physics.add.collider(player1, player2);
     this.physics.add.overlap(player2, knifeHitbox, PlayerKnifeHitted,null, this);
     this.physics.add.overlap(player1, knifeHitbox, PlayerKnifeHitted,null, this);
+    this.physics.add.overlap(player2, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);
     this.physics.add.overlap(player1, item_pistol, getPistol, null, this);
     this.physics.add.overlap(player2, item_pistol, getPistol, null, this);
     this.physics.add.overlap(player1, item_knife, getKnife, null, this);
@@ -486,26 +500,67 @@ player2.play('idle',true);
 
 function update()
 {
+	checkExplosion();
 	if(player1.direction!=='right') {  player1.flipX = true; }
 	if(player1.direction!=='left') {  player1.flipX = false; }
 	if(player2.direction!=='right') {  player2.flipX = true;}
 	if(player2.direction!=='left') {  player2.flipX = false; }
 	      this.stateMachine_pink.step();
 	      this.stateMachine_white.step();
-//console.log('p1 has pistol'+player1.hasPistol);
-//console.log('p1 has knife'+player1.hasKnife);
 
+
+if	(Phaser.Input.Keyboard.JustDown(input_Q)){
+	//pinkSpecialAttack(player1, this);
+	//whiteSpecialAttack(player2);
+	//blueSpecialAttack(player1);
+	
+}
 if	(Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true){
 	playerFire(player1, player1.direction, this);
 }
-	if	(Phaser.Input.Keyboard.JustDown(input_O)&& player2.hasPistol===true){
+if	(Phaser.Input.Keyboard.JustDown(input_O)&& player2.hasPistol===true){
 	playerFire(player2, player2.direction, this);
 }
-
+checkDebuffTime(player1, player2);
 }//update
 
 
 ////FUNCIONES CHECKEAR//////////////////
+
+//Ataques especiales//
+function pinkSpecialAttack(player, gameObject){
+	var pinkCopy= gameObject.physics.add.sprite(player.x, player.y, 'player1_idl');
+	pinkCopy.setCollideWorldBounds(true);
+    gameObject.physics.add.collider(pinkCopy, platforms);
+}
+function whiteSpecialAttack(player){
+	player.debuff=true;
+}
+function blueSpecialAttack(player){
+	blueSpecialAttack_Area.body.enable=true;
+	blueSpecialAttack_Area.x=player.body.center.x;
+	blueSpecialAttack_Area.y=player.body.center.y;
+	blueSpecialAttack_Area.setVisible(true);
+
+}
+
+function checkDebuffTime(player1, player2){
+	if(player1.debuff || player2.debuff){
+		lastTimeDebuff+=1;
+	}
+	if(lastTimeDebuff>1000){
+		lastTimeDebuff=0;
+		player1.debuff=false;
+		player2.debuff=false;
+	}
+}
+function checkExplosion(){
+	if(blueSpecialAttack_Area.body.enable){
+	blueSpecialAttack_Area.body.enable=false;
+	blueSpecialAttack_Area.setVisible(false);
+
+	}
+}
 function playerFire (player, direction, gameObject) {
         if (player.active === false)
             return;
@@ -536,12 +591,13 @@ function PlayerHitted(player,bullet){
 	
 }
 function PlayerKnifeHitted(player,rectangle){
-	console.log('knife hiteado')
-	//rectangle.setActive(false);
-   // rectangle.setVisible(false);
 if	(knifeHitbox.body.enable){
 		player.hitted=true;
-
+}
+}
+function PlayerExplosionHitted(player,circle){
+if	(blueSpecialAttack_Area.body.enable){
+		player.hitted=true;
 }
 }
 
@@ -670,11 +726,14 @@ class MoveStatePink extends State {
     player1.setVelocityX(0);
     if (input_A.isDown) {
       player1.setVelocityX(-100);
+	  if(player1.debuff){player1.setVelocityX(-50);}
       player1.direction = 'left';
     } else if (input_D.isDown) {
       player1.setVelocityX(100);
+	  if(player1.debuff){player1.setVelocityX(50);}
       player1.direction = 'right';
     }
+
     player1.anims.play('run', true);
     
   }
@@ -889,9 +948,11 @@ class MoveStateWhite extends State {
     player2.setVelocityX(0);
     if (input_J.isDown) {
       player2.setVelocityX(-100);
+	  if(player2.debuff){player2.setVelocityX(-50);}
       player2.direction = 'left';
     } else if (input_L.isDown) {
       player2.setVelocityX(100);
+	  if(player2.debuff){player2.setVelocityX(50);}
       player2.direction = 'right';
     }
     player2.anims.play('run', true);
