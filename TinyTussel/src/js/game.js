@@ -612,12 +612,12 @@ player2.play('idle',true);
     this.physics.add.overlap(player2, items_power, collectPower, null, this);
 	this.physics.add.overlap(player1, items_speed, collectSpeed, null, this);
     this.physics.add.overlap(player2, items_speed, collectSpeed, null, this);
-	this.physics.add.overlap(player1, items_lemon, collectGem, null, this);
-    this.physics.add.overlap(player2, items_lemon, collectGem, null, this);
-	this.physics.add.overlap(player1, items_grape, collectGem, null, this);
-    this.physics.add.overlap(player2, items_grape, collectGem, null, this);
-	this.physics.add.overlap(player1, items_strawberry, collectGem, null, this);
-    this.physics.add.overlap(player2, items_strawberry, collectGem, null, this);
+	this.physics.add.overlap(player1, items_lemon, collectLemon, null, this);
+    this.physics.add.overlap(player2, items_lemon, collectLemon, null, this);
+	this.physics.add.overlap(player1, items_grape, collectGrape, null, this);
+    this.physics.add.overlap(player2, items_grape, collectGrape, null, this);
+	this.physics.add.overlap(player1, items_strawberry, collectStrawberry, null, this);
+    this.physics.add.overlap(player2, items_strawberry, collectStrawberry, null, this);
 
 
 
@@ -786,6 +786,30 @@ function createStrawberry(){
             let x = Phaser.Math.Between(0, 800);
             let y = Phaser.Math.Between(0, 600);
 		items_strawberry.create(x,y,'strawberry_item');  
+}
+function collectLemon(player, lemon){
+	lemon.disableBody(true, true);
+	if(player.tag===2){
+	profile_p2_UI.data.values.lives += 1;
+	}else{
+	profile_p1_UI.data.values.lives += 1;
+	}
+}
+function collectGrape(player, grape){
+	grape.disableBody(true, true);
+	if(player.tag===2){
+	profile_p2_UI.data.values.lives += 3;
+	}else{
+	profile_p1_UI.data.values.lives += 3;
+	}
+}
+function collectStrawberry(player, strawberry){
+	strawberry.disableBody(true, true);
+	if(player.tag===2){
+	profile_p2_UI.data.values.lives += 5;
+	}else{
+	profile_p1_UI.data.values.lives += 5;
+	}
 }
 
 function collectPower(player, power){
