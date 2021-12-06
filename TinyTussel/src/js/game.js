@@ -113,6 +113,7 @@ var Bullet = new Phaser.Class({
         this.speed = Phaser.Math.GetSpeed(300, 1);
         this.born = 0;
         this.direction = 0;
+		this.damage=1;
        // this.xSpeed = 0;
       //  this.ySpeed = 0;
       //  this.setSize(12, 12, true);
@@ -172,26 +173,20 @@ var stateMachine_white;
 var item_pistol;
 var item_knife;
 var gems;
+var items_power;
+var items_speed;
+var items_shield;
+var items_lemon;
+var items_grape;
+var items_strawberry;
 var ladder;
 var lastTimeDebuff = 0;
 var knifeHitbox= Phaser.GameObjects.Rectangle;
 var blueSpecialAttack_Area= Phaser.GameObjects.Circle;
+var shield1;
+var shield2;
 var platforms;
-var playerWeapon;
-var enemies;
-var scoreDisplay;
-var thisOverDisplay;
-var stop = false;
-var deadEnemy;
-var deadHardEnemy;
-var emptyShell;
-var emptyShotShell;
-var hand;
-var debugDisplay;
-var ammoDisplay;
-var enemyWeapon;
-var weaponBox;
-var backgroundMusic;
+
 
 var game = new Phaser.Game(config);
 var cursors;
@@ -221,9 +216,20 @@ var input_O;
 // load images and resources
 function preload()
 {
+//Objetos
   this.load.image('gem',             'asset/gem.png');
   this.load.image('pistol_item',             'asset/pistol_icon.png');
   this.load.image('knife_item',             'asset/knife.png');
+  this.load.image('shield_item',             'asset/escudo.png');
+  this.load.image('shield_bubble',             'asset/bubble_shield.png');
+  this.load.image('speed_item',             'asset/feather.png');
+  this.load.image('power_item',             'asset/strength.png');
+  this.load.image('grape_item',             'asset/grape.png');
+  this.load.image('strawberry_item',             'asset/strawberry.png');
+  this.load.image('lemon_item',             'asset/lemon.png');
+
+
+//Escenario
   this.load.image('gray',             'asset/gray.jpg');
   this.load.image('platform',         'asset/platform.jpg');
   this.load.image('bullet',           'asset/bullet.png');
@@ -276,12 +282,20 @@ ladder.body.setAllowGravity(false);
         setXY: { x: 12, y: 0, stepX: 70 }
     });
 
-//Items de prueba
+//Items
 item_pistol=this.physics.add.sprite(200, 450, 'pistol_item');
     item_pistol.setCollideWorldBounds(true);
 
 item_knife=this.physics.add.sprite(300, 450, 'knife_item');
     item_knife.setCollideWorldBounds(true);
+
+items_power=this.physics.add.group();
+items_speed=this.physics.add.group();
+items_shield=this.physics.add.group();
+items_lemon=this.physics.add.group();
+items_grape=this.physics.add.group();
+items_strawberry=this.physics.add.group();
+
 
 //Input 
 spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -304,13 +318,19 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
     player1 = this.physics.add.sprite(100, 450, 'player1_idl');
 	player1.setBodySize(player1.width *0.5,player1.height *1);
 	player1.tag=1;
-	player1.life = 5;
+	player1.life = 20;
 	player1.gemsOwned = 0;
 	player1.direction='right';
 	player1.hitted=false;
 	player1.hasPistol=false;
 	player1.hasKnife=false;
 	player1.debuff=false;
+	player1.strengthBoost=false;
+	player1.speedBoost=false;
+	player1.shieldBoost=false;
+	player1.LastStrengthBoost=false;
+	player1.LastSpeedBoost=false;
+	player1.LastShieldBoost=false;
 	player1.onLadder=false;
     player1.setCollideWorldBounds(true);
 
@@ -318,13 +338,19 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
   	player2 = this.physics.add.sprite(400, 450, 'player2_idl');
 	player2.setBodySize(player2.width *0.5,player2.height *1);
 	player2.tag=2;
-	player2.life = 5;
+	player2.life = 20;
 	player2.gemsOwned = 0;
 	player2.direction='right';
 	player2.hitted=false;
 	player2.hasPistol=false;
 	player2.hasKnife=false;
 	player2.debuff=false;
+	player2.strengthBoost=false;
+	player2.speedBoost=false;
+	player2.shieldBoost=false;
+	player2.LastStrengthBoost=false;
+	player2.LastSpeedBoost=false;
+	player2.LastShieldBoost=false;
 	player2.onLadder=false;
 	player2.setCollideWorldBounds(true);
 	
@@ -396,6 +422,7 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 //Knife
 knifeHitbox= this.add.rectangle(0,0,10,20, 0xffffff, 0);
 this.physics.add.existing(knifeHitbox);
+knifeHitbox.damage=3;
 knifeHitbox.body.enable=false;
 this.physics.world.remove(knifeHitbox.body);
 knifeHitbox.body.setAllowGravity(false);
@@ -405,8 +432,16 @@ this.physics.add.existing(blueSpecialAttack_Area);
 blueSpecialAttack_Area.body.enable=false;
 blueSpecialAttack_Area.setVisible(false);
 blueSpecialAttack_Area.body.setAllowGravity(false);
+//Shield
+shield1=  this.physics.add.image(0, 0, 'shield_bubble').setScale(0.05,0.05).refreshBody();;
+shield1.body.enable=false;
+shield1.setVisible(false);
+shield1.body.setAllowGravity(false);
 
-
+shield2=  this.physics.add.image(0, 0, 'shield_bubble').setScale(0.05,0.05).refreshBody();;
+shield2.body.enable=false;
+shield2.setVisible(false);
+shield2.body.setAllowGravity(false);
 //Create StateMachine
 this.stateMachine_pink = new StateMachine('idle', {
         idle: new IdleStatePink(),
@@ -548,6 +583,15 @@ player2.play('idle',true);
     this.physics.add.collider(item_pistol, platforms);
     this.physics.add.collider(item_knife, platforms);
     this.physics.add.collider(gems, platforms);
+    this.physics.add.collider(items_shield, platforms);
+    this.physics.add.collider(items_power, platforms);
+    this.physics.add.collider(items_speed, platforms);
+    this.physics.add.collider(items_lemon, platforms);
+    this.physics.add.collider(items_strawberry, platforms);
+    this.physics.add.collider(items_grape, platforms);
+    
+
+
     this.physics.add.collider(player1, player2);
     this.physics.add.overlap(player2, knifeHitbox, PlayerKnifeHitted,null, this);
     this.physics.add.overlap(player1, knifeHitbox, PlayerKnifeHitted,null, this);
@@ -558,8 +602,22 @@ player2.play('idle',true);
     this.physics.add.overlap(player2, item_knife, getKnife, null, this);
 	this.physics.add.overlap(player1, ladder, checkLadder, null, this);
 	this.physics.add.overlap(player2, ladder, checkLadder, null, this);
+	
+	//objetos
     this.physics.add.overlap(player1, gems, collectGem, null, this);
     this.physics.add.overlap(player2, gems, collectGem, null, this);
+	this.physics.add.overlap(player1, items_shield, collectShield, null, this);
+    this.physics.add.overlap(player2, items_shield, collectShield, null, this);
+	this.physics.add.overlap(player1, items_power, collectPower, null, this);
+    this.physics.add.overlap(player2, items_power, collectPower, null, this);
+	this.physics.add.overlap(player1, items_speed, collectSpeed, null, this);
+    this.physics.add.overlap(player2, items_speed, collectSpeed, null, this);
+	this.physics.add.overlap(player1, items_lemon, collectGem, null, this);
+    this.physics.add.overlap(player2, items_lemon, collectGem, null, this);
+	this.physics.add.overlap(player1, items_grape, collectGem, null, this);
+    this.physics.add.overlap(player2, items_grape, collectGem, null, this);
+	this.physics.add.overlap(player1, items_strawberry, collectGem, null, this);
+    this.physics.add.overlap(player2, items_strawberry, collectGem, null, this);
 
 
 
@@ -581,7 +639,13 @@ if	(Phaser.Input.Keyboard.JustDown(input_Q)){
 	//pinkSpecialAttack(player1, this);
 	//whiteSpecialAttack(player2);
 	//blueSpecialAttack(player1);
-	
+	createShield();
+	createPower();
+	createSpeed();
+	createLemon();
+	createGrape();
+	createStrawberry();
+
 }
 if	(Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true){
 	playerFire(player1, player1.direction, this);
@@ -590,6 +654,7 @@ if	(Phaser.Input.Keyboard.JustDown(input_O)&& player2.hasPistol===true){
 	playerFire(player2, player2.direction, this);
 }
 checkDebuffTime(player1, player2);
+checkBoosts(player1, player2)
 }//update
 
 
@@ -629,6 +694,8 @@ function checkExplosion(){
 
 	}
 }
+
+//Relacionadas con objetos////////////////////////
 function collectGem(player, gem){
 	gem.disableBody(true, true);
 
@@ -653,68 +720,18 @@ if(player.tag===2){
 
     }
 }
-function playerFire (player, direction, gameObject) {
-        if (player.active === false)
-            return;
 
-        // Get bullet from bullets group
-        var bullet = player_Bullets.get().setActive(true).setVisible(true);
-			bullet.body.enable=true;
-        if (bullet)
-        {
-	
-            bullet.fire(player.x,player.y, direction);
-            gameObject.physics.add.collider(bullet, player2);
-   		gameObject.physics.add.overlap(player2, bullet, PlayerHitted, null, this);
-   		gameObject.physics.add.overlap(player1, bullet, PlayerHitted, null, this);
-
-
-        }
-    }
-//Funcion hitteado
-function PlayerHitted(player,bullet){
-	bullet.setActive(false);
-    bullet.setVisible(false);
-	//player.setTint(0xff0000);
-	if	(bullet.body.enable){
-	player.hitted=true;
-	bullet.body.enable=false;
-	
-	if(player.tag===2){
-	profile_p2_UI.data.values.lives -= 1;
-	}else{
-	profile_p1_UI.data.values.lives -= 1;
-	}
-	}
-	
-}
-function PlayerKnifeHitted(player,rectangle){
-if	(rectangle.body.enable){
-		player.hitted=true;
-		rectangle.body.enable=false;
-		if(player.tag===2){
-		profile_p2_UI.data.values.lives -= 1;
-		}else{
-		profile_p1_UI.data.values.lives -= 1;
-		}
-}
-}
-function PlayerExplosionHitted(player,circle){
-if	(blueSpecialAttack_Area.body.enable){
-		player.hitted=true;
-		if(player.tag===2){
-		profile_p2_UI.data.values.lives -= 1;
-		}else{
-		profile_p1_UI.data.values.lives -= 1;
-		}
-}
-}
 
 function PlayerLoseGems(player, gameObject){
 gems.create(player.body.center.x+10,player.body.center.y-50,'gem');
 gems.create(player.body.center.x-10,player.body.center.y-50,'gem');
 gems.create(player.body.center.x,player.body.center.y-50,'gem');
-
+if(player.tag===2){
+	profile_p2_UI.data.values.gems -= 3;
+	}else{
+	profile_p1_UI.data.values.gems -= 3;
+	}
+			
 
 }
 
@@ -733,8 +750,212 @@ function getKnife(player, knife){
 	player.hasPistol=false;
 	player.hasKnife=true;
 	}
+}
+function createShield(){
+	
+            let x = Phaser.Math.Between(0, 800);
+            let y = Phaser.Math.Between(0, 600);
+		items_shield.create(x,y,'shield_item');  
+}
+function createPower(){
+	
+            let x = Phaser.Math.Between(0, 800);
+            let y = Phaser.Math.Between(0, 600);
+		items_power.create(x,y,'power_item');  
+}
+function createSpeed(){
+	
+            let x = Phaser.Math.Between(0, 800);
+            let y = Phaser.Math.Between(0, 600);
+		items_speed.create(x,y,'speed_item');  
+}
+function createLemon(){
+	
+            let x = Phaser.Math.Between(0, 800);
+            let y = Phaser.Math.Between(0, 600);
+		items_lemon.create(x,y,'lemon_item');  
+}
+function createGrape(){
+	
+            let x = Phaser.Math.Between(0, 800);
+            let y = Phaser.Math.Between(0, 600);
+		items_grape.create(x,y,'grape_item');  
+}
+function createStrawberry(){
+	
+            let x = Phaser.Math.Between(0, 800);
+            let y = Phaser.Math.Between(0, 600);
+		items_strawberry.create(x,y,'strawberry_item');  
+}
+
+function collectPower(player, power){
+	power.disableBody(true, true);
+		player.setTint(0xFF0909);
+	player.strengthBoost=true;
+	console.log(player.strengthBoost);
 
 }
+function collectSpeed(player, speed){
+	speed.disableBody(true, true);
+		player.setTint(0x5BF0FF);
+	player.speedBoost=true;
+}
+function collectShield(player, shield_){
+	shield_.disableBody(true, true);
+	if(player.tag===2){
+	shield2.setVisible(true);
+	shield2.body.enable=true;
+	shield2.x=player.x;
+	shield2.y=player.y;
+	}else{
+	shield1.setVisible(true);
+	shield1.body.enable=true;
+	shield1.x=player.x;
+	shield1.y=player.y;
+	}
+	player.shieldBoost=true;
+	}
+function checkBoosts(player1, player2){
+	
+	if(player1.strengthBoost ||player2.strengthBoost){
+		if(player1.strengthBoost){
+		player1.LastStrengthBoost+=1;
+		}
+		if(player2.strengthBoost){
+		player2.LastStrengthBoost+=1;
+		}
+		if(player1.LastStrengthBoost>1000){
+		player1.LastStrengthBoost=0;
+		player1.strengthBoost=false;
+		}
+		if(player2.LastStrengthBoost>1000){
+		player2.LastStrengthBoost=0;
+		player2.strengthBoost=false;
+		}
+	}
+	if(player1.speedBoost ||player2.speedBoost){
+		if(player1.speedBoost){
+		player1.LastSpeedBoost+=1;
+		}
+		if(player2.speedBoost){
+		player2.LastSpeedBoost+=1;
+		}
+		if(player1.LastSpeedBoost>1000){
+		player1.LastSpeedBoost=0;
+		player1.speedBoost=false;
+		}
+		if(player2.LastSpeedBoost>1000){
+		player2.LastSpeedBoost=0;
+		player2.speedBoost=false;
+		}
+	}
+	if(player1.shieldBoost ||player2.shieldBoost){
+		if(player1.shieldBoost){
+			shield1.x=player1.x;
+			shield1.y=player1.y;
+		player1.LastShieldBoost+=1;
+		}
+		if(player2.shieldBoost){
+			shield2.x=player2.x;
+			shield2.y=player2.y;
+		player2.LastShieldBoost+=1;
+		}
+		if(player1.LastShieldBoost>1000){
+		player1.LastShieldBoost=0;
+		player1.shieldBoost=false;
+		shield1.body.enable=false;
+		shield1.setVisible(false);
+		}
+		if(player2.LastShieldBoost>1000){
+		player2.LastShieldBoost=0;
+		player2.shieldBoost=false;
+		shield2.body.enable=false;
+		shield2.setVisible(false);
+		}
+	}
+	
+}
+
+////////////////////////////////
+function playerFire (player, direction, gameObject) {
+
+        // Get bullet from bullets group
+        var bullet = player_Bullets.get().setActive(true).setVisible(true);
+if(player.strengthBoost){bullet.damage=2; }else{bullet.damage=1; }
+
+			bullet.body.enable=true;
+        if (bullet)
+        {
+	
+            bullet.fire(player.x,player.y, direction);
+            gameObject.physics.add.collider(bullet, player2);
+   		gameObject.physics.add.overlap(player2, bullet, PlayerHitted, null, this);
+   		gameObject.physics.add.overlap(player1, bullet, PlayerHitted, null, this);
+
+
+        }
+    }
+//Funcion hitteado
+function PlayerHitted(player,bullet){
+	bullet.setActive(false);
+    bullet.setVisible(false);
+	//player.setTint(0xff0000);
+	if	(bullet.body.enable){
+		if(!player.shieldBoost){
+	player.hitted=true;
+	if(bullet.damage===2){	player.life-=2;
+	if(player.tag===2){
+	profile_p2_UI.data.values.lives -= 2;
+	}else{
+	profile_p1_UI.data.values.lives -= 2;
+	}
+	}
+	else{player.life--;
+		if(player.tag===2){
+		profile_p2_UI.data.values.lives -= 1;
+		}else{
+		profile_p1_UI.data.values.lives -= 1;
+	}
+	}
+	}
+	bullet.body.enable=false;
+	
+	
+	}
+	
+}
+function PlayerKnifeHitted(player,rectangle){
+if	(rectangle.body.enable){
+		player.hitted=true;
+		if(rectangle.damage===5){	player.life-=5;
+			if(player.tag===2){
+			profile_p2_UI.data.values.lives -= 5;
+			}else{
+			profile_p1_UI.data.values.lives -= 5;
+			}
+		}
+		else{player.life-=3;
+			if(player.tag===2){
+			profile_p2_UI.data.values.lives -= 3;
+			}else{
+			profile_p1_UI.data.values.lives -= 3;
+			}
+		}
+		rectangle.body.enable=false;
+		
+}
+}
+function PlayerExplosionHitted(player,circle){
+if	(blueSpecialAttack_Area.body.enable){
+		player.hitted=true;
+		if(player.tag===2){
+		profile_p2_UI.data.values.lives -= 1;
+		}else{
+		profile_p1_UI.data.values.lives -= 1;
+		}
+}
+}
+
 function checkLadder(player, ladder)
     {
         player.onLadder=true;
@@ -746,6 +967,7 @@ function checkUp(player){
 	}	
 	return true;
 }
+
 
 
 
@@ -800,7 +1022,7 @@ class IdleStatePink extends State {
       return;
     }
 	// Transition to death if no life
-	if(player1.life===0){
+	if(player1.life<=0){
 	  this.stateMachine.transition('death');
       return;
     }
@@ -844,10 +1066,12 @@ class MoveStatePink extends State {
     if (input_A.isDown) {
       player1.setVelocityX(-100);
 	  if(player1.debuff){player1.setVelocityX(-50);}
+	  if(player1.speedBoost){player1.setVelocityX(-150);}
       player1.direction = 'left';
     } else if (input_D.isDown) {
       player1.setVelocityX(100);
 	  if(player1.debuff){player1.setVelocityX(50);}
+	  if(player1.speedBoost){player1.setVelocityX(150);}
       player1.direction = 'right';
     }
 
@@ -881,7 +1105,7 @@ execute(scene, player1){
 
 class AttackStatePink extends State {
   enter(scene, player1) {
-
+if(player1.strengthBoost){knifeHitbox.damage=5;}else{knifeHitbox.damage=3;}
 	    player1.anims.play('attack');
 
 
@@ -916,7 +1140,6 @@ execute(scene,player1){
 
 class GetHitStatePink extends State {
   enter(scene, player1) {
-	player1.life--;
     player1.setVelocityX(0);
 	player1.anims.play('hurt');
 			player1.once('animationcomplete', () => {
@@ -927,7 +1150,7 @@ class GetHitStatePink extends State {
 }
 class DeathStatePink extends State {
   enter(scene, player1) {
-PlayerLoseGems(player1, scene);
+	PlayerLoseGems(player1, scene);
     player1.setVelocityX(0);
 	player1.body.enable=false;
 	player1.anims.play('death');
@@ -1019,7 +1242,7 @@ class IdleStateWhite extends State {
       return;
     }
 	// Transition to death if no life
-	if(player2.life===0){
+	if(player2.life<=0){
 	  this.stateMachine.transition('death');
       return;
     }
@@ -1065,10 +1288,12 @@ class MoveStateWhite extends State {
     if (input_J.isDown) {
       player2.setVelocityX(-100);
 	  if(player2.debuff){player2.setVelocityX(-50);}
+	  if(player2.speedBoost){player2.setVelocityX(-150);}
       player2.direction = 'left';
     } else if (input_L.isDown) {
       player2.setVelocityX(100);
 	  if(player2.debuff){player2.setVelocityX(50);}
+	  if(player2.speedBoost){player2.setVelocityX(150);}
       player2.direction = 'right';
     }
     player2.anims.play('run', true);
@@ -1102,10 +1327,11 @@ execute(scene, player2){
 class AttackStateWhite extends State {
   enter(scene, player2) {
 
+		if(player2.strengthBoost){knifeHitbox.damage=5;}else{knifeHitbox.damage=3;}
+
 	    player2.anims.play('attack');
 
-//knifeHitbox.setActive(true);
-//knifeHitbox.setVisible(true);
+
 		if(player2.direction==='left'){
 	        knifeHitbox.x= player2.x - player2.width * 0.45;
 
@@ -1136,7 +1362,6 @@ exectue(scene,player2){
 
 class GetHitStateWhite extends State {
   enter(scene, player2) {
-	player2.life--;
     player2.setVelocityX(0);
 	player2.anims.play('hurt');
 			player2.once('animationcomplete', () => {
@@ -1171,7 +1396,11 @@ execute(scene, player2) {
       this.stateMachine.transition('attack');
       return;
     }
-    
+    if ((input_J.isDown || input_L.isDown )) {
+      this.stateMachine.transition('idle');
+      return;
+
+    }
     // Stop on ladder if not pressing movement keys
     if (!(input_J.isDown || input_L.isDown || input_I.isDown || input_K.isDown)) {
       //this.stateMachine.transition('idle');
