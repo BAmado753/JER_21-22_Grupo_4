@@ -710,6 +710,14 @@ if	(blueSpecialAttack_Area.body.enable){
 }
 }
 
+function PlayerLoseGems(player, gameObject){
+gems.create(player.body.center.x+10,player.body.center.y-50,'gem');
+gems.create(player.body.center.x-10,player.body.center.y-50,'gem');
+gems.create(player.body.center.x,player.body.center.y-50,'gem');
+
+
+}
+
 function getPistol(player, pistol){
 	if(Phaser.Input.Keyboard.JustDown(input_S)||Phaser.Input.Keyboard.JustDown(input_K)){
 	pistol.disableBody(true, true);
@@ -850,7 +858,7 @@ class MoveStatePink extends State {
 
 class JumpStatePink extends State {
   enter(scene, player1) {
-		    player1.setVelocityY(-120);
+		    player1.setVelocityY(-150);
 	    player1.anims.play('jump');
 		player1.once('animationcomplete', () => {
 			this.stateMachine.transition('idle')
@@ -909,7 +917,6 @@ execute(scene,player1){
 class GetHitStatePink extends State {
   enter(scene, player1) {
 	player1.life--;
-	console.log('player1 life' +player1.life);
     player1.setVelocityX(0);
 	player1.anims.play('hurt');
 			player1.once('animationcomplete', () => {
@@ -920,13 +927,13 @@ class GetHitStatePink extends State {
 }
 class DeathStatePink extends State {
   enter(scene, player1) {
-
+PlayerLoseGems(player1, scene);
     player1.setVelocityX(0);
+	player1.body.enable=false;
 	player1.anims.play('death');
 			player1.once('animationcomplete', () => {
 			//this.stateMachine.transition('idle');
 			player1.setVisible(false);
-			player1.body.enable=false;
 			
     	});
   }
@@ -1071,7 +1078,7 @@ class MoveStateWhite extends State {
 
 class JumpStateWhite extends State {
   enter(scene, player2) {
-		player2.setVelocityY(-120);
+		player2.setVelocityY(-150);
 	    player2.anims.play('jump');
 		player2.once('animationcomplete', () => {
 			this.stateMachine.transition('idle')
@@ -1130,7 +1137,6 @@ exectue(scene,player2){
 class GetHitStateWhite extends State {
   enter(scene, player2) {
 	player2.life--;
-	console.log('player2 life' +player2.life);
     player2.setVelocityX(0);
 	player2.anims.play('hurt');
 			player2.once('animationcomplete', () => {
@@ -1141,13 +1147,13 @@ class GetHitStateWhite extends State {
 }
 class DeathStateWhite extends State {
   enter(scene, player2) {
-
+	PlayerLoseGems(player2, scene);
     player2.setVelocityX(0);
 	player2.anims.play('death');
+	player2.body.enable=false;
 	player2.once('animationcomplete', () => {
 		//this.stateMachine.transition('idle');	
 					player2.setVisible(false);
-					player2.body.enable=false;
 	
     });
   }
