@@ -185,6 +185,7 @@ var knifeHitbox= Phaser.GameObjects.Rectangle;
 var blueSpecialAttack_Area= Phaser.GameObjects.Circle;
 var shield1;
 var shield2;
+var pinkCopy;
 var platforms;
 
 
@@ -245,6 +246,7 @@ function preload()
   this.load.spritesheet('player1_hurt', 'asset/Pink_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player1_death', 'asset/Pink_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('player1_climb', 'asset/Pink_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('player1_run_dust', 'asset/Walk_Run_Push_Dust.png', { frameWidth: 32, frameHeight: 32 });
 
 
 //Player 2
@@ -332,6 +334,7 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 	player1.LastSpeedBoost=false;
 	player1.LastShieldBoost=false;
 	player1.onLadder=false;
+	player1.invisible=false;
     player1.setCollideWorldBounds(true);
 
 //Player 2
@@ -442,6 +445,10 @@ shield2=  this.physics.add.image(0, 0, 'shield_bubble').setScale(0.05,0.05).refr
 shield2.body.enable=false;
 shield2.setVisible(false);
 shield2.body.setAllowGravity(false);
+//Copia de Chilli
+pinkCopy= this.physics.add.sprite(0,0, 'player1_idl');
+pinkCopy.body.enable=false;
+pinkCopy.setVisible(false);
 //Create StateMachine
 this.stateMachine_pink = new StateMachine('idle', {
         idle: new IdleStatePink(),
@@ -451,6 +458,7 @@ this.stateMachine_pink = new StateMachine('idle', {
         attack: new AttackStatePink(),
 		getHit: new GetHitStatePink(),
 		death: new DeathStatePink(),
+		invisible: new InvisibleStatePink(),
       }, [this, player1]);
 
 this.stateMachine_white = new StateMachine('idle', {
@@ -518,6 +526,12 @@ this.stateMachine_white = new StateMachine('idle', {
         frameRate: 10,
 		repeat:-1
     });
+	player1.anims.create({
+        key: 'invisible',
+        frames: this.anims.generateFrameNumbers('player1_run_dust', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
 //Animaciones player2
 	//Idle
 	
@@ -573,11 +587,17 @@ this.stateMachine_white = new StateMachine('idle', {
         frameRate: 10,
 		repeat:-1
     });
-
+//Copia
+pinkCopy.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers('player1_idl', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:-1
+    });
 //Physics
 player1.play('idle',true);
 player2.play('idle',true);
-
+pinkCopy.play('idle',true);
     this.physics.add.collider(player1, platforms, null, checkUp);
     this.physics.add.collider(player2, platforms, null, checkUp);
     this.physics.add.collider(item_pistol, platforms);
@@ -595,11 +615,12 @@ player2.play('idle',true);
     this.physics.add.collider(player1, player2);
     this.physics.add.overlap(player2, knifeHitbox, PlayerKnifeHitted,null, this);
     this.physics.add.overlap(player1, knifeHitbox, PlayerKnifeHitted,null, this);
+    this.physics.add.overlap(pinkCopy, knifeHitbox, CopyHitted,null, this);
     this.physics.add.overlap(player2, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);
-    this.physics.add.overlap(player1, item_pistol, getPistol, null, this);
-    this.physics.add.overlap(player2, item_pistol, getPistol, null, this);
-    this.physics.add.overlap(player1, item_knife, getKnife, null, this);
-    this.physics.add.overlap(player2, item_knife, getKnife, null, this);
+    this.physics.add.overlap(player1, item_pistol, getPistol_P1, null, this);
+    this.physics.add.overlap(player2, item_pistol, getPistol_P2, null, this);
+    this.physics.add.overlap(player1, item_knife, getKnife_P1, null, this);
+    this.physics.add.overlap(player2, item_knife, getKnife_P2, null, this);
 	this.physics.add.overlap(player1, ladder, checkLadder, null, this);
 	this.physics.add.overlap(player2, ladder, checkLadder, null, this);
 	
@@ -626,6 +647,7 @@ player2.play('idle',true);
 
 function update()
 {
+	checkNoLadder();
 	checkExplosion();
 	if(player1.direction!=='right') {  player1.flipX = true; }
 	if(player1.direction!=='left') {  player1.flipX = false; }
@@ -636,15 +658,15 @@ function update()
 
 
 if	(Phaser.Input.Keyboard.JustDown(input_Q)){
-	//pinkSpecialAttack(player1, this);
+	pinkSpecialAttack(player1, this);
 	//whiteSpecialAttack(player2);
 	//blueSpecialAttack(player1);
-	createShield();
+	/*createShield();
 	createPower();
 	createSpeed();
 	createLemon();
 	createGrape();
-	createStrawberry();
+	createStrawberry();*/
 
 }
 if	(Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true){
@@ -662,9 +684,13 @@ checkBoosts(player1, player2)
 
 //Ataques especiales//
 function pinkSpecialAttack(player, gameObject){
-	var pinkCopy= gameObject.physics.add.sprite(player.x, player.y, 'player1_idl');
-	pinkCopy.setCollideWorldBounds(true);
-    gameObject.physics.add.collider(pinkCopy, platforms);
+	player.invisible=true;
+	pinkCopy.setVisible(true);
+	pinkCopy.body.enable=true;
+	pinkCopy.x=player.x;
+	pinkCopy.y=player.y;    
+	gameObject.physics.add.collider(pinkCopy, platforms);
+
 }
 function whiteSpecialAttack(player){
 	player.debuff=true;
@@ -735,16 +761,32 @@ if(player.tag===2){
 
 }
 
-function getPistol(player, pistol){
-	if(Phaser.Input.Keyboard.JustDown(input_S)||Phaser.Input.Keyboard.JustDown(input_K)){
+function getPistol_P1(player, pistol){
+	if(Phaser.Input.Keyboard.JustDown(input_S)){
 	pistol.disableBody(true, true);
 	player.setTint(0xFFEE58);
 	player.hasPistol=true;
 	player.hasKnife=false;
 	}
 }
-function getKnife(player, knife){
-	if(Phaser.Input.Keyboard.JustDown(input_S)||Phaser.Input.Keyboard.JustDown(input_K)){
+function getKnife_P1(player, knife){
+	if(Phaser.Input.Keyboard.JustDown(input_S)){
+	knife.disableBody(true, true);
+	player.setTint(0xB0BEC5);
+	player.hasPistol=false;
+	player.hasKnife=true;
+	}
+}
+function getPistol_P2(player, pistol){
+	if(Phaser.Input.Keyboard.JustDown(input_K)){
+	pistol.disableBody(true, true);
+	player.setTint(0xFFEE58);
+	player.hasPistol=true;
+	player.hasKnife=false;
+	}
+}
+function getKnife_P2(player, knife){
+	if(Phaser.Input.Keyboard.JustDown(input_K)){
 	knife.disableBody(true, true);
 	player.setTint(0xB0BEC5);
 	player.hasPistol=false;
@@ -794,6 +836,7 @@ function collectLemon(player, lemon){
 	}else{
 	profile_p1_UI.data.values.lives += 1;
 	}
+	player.life++;
 }
 function collectGrape(player, grape){
 	grape.disableBody(true, true);
@@ -802,6 +845,7 @@ function collectGrape(player, grape){
 	}else{
 	profile_p1_UI.data.values.lives += 3;
 	}
+	player.life+=3;
 }
 function collectStrawberry(player, strawberry){
 	strawberry.disableBody(true, true);
@@ -810,6 +854,7 @@ function collectStrawberry(player, strawberry){
 	}else{
 	profile_p1_UI.data.values.lives += 5;
 	}
+		player.life+=5;
 }
 
 function collectPower(player, power){
@@ -915,6 +960,7 @@ if(player.strengthBoost){bullet.damage=2; }else{bullet.damage=1; }
             gameObject.physics.add.collider(bullet, player2);
    		gameObject.physics.add.overlap(player2, bullet, PlayerHitted, null, this);
    		gameObject.physics.add.overlap(player1, bullet, PlayerHitted, null, this);
+    	gameObject.physics.add.overlap(pinkCopy, bullet, CopyHitted, null, this);
 
 
         }
@@ -979,7 +1025,10 @@ if	(blueSpecialAttack_Area.body.enable){
 		}
 }
 }
-
+function CopyHitted(copy){
+	copy.disableBody(true, true);
+	player1.invisible=false;
+}
 function checkLadder(player, ladder)
     {
         player.onLadder=true;
@@ -991,7 +1040,14 @@ function checkUp(player){
 	}	
 	return true;
 }
-
+function checkNoLadder(){
+	if(	player1.body.touching.none){
+		player1.onLadder=false;
+	}
+	if(	player2.body.touching.none){
+		player2.onLadder=false;
+	}
+}
 
 
 
@@ -1014,7 +1070,13 @@ class IdleStatePink extends State {
   enter(scene, player1) {
     player1.setVelocityX(0);
 	player1.onLadder=false;
-	player1.anims.play('idle',true);
+	if(player1.invisible){
+			player1.anims.play('invisible',true);
+
+	}else{
+			player1.anims.play('idle',true);
+
+	}
   }
   
   execute(scene, player1) {
@@ -1031,8 +1093,13 @@ class IdleStatePink extends State {
       return;
     }
     // Transition to move if pressing a movement key
-    if (input_A.isDown || input_D.isDown) {
+    if ((input_A.isDown || input_D.isDown)&& !player1.invisible) {
       this.stateMachine.transition('move');
+      return;
+    }
+	// Transition to move if pressing a movement key
+    if ((input_A.isDown || input_D.isDown)&& player1.invisible) {
+      this.stateMachine.transition('invisible');
       return;
     }
 	// Transition to climb if pressing W
@@ -1103,11 +1170,63 @@ class MoveStatePink extends State {
     
   }
 }
+class InvisibleStatePink extends State {
+	enter(scene, player1){
+			//player1.onLadder=false;
 
+	}
+  execute(scene, player1) {    
+    // Transition to jump if pressing space
+    if (spaceBar.isDown && player1.body.touching.down) {
+      this.stateMachine.transition('jump');
+      return;
+    }
+    
+   // Transition to attack if pressing e
+    if (input_E.isDown && player1.hasKnife===true) {
+      this.stateMachine.transition('attack');
+      return;
+    }
+    
+    // Transition to idle if not pressing movement keys
+    if ((!(input_A.isDown || input_D.isDown))&& !player1.invisible) {
+      this.stateMachine.transition('idle');
+      return;
+    }
+	// Transition to climb if pressing W
+    if (input_W.isDown && player1.onLadder) {
+      this.stateMachine.transition('climb');
+      return;
+    }
+    // Transition to hurt if getting hit
+	if (player1.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+    player1.setVelocityX(0);
+    if (input_A.isDown) {
+      player1.setVelocityX(-100);
+	  if(player1.debuff){player1.setVelocityX(-50);}
+	  if(player1.speedBoost){player1.setVelocityX(-150);}
+      player1.direction = 'left';
+    } else if (input_D.isDown) {
+      player1.setVelocityX(100);
+	  if(player1.debuff){player1.setVelocityX(50);}
+	  if(player1.speedBoost){player1.setVelocityX(150);}
+      player1.direction = 'right';
+    }
+
+    player1.anims.play('invisible', true);
+    
+  }
+}
 class JumpStatePink extends State {
   enter(scene, player1) {
 		    player1.setVelocityY(-150);
+		if( player1.invisible){player1.anims.play('invisible');}
+		else{
 	    player1.anims.play('jump');
+		}
 		player1.once('animationcomplete', () => {
 			this.stateMachine.transition('idle')
     	});
@@ -1199,11 +1318,12 @@ execute(scene, player1) {
       return;
     }
     
-	if ((input_A.isDown || input_D.isDown )) {
+	if ((input_A.isDown || input_D.isDown || !player1.onLadder)) {
       this.stateMachine.transition('idle');
       return;
 
     }
+
 
     // Stop on ladder if not pressing movement keys
     if (!(input_A.isDown || input_D.isDown || input_W.isDown || input_S.isDown)) {
@@ -1227,7 +1347,9 @@ execute(scene, player1) {
 			player1.setVelocityY(100);
 
 	}
-	player1.anims.play('climb',true);
+	if( player1.invisible){player1.anims.play('invisible');}
+		else{
+	player1.anims.play('climb',true);}
     
   }
 }
@@ -1420,7 +1542,7 @@ execute(scene, player2) {
       this.stateMachine.transition('attack');
       return;
     }
-    if ((input_J.isDown || input_L.isDown )) {
+    if ((input_J.isDown || input_L.isDown  || !player2.onLadder )) {
       this.stateMachine.transition('idle');
       return;
 
