@@ -60,46 +60,8 @@ var config = {
 
 
 
-//constants
-var PLAYER_SPEED = 1200;
-var PLAYER_GRAVITY = 800;
-var PLAYER_JUMP = -620;
-var PLAYER_FRICTION = 0.96;
-var PLAYER_MAX_SPEED = 300;
-var ENEMY_SPAWN_RATE = 1000;
-var ENEMY_LIFESPAN = 6500;
-var ENEMY_BASE_SPEED = 300;
-var TIME_SCORE_RATE = 2000;
-var FLOOR_SPEED = 100;
-var ENEMY_SHOOT_RATE = 1700;
-var ENEMY_BULLET_SPEED = 600;
-var HARD_ENEMY_SPEED = 520;
-var WEAPON_BOX_SPAWN_RATE = 0.20;//probability
-var HARD_SPAWN_RATE = 0.20;//probability
-
-//weapon constants
-var BULLET_SPEED = 1000;
-var PISTOL_FIRE_RATE = 500;
-var RIFLE_FIRE_RATE = 200;
-var SHOTGUN_FIRE_RATE = 500;
-
-var enemy_level_cap = [10000,30000,40000,99999999];
-/*
-{
-  max speed reached,
-  occasionally spawn hard enemies,
-  shoot bullet forward
-*/
-//variables
-var lastSpawnTime = 0;
-var score = 0;
-var lastScoreGiven = 0;
-var enemy_speed = ENEMY_BASE_SPEED;
-var lastEnemyShootTime = 0;
-var ammo = 0;
 
 //function
-var onWeaponFire;
 var Bullet = new Phaser.Class({
 
     Extends: Phaser.GameObjects.Image,
@@ -228,6 +190,7 @@ function preload()
   this.load.image('grape_item',             'asset/grape.png');
   this.load.image('strawberry_item',             'asset/strawberry.png');
   this.load.image('lemon_item',             'asset/lemon.png');
+  this.load.image('ammo_item',             'asset/ammo.png');
 
 
 //Escenario
@@ -297,6 +260,7 @@ items_shield=this.physics.add.group();
 items_lemon=this.physics.add.group();
 items_grape=this.physics.add.group();
 items_strawberry=this.physics.add.group();
+items_ammo=this.physics.add.group();
 
 
 //Input 
@@ -321,6 +285,7 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 	player1.setBodySize(player1.width *0.5,player1.height *1);
 	player1.tag=1;
 	player1.life = 20;
+	player1.ammo = 10;
 	player1.gemsOwned = 0;
 	player1.direction='right';
 	player1.hitted=false;
@@ -342,6 +307,7 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 	player2.setBodySize(player2.width *0.5,player2.height *1);
 	player2.tag=2;
 	player2.life = 20;
+	player2.ammo = 10;
 	player2.gemsOwned = 0;
 	player2.direction='right';
 	player2.hitted=false;
@@ -362,7 +328,7 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 	
 	
 	//Interfaz
-	text_p1_UI = this.add.text(100, 550, '', { font: '16px Courier', fill: '#00ff00' });
+	text_p1_UI = this.add.text(100, 535, '', { font: '16px Courier', fill: '#00ff00' });
 	profile_p1_UI = this.add.image(50, 560, 'player1_profile');
 
         //  Store some data about this profile:
@@ -370,17 +336,20 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 
         profile_p1_UI.data.set('name', 'Chilli');
         profile_p1_UI.data.set('lives', player1.life);
+        profile_p1_UI.data.set('ammo', player1.ammo);
         profile_p1_UI.data.set('gems', player1.gemsOwned);
 
         text_p1_UI.setText([
             'Name: ' + profile_p1_UI.data.get('name'),
             'Lives: ' + profile_p1_UI.data.get('lives'),
+            'Ammo: ' + profile_p1_UI.data.get('ammo'),
             'Gems: ' + profile_p1_UI.data.get('gems') 
         ]);
 		profile_p1_UI.on('changedata-gems', function (gameObject, value) {
                 text_p1_UI.setText([
                     'Name: ' + profile_p1_UI.data.get('name'),
             		'Lives: ' + profile_p1_UI.data.get('lives'),
+            'Ammo: ' + profile_p1_UI.data.get('ammo'),
             'Gems: ' + profile_p1_UI.data.get('gems') 
                 ]);
         });
@@ -388,11 +357,19 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
                 text_p1_UI.setText([
                     'Name: ' + profile_p1_UI.data.get('name'),
             		'Lives: ' + profile_p1_UI.data.get('lives'),
+            'Ammo: ' + profile_p1_UI.data.get('ammo'),
             'Gems: ' + profile_p1_UI.data.get('gems') 
                 ]);
         });
-
-    text_p2_UI = this.add.text(600, 550, '', { font: '16px Courier', fill: '#00ff00' });
+		profile_p1_UI.on('changedata-ammo', function (gameObject, value) {
+                text_p1_UI.setText([
+                    'Name: ' + profile_p1_UI.data.get('name'),
+            		'Lives: ' + profile_p1_UI.data.get('lives'),
+            'Ammo: ' + profile_p1_UI.data.get('ammo'),
+            'Gems: ' + profile_p1_UI.data.get('gems') 
+                ]);
+        });
+    text_p2_UI = this.add.text(600, 535, '', { font: '16px Courier', fill: '#00ff00' });
 	profile_p2_UI = this.add.image(750, 560, 'player2_profile').setFlipX(true);
 
         //  Store some data about this profile:
@@ -400,17 +377,20 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 
         profile_p2_UI.data.set('name', 'Bernie');
         profile_p2_UI.data.set('lives', player2.life);
+        profile_p2_UI.data.set('ammo', player2.ammo);
         profile_p2_UI.data.set('gems', player2.gemsOwned);
 
         text_p2_UI.setText([
             'Name: ' + profile_p2_UI.data.get('name'),
             'Lives: ' + profile_p2_UI.data.get('lives'),
+            'Ammo: ' + profile_p2_UI.data.get('ammo'),
             'Gems: ' + profile_p2_UI.data.get('gems') 
         ]);
 		profile_p2_UI.on('changedata-gems', function (gameObject, value) {
                 text_p2_UI.setText([
                     'Name: ' + profile_p2_UI.data.get('name'),
             		'Lives: ' + profile_p2_UI.data.get('lives'),
+            'Ammo: ' + profile_p2_UI.data.get('ammo'),
             'Gems: ' + profile_p2_UI.data.get('gems') 
                 ]);
         });
@@ -418,10 +398,18 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
                 text_p2_UI.setText([
                     'Name: ' + profile_p2_UI.data.get('name'),
             		'Lives: ' + profile_p2_UI.data.get('lives'),
+            'Ammo: ' + profile_p2_UI.data.get('ammo'),
             'Gems: ' + profile_p2_UI.data.get('gems') 
                 ]);
         });
-	
+		profile_p2_UI.on('changedata-ammo', function (gameObject, value) {
+                text_p1_UI.setText([
+                    'Name: ' + profile_p2_UI.data.get('name'),
+            		'Lives: ' + profile_p2_UI.data.get('lives'),
+            'Ammo: ' + profile_p2_UI.data.get('ammo'),
+            'Gems: ' + profile_p2_UI.data.get('gems') 
+                ]);
+        });
 //Knife
 knifeHitbox= this.add.rectangle(0,0,10,20, 0xffffff, 0);
 this.physics.add.existing(knifeHitbox);
@@ -609,8 +597,7 @@ pinkCopy.play('idle',true);
     this.physics.add.collider(items_lemon, platforms);
     this.physics.add.collider(items_strawberry, platforms);
     this.physics.add.collider(items_grape, platforms);
-    
-
+    this.physics.add.collider(items_ammo, platforms);
 
     this.physics.add.collider(player1, player2);
     this.physics.add.overlap(player2, knifeHitbox, PlayerKnifeHitted,null, this);
@@ -639,7 +626,9 @@ pinkCopy.play('idle',true);
     this.physics.add.overlap(player2, items_grape, collectGrape, null, this);
 	this.physics.add.overlap(player1, items_strawberry, collectStrawberry, null, this);
     this.physics.add.overlap(player2, items_strawberry, collectStrawberry, null, this);
-
+	this.physics.add.overlap(player1, items_ammo, collectAmmo, null, this);
+    this.physics.add.overlap(player2, items_ammo, collectAmmo, null, this);
+	
 
 
 
@@ -658,9 +647,10 @@ function update()
 
 
 if	(Phaser.Input.Keyboard.JustDown(input_Q)){
-	pinkSpecialAttack(player1, this);
+	//pinkSpecialAttack(player1, this);
 	//whiteSpecialAttack(player2);
 	//blueSpecialAttack(player1);
+	createAmmo();
 	/*createShield();
 	createPower();
 	createSpeed();
@@ -670,10 +660,14 @@ if	(Phaser.Input.Keyboard.JustDown(input_Q)){
 
 }
 if	(Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true){
-	playerFire(player1, player1.direction, this);
+	if(player1.ammo>0){
+			playerFire(player1, player1.direction, this);
+	}
 }
 if	(Phaser.Input.Keyboard.JustDown(input_O)&& player2.hasPistol===true){
+		if(player2.ammo>0){
 	playerFire(player2, player2.direction, this);
+	}
 }
 checkDebuffTime(player1, player2);
 checkBoosts(player1, player2)
@@ -829,6 +823,13 @@ function createStrawberry(){
             let y = Phaser.Math.Between(0, 600);
 		items_strawberry.create(x,y,'strawberry_item');  
 }
+function createAmmo(){
+	
+            let x = Phaser.Math.Between(0, 800);
+            let y = Phaser.Math.Between(0, 600);
+		items_ammo.create(x,y,'ammo_item').setScale(0.3,0.3).refreshBody();  
+}
+
 function collectLemon(player, lemon){
 	lemon.disableBody(true, true);
 	if(player.tag===2){
@@ -884,6 +885,15 @@ function collectShield(player, shield_){
 	}
 	player.shieldBoost=true;
 	}
+	function collectAmmo(player, ammo){
+	ammo.disableBody(true, true);
+	if(player.tag===2){
+	profile_p2_UI.data.values.ammo = 10;
+	}else{
+	profile_p1_UI.data.values.ammo = 10;
+	}
+	player.ammo=10;
+}
 function checkBoosts(player1, player2){
 	
 	if(player1.strengthBoost ||player2.strengthBoost){
@@ -947,7 +957,14 @@ function checkBoosts(player1, player2){
 
 ////////////////////////////////
 function playerFire (player, direction, gameObject) {
+	if(player.tag===2){
+			profile_p2_UI.data.values.ammo -= 1;
 
+	}else{
+			profile_p1_UI.data.values.ammo -= 1;
+
+	}
+player.ammo--;
         // Get bullet from bullets group
         var bullet = player_Bullets.get().setActive(true).setVisible(true);
 if(player.strengthBoost){bullet.damage=2; }else{bullet.damage=1; }
