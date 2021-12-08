@@ -134,27 +134,36 @@ class PantallaCarga extends Phaser.Scene{
 
 
 //Player 1
-  this.load.image('player1_profile', 'asset/Pink_Monster_closeUp.png');
-  this.load.spritesheet('player1_idl', 'asset/Pink_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player1_run', 'asset/Pink_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player1_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player1_attack', 'asset/Pink_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player1_hurt', 'asset/Pink_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player1_death', 'asset/Pink_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player1_climb', 'asset/Pink_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player1_run_dust', 'asset/Walk_Run_Push_Dust.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.image('Chilli_profile', 'asset/Pink_Monster_closeUp.png');
+  this.load.spritesheet('Chilli_idl', 'asset/Pink_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Chilli_run', 'asset/Pink_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Chilli_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Chilli_attack', 'asset/Pink_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Chilli_hurt', 'asset/Pink_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Chilli_death', 'asset/Pink_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Chilli_climb', 'asset/Pink_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Chilli_run_dust', 'asset/Walk_Run_Push_Dust.png', { frameWidth: 32, frameHeight: 32 });
 
 
 //Player 2
-  this.load.image('player2_profile', 'asset/Owlet_Monster_closeUp.png');
-  this.load.spritesheet('player2_idl', 'asset/Owlet_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player2_run', 'asset/Owlet_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player2_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player2_attack', 'asset/Owlet_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player2_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('player2_death', 'asset/Owlet_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
-  this.load.spritesheet('player2_climb', 'asset/Owlet_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.image('Bernie_profile', 'asset/Owlet_Monster_closeUp.png');
+  this.load.spritesheet('Bernie_idl', 'asset/Owlet_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Bernie_run', 'asset/Owlet_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Bernie_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Bernie_attack', 'asset/Owlet_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Bernie_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Bernie_death', 'asset/Owlet_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
+  this.load.spritesheet('Bernie_climb', 'asset/Owlet_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
 
+//Wasabi
+  this.load.image('Wasabi_profile', 'asset/Dude_Monster_closeUp.png');
+  this.load.spritesheet('Wasabi_idl', 'asset/Dude_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Wasabi_run', 'asset/Dude_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Wasabi_jump', 'asset/Dude_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Wasabi_attack', 'asset/Dude_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Wasabi_hurt', 'asset/Dude_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
+  this.load.spritesheet('Wasabi_death', 'asset/Dude_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
+  this.load.spritesheet('Wasabi_climb', 'asset/Dude_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -233,8 +242,9 @@ class PantallaDeInicio extends Phaser.Scene{
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+////Variables Selección de personajes//////
+var chooseP1;
+var chooseP2;
 
 //////////////////////////////////////Pantalla de Selección de Personajes///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -252,7 +262,8 @@ class MenuPersonajes extends Phaser.Scene{
 
 
     create(){
-        
+        chooseP1='null';
+		chooseP2='null';
         //Fondo de la pantalla de selección de personaje
         this.fondoMP= this.add.image(400, 300, 'fondoMenu');
         this.fondoMP.setScale(1.6);
@@ -289,7 +300,14 @@ class MenuPersonajes extends Phaser.Scene{
         });
 
         this.per1.on('pointerdown', () => {
-            
+            if(chooseP1==='null'&&chooseP2==='null'){
+				chooseP1='Chilli';
+				this.per1.setTint(0x3F51B5);
+			}
+			if(chooseP2==='null'&&chooseP1!=='Chilli'){
+				chooseP2='Chilli';
+				this.per1.setTint(0xD32F2F);
+			}
         });
     
 
@@ -306,7 +324,14 @@ class MenuPersonajes extends Phaser.Scene{
         });
 
         this.per2.on('pointerdown', () => {
-            
+            if(chooseP1==='null'&&chooseP2==='null'){
+				chooseP1='Bernie';
+				this.per2.setTint(0x3F51B5);
+			}
+			if(chooseP2==='null'&&chooseP1!=='Bernie'){
+				chooseP2='Bernie';
+				this.per2.setTint(0xD32F2F);
+			}
         });
 
         //Wasabi
@@ -322,7 +347,14 @@ class MenuPersonajes extends Phaser.Scene{
         });
 
         this.per3.on('pointerdown', () => {
-            
+            if(chooseP1==='null'&&chooseP2==='null'){
+				chooseP1='Wasabi';
+				this.per3.setTint(0x3F51B5);
+			}
+			if(chooseP2==='null'&&chooseP1!=='Wasabi'){
+				chooseP2='Wasabi';
+				this.per3.setTint(0xD32F2F);
+			}
         });
     }
 
@@ -424,6 +456,8 @@ export class MenuEscenarios extends Phaser.Scene{
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////VARIABLES PANTALLA DE JUEGO////////////////////
+
 class StateMachine {
   constructor(initialState, possibleStates, stateArgs=[]) {
     this.initialState = initialState;
@@ -536,8 +570,6 @@ var profile_p1_UI;
 var text_p2_UI;
 var profile_p2_UI;
 var player2;
-var stateMachine_pink;
-var stateMachine_white;
 var player_Bullets
 var item_pistol;
 var item_knife;
@@ -550,17 +582,24 @@ var items_grape;
 var items_strawberry;
 var items_ammo;
 var ladder;
-var lastTimeDebuff = 0;
+var lastTimeDebuff;
 var knifeHitbox= Phaser.GameObjects.Rectangle;
+var knifeHitbox2= Phaser.GameObjects.Rectangle;
 var blueSpecialAttack_Area= Phaser.GameObjects.Circle;
 var shield1;
 var shield2;
 var pinkCopy;
 var platforms;
 
-var cursors;
+var text_time;
+var timedCountdown;
+var controlIimedItemRespawn_Gems;
+var controlIimedItemRespawn_Fruits;
+var controlIimedItemRespawn;
 
+var timedItemRespawn;
 //Inputs Player 1
+var respawn_P1=new Phaser.Math. Vector2;
 var spaceBar;
 var input_A;
 var input_D;
@@ -570,12 +609,14 @@ var input_E;
 var input_Q;
 
 //Inputs Player 2
-var input_N;
+var respawn_P2=new Phaser.Math. Vector2;
+var input_Shift;
 var input_J;
 var input_I;
 var input_K;
 var input_L;
 var input_O;
+var input_U;
 
 
 /////////////////////////////////////////////Pantalla De Juego//////////////////////////////////////////////////////
@@ -596,6 +637,16 @@ class PantallaJuego extends Phaser.Scene{
 	//Background
 this.add.image(400,300, 'gray').setScale(2,2);
 
+//Timer
+ lastTimeDebuff = 0;
+controlIimedItemRespawn_Gems=0;
+controlIimedItemRespawn_Fruits=0;
+controlIimedItemRespawn=0;
+text_time = this.add.text(32, 32);
+timedCountdown = this.time.delayedCall(180000, onCountDownEvent, [], this);
+timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
+this.time.addEvent(timedItemRespawn)
+
 //Plataformas
     platforms = this.physics.add.staticGroup();
 
@@ -609,11 +660,7 @@ ladder = this.physics.add.image(150, 450, 'ladder').setScale(1,10).refreshBody()
 ladder.body.setAllowGravity(false);
 
 //Gemas
- gems = this.physics.add.group({
-        key: 'gem',
-        repeat: 11,
-        setXY: { x: 12, y: 0, stepX: 70 }
-    });
+ gems = this.physics.add.group();
 
 //Items
 item_pistol=this.physics.add.sprite(200, 450, 'pistol_item');
@@ -640,16 +687,19 @@ input_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 input_E = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 input_Q = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 
-input_N= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
+input_Shift= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
 input_J=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
 input_L=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
 input_I=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
 input_K=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
 input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
+input_U=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);
 
 
 //Player 1
-    player1 = this.physics.add.sprite(100, 450, 'player1_idl');
+	respawn_P1.x=100;
+	respawn_P1.y=450;
+    player1 = this.physics.add.sprite(respawn_P1.x, respawn_P1.y, chooseP1+'_idl');
 	player1.setBodySize(player1.width *0.5,player1.height *1);
 	player1.tag=1;
 	player1.life = 20;
@@ -671,7 +721,9 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
     player1.setCollideWorldBounds(true);
 
 //Player 2
-  	player2 = this.physics.add.sprite(400, 450, 'player2_idl');
+	respawn_P2.x=400;
+	respawn_P2.y=450;
+  	player2 = this.physics.add.sprite(respawn_P2.x, respawn_P2.y, chooseP2+'_idl');
 	player2.setBodySize(player2.width *0.5,player2.height *1);
 	player2.tag=2;
 	player2.life = 20;
@@ -689,6 +741,7 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 	player2.LastSpeedBoost=false;
 	player2.LastShieldBoost=false;
 	player2.onLadder=false;
+	player2.invisible=false;
 	player2.setCollideWorldBounds(true);
 	
 	
@@ -697,12 +750,12 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
 	
 	//Interfaz
 	text_p1_UI = this.add.text(100, 535, '', { font: '16px Courier', fill: '#00ff00' });
-	profile_p1_UI = this.add.image(50, 560, 'player1_profile');
+	profile_p1_UI = this.add.image(50, 560, chooseP1+'_profile');
 
         //  Store some data about this profile:
         profile_p1_UI.setDataEnabled();
 
-        profile_p1_UI.data.set('name', 'Chilli');
+        profile_p1_UI.data.set('name', chooseP1);
         profile_p1_UI.data.set('lives', player1.life);
         profile_p1_UI.data.set('ammo', player1.ammo);
         profile_p1_UI.data.set('gems', player1.gemsOwned);
@@ -738,12 +791,12 @@ input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
                 ]);
         });
     text_p2_UI = this.add.text(600, 535, '', { font: '16px Courier', fill: '#00ff00' });
-	profile_p2_UI = this.add.image(750, 560, 'player2_profile').setFlipX(true);
+	profile_p2_UI = this.add.image(750, 560, chooseP2+'_profile').setFlipX(true);
 
         //  Store some data about this profile:
         profile_p2_UI.setDataEnabled();
 
-        profile_p2_UI.data.set('name', 'Bernie');
+        profile_p2_UI.data.set('name', chooseP2);
         profile_p2_UI.data.set('lives', player2.life);
         profile_p2_UI.data.set('ammo', player2.ammo);
         profile_p2_UI.data.set('gems', player2.gemsOwned);
@@ -785,6 +838,13 @@ knifeHitbox.damage=3;
 knifeHitbox.body.enable=false;
 this.physics.world.remove(knifeHitbox.body);
 knifeHitbox.body.setAllowGravity(false);
+
+knifeHitbox2= this.add.rectangle(0,0,10,20, 0xffffff, 0);
+this.physics.add.existing(knifeHitbox2);
+knifeHitbox2.damage=3;
+knifeHitbox2.body.enable=false;
+this.physics.world.remove(knifeHitbox2.body);
+knifeHitbox2.body.setAllowGravity(false);
 //Circle for explosion
 blueSpecialAttack_Area=this.add.circle(120,120,120, 0xffffff,0.5);
 this.physics.add.existing(blueSpecialAttack_Area);
@@ -802,29 +862,30 @@ shield2.body.enable=false;
 shield2.setVisible(false);
 shield2.body.setAllowGravity(false);
 //Copia de Chilli
-pinkCopy= this.physics.add.sprite(0,0, 'player1_idl');
+pinkCopy= this.physics.add.sprite(0,0, chooseP1+'_idl');
 pinkCopy.body.enable=false;
 pinkCopy.setVisible(false);
 //Create StateMachine
-this.stateMachine_pink = new StateMachine('idle', {
-        idle: new IdleStatePink(),
-        move: new MoveStatePink(),
-        jump: new JumpStatePink(),
-		climb: new ClimbStatePink(),
-        attack: new AttackStatePink(),
-		getHit: new GetHitStatePink(),
-		death: new DeathStatePink(),
-		invisible: new InvisibleStatePink(),
+this.stateMachine_player1 = new StateMachine('idle', {
+        idle: new IdleStateP1(),
+        move: new MoveStateP1(),
+        jump: new JumpStateP1(),
+		climb: new ClimbStateP1(),
+        attack: new AttackStateP1(),
+		getHit: new GetHitStateP1(),
+		death: new DeathStateP1(),
+		invisible: new InvisibleStateP1(),
       }, [this, player1]);
 
-this.stateMachine_white = new StateMachine('idle', {
-        idle: new IdleStateWhite(),
-        move: new MoveStateWhite(),
-        jump: new JumpStateWhite(),
-		climb: new ClimbStateWhite(),
-        attack: new AttackStateWhite(),
-		getHit: new GetHitStateWhite(),
-		death: new DeathStateWhite(),
+this.stateMachine_player2 = new StateMachine('idle', {
+        idle: new IdleStateP2(),
+        move: new MoveStateP2(),
+        jump: new JumpStateP2(),
+		climb: new ClimbStateP2(),
+        attack: new AttackStateP2(),
+		getHit: new GetHitStateP2(),
+		death: new DeathStateP2(),
+		invisible: new InvisibleStateP2(),
       }, [this, player2]);
 
 //Animaciones player1
@@ -833,7 +894,7 @@ this.stateMachine_white = new StateMachine('idle', {
 
     player1.anims.create({
         key: 'idle',
-        frames: this.anims.generateFrameNumbers('player1_idl', { start: 0, end: 3 }),
+        frames: this.anims.generateFrameNumbers(chooseP1+'_idl', { start: 0, end: 3 }),
         frameRate: 8,
         repeat: -1
     });
@@ -842,7 +903,7 @@ this.stateMachine_white = new StateMachine('idle', {
 
     player1.anims.create({
         key: 'run',
-        frames: this.anims.generateFrameNumbers('player1_run', { start: 0, end: 5 }),
+        frames: this.anims.generateFrameNumbers(chooseP1+'_run', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
@@ -851,7 +912,7 @@ this.stateMachine_white = new StateMachine('idle', {
 
     player1.anims.create({
         key: 'jump',
-        frames: this.anims.generateFrameNumbers('player1_jump', { start: 3, end: 7 }),
+        frames: this.anims.generateFrameNumbers(chooseP1+'_jump', { start: 3, end: 7 }),
         frameRate: 10,
 		repeat:0
     });
@@ -860,31 +921,31 @@ this.stateMachine_white = new StateMachine('idle', {
 
     player1.anims.create({
         key: 'attack',
-        frames: this.anims.generateFrameNumbers('player1_attack', { start: 2, end: 3 }),
+        frames: this.anims.generateFrameNumbers(chooseP1+'_attack', { start: 2, end: 3 }),
         frameRate: 10,
 		repeat:0
     });
 	 player1.anims.create({
         key: 'hurt',
-        frames: this.anims.generateFrameNumbers('player1_hurt', { start: 0, end: 3 }),
+        frames: this.anims.generateFrameNumbers(chooseP1+'_hurt', { start: 0, end: 3 }),
         frameRate: 10,
 		repeat:0
     });
 	player1.anims.create({
         key: 'death',
-        frames: this.anims.generateFrameNumbers('player1_death', { start: 0, end: 7 }),
+        frames: this.anims.generateFrameNumbers(chooseP1+'_death', { start: 0, end: 7 }),
         frameRate: 10,
 		repeat:0
     });
 	player1.anims.create({
         key: 'climb',
-        frames: this.anims.generateFrameNumbers('player1_climb', { start: 0, end: 3 }),
+        frames: this.anims.generateFrameNumbers(chooseP1+'_climb', { start: 0, end: 3 }),
         frameRate: 10,
 		repeat:-1
     });
 	player1.anims.create({
         key: 'invisible',
-        frames: this.anims.generateFrameNumbers('player1_run_dust', { start: 0, end: 5 }),
+        frames: this.anims.generateFrameNumbers('Chilli_run_dust', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
@@ -894,7 +955,7 @@ this.stateMachine_white = new StateMachine('idle', {
 
     player2.anims.create({
         key: 'idle',
-        frames: this.anims.generateFrameNumbers('player2_idl', { start: 0, end: 3 }),
+        frames: this.anims.generateFrameNumbers(chooseP2+'_idl', { start: 0, end: 3 }),
         frameRate: 8,
         repeat: -1
     });
@@ -903,7 +964,7 @@ this.stateMachine_white = new StateMachine('idle', {
 
     player2.anims.create({
         key: 'run',
-        frames: this.anims.generateFrameNumbers('player2_run', { start: 0, end: 5 }),
+        frames: this.anims.generateFrameNumbers(chooseP2+'_run', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
@@ -912,7 +973,7 @@ this.stateMachine_white = new StateMachine('idle', {
 
     player2.anims.create({
         key: 'jump',
-        frames: this.anims.generateFrameNumbers('player2_jump', { start: 3, end: 7 }),
+        frames: this.anims.generateFrameNumbers(chooseP2+'_jump', { start: 3, end: 7 }),
         frameRate: 10,
 		repeat:0
     });
@@ -921,32 +982,38 @@ this.stateMachine_white = new StateMachine('idle', {
 
     player2.anims.create({
         key: 'attack',
-        frames: this.anims.generateFrameNumbers('player2_attack', { start: 2, end: 3 }),
+        frames: this.anims.generateFrameNumbers(chooseP2+'_attack', { start: 2, end: 3 }),
         frameRate: 10,
 		repeat:0
     });
 	 player2.anims.create({
         key: 'hurt',
-        frames: this.anims.generateFrameNumbers('player2_hurt', { start: 0, end: 3 }),
+        frames: this.anims.generateFrameNumbers(chooseP2+'_hurt', { start: 0, end: 3 }),
         frameRate: 10,
 		repeat:0
     });
 	player2.anims.create({
         key: 'death',
-        frames: this.anims.generateFrameNumbers('player2_death', { start: 0, end: 7 }),
+        frames: this.anims.generateFrameNumbers(chooseP2+'_death', { start: 0, end: 7 }),
         frameRate: 10,
 		repeat:0
     });
 	player2.anims.create({
         key: 'climb',
-        frames: this.anims.generateFrameNumbers('player2_climb', { start: 0, end: 3 }),
+        frames: this.anims.generateFrameNumbers(chooseP2+'_climb', { start: 0, end: 3 }),
         frameRate: 10,
 		repeat:-1
+    });
+player2.anims.create({
+        key: 'invisible',
+        frames: this.anims.generateFrameNumbers('Chilli_run_dust', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
     });
 //Copia
 pinkCopy.anims.create({
         key: 'idle',
-        frames: this.anims.generateFrameNumbers('player1_idl', { start: 0, end: 3 }),
+        frames: this.anims.generateFrameNumbers(chooseP1+'_idl', { start: 0, end: 3 }),
         frameRate: 10,
 		repeat:-1
     });
@@ -969,9 +1036,11 @@ pinkCopy.play('idle',true);
 
     this.physics.add.collider(player1, player2);
     this.physics.add.overlap(player2, knifeHitbox, PlayerKnifeHitted,null, this);
-    this.physics.add.overlap(player1, knifeHitbox, PlayerKnifeHitted,null, this);
+    this.physics.add.overlap(player1, knifeHitbox2, PlayerKnifeHitted,null, this);
     this.physics.add.overlap(pinkCopy, knifeHitbox, CopyHitted,null, this);
-    this.physics.add.overlap(player2, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);
+    this.physics.add.overlap(pinkCopy, knifeHitbox2, CopyHitted,null, this);
+	if(chooseP1==='Wasabi'){   this.physics.add.overlap(player2, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);}
+	else {    this.physics.add.overlap(player1, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);}
     this.physics.add.overlap(player1, item_pistol, getPistol_P1, null, this);
     this.physics.add.overlap(player2, item_pistol, getPistol_P2, null, this);
     this.physics.add.overlap(player1, item_knife, getKnife_P1, null, this);
@@ -999,34 +1068,35 @@ pinkCopy.play('idle',true);
 	
     }//create
 
-    update(){
+  update(){
+	onItemRespawnEvent(this);
+	text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
 	checkNoLadder();
 	checkExplosion();
 	if(player1.direction!=='right') {  player1.flipX = true; }
 	if(player1.direction!=='left') {  player1.flipX = false; }
 	if(player2.direction!=='right') {  player2.flipX = true;}
 	if(player2.direction!=='left') {  player2.flipX = false; }
-	      this.stateMachine_pink.step();
-	      this.stateMachine_white.step();
+	      this.stateMachine_player1.step();
+	      this.stateMachine_player2.step();
 
 
 if	(Phaser.Input.Keyboard.JustDown(input_Q)){
-	//pinkSpecialAttack(player1, this);
-	//whiteSpecialAttack(player2);
-	//blueSpecialAttack(player1);
-	createAmmo();
-	/*createShield();
-	createPower();
-	createSpeed();
-	createLemon();
-	createGrape();
-	createStrawberry();*/
+	if(chooseP1==='Chilli'){pinkSpecialAttack(player1, this);	}
+	if(chooseP1==='Bernie'){whiteSpecialAttack(player2, this);	}
+	if(chooseP1==='Wasabi'){blueSpecialAttack(player1, this);	}
 
 }
 if	(Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true){
 	if(player1.ammo>0){
 			playerFire(player1, player1.direction, this);
 	}
+}
+if	(Phaser.Input.Keyboard.JustDown(input_U)){
+	if(chooseP2==='Chilli'){pinkSpecialAttack(player2, this);	}
+	if(chooseP2==='Bernie'){whiteSpecialAttack(player1, this);	}
+	if(chooseP2==='Wasabi'){blueSpecialAttack(player2, this);	}
+
 }
 if	(Phaser.Input.Keyboard.JustDown(input_O)&& player2.hasPistol===true){
 		if(player2.ammo>0){
@@ -1039,8 +1109,58 @@ checkBoosts(player1, player2)
     
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///FUNCIONES CHECKEAR//////////////////
-
+////////FUNCIONES ///////////////////////////////////////////////////////
+///Funciones de timer///
+function onCountDownEvent ()
+{
+	//Aquí poner el salto a escena de resultados
+text_time.setText('SE ACABÓ EL TIEMPO');
+}
+function onItemRespawnEvent(scene){
+	 
+	var progress = timedItemRespawn.getProgress();
+	if(progress===1){
+		controlIimedItemRespawn_Fruits+=1;
+		controlIimedItemRespawn_Gems+=1;
+		controlIimedItemRespawn+=1;
+		}
+	if(controlIimedItemRespawn_Gems>300){
+		controlIimedItemRespawn_Gems=0;
+		createGem();
+	}
+	if(controlIimedItemRespawn_Fruits>700){
+		controlIimedItemRespawn_Fruits=0;
+		switch(Phaser.Math.Between(0, 2)){
+			case 0:
+			createStrawberry();
+			break;
+			case 1:
+			createLemon();
+			break;
+			case 2:
+			createGrape();
+			break;
+		}
+	}
+	if(controlIimedItemRespawn>1000){
+		controlIimedItemRespawn=0;
+		scene.time.addEvent(timedItemRespawn);
+		switch(Phaser.Math.Between(0, 3)){
+			case 0:
+			createShield();
+			break;
+			case 1:
+			createSpeed();
+			break;
+			case 2:
+			createPower();
+			break;
+			case 3:
+			createAmmo();
+			break;
+		}
+	}
+}
 //Ataques especiales//
 function pinkSpecialAttack(player, gameObject){
 	player.invisible=true;
@@ -1093,17 +1213,6 @@ if(player.tag===2){
 	profile_p1_UI.data.values.gems += 1;
 }
     
-    if (gems.countActive(true) === 0)
-    {
-        //  A new batch of stars to collect
-        stars.children.iterate(function (child) {
-
-            child.enableBody(true, child.x, 0, true, true);
-
-        });
-
-
-    }
 }
 
 
@@ -1151,6 +1260,12 @@ function getKnife_P2(player, knife){
 	player.hasPistol=false;
 	player.hasKnife=true;
 	}
+}
+function createGem(){
+	
+            let x = Phaser.Math.Between(0, 800);
+            let y = Phaser.Math.Between(0, 600);
+		gems.create(x,y,'gem');  
 }
 function createShield(){
 	
@@ -1227,7 +1342,6 @@ function collectPower(player, power){
 	power.disableBody(true, true);
 		player.setTint(0xFF0909);
 	player.strengthBoost=true;
-	console.log(player.strengthBoost);
 
 }
 function collectSpeed(player, speed){
@@ -1431,24 +1545,56 @@ function checkNoLadder(){
 	}
 }
 
+function respawnPlayer1(){
+	player1.setVisible(true);
+	player1.x=respawn_P1.x;
+	player1.y=respawn_P1.y;
+	player1.life = 20;
+	player1.ammo = 10;
+	player1.gemsOwned = 0;
+	player1.direction='right';
+	player1.hitted=false;
+	player1.hasPistol=false;
+	player1.hasKnife=false;
+	player1.debuff=false;
+	player1.strengthBoost=false;
+	player1.speedBoost=false;
+	player1.shieldBoost=false;
+	player1.LastStrengthBoost=false;
+	player1.LastSpeedBoost=false;
+	player1.LastShieldBoost=false;
+	player1.onLadder=false;
+	player1.invisible=false;
+	profile_p1_UI.data.values.lifes=player1.life; 
+	profile_p1_UI.data.values.gems=player1.gemsOwned;
+	profile_p1_UI.data.values.ammo=player1.ammo;
+}
+function respawnPlayer2(){
+	player2.setVisible(true);
+	player2.x=respawn_P2.x;
+	player2.y=respawn_P2.y;
+	player2.life = 20;
+	player2.ammo = 10;
+	player2.gemsOwned = 0;
+	player2.direction='right';
+	player2.hitted=false;
+	player2.hasPistol=false;
+	player2.hasKnife=false;
+	player2.debuff=false;
+	player2.strengthBoost=false;
+	player2.speedBoost=false;
+	player2.shieldBoost=false;
+	player2.LastStrengthBoost=false;
+	player2.LastSpeedBoost=false;
+	player2.LastShieldBoost=false;
+	player2.onLadder=false;
+	profile_p2_UI.data.values.lifes=player2.life; 
+	profile_p2_UI.data.values.gems=player2.gemsOwned;
+	profile_p2_UI.data.values.ammo=player2.ammo;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///STATES PINK//////////
-class IdleStatePink extends State {
+///STATES P1//////////
+class IdleStateP1 extends State {
   enter(scene, player1) {
     player1.setVelocityX(0);
 	player1.onLadder=false;
@@ -1502,7 +1648,7 @@ class IdleStatePink extends State {
   }
 }
 
-class MoveStatePink extends State {
+class MoveStateP1 extends State {
 	enter(scene, player1){
 			player1.onLadder=false;
 
@@ -1552,7 +1698,7 @@ class MoveStatePink extends State {
     
   }
 }
-class InvisibleStatePink extends State {
+class InvisibleStateP1 extends State {
 	enter(scene, player1){
 			//player1.onLadder=false;
 
@@ -1602,7 +1748,7 @@ class InvisibleStatePink extends State {
     
   }
 }
-class JumpStatePink extends State {
+class JumpStateP1 extends State {
   enter(scene, player1) {
 		    player1.setVelocityY(-150);
 		if( player1.invisible){player1.anims.play('invisible');}
@@ -1628,7 +1774,7 @@ execute(scene, player1){
 }
 }
 
-class AttackStatePink extends State {
+class AttackStateP1 extends State {
   enter(scene, player1) {
 if(player1.strengthBoost){knifeHitbox.damage=5;}else{knifeHitbox.damage=3;}
 	    player1.anims.play('attack');
@@ -1663,7 +1809,7 @@ execute(scene,player1){
 }
 
 
-class GetHitStatePink extends State {
+class GetHitStateP1 extends State {
   enter(scene, player1) {
     player1.setVelocityX(0);
 	player1.anims.play('hurt');
@@ -1673,20 +1819,19 @@ class GetHitStatePink extends State {
     	});
   }
 }
-class DeathStatePink extends State {
+class DeathStateP1 extends State {
   enter(scene, player1) {
 	PlayerLoseGems(player1, scene);
     player1.setVelocityX(0);
-	player1.body.enable=false;
 	player1.anims.play('death');
 			player1.once('animationcomplete', () => {
-			//this.stateMachine.transition('idle');
 			player1.setVisible(false);
-			
+			respawnPlayer1();
+			this.stateMachine.transition('idle');
     	});
   }
 }
-class ClimbStatePink extends State {
+class ClimbStateP1 extends State {
 execute(scene, player1) {    
     // Transition to jump if pressing space
     if (spaceBar.isDown && player1.body.touching.down) {
@@ -1735,8 +1880,8 @@ execute(scene, player1) {
     
   }
 }
-///STATES White//////////
-class IdleStateWhite extends State {
+///STATES P2//////////
+class IdleStateP2 extends State {
   enter(scene, player2) {
 	player2.onLadder=false;
     player2.setVelocityX(0);
@@ -1745,7 +1890,7 @@ class IdleStateWhite extends State {
   
   execute(scene, player2) {    
     // Transition to jump if pressing space
-    if (input_N.isDown  && player2.body.touching.down) {
+    if (input_Shift.isDown  && player2.body.touching.down) {
       this.stateMachine.transition('jump');
       return;
     }
@@ -1778,7 +1923,7 @@ class IdleStateWhite extends State {
   }
 }
 
-class MoveStateWhite extends State {
+class MoveStateP2 extends State {
 	enter(scene,player2){
 		player2.onLadder=false;
 	}
@@ -1786,7 +1931,7 @@ class MoveStateWhite extends State {
    // const {input_A, input_D, spaceBar} = scene.keys;
     
     // Transition to jump if pressing space
-    if (input_N.isDown && player2.body.touching.down) {
+    if (input_Shift.isDown && player2.body.touching.down) {
       this.stateMachine.transition('jump');
       return;
     }
@@ -1829,7 +1974,58 @@ class MoveStateWhite extends State {
   }
 }
 
-class JumpStateWhite extends State {
+class InvisibleStateP2 extends State {
+	enter(scene, player2){
+			//player1.onLadder=false;
+
+	}
+  execute(scene, player2) {    
+    // Transition to jump if pressing space
+    if (input_Shift.isDown && player2.body.touching.down) {
+      this.stateMachine.transition('jump');
+      return;
+    }
+    
+   // Transition to attack if pressing e
+    if (input_O.isDown && player2.hasKnife===true) {
+      this.stateMachine.transition('attack');
+      return;
+    }
+    
+    // Transition to idle if not pressing movement keys
+    if ((!(input_J.isDown || input_L.isDown))&& !player2.invisible) {
+      this.stateMachine.transition('idle');
+      return;
+    }
+	// Transition to climb if pressing W
+    if (input_I.isDown && player2.onLadder) {
+      this.stateMachine.transition('climb');
+      return;
+    }
+    // Transition to hurt if getting hit
+	if (player2.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+    player2.setVelocityX(0);
+    if (input_J.isDown) {
+      player2.setVelocityX(-100);
+	  if(player2.debuff){player2.setVelocityX(-50);}
+	  if(player2.speedBoost){player2.setVelocityX(-150);}
+      player2.direction = 'left';
+    } else if (input_L.isDown) {
+      player2.setVelocityX(100);
+	  if(player2.debuff){player2.setVelocityX(50);}
+	  if(player2.speedBoost){player2.setVelocityX(150);}
+      player2.direction = 'right';
+    }
+
+    player2.anims.play('invisible', true);
+    
+  }
+}
+
+class JumpStateP2 extends State {
   enter(scene, player2) {
 		player2.setVelocityY(-150);
 	    player2.anims.play('jump');
@@ -1852,27 +2048,27 @@ execute(scene, player2){
 }
 }
 
-class AttackStateWhite extends State {
+class AttackStateP2 extends State {
   enter(scene, player2) {
 
-		if(player2.strengthBoost){knifeHitbox.damage=5;}else{knifeHitbox.damage=3;}
+		if(player2.strengthBoost){knifeHitbox2.damage=5;}else{knifeHitbox2.damage=3;}
 
 	    player2.anims.play('attack');
 
 
 		if(player2.direction==='left'){
-	        knifeHitbox.x= player2.x - player2.width * 0.45;
+	        knifeHitbox2.x= player2.x - player2.width * 0.45;
 
 		}else{
-        knifeHitbox.x= player2.x + player2.width * 0.45;
+        knifeHitbox2.x= player2.x + player2.width * 0.45;
 		}
-		knifeHitbox.y= player2.y + player2.height * 0.1;
-		knifeHitbox.body.enable=true;
-				scene.physics.world.add(knifeHitbox.body);
+		knifeHitbox2.y= player2.y + player2.height * 0.1;
+		knifeHitbox2.body.enable=true;
+				scene.physics.world.add(knifeHitbox2.body);
 		player2.once('animationcomplete', () => {
 			this.stateMachine.transition('idle');
-			knifeHitbox.body.enable=false;
-					scene.physics.world.remove(knifeHitbox.body);
+			knifeHitbox2.body.enable=false;
+					scene.physics.world.remove(knifeHitbox2.body);
 
     	});
 
@@ -1888,7 +2084,7 @@ exectue(scene,player2){
 }
 
 
-class GetHitStateWhite extends State {
+class GetHitStateP2 extends State {
   enter(scene, player2) {
     player2.setVelocityX(0);
 	player2.anims.play('hurt');
@@ -1898,20 +2094,21 @@ class GetHitStateWhite extends State {
     	});
   }
 }
-class DeathStateWhite extends State {
+class DeathStateP2 extends State {
   enter(scene, player2) {
 	PlayerLoseGems(player2, scene);
     player2.setVelocityX(0);
 	player2.anims.play('death');
-	player2.body.enable=false;
 	player2.once('animationcomplete', () => {
-		//this.stateMachine.transition('idle');	
 					player2.setVisible(false);
+					respawnPlayer2();
+					this.stateMachine.transition('idle');	
+
 	
     });
   }
 }
-class ClimbStateWhite extends State {
+class ClimbStateP2 extends State {
 execute(scene, player2) {    
     // Transition to jump if pressing space
     if (spaceBar.isDown && player2.body.touching.down) {
