@@ -133,7 +133,7 @@ class PantallaCarga extends Phaser.Scene{
   this.load.image('ladder',         'asset/ladder.jpg');
 
 
-//Player 1
+//Chilli
   this.load.image('Chilli_profile', 'asset/Pink_Monster_closeUp.png');
   this.load.spritesheet('Chilli_idl', 'asset/Pink_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('Chilli_run', 'asset/Pink_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
@@ -145,7 +145,7 @@ class PantallaCarga extends Phaser.Scene{
   this.load.spritesheet('Chilli_run_dust', 'asset/Walk_Run_Push_Dust.png', { frameWidth: 32, frameHeight: 32 });
 
 
-//Player 2
+//Bernie
   this.load.image('Bernie_profile', 'asset/Owlet_Monster_closeUp.png');
   this.load.spritesheet('Bernie_idl', 'asset/Owlet_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('Bernie_run', 'asset/Owlet_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
@@ -164,6 +164,9 @@ class PantallaCarga extends Phaser.Scene{
   this.load.spritesheet('Wasabi_hurt', 'asset/Dude_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
   this.load.spritesheet('Wasabi_death', 'asset/Dude_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
   this.load.spritesheet('Wasabi_climb', 'asset/Dude_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
+
+//Audio
+  this.load.audio('pistolFire',       'asset/pistolFire.wav');
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -713,11 +716,13 @@ input_U=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);
 	player1.strengthBoost=false;
 	player1.speedBoost=false;
 	player1.shieldBoost=false;
-	player1.LastStrengthBoost=false;
-	player1.LastSpeedBoost=false;
-	player1.LastShieldBoost=false;
+	player1.LastStrengthBoost=0;
+	player1.LastSpeedBoost=0;
+	player1.LastShieldBoost=0;
 	player1.onLadder=false;
 	player1.invisible=false;
+	player1.LastTimeSpecial=0;
+	player1.canSpecial=true;
     player1.setCollideWorldBounds(true);
 
 //Player 2
@@ -737,11 +742,13 @@ input_U=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);
 	player2.strengthBoost=false;
 	player2.speedBoost=false;
 	player2.shieldBoost=false;
-	player2.LastStrengthBoost=false;
-	player2.LastSpeedBoost=false;
-	player2.LastShieldBoost=false;
+	player2.LastStrengthBoost=0;
+	player2.LastSpeedBoost=0;
+	player2.LastShieldBoost=0;
 	player2.onLadder=false;
 	player2.invisible=false;
+	player2.LastTimeSpecial=0;
+	player2.canSpecial=true;
 	player2.setCollideWorldBounds(true);
 	
 	
@@ -862,7 +869,14 @@ shield2.body.enable=false;
 shield2.setVisible(false);
 shield2.body.setAllowGravity(false);
 //Copia de Chilli
-pinkCopy= this.physics.add.sprite(0,0, chooseP1+'_idl');
+if(chooseP1==='Chilli'){
+	pinkCopy= this.physics.add.sprite(0,0, chooseP1+'_idl');
+	pinkCopy.tag=1;
+	}
+else {
+	pinkCopy= this.physics.add.sprite(0,0, chooseP2+'_idl');
+	pinkCopy.tag=2;
+	}
 pinkCopy.body.enable=false;
 pinkCopy.setVisible(false);
 //Create StateMachine
@@ -1011,16 +1025,22 @@ player2.anims.create({
         repeat: -1
     });
 //Copia
+if(pinkCopy.tag===1){
 pinkCopy.anims.create({
         key: 'idle',
         frames: this.anims.generateFrameNumbers(chooseP1+'_idl', { start: 0, end: 3 }),
         frameRate: 10,
 		repeat:-1
     });
+}else{
+	pinkCopy.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_idl', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:-1
+    });
+}
 //Physics
-player1.play('idle',true);
-player2.play('idle',true);
-pinkCopy.play('idle',true);
     this.physics.add.collider(player1, platforms, null, checkUp);
     this.physics.add.collider(player2, platforms, null, checkUp);
     this.physics.add.collider(item_pistol, platforms);
@@ -1072,6 +1092,8 @@ pinkCopy.play('idle',true);
 	onItemRespawnEvent(this);
 	text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
 	checkNoLadder();
+	 checkTimeSpecial(player1);
+ checkTimeSpecial(player2)
 	checkExplosion();
 	if(player1.direction!=='right') {  player1.flipX = true; }
 	if(player1.direction!=='left') {  player1.flipX = false; }
@@ -1082,20 +1104,23 @@ pinkCopy.play('idle',true);
 
 
 if	(Phaser.Input.Keyboard.JustDown(input_Q)){
-	if(chooseP1==='Chilli'){pinkSpecialAttack(player1, this);	}
-	if(chooseP1==='Bernie'){whiteSpecialAttack(player2, this);	}
-	if(chooseP1==='Wasabi'){blueSpecialAttack(player1, this);	}
+	if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
+	if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
+	if(chooseP1==='Wasabi'){blueSpecialAttack(player1);	}
 
 }
 if	(Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true){
 	if(player1.ammo>0){
+		var sfx;
+		sfx = this.sound.add('pistolFire');
+    	sfx.play();
 			playerFire(player1, player1.direction, this);
 	}
 }
 if	(Phaser.Input.Keyboard.JustDown(input_U)){
-	if(chooseP2==='Chilli'){pinkSpecialAttack(player2, this);	}
-	if(chooseP2==='Bernie'){whiteSpecialAttack(player1, this);	}
-	if(chooseP2==='Wasabi'){blueSpecialAttack(player2, this);	}
+	if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
+	if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
+	if(chooseP2==='Wasabi'){blueSpecialAttack(player2);	}
 
 }
 if	(Phaser.Input.Keyboard.JustDown(input_O)&& player2.hasPistol===true){
@@ -1163,25 +1188,45 @@ function onItemRespawnEvent(scene){
 }
 //Ataques especiales//
 function pinkSpecialAttack(player, gameObject){
+	if(player.canSpecial){
 	player.invisible=true;
+	player.LastTimeSpecial=0;
+	player.canSpecial=false;
 	pinkCopy.setVisible(true);
 	pinkCopy.body.enable=true;
 	pinkCopy.x=player.x;
 	pinkCopy.y=player.y;    
-	gameObject.physics.add.collider(pinkCopy, platforms);
-
+	pinkCopy.play('idle',true);
+	gameObject.physics.add.collider(pinkCopy, platforms);	
+	}
 }
-function whiteSpecialAttack(player){
-	player.debuff=true;
+
+function whiteSpecialAttack(playerAttack, playerHurt){
+	if(player.canSpecial){
+	playerHurt.debuff=true;
+	playerAttack.LastTimeSpecial=0;
+	playerAttack.canSpecial=false;
+	}
 }
 function blueSpecialAttack(player){
+	if(player.canSpecial){
 	blueSpecialAttack_Area.body.enable=true;
 	blueSpecialAttack_Area.x=player.body.center.x;
 	blueSpecialAttack_Area.y=player.body.center.y;
+	player.LastTimeSpecial=0;
+	player.canSpecial=false;
 	blueSpecialAttack_Area.setVisible(true);
-
 }
-
+}
+function checkTimeSpecial(player){
+	if(!player.canSpecial){
+	player.LastTimeSpecial+=1;
+	if(player.LastTimeSpecial>2000){
+		player.LastTimeSpecial=0;
+		player.canSpecial=true;
+	}
+	}
+}
 function checkDebuffTime(player1, player2){
 	if(player1.debuff || player2.debuff){
 		lastTimeDebuff+=1;
@@ -1523,7 +1568,16 @@ if	(blueSpecialAttack_Area.body.enable){
 }
 function CopyHitted(copy){
 	copy.disableBody(true, true);
-	player1.invisible=false;
+	if(pinkCopy.tag===2){
+			player2.invisible=false;
+					player2.canSpecial=true;
+
+	}else{
+			player1.invisible=false;
+					player1.canSpecial=true;
+
+	}
+	
 }
 function checkLadder(player, ladder)
     {
@@ -1560,9 +1614,9 @@ function respawnPlayer1(){
 	player1.strengthBoost=false;
 	player1.speedBoost=false;
 	player1.shieldBoost=false;
-	player1.LastStrengthBoost=false;
-	player1.LastSpeedBoost=false;
-	player1.LastShieldBoost=false;
+	player1.LastStrengthBoost=0;
+	player1.LastSpeedBoost=0;
+	player1.LastShieldBoost=0;
 	player1.onLadder=false;
 	player1.invisible=false;
 	profile_p1_UI.data.values.lifes=player1.life; 
@@ -1584,9 +1638,9 @@ function respawnPlayer2(){
 	player2.strengthBoost=false;
 	player2.speedBoost=false;
 	player2.shieldBoost=false;
-	player2.LastStrengthBoost=false;
-	player2.LastSpeedBoost=false;
-	player2.LastShieldBoost=false;
+	player2.LastStrengthBoost=0;
+	player2.LastSpeedBoost=0;
+	player2.LastShieldBoost=0;
 	player2.onLadder=false;
 	profile_p2_UI.data.values.lifes=player2.life; 
 	profile_p2_UI.data.values.gems=player2.gemsOwned;
@@ -1625,7 +1679,7 @@ class IdleStateP1 extends State {
       this.stateMachine.transition('move');
       return;
     }
-	// Transition to move if pressing a movement key
+	// Transition to invisible if pressing a movement key
     if ((input_A.isDown || input_D.isDown)&& player1.invisible) {
       this.stateMachine.transition('invisible');
       return;
@@ -1875,9 +1929,7 @@ execute(scene, player1) {
 
 	}
 	if( player1.invisible){player1.anims.play('invisible');}
-		else{
-	player1.anims.play('climb',true);}
-    
+		else{player1.anims.play('climb',true);}
   }
 }
 ///STATES P2//////////
@@ -1885,7 +1937,13 @@ class IdleStateP2 extends State {
   enter(scene, player2) {
 	player2.onLadder=false;
     player2.setVelocityX(0);
-	player2.anims.play('idle',true);
+	if(player2.invisible){
+			player2.anims.play('invisible',true);
+
+	}else{
+			player2.anims.play('idle',true);
+
+	}
   }
   
   execute(scene, player2) {    
@@ -1900,8 +1958,13 @@ class IdleStateP2 extends State {
       return;
     }
     // Transition to move if pressing a movement key
-    if (input_J.isDown || input_L.isDown) {
+    if ((input_J.isDown || input_L.isDown)&& !player2.invisible) {
       this.stateMachine.transition('move');
+      return;
+    }
+	// Transition to invisible if pressing a movement key
+    if ((input_J.isDown || input_L.isDown)&& player2.invisible) {
+      this.stateMachine.transition('invisible');
       return;
     }
 // Transition to climb if pressing W
@@ -2028,7 +2091,10 @@ class InvisibleStateP2 extends State {
 class JumpStateP2 extends State {
   enter(scene, player2) {
 		player2.setVelocityY(-150);
+		if( player2.invisible){player2.anims.play('invisible');}
+		else{
 	    player2.anims.play('jump');
+		}
 		player2.once('animationcomplete', () => {
 			this.stateMachine.transition('idle')
     	});
@@ -2045,6 +2111,9 @@ execute(scene, player2){
       this.stateMachine.transition('getHit');
       return;
     }
+
+	if( player2.invisible){player2.anims.play('invisible');}
+		else{player2.anims.play('climb',true);}
 }
 }
 
@@ -2171,7 +2240,10 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, MenuPersonajes, MenuEscenarios, PantallaJuego/*, Resultados*/]
+    scene: [PantallaCarga, PantallaDeInicio, MenuPersonajes, MenuEscenarios, PantallaJuego/*, Resultados*/],
+	audio: {
+        disableWebAudio: true
+    }
 };
 
 var game = new Phaser.Game(config);
