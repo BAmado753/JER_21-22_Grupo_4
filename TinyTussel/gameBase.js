@@ -59,19 +59,19 @@ class PantallaCarga extends Phaser.Scene{
         });
 
         this.load.on('complete', function () {
-        loadingText.destroy();
-        percentText.destroy();
-        progressBar.destroy();
-        progressBox.destroy();
+        //loadingText.destroy();
+        //percentText.destroy();
+        //progressBar.destroy();
+        //progressBox.destroy();
         //this.scene.start("PantallaInicio");
          });
 
 
         this.load.image('logo', './asset/stormedialogo.png');
-        //Sólo para comprobar que la barra de carga funciona bien
+        /*//Sólo para comprobar que la barra de carga funciona bien
             for (var i = 0; i < 5000; i++) {
                 this.load.image('logo'+i);
-            }
+            }*/
         
 
 
@@ -92,9 +92,9 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('fondoMenu', './asset/fondoMenu_prueba.jpg');
         this.load.image('textoSelect', './asset/TextoEleccionPersonaje.png');
         this.load.image('BContinuar1', './asset/BotonContinuar_prueba.png');
-        this.load.spritesheet('SelectChilli', './asset/Pink_Monster_Selection.png', { frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet('SelectBernie', './asset/Owlet_Monster_Selection.png', { frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet('SelectWasabi', './asset/Dude_Monster_Selection.png', { frameWidth: 32, frameHeight: 32});
+        this.load.image('selectChilli', './asset/Pink_Monster.png');
+        this.load.image('selectBernie', './asset/Owlet_Monster.png');
+        this.load.image('selectWasabi', './asset/Dude_Monster.png');
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////  
 
@@ -113,60 +113,60 @@ class PantallaCarga extends Phaser.Scene{
         ///////////////////////////Carga de assets del Juego///////////////////////////////////////////////
 
         //Objetos
-  this.load.image('gem',             'asset/gem.png');
-  this.load.image('pistol_item',             'asset/pistol_icon.png');
-  this.load.image('knife_item',             'asset/knife.png');
-  this.load.image('shield_item',             'asset/escudo.png');
-  this.load.image('shield_bubble',             'asset/bubble_shield.png');
-  this.load.image('speed_item',             'asset/feather.png');
-  this.load.image('power_item',             'asset/strength.png');
-  this.load.image('grape_item',             'asset/grape.png');
-  this.load.image('strawberry_item',             'asset/strawberry.png');
-  this.load.image('lemon_item',             'asset/lemon.png');
-  this.load.image('ammo_item',             'asset/ammo.png');
+        this.load.image('gem',             'asset/gem.png');
+        this.load.image('pistol_item',             'asset/pistol_icon.png');
+        this.load.image('knife_item',             'asset/knife.png');
+        this.load.image('shield_item',             'asset/escudo.png');
+        this.load.image('shield_bubble',             'asset/bubble_shield.png');
+        this.load.image('speed_item',             'asset/feather.png');
+        this.load.image('power_item',             'asset/strength.png');
+        this.load.image('grape_item',             'asset/grape.png');
+        this.load.image('strawberry_item',             'asset/strawberry.png');
+        this.load.image('lemon_item',             'asset/lemon.png');
+        this.load.image('ammo_item',             'asset/ammo.png');
 
 
-//Escenario
-  this.load.image('gray',             'asset/gray.jpg');
-  this.load.image('platform',         'asset/platform.jpg');
-  this.load.image('bullet',           'asset/bullet.png');
-  this.load.image('ladder',         'asset/ladder.jpg');
+        //Escenario
+        this.load.image('gray',             'asset/gray.jpg');
+        this.load.image('platform',         'asset/platform.jpg');
+        this.load.image('bullet',           'asset/bullet.png');
+        this.load.image('ladder',         'asset/ladder.jpg');
 
 
-//Chilli
-  this.load.image('Chilli_profile', 'asset/Pink_Monster_closeUp.png');
-  this.load.spritesheet('Chilli_idl', 'asset/Pink_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Chilli_run', 'asset/Pink_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Chilli_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Chilli_attack', 'asset/Pink_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Chilli_hurt', 'asset/Pink_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Chilli_death', 'asset/Pink_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Chilli_climb', 'asset/Pink_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Chilli_run_dust', 'asset/Walk_Run_Push_Dust.png', { frameWidth: 32, frameHeight: 32 });
+        //Chilli
+        this.load.image('Chilli_profile', 'asset/Pink_Monster_closeUp.png');
+        this.load.spritesheet('Chilli_idl', 'asset/Pink_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Chilli_run', 'asset/Pink_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Chilli_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Chilli_attack', 'asset/Pink_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Chilli_hurt', 'asset/Pink_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Chilli_death', 'asset/Pink_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Chilli_climb', 'asset/Pink_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Chilli_run_dust', 'asset/Walk_Run_Push_Dust.png', { frameWidth: 32, frameHeight: 32 });
 
 
-//Bernie
-  this.load.image('Bernie_profile', 'asset/Owlet_Monster_closeUp.png');
-  this.load.spritesheet('Bernie_idl', 'asset/Owlet_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Bernie_run', 'asset/Owlet_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Bernie_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Bernie_attack', 'asset/Owlet_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Bernie_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Bernie_death', 'asset/Owlet_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
-  this.load.spritesheet('Bernie_climb', 'asset/Owlet_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
+        //Bernie
+        this.load.image('Bernie_profile', 'asset/Owlet_Monster_closeUp.png');
+        this.load.spritesheet('Bernie_idl', 'asset/Owlet_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Bernie_run', 'asset/Owlet_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Bernie_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Bernie_attack', 'asset/Owlet_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Bernie_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Bernie_death', 'asset/Owlet_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
+        this.load.spritesheet('Bernie_climb', 'asset/Owlet_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
 
-//Wasabi
-  this.load.image('Wasabi_profile', 'asset/Dude_Monster_closeUp.png');
-  this.load.spritesheet('Wasabi_idl', 'asset/Dude_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Wasabi_run', 'asset/Dude_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Wasabi_jump', 'asset/Dude_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Wasabi_attack', 'asset/Dude_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Wasabi_hurt', 'asset/Dude_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
-  this.load.spritesheet('Wasabi_death', 'asset/Dude_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
-  this.load.spritesheet('Wasabi_climb', 'asset/Dude_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
+        //Wasabi
+        this.load.image('Wasabi_profile', 'asset/Dude_Monster_closeUp.png');
+        this.load.spritesheet('Wasabi_idl', 'asset/Dude_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Wasabi_run', 'asset/Dude_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Wasabi_jump', 'asset/Dude_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Wasabi_attack', 'asset/Dude_Monster_Attack1.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Wasabi_hurt', 'asset/Dude_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Wasabi_death', 'asset/Dude_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
+        this.load.spritesheet('Wasabi_climb', 'asset/Dude_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
 
-//Audio
-  this.load.audio('pistolFire',       'asset/pistolFire.wav');
+        //Audio
+        this.load.audio('pistolFire',       'asset/pistolFire.wav');
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -175,16 +175,16 @@ class PantallaCarga extends Phaser.Scene{
 
     create(){
         
-        this.logo = this.add.image(400, 300, 'logo').setInteractive();
-        this.logo.setScale(0.5);
+        this.logo = this.add.image(400, 400, 'logo').setInteractive();
+        this.logo.setScale(0.3);
         
         //Botón continuar (también es el logo)
         this.logo.on('pointerover', () => {
-            this.logo.setScale(0.55);
+            this.logo.setScale(0.35);
         });
 
         this.logo.on('pointerout', () => {
-            this.logo.setScale(0.5);
+            this.logo.setScale(0.3);
         });
 
         this.logo.on('pointerdown', () => {
@@ -271,35 +271,22 @@ class MenuPersonajes extends Phaser.Scene{
         this.fondoMP= this.add.image(400, 300, 'fondoMenu');
         this.fondoMP.setScale(1.6);
 
-        //Botón continuar
-        this.bcont1=this.add.image(400, 500, 'BContinuar1').setInteractive();
-        this.bcont1.setScale(0.2);
-        this.bcont1.on('pointerover', () => {
-            this.bcont1.setScale(0.25);
-        });
-
-        this.bcont1.on('pointerout', () => {
-            this.bcont1.setScale(0.2);
-        });
-
-        this.bcont1.on('pointerdown', () => {
-            this.scene.start('MenuEscenarios');
-        });
+       
 
         //Texto en forma de imagen
         this.tex= this.add.image(400, 100, 'textoSelect');
         this.tex.setScale(1.2);
 
         //Chilli
-        this.per1 = this.add.sprite(150, 300, 'selectChilli').setInteractive();
-        this.per1.setScale(5);
+        this.per1 = this.add.image(150, 300, 'selectChilli').setInteractive();
+        this.per1.setScale(1.5);
         //Eventos del botón
         this.per1.on('pointerover', () => {
-            this.per1.setFrame(3);
+            this.per1.setScale(2);
         });
 
         this.per1.on('pointerout', () => {
-            this.per1.setFrame(0);
+            this.per1.setScale(1.5);
         });
 
         this.per1.on('pointerdown', () => {
@@ -310,20 +297,34 @@ class MenuPersonajes extends Phaser.Scene{
 			if(chooseP2==='null'&&chooseP1!=='Chilli'){
 				chooseP2='Chilli';
 				this.per1.setTint(0xD32F2F);
+                //Botón continuar
+                this.bcont1=this.add.image(400, 500, 'BContinuar1').setInteractive();
+                this.bcont1.setScale(0.2);
+                this.bcont1.on('pointerover', () => {
+                    this.bcont1.setScale(0.25);
+                });
+        
+                this.bcont1.on('pointerout', () => {
+                    this.bcont1.setScale(0.2);
+                });
+        
+                this.bcont1.on('pointerdown', () => {
+                    this.scene.start('MenuEscenarios');
+                });
 			}
         });
     
 
         //Bernie
-        this.per2 = this.add.sprite(400, 300, 'selectBernie').setInteractive();
-        this.per2.setScale(5);
+        this.per2 = this.add.image(400, 300, 'selectBernie').setInteractive();
+        this.per2.setScale(1.5);
         //Eventos del botón
         this.per2.on('pointerover', () => {
-            this.per2.setFrame(1);
+            this.per2.setScale(2);
         });
 
         this.per2.on('pointerout', () => {
-            this.per2.setFrame(0);
+            this.per2.setScale(1.5);
         });
 
         this.per2.on('pointerdown', () => {
@@ -334,19 +335,34 @@ class MenuPersonajes extends Phaser.Scene{
 			if(chooseP2==='null'&&chooseP1!=='Bernie'){
 				chooseP2='Bernie';
 				this.per2.setTint(0xD32F2F);
-			}
-        });
+
+                //Botón continuar
+                this.bcont1=this.add.image(400, 500, 'BContinuar1').setInteractive();
+                this.bcont1.setScale(0.2);
+                this.bcont1.on('pointerover', () => {
+                    this.bcont1.setScale(0.25);
+                });
+        
+                this.bcont1.on('pointerout', () => {
+                    this.bcont1.setScale(0.2);
+                });
+        
+                this.bcont1.on('pointerdown', () => {
+                    this.scene.start('MenuEscenarios');
+                });
+		  	}
+         });
 
         //Wasabi
-        this.per3 = this.add.sprite(650, 300, 'selectWasabi').setInteractive();
-        this.per3.setScale(5);
+        this.per3 = this.add.image(650, 300, 'selectWasabi').setInteractive();
+        this.per3.setScale(1.5);
         //Eventos del botón
         this.per3.on('pointerover', () => {
-            this.per3.setFrame(1);
+            this.per3.setScale(2);
         });
 
         this.per3.on('pointerout', () => {
-            this.per3.setFrame(0);
+            this.per3.setScale(1.5);
         });
 
         this.per3.on('pointerdown', () => {
@@ -357,6 +373,20 @@ class MenuPersonajes extends Phaser.Scene{
 			if(chooseP2==='null'&&chooseP1!=='Wasabi'){
 				chooseP2='Wasabi';
 				this.per3.setTint(0xD32F2F);
+                //Botón continuar
+                this.bcont1=this.add.image(400, 500, 'BContinuar1').setInteractive();
+                this.bcont1.setScale(0.2);
+                this.bcont1.on('pointerover', () => {
+                    this.bcont1.setScale(0.25);
+                });
+        
+                this.bcont1.on('pointerout', () => {
+                    this.bcont1.setScale(0.2);
+                });
+        
+                this.bcont1.on('pointerdown', () => {
+                    this.scene.start('MenuEscenarios');
+                });
 			}
         });
     }
@@ -377,12 +407,6 @@ export class MenuEscenarios extends Phaser.Scene{
     }
 
     preload(){
-        //Carga de fondo, titulo e imagen
-        this.load.image('fondoMenu1', './asset/fondoMenu_prueba.jpg');
-        this.load.image('textoSelectE', './asset/TextoEleccionEscenario.png');
-        this.load.image('Campo', './asset/escenario1_prueba.png');
-        this.load.image('Lava', './asset/escenario2_prueba.png');
-        this.load.image('Oriental', './asset/escenario3_prueba.png');
     }
 
     create(){
@@ -405,7 +429,7 @@ export class MenuEscenarios extends Phaser.Scene{
         });
 
         this.es1.on('pointerdown', () => {
-            
+            this.scene.start('Escenario1');
         });
 
 
@@ -421,7 +445,7 @@ export class MenuEscenarios extends Phaser.Scene{
         });
 
         this.es2.on('pointerdown', () => {
-            
+            this.scene.start('Escenario2');
         });
 
 
@@ -436,7 +460,7 @@ export class MenuEscenarios extends Phaser.Scene{
         });
 
         this.es3.on('pointerdown', () => {
-            
+            this.scene.start('Escenario3');
         });
 
 
@@ -459,6 +483,8 @@ export class MenuEscenarios extends Phaser.Scene{
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 ///////////////////VARIABLES PANTALLA DE JUEGO////////////////////
 
 class StateMachine {
@@ -622,11 +648,12 @@ var input_O;
 var input_U;
 
 
+
 /////////////////////////////////////////////Pantalla De Juego//////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PantallaJuego extends Phaser.Scene{
     constructor(){
-        //MenuPersonajes--> nombre que se le da a la escena
+        //Juego--> nombre que se le da a la escena
         super({ key: "Juego"});
     }
 
@@ -638,68 +665,68 @@ class PantallaJuego extends Phaser.Scene{
 
     create(){
 	//Background
-this.add.image(400,300, 'gray').setScale(2,2);
-
-//Timer
- lastTimeDebuff = 0;
-controlIimedItemRespawn_Gems=0;
-controlIimedItemRespawn_Fruits=0;
-controlIimedItemRespawn=0;
-text_time = this.add.text(32, 32);
-timedCountdown = this.time.delayedCall(180000, onCountDownEvent, [], this);
-timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
-this.time.addEvent(timedItemRespawn)
-
-//Plataformas
+    this.add.image(400,300, 'gray').setScale(2,2);
+    
+    //Timer
+     lastTimeDebuff = 0;
+    controlIimedItemRespawn_Gems=0;
+    controlIimedItemRespawn_Fruits=0;
+    controlIimedItemRespawn=0;
+    text_time = this.add.text(32, 32);
+    timedCountdown = this.time.delayedCall(180000, onCountDownEvent, [], this);
+    timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
+    this.time.addEvent(timedItemRespawn)
+    
+    //Plataformas
     platforms = this.physics.add.staticGroup();
 
-platforms.create(150,350,'platform').setScale(10,1).refreshBody();
-platforms.create(650,350,'platform').setScale(10,1).refreshBody();
-platforms.create(400,580,'platform').setScale(50,3).refreshBody();
-
-//Escaleras
-
-ladder = this.physics.add.image(150, 450, 'ladder').setScale(1,10).refreshBody();
-ladder.body.setAllowGravity(false);
-
-//Gemas
- gems = this.physics.add.group();
-
-//Items
-item_pistol=this.physics.add.sprite(200, 450, 'pistol_item');
+    platforms.create(150,350,'platform').setScale(10,1).refreshBody();
+    platforms.create(650,350,'platform').setScale(10,1).refreshBody();
+    platforms.create(400,580,'platform').setScale(50,3).refreshBody();
+    
+    //Escaleras
+    
+    ladder = this.physics.add.image(150, 450, 'ladder').setScale(1,10).refreshBody();
+    ladder.body.setAllowGravity(false);
+    
+    //Gemas
+    gems = this.physics.add.group();
+    
+    //Items
+    item_pistol=this.physics.add.sprite(200, 450, 'pistol_item');
     item_pistol.setCollideWorldBounds(true);
-
-item_knife=this.physics.add.sprite(300, 450, 'knife_item');
+    
+    item_knife=this.physics.add.sprite(300, 450, 'knife_item');
     item_knife.setCollideWorldBounds(true);
 
-items_power=this.physics.add.group();
-items_speed=this.physics.add.group();
-items_shield=this.physics.add.group();
-items_lemon=this.physics.add.group();
-items_grape=this.physics.add.group();
-items_strawberry=this.physics.add.group();
-items_ammo=this.physics.add.group();
+    items_power=this.physics.add.group();
+    items_speed=this.physics.add.group();
+    items_shield=this.physics.add.group();
+    items_lemon=this.physics.add.group();
+    items_grape=this.physics.add.group();
+    items_strawberry=this.physics.add.group();
+    items_ammo=this.physics.add.group();
+    
+
+    //Input 
+    spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    input_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    input_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    input_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    input_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    input_E = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+    input_Q = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+
+    input_Shift= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+    input_J=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
+    input_L=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
+    input_I=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
+    input_K=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
+    input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
+    input_U=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);
 
 
-//Input 
-spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-input_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-input_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-input_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-input_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-input_E = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-input_Q = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
-
-input_Shift= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
-input_J=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
-input_L=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
-input_I=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
-input_K=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
-input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
-input_U=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);
-
-
-//Player 1
+    //Player 1
 	respawn_P1.x=100;
 	respawn_P1.y=450;
     player1 = this.physics.add.sprite(respawn_P1.x, respawn_P1.y, chooseP1+'_idl');
@@ -725,7 +752,7 @@ input_U=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);
 	player1.canSpecial=true;
     player1.setCollideWorldBounds(true);
 
-//Player 2
+    //Player 2
 	respawn_P2.x=400;
 	respawn_P2.y=450;
   	player2 = this.physics.add.sprite(respawn_P2.x, respawn_P2.y, chooseP2+'_idl');
@@ -838,71 +865,71 @@ input_U=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);
             'Gems: ' + profile_p2_UI.data.get('gems') 
                 ]);
         });
-//Knife
-knifeHitbox= this.add.rectangle(0,0,10,20, 0xffffff, 0);
-this.physics.add.existing(knifeHitbox);
-knifeHitbox.damage=3;
-knifeHitbox.body.enable=false;
-this.physics.world.remove(knifeHitbox.body);
-knifeHitbox.body.setAllowGravity(false);
+    //Knife
+    knifeHitbox= this.add.rectangle(0,0,10,20, 0xffffff, 0);
+    this.physics.add.existing(knifeHitbox);
+    knifeHitbox.damage=3;
+    knifeHitbox.body.enable=false;
+    this.physics.world.remove(knifeHitbox.body);
+    knifeHitbox.body.setAllowGravity(false);
+    
+    knifeHitbox2= this.add.rectangle(0,0,10,20, 0xffffff, 0);
+    this.physics.add.existing(knifeHitbox2);
+    knifeHitbox2.damage=3;
+    knifeHitbox2.body.enable=false;
+    this.physics.world.remove(knifeHitbox2.body);
+    knifeHitbox2.body.setAllowGravity(false);
+    //Circle for explosion
+    blueSpecialAttack_Area=this.add.circle(120,120,120, 0xffffff,0.5);
+    this.physics.add.existing(blueSpecialAttack_Area);
+    blueSpecialAttack_Area.body.enable=false;
+    blueSpecialAttack_Area.setVisible(false);
+    blueSpecialAttack_Area.body.setAllowGravity(false);
+    //Shield
+    shield1=  this.physics.add.image(0, 0, 'shield_bubble').setScale(0.05,0.05).refreshBody();;
+    shield1.body.enable=false;
+    shield1.setVisible(false);
+    shield1.body.setAllowGravity(false);
+    
+    shield2=  this.physics.add.image(0, 0, 'shield_bubble').setScale(0.05,0.05).refreshBody();;
+    shield2.body.enable=false;
+    shield2.setVisible(false);
+    shield2.body.setAllowGravity(false);
+    //Copia de Chilli
+    if(chooseP1==='Chilli'){
+    	pinkCopy= this.physics.add.sprite(0,0, chooseP1+'_idl');
+    	pinkCopy.tag=1;
+    	}
+    else {
+    	pinkCopy= this.physics.add.sprite(0,0, chooseP2+'_idl');
+    	pinkCopy.tag=2;
+    	}
+    pinkCopy.body.enable=false;
+    pinkCopy.setVisible(false);
+    //Create StateMachine
+    this.stateMachine_player1 = new StateMachine('idle', {
+            idle: new IdleStateP1(),
+            move: new MoveStateP1(),
+            jump: new JumpStateP1(),
+    		climb: new ClimbStateP1(),
+            attack: new AttackStateP1(),
+    		getHit: new GetHitStateP1(),
+    		death: new DeathStateP1(),
+    		invisible: new InvisibleStateP1(),
+         }, [this, player1]);
 
-knifeHitbox2= this.add.rectangle(0,0,10,20, 0xffffff, 0);
-this.physics.add.existing(knifeHitbox2);
-knifeHitbox2.damage=3;
-knifeHitbox2.body.enable=false;
-this.physics.world.remove(knifeHitbox2.body);
-knifeHitbox2.body.setAllowGravity(false);
-//Circle for explosion
-blueSpecialAttack_Area=this.add.circle(120,120,120, 0xffffff,0.5);
-this.physics.add.existing(blueSpecialAttack_Area);
-blueSpecialAttack_Area.body.enable=false;
-blueSpecialAttack_Area.setVisible(false);
-blueSpecialAttack_Area.body.setAllowGravity(false);
-//Shield
-shield1=  this.physics.add.image(0, 0, 'shield_bubble').setScale(0.05,0.05).refreshBody();;
-shield1.body.enable=false;
-shield1.setVisible(false);
-shield1.body.setAllowGravity(false);
-
-shield2=  this.physics.add.image(0, 0, 'shield_bubble').setScale(0.05,0.05).refreshBody();;
-shield2.body.enable=false;
-shield2.setVisible(false);
-shield2.body.setAllowGravity(false);
-//Copia de Chilli
-if(chooseP1==='Chilli'){
-	pinkCopy= this.physics.add.sprite(0,0, chooseP1+'_idl');
-	pinkCopy.tag=1;
-	}
-else {
-	pinkCopy= this.physics.add.sprite(0,0, chooseP2+'_idl');
-	pinkCopy.tag=2;
-	}
-pinkCopy.body.enable=false;
-pinkCopy.setVisible(false);
-//Create StateMachine
-this.stateMachine_player1 = new StateMachine('idle', {
-        idle: new IdleStateP1(),
-        move: new MoveStateP1(),
-        jump: new JumpStateP1(),
-		climb: new ClimbStateP1(),
-        attack: new AttackStateP1(),
-		getHit: new GetHitStateP1(),
-		death: new DeathStateP1(),
-		invisible: new InvisibleStateP1(),
-      }, [this, player1]);
-
-this.stateMachine_player2 = new StateMachine('idle', {
-        idle: new IdleStateP2(),
-        move: new MoveStateP2(),
-        jump: new JumpStateP2(),
-		climb: new ClimbStateP2(),
-        attack: new AttackStateP2(),
-		getHit: new GetHitStateP2(),
-		death: new DeathStateP2(),
-		invisible: new InvisibleStateP2(),
-      }, [this, player2]);
-
-//Animaciones player1
+    this.stateMachine_player2 = new StateMachine('idle', {
+            idle: new IdleStateP2(),
+            move: new MoveStateP2(),
+            jump: new JumpStateP2(),
+    		climb: new ClimbStateP2(),
+            attack: new AttackStateP2(),
+    		getHit: new GetHitStateP2(),
+    		death: new DeathStateP2(),
+    		invisible: new InvisibleStateP2(),
+          }, [this, player2]);
+    
+    //Animaciones player1
 	//Idle
 	
 
@@ -963,7 +990,7 @@ this.stateMachine_player2 = new StateMachine('idle', {
         frameRate: 10,
         repeat: -1
     });
-//Animaciones player2
+    //Animaciones player2
 	//Idle
 	
 
@@ -1018,21 +1045,21 @@ this.stateMachine_player2 = new StateMachine('idle', {
         frameRate: 10,
 		repeat:-1
     });
-player2.anims.create({
+    player2.anims.create({
         key: 'invisible',
         frames: this.anims.generateFrameNumbers('Chilli_run_dust', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
-//Copia
-if(pinkCopy.tag===1){
-pinkCopy.anims.create({
+    //Copia
+    if(pinkCopy.tag===1){
+    pinkCopy.anims.create({
         key: 'idle',
         frames: this.anims.generateFrameNumbers(chooseP1+'_idl', { start: 0, end: 3 }),
         frameRate: 10,
 		repeat:-1
     });
-}else{
+    }else{
 	pinkCopy.anims.create({
         key: 'idle',
         frames: this.anims.generateFrameNumbers(chooseP2+'_idl', { start: 0, end: 3 }),
@@ -1040,7 +1067,7 @@ pinkCopy.anims.create({
 		repeat:-1
     });
 }
-//Physics
+    //Physics
     this.physics.add.collider(player1, platforms, null, checkUp);
     this.physics.add.collider(player2, platforms, null, checkUp);
     this.physics.add.collider(item_pistol, platforms);
@@ -1092,8 +1119,8 @@ pinkCopy.anims.create({
 	onItemRespawnEvent(this);
 	text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
 	checkNoLadder();
-	 checkTimeSpecial(player1);
- checkTimeSpecial(player2)
+	checkTimeSpecial(player1);
+    checkTimeSpecial(player2)
 	checkExplosion();
 	if(player1.direction!=='right') {  player1.flipX = true; }
 	if(player1.direction!=='left') {  player1.flipX = false; }
@@ -1103,43 +1130,134 @@ pinkCopy.anims.create({
 	      this.stateMachine_player2.step();
 
 
-if	(Phaser.Input.Keyboard.JustDown(input_Q)){
-	if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
-	if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
-	if(chooseP1==='Wasabi'){blueSpecialAttack(player1);	}
-
-}
-if	(Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true){
-	if(player1.ammo>0){
-		var sfx;
-		sfx = this.sound.add('pistolFire');
-    	sfx.play();
-			playerFire(player1, player1.direction, this);
-	}
-}
-if	(Phaser.Input.Keyboard.JustDown(input_U)){
-	if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
-	if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
-	if(chooseP2==='Wasabi'){blueSpecialAttack(player2);	}
-
-}
-if	(Phaser.Input.Keyboard.JustDown(input_O)&& player2.hasPistol===true){
-		if(player2.ammo>0){
-	playerFire(player2, player2.direction, this);
-	}
-}
-checkDebuffTime(player1, player2);
-checkBoosts(player1, player2)
-    }//update
+    if	(Phaser.Input.Keyboard.JustDown(input_Q)){
+    	if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
+    	if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
+    	if(chooseP1==='Wasabi'){blueSpecialAttack(player1);	}
     
-}
+    }
+    if	(Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true){
+    	if(player1.ammo>0){
+    		var sfx;
+    		sfx = this.sound.add('pistolFire');
+        	sfx.play();
+    			playerFire(player1, player1.direction, this);
+    	}
+    }
+    if	(Phaser.Input.Keyboard.JustDown(input_U)){
+    	if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
+    	if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
+    	if(chooseP2==='Wasabi'){blueSpecialAttack(player2);	}
+    
+    }
+    if	(Phaser.Input.Keyboard.JustDown(input_O)&& player2.hasPistol===true){
+    		if(player2.ammo>0){
+    	playerFire(player2, player2.direction, this);
+    	}
+    }
+    checkDebuffTime(player1, player2);
+    checkBoosts(player1, player2)
+        }//update
+        
+    }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+//////////////////////////////////////////PANTALLA ESCENARIO 1//////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class PantallaEscenario1 extends Phaser.Scene{
+    constructor(){
+        //Escenario1--> nombre que se le da a la escena
+        super({ key: "Escenario1"});
+    }
+
+    
+
+    preload(){
+    }
+
+
+    create(){
+    }
+
+    update(){
+    }
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////PANTALLA ESCENARIO 2//////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class PantallaEscenario2 extends Phaser.Scene{
+    constructor(){
+        //Escenario2--> nombre que se le da a la escena
+        super({ key: "Escenario2"});
+    }
+
+    
+
+    preload(){
+    }
+
+
+    create(){
+    }
+
+    update(){
+    }
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////PANTALLA ESCENARIO 3//////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class PantallaEscenario3 extends Phaser.Scene{
+    constructor(){
+        //Escenario3--> nombre que se le da a la escena
+        super({ key: "Escenario3"});
+    }
+
+    
+
+    preload(){
+    }
+
+
+    create(){
+    }
+
+    update(){
+    }
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 ////////FUNCIONES ///////////////////////////////////////////////////////
 ///Funciones de timer///
 function onCountDownEvent ()
 {
-	//Aquí poner el salto a escena de resultados
-text_time.setText('SE ACABÓ EL TIEMPO');
+    this.scene.start('Resultados');
+    text_time.setText('SE ACABÓ EL TIEMPO');
 }
 function onItemRespawnEvent(scene){
 	 
@@ -2223,7 +2341,40 @@ execute(scene, player2) {
 }
 
 
+////////////////////////////////////////PANTALLA DE RESULTADOS//////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+class PantallaResultados extends Phaser.Scene{
+    constructor(){
+        //Resultado--> nombre que se le da a la escena
+        super({ key: "Resultados"});
+    }
+
+    
+
+    preload(){
+    }
+
+
+    create(){
+
+        text_p1_Results.setText([
+            'Name: ' + profile_p2_UI.data.get('name'),
+            'Gems: ' + profile_p2_UI.data.get('gems') 
+        ]);
+
+        text_p2_Results.setText([
+            'Name: ' + profile_p2_UI.data.get('name'),
+            'Gems: ' + profile_p2_UI.data.get('gems') 
+        ]);
+    }
+
+    update(){
+    }
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -2240,7 +2391,7 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, MenuPersonajes, MenuEscenarios, PantallaJuego/*, Resultados*/],
+    scene: [PantallaCarga, PantallaDeInicio, MenuPersonajes, MenuEscenarios, PantallaJuego/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
 	audio: {
         disableWebAudio: true
     }
