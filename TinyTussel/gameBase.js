@@ -93,8 +93,14 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('textoSelect', './asset/TextoEleccionPersonaje.png');
         this.load.image('BContinuar1', './asset/BotonContinuar_prueba.png');
         this.load.image('selectChilli', './asset/Pink_Monster.png');
+        this.load.image('selectPer1Chilli', './asset/Pink_Monster_SelectionAzul.png');
+        this.load.image('selectPer2Chilli', './asset/Pink_Monster_SelectionRojo.png');
         this.load.image('selectBernie', './asset/Owlet_Monster.png');
+        this.load.image('selectPer1Bernie', './asset/Owlet_Monster_SelectionAzul.png');
+        this.load.image('selectPer2Bernie', './asset/Owlet_Monster_SelectionRojo.png');
         this.load.image('selectWasabi', './asset/Dude_Monster.png');
+        this.load.image('selectPer1Wasabi', './asset/Dude_Monster_SelectionAzul.png');
+        this.load.image('selectPer2Wasabi', './asset/Dude_Monster_SelectionRojo.png');
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////  
 
@@ -167,6 +173,14 @@ class PantallaCarga extends Phaser.Scene{
 
         //Audio
         this.load.audio('pistolFire',       'asset/pistolFire.wav');
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        ///////////////////////////Carga de assets de la Pantalla de Resultados/////////////////////////////////////
+
+        this.load.image('fondoRanking', './asset/fondoRanking_prueba.jpg');
+        this.load.image('tituloRanking', './asset/tituloRanking-prueba.png')
+        this.load.image('trofeo', './asset/Trofeo_prueba.png');
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -292,11 +306,16 @@ class MenuPersonajes extends Phaser.Scene{
         this.per1.on('pointerdown', () => {
             if(chooseP1==='null'&&chooseP2==='null'){
 				chooseP1='Chilli';
-				this.per1.setTint(0x3F51B5);
+				this.per1.destroy();
+                this.per1 = this.add.image(150, 300, 'selectPer1Chilli');
+                this.per1.setScale(1.6);
 			}
 			if(chooseP2==='null'&&chooseP1!=='Chilli'){
 				chooseP2='Chilli';
-				this.per1.setTint(0xD32F2F);
+                this.per1.destroy();
+                this.per1 = this.add.image(150, 300, 'selectPer2Chilli');
+                this.per1.setScale(1.6);
+				
                 //Botón continuar
                 this.bcont1=this.add.image(400, 500, 'BContinuar1').setInteractive();
                 this.bcont1.setScale(0.2);
@@ -310,6 +329,7 @@ class MenuPersonajes extends Phaser.Scene{
         
                 this.bcont1.on('pointerdown', () => {
                     this.scene.start('MenuEscenarios');
+                    //this.scene.start('Resultados');
                 });
 			}
         });
@@ -330,11 +350,17 @@ class MenuPersonajes extends Phaser.Scene{
         this.per2.on('pointerdown', () => {
             if(chooseP1==='null'&&chooseP2==='null'){
 				chooseP1='Bernie';
-				this.per2.setTint(0x3F51B5);
+                this.per2.destroy();
+                this.per2 = this.add.image(400, 300, 'selectPer1Bernie');
+                this.per2.setScale(1.6);
+				
 			}
 			if(chooseP2==='null'&&chooseP1!=='Bernie'){
 				chooseP2='Bernie';
-				this.per2.setTint(0xD32F2F);
+                this.per2.destroy();
+                this.per2 = this.add.image(400, 300, 'selectPer2Bernie');
+                this.per2.setScale(1.6);
+				
 
                 //Botón continuar
                 this.bcont1=this.add.image(400, 500, 'BContinuar1').setInteractive();
@@ -349,6 +375,7 @@ class MenuPersonajes extends Phaser.Scene{
         
                 this.bcont1.on('pointerdown', () => {
                     this.scene.start('MenuEscenarios');
+                    //this.scene.start('Resultados');
                 });
 		  	}
          });
@@ -368,11 +395,17 @@ class MenuPersonajes extends Phaser.Scene{
         this.per3.on('pointerdown', () => {
             if(chooseP1==='null'&&chooseP2==='null'){
 				chooseP1='Wasabi';
-				this.per3.setTint(0x3F51B5);
+                this.per3.destroy();
+                this.per3 = this.add.image(650, 300, 'selectPer1Wasabi');
+                this.per3.setScale(1.6);
+				
 			}
 			if(chooseP2==='null'&&chooseP1!=='Wasabi'){
 				chooseP2='Wasabi';
-				this.per3.setTint(0xD32F2F);
+                this.per3.destroy();
+                this.per3 = this.add.image(650, 300, 'selectPer2Wasabi');
+                this.per3.setScale(1.6);
+				
                 //Botón continuar
                 this.bcont1=this.add.image(400, 500, 'BContinuar1').setInteractive();
                 this.bcont1.setScale(0.2);
@@ -386,6 +419,7 @@ class MenuPersonajes extends Phaser.Scene{
         
                 this.bcont1.on('pointerdown', () => {
                     this.scene.start('MenuEscenarios');
+                    //this.scene.start('Resultados');
                 });
 			}
         });
@@ -2344,6 +2378,9 @@ execute(scene, player2) {
 ////////////////////////////////////////PANTALLA DE RESULTADOS//////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+var text_p1_Results;
+var text_p2_Results;
+
 class PantallaResultados extends Phaser.Scene{
     constructor(){
         //Resultado--> nombre que se le da a la escena
@@ -2358,15 +2395,48 @@ class PantallaResultados extends Phaser.Scene{
 
     create(){
 
-        text_p1_Results.setText([
-            'Name: ' + profile_p2_UI.data.get('name'),
-            'Gems: ' + profile_p2_UI.data.get('gems') 
+        this.fondoRan= this.add.image(400, 300, 'fondoRanking');
+        this.fondoRan.setScale(1.6);
+
+        this.titulo = this.add.image(400, 100, 'tituloRanking');
+
+        this.primerPuesto = this.add.image(100, 250, 'trofeo');
+        this.primerPuesto.setScale(0.7);
+
+
+        /*if(player1.gemsOwned > player2.gemsOwned){
+            this.primerPuesto = this.add.image(100, 250, 'trofeo');
+            this.primerPuesto.setScale(0.7);
+
+            this.winp1 = this.add.image(200, 250, chooseP1+'_profile');
+            //text_p1_Results = this.add.text(200, 150, 'name', { font: '16px Courier', fill: '#00ff00' });
+            //text_p2_Results = this.add.text(600, 450, 'gemsOwned', { font: '16px Courier', fill: '#00ff00' });
+
+        } else if(player1.gemsOwned < player2.gemsOwned){
+            this.primerPuesto = this.add.image(100, 250, 'trofeo');
+            this.primerPuesto.setScale(0.7);
+
+            this.winp1 = this.add.image(200, 250, chooseP2+'_profile');
+            //text_p1_Results = this.add.text(600, 150, '', { font: '16px Courier', fill: '#00ff00' });
+            //text_p2_Results = this.add.text(200, 450, '', { font: '16px Courier', fill: '#00ff00' });
+
+        } else{
+            this.primerPuesto = this.add.image(400, 300, 'trofeo');
+            this.primerPuesto.setScale(0.7);
+            //text_p1_Results = this.add.text(400, 150, '', { font: '16px Courier', fill: '#00ff00' });
+            //text_p2_Results = this.add.text(400, 450, '', { font: '16px Courier', fill: '#00ff00' });
+        }*/
+        
+
+        /*text_p1_Results.setText([
+            'Name: ' + profile_p1_UI.data.get('name'),
+            'Gems: ' + profile_p1_UI.data.get('gems') 
         ]);
 
         text_p2_Results.setText([
             'Name: ' + profile_p2_UI.data.get('name'),
             'Gems: ' + profile_p2_UI.data.get('gems') 
-        ]);
+        ]);*/
     }
 
     update(){
@@ -2391,7 +2461,7 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, MenuPersonajes, MenuEscenarios, PantallaJuego/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
+    scene: [PantallaCarga, PantallaDeInicio, MenuPersonajes, MenuEscenarios, PantallaJuego, PantallaResultados/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
 	audio: {
         disableWebAudio: true
     }
