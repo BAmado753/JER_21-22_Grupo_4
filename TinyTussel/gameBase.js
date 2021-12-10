@@ -80,7 +80,7 @@ class PantallaCarga extends Phaser.Scene{
 
         //Carga de fondo, título e imagen
         this.load.image('fondoInicio', './asset/fondoInicio_prueba.jpg');
-        this.load.image('title', './asset/title_prueba.png');
+        this.load.image('title', './asset/tituloTinyTussle.png');
         this.load.spritesheet('botonPlay', './asset/button-start-prueba.png', { frameWidth: 200, frameHeight: 70 });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
