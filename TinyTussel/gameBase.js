@@ -171,8 +171,15 @@ class PantallaCarga extends Phaser.Scene{
         this.load.spritesheet('Wasabi_death', 'asset/Dude_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
         this.load.spritesheet('Wasabi_climb', 'asset/Dude_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
 
-        //Audio
-        this.load.audio('pistolFire',       'asset/pistolFire.wav');
+        //Audio - Sound effects
+        this.load.audio('pistolFire',       'asset/sound_effects/pistolFire.wav');
+		//Music
+		this.load.audio('backgroundTitleMusic',       'asset/music/Abstraction - Three Red Hearts - Princess Quest (No Boing).wav');
+		this.load.audio('backgroundSelectionMusic',       'asset/music/Abstraction - Three Red Hearts - Puzzle Pieces.wav');
+		this.load.audio('backgroundBattleMusic1',       'asset/music/Abstraction - Three Red Hearts - Box Jump.wav');
+		this.load.audio('backgroundBattleMusic2',       'asset/music/Abstraction - Three Red Hearts - Penguins vs Rabbits.wav');
+		this.load.audio('backgroundBattleMusic3',       'asset/music/Abstraction - Three Red Hearts - Pixel War 1.wav');
+		this.load.audio('backgroundResultsMusic',       'asset/music/Abstraction - Three Red Hearts - Candy.wav');
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -212,7 +219,7 @@ class PantallaCarga extends Phaser.Scene{
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
+var bg_music_initial_screen;
 //////////////////////////////////////////////Pantalla de Inicio////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PantallaDeInicio extends Phaser.Scene{
@@ -227,7 +234,10 @@ class PantallaDeInicio extends Phaser.Scene{
     }
 
     create(){
-        
+        //Musica
+			bg_music_initial_screen = this.sound.add('backgroundTitleMusic');
+			bg_music_initial_screen.setLoop(true);
+        	bg_music_initial_screen.play();
         //Fondo de la pantalla de inicio
         this.fondoIni= this.add.image(400, 300, 'fondoInicio');
         this.fondoIni.setScale(1.6);
@@ -249,6 +259,8 @@ class PantallaDeInicio extends Phaser.Scene{
         this.play.on('pointerdown', () => {
             this.play.setFrame(2);
             this.scene.start('MenuPersonajes');
+			bg_music_initial_screen.setLoop(false);
+        	bg_music_initial_screen.stop();
         });
     }
 
@@ -262,6 +274,7 @@ class PantallaDeInicio extends Phaser.Scene{
 ////Variables Selección de personajes//////
 var chooseP1;
 var chooseP2;
+var bg_music_selection_screen;
 
 //////////////////////////////////////Pantalla de Selección de Personajes///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -279,6 +292,12 @@ class MenuPersonajes extends Phaser.Scene{
 
 
     create(){
+	//Musica
+			bg_music_selection_screen = this.sound.add('backgroundSelectionMusic');
+			bg_music_selection_screen.setLoop(true);
+        	bg_music_selection_screen.play();
+	
+	
         chooseP1='null';
 		chooseP2='null';
         //Fondo de la pantalla de selección de personaje
@@ -464,6 +483,8 @@ export class MenuEscenarios extends Phaser.Scene{
 
         this.es1.on('pointerdown', () => {
             this.scene.start('Escenario1');
+			bg_music_selection_screen.setLoop(false);
+        	bg_music_selection_screen.stop();
         });
 
 
@@ -480,6 +501,8 @@ export class MenuEscenarios extends Phaser.Scene{
 
         this.es2.on('pointerdown', () => {
             this.scene.start('Escenario2');
+			bg_music_selection_screen.setLoop(false);
+        	bg_music_selection_screen.stop();
         });
 
 
@@ -495,6 +518,8 @@ export class MenuEscenarios extends Phaser.Scene{
 
         this.es3.on('pointerdown', () => {
             this.scene.start('Escenario3');
+			bg_music_selection_screen.setLoop(false);
+        	bg_music_selection_screen.stop();
         });
 
 
@@ -511,6 +536,8 @@ export class MenuEscenarios extends Phaser.Scene{
 
         this.bcont2.on('pointerdown', () => {
             this.scene.start('Juego');
+			bg_music_selection_screen.setLoop(false);
+        	bg_music_selection_screen.stop();
         });
 
     }
@@ -520,6 +547,9 @@ export class MenuEscenarios extends Phaser.Scene{
 
 
 ///////////////////VARIABLES PANTALLA DE JUEGO////////////////////
+var bg_music_battleground_1;
+var bg_music_battleground_2;
+var bg_music_battleground_3;
 
 class StateMachine {
   constructor(initialState, possibleStates, stateArgs=[]) {
@@ -701,6 +731,11 @@ class PantallaJuego extends Phaser.Scene{
 	//Background
     this.add.image(400,300, 'gray').setScale(2,2);
     
+	//Musica
+	bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
+	bg_music_battleground_1.setLoop(true);
+    bg_music_battleground_1.play();
+
     //Timer
      lastTimeDebuff = 0;
     controlIimedItemRespawn_Gems=0;
@@ -1290,8 +1325,10 @@ class PantallaEscenario3 extends Phaser.Scene{
 ///Funciones de timer///
 function onCountDownEvent ()
 {
+	bg_music_battleground_1.setLoop(false);
+    bg_music_battleground_1.stop();
     this.scene.start('Resultados');
-    text_time.setText('SE ACABÓ EL TIEMPO');
+
 }
 function onItemRespawnEvent(scene){
 	 
@@ -1757,7 +1794,6 @@ function respawnPlayer1(){
 	player1.y=respawn_P1.y;
 	player1.life = 20;
 	player1.ammo = 10;
-	player1.gemsOwned = 0;
 	player1.direction='right';
 	player1.hitted=false;
 	player1.hasPistol=false;
@@ -1781,7 +1817,6 @@ function respawnPlayer2(){
 	player2.y=respawn_P2.y;
 	player2.life = 20;
 	player2.ammo = 10;
-	player2.gemsOwned = 0;
 	player2.direction='right';
 	player2.hitted=false;
 	player2.hasPistol=false;
@@ -2380,6 +2415,7 @@ execute(scene, player2) {
 
 var text_p1_Results;
 var text_p2_Results;
+var bg_music_results_screen;
 
 class PantallaResultados extends Phaser.Scene{
     constructor(){
@@ -2394,6 +2430,10 @@ class PantallaResultados extends Phaser.Scene{
 
 
     create(){
+		//Music
+		bg_music_results_screen = this.sound.add('backgroundResultsMusic');
+		bg_music_results_screen.setLoop(true);
+        bg_music_results_screen.play();
 
         this.fondoRan= this.add.image(400, 300, 'fondoRanking');
         this.fondoRan.setScale(1.6);
@@ -2463,7 +2503,8 @@ var config = {
     },
     scene: [PantallaCarga, PantallaDeInicio, MenuPersonajes, MenuEscenarios, PantallaJuego, PantallaResultados/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
 	audio: {
-        disableWebAudio: true
+        disableWebAudio: true,
+		noAudio: false
     }
 };
 
