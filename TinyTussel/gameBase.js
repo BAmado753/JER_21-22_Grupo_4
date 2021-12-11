@@ -79,6 +79,8 @@ class PantallaCarga extends Phaser.Scene{
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
         //////////////////////////////////Carga de assets del Menú Principal///////////////////////////////
 
         //Carga de fondo y botones
@@ -100,6 +102,36 @@ class PantallaCarga extends Phaser.Scene{
 
 
 
+        //////////////////////////////////Carga de assets de Controles//////////////////////////////////////
+
+        //Carga de fondo, título e imagen
+        this.load.image('fondoControles', './asset/Fondo.png');
+        this.load.image('TitControles', './asset/TextoControles.png');
+        this.load.image('explicacion', './asset/GemasYComida.png');
+        this.load.image('TitSalto', './asset/Salto.png');
+        this.load.image('TitMovimiento', './asset/Movimiento.png');
+        this.load.image('teclaEspacio', './asset/SpaceSprite.png');
+        this.load.image('teclaMovimiento', './asset/SpriteASDW.png');
+        this.load.image('teclaQ', './asset/SpriteQ.png');
+        this.load.image('teclaE', './asset/SpriteE.png');
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        //////////////////////////////////Carga de assets de Créditos/////////////////////////////////////
+
+        //Carga de fondo, título e imagen
+        this.load.image('fondoCreditos', './asset/Fondo.png');
+        this.load.image('TituloCred', './asset/LogoTinyTussle.png');
+        this.load.image('titEquipo', './asset/Stormediateam.png');
+        this.load.image('miembros', './asset/MiembrosGrupo.png');
+        this.load.image('assetsExternos', './asset/AssetsExternos.png');
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
         ///////////////////////////Carga de assets de Pantalla de Modo de Juego////////////////////////////
 
         //Carga de fondos y botones
@@ -112,25 +144,17 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('bJugarLocalActivado', './asset/JugarEnLocalActivado.png');
         this.load.image('textoLinea', './asset/TextoEnLinea.png');
         this.load.image('textoLocal', './asset/TextoLocal.png');
-        this.load.image('backActivo2', './asset/AtrasActivado.png');
-        this.load.image('back2', './asset/Atras.png');
-        this.load.image('ayudaActivado2', './asset/AyudaActivado.png');
-        this.load.image('ayuda2', './asset/Ayuda.png');
-
+        
 
         /////////////////////////////////////////////////////////////////////////////////////////////////// 
 
 
-        ////////////////////////Carga de assets de Pantalla de Numero de Jugadores////////////////////////
+        ////////////////////////Carga de assets de Pantalla de Número de Jugadores////////////////////////
 
         //Carga de fondos y botones
-        this.load.image('fondoNueroJugadores', './asset/Fondo.png');
+        this.load.image('fondoNumeroJugadores', './asset/Fondo.png');
         this.load.image('titleNJ', './asset/LogoTinyTussle.png');
         this.load.image('textoNJ', './asset/CuantosJugadores.png');
-        this.load.image('backActivo3', './asset/AtrasActivado.png');
-        this.load.image('back3', './asset/Atras.png');
-        this.load.image('ayudaActivado3', './asset/AyudaActivado.png');
-        this.load.image('ayuda3', './asset/Ayuda.png');
         this.load.image('2JActivo', './asset/2-Jugadores.png');
         this.load.image('2J', './asset/2jugadores.png');
         this.load.image('3J', './asset/3jugadores.png');
@@ -144,29 +168,35 @@ class PantallaCarga extends Phaser.Scene{
         ////////////////////////////Carga de assets de Pantalla Selección de Personajes////////////////////
 
         //Carga de fondo y selección de personajes
-        this.load.image('fondoMenu', './asset/Fondo.png');
-        this.load.image('textoSelect', './asset/TextoEleccionPersonaje.png');
+        this.load.image('fondoPersonajes', './asset/Fondo.png');
+        this.load.image('titlePer', './asset/LogoTinyTussle.png');
         this.load.image('BContinuar1', './asset/BotonContinuar_prueba.png');
         this.load.image('selectChilli', './asset/Pink_Monster.png');
-        this.load.image('selectPer1Chilli', './asset/Pink_Monster_SelectionAzul.png');
-        this.load.image('selectPer2Chilli', './asset/Pink_Monster_SelectionRojo.png');
         this.load.image('selectBernie', './asset/Owlet_Monster.png');
-        this.load.image('selectPer1Bernie', './asset/Owlet_Monster_SelectionAzul.png');
-        this.load.image('selectPer2Bernie', './asset/Owlet_Monster_SelectionRojo.png');
         this.load.image('selectWasabi', './asset/Dude_Monster.png');
-        this.load.image('selectPer1Wasabi', './asset/Dude_Monster_SelectionAzul.png');
-        this.load.image('selectPer2Wasabi', './asset/Dude_Monster_SelectionRojo.png');
+        this.load.image('jugador1', './asset/Jugador1.png');
+        this.load.image('jugador2', './asset/Jugador2.png');
+        this.load.image('tex1', './asset/DescripcionChili.png');
+        this.load.image('tex2', './asset/DescripcionBernie.png');
+        this.load.image('tex3', './asset/DescripcionWasabi.png');
+        this.load.image('nomChilli', './asset/ChiliNombre.png');
+        this.load.image('nomBernie', './asset/BernieNombre.png');
+        this.load.image('nomWasabi', './asset/WasabiNombre.png');
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////  
 
         ////////////////////////////Carga de assets de Pantalla Selección de Escenario/////////////////////
 
         //Carga de fondo, titulo e imagen
-        this.load.image('fondoMenu1', './asset/fondoMenu_prueba.jpg');
-        this.load.image('textoSelectE', './asset/TextoEleccionEscenario.png');
-        this.load.image('Campo', './asset/escenario1_prueba.png');
-        this.load.image('Lava', './asset/escenario2_prueba.png');
-        this.load.image('Oriental', './asset/escenario3_prueba.png');
+        this.load.image('fondoMenu1', './asset/Fondo.png');
+        this.load.image('textoSelectE', './asset/ElegirMapa.png');
+        this.load.image('Campo', './asset/MapaIlumen.png');
+        this.load.image('CampoActivado', './asset/IlumenActivado.png');
+        this.load.image('Lava', './asset/MapaMolvatt.png');
+        this.load.image('LavaActivado', './asset/MolvattActivado.png');
+        this.load.image('Oriental', './asset/MapaZauz.png');
+        this.load.image('OrientalActivado', './asset/ZauzActivado.png');
         this.load.image('BContinuar2', './asset/BotonContinuar_prueba.png');
 
         /////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -393,7 +423,7 @@ class MenuPrincipal extends Phaser.Scene{
         });
         
         this.control.on('pointerdown', () => {
-            //this.scene.start('Menu');
+            this.scene.start('Controles');
         });
 
         this.cred = this.add.image(550, 350, 'bCreditos').setInteractive();
@@ -409,8 +439,8 @@ class MenuPrincipal extends Phaser.Scene{
             this.cred.setScale(0.3);
         });
         
-        this.control.on('pointerdown', () => {
-            //this.scene.start('Menu');
+        this.cred.on('pointerdown', () => {
+            this.scene.start('Creditos');
         });
 
         this.ajust = this.add.image(550, 450, 'bAjustes');
@@ -464,7 +494,148 @@ class MenuPrincipal extends Phaser.Scene{
 
 
 
-/////////////////////////////////////////Pantalla de Modo de Juego/////////////////////////////////////////////////
+///////////////////////////////////////////Pantalla de Controles////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class Controles extends Phaser.Scene{
+    constructor(){
+        //Inicio--> nombre que se le da a la escena
+        super({ key: "Controles"});
+    }
+
+    preload(){   
+    }
+
+    create(){
+        
+        //Fondo de la pantalla de controles
+        this.fondoCont= this.add.image(400, 300, 'fondoControles');
+        this.fondoCont.setScale(0.6);
+
+        this.tituloCont = this.add.image(400, 100, 'TitControles');
+        this.tituloCont.setScale(0.6);
+
+        this.expl = this.add.image(275, 300, 'explicacion');
+        this.expl.setScale(0.55);
+
+        this.mov = this.add.image(650, 200, 'TitMovimiento');
+        this.mov.setScale(0.6);
+
+        this.salt = this.add.image(650, 325, 'TitSalto');
+        this.salt.setScale(0.6);
+
+        this.tEsp = this.add.image(650, 375, 'teclaEspacio');
+        this.tEsp.setScale(0.6);
+
+        this.tMov = this.add.image(650,250, 'teclaMovimiento');
+        this.tMov.setScale(0.6);
+
+        this.tecQ = this.add.image(600, 500, 'teclaQ');
+        this.tecQ.setScale(0.6);
+
+        this.tecE = this.add.image(700, 500, 'teclaE');
+        this.tecE.setScale(0.6);
+
+
+        this.atras6 = this.add.image(75, 50, 'back').setInteractive();
+        this.atras6.setScale(0.8);
+
+        this.atras6.on('pointerover', () => {
+            this.atras6 = this.add.image(75, 50, 'backActivo');
+            this.atras6.setScale(0.8);
+        });
+        
+        this.atras6.on('pointerout', () => {
+            this.atras6 = this.add.image(75, 50, 'back');
+            this.atras6.setScale(0.8);
+        });
+        
+        this.atras6.on('pointerdown', () => {
+            this.scene.start('MenuPrincipal');
+        });
+
+    }
+
+    update(){
+
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////Pantalla de Créditos////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Creditos extends Phaser.Scene{
+    constructor(){
+        //Creditos--> nombre que se le da a la escena
+        super({ key: "Creditos"});
+    }
+
+    preload(){   
+    }
+
+    create(){
+        //Fondo de la pantalla de créditos
+        this.fondoCred= this.add.image(400, 300, 'fondoCreditos');
+        this.fondoCred.setScale(0.6);
+
+        this.atras7 = this.add.image(75, 50, 'back').setInteractive();
+        this.atras7.setScale(0.8);
+
+        this.atras7.on('pointerover', () => {
+            this.atras7 = this.add.image(75, 50, 'backActivo');
+            this.atras7.setScale(0.8);
+        });
+        
+        this.atras7.on('pointerout', () => {
+            this.atras7 = this.add.image(75, 50, 'back');
+            this.atras7.setScale(0.8);
+        });
+        
+        this.atras7.on('pointerdown', () => {
+            this.scene.start('MenuPrincipal');
+        });
+
+        this.titleCred = this.add.image(160, 175, 'TituloCred');
+        this.titleCred.setScale(0.2);
+
+
+        this.nombreEq = this.add.image(160, 275, 'titEquipo');
+        this.nombreEq.setScale(0.6);
+
+        this.miem = this.add.image(160, 425, 'miembros');
+        this.miem.setScale(0.5);
+
+        this.assetEx = this.add.image(525, 150, 'assetsExternos');
+        this.assetEx.setScale(0.6);
+
+        this.ext1 = this.add.text(350, 200, 'Los personajes son de Craftpix', { font: '16px Courier', fill: '#00ff00' });
+        this.ext2 = this.add.text(350, 250, 'Los objetos de apoyo son de Cheekyinkling', { font: '16px Courier', fill: '#00ff00' });
+        this.ext3 = this.add.text(350, 300, 'Los tilesets de los escenarios son de Maytch', { font: '16px Courier', fill: '#00ff00' });
+        this.ext4 = this.add.text(350, 350, 'El icono de pistola es de MunStudios', { font: '16px Courier', fill: '#00ff00' });
+        this.ext5 = this.add.text(350, 400, 'El cuchillo es de antrixglow98', { font: '16px Courier', fill: '#00ff00' });
+        this.ext6 = this.add.text(350, 450, 'Fuente utilizada para el logo del juego', { font: '16px Courier', fill: '#00ff00' });
+        this.ext7 = this.add.text(350, 500, 'Iconos de inputs', { font: '16px Courier', fill: '#00ff00' });
+
+    }
+
+    update(){
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+/////////////////////////////////////////Pantalla de Modo de Juego//////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -521,31 +692,32 @@ class PantallaModoJuego extends Phaser.Scene{
             this.scene.start('MenuPrincipal');
         });
 
-        this.IcLinea = this.add.image(200, 300, 'iconoRed');
-        this.IcLinea.setScale(0.4);
 
-        this.IcLocal = this.add.image(600, 300, 'iconoLocal');
+        this.IcLocal = this.add.image(200, 300, 'iconoLocal');
         this.IcLocal.setScale(0.4);
 
-        this.texLinea = this.add.image(200, 400, 'textoLinea');
-        this.texLinea.setScale(0.4);
+         this.IcLinea = this.add.image(600, 300, 'iconoRed');
+        this.IcLinea.setScale(0.4);
 
-        this.texLocal = this.add.image(600, 400, 'textoLocal');
-        this.texLocal.setScale(0.4);
+        this.texLocal = this.add.image(200, 400, 'textoLocal');
+        this.texLocal.setScale(0.5);
 
-        this.botLinea = this.add.image(200, 500, 'bJugarLinea');
+        this.texLinea = this.add.image(600, 400, 'textoLinea');
+        this.texLinea.setScale(0.5);
+
+        this.botLinea = this.add.image(600, 500, 'bJugarLinea');
         this.botLinea.setScale(0.3);
 
-        this.botLocal = this.add.image(600, 500, 'bJugarLocal').setInteractive();
+        this.botLocal = this.add.image(200, 500, 'bJugarLocal').setInteractive();
         this.botLocal.setScale(0.3);
 
         this.botLocal.on('pointerover', () => {
-            this.botLocal = this.add.image(600, 500, 'bJugarLocalActivado');
+            this.botLocal = this.add.image(200, 500, 'bJugarLocalActivado');
             this.botLocal.setScale(0.3);
         });
         
         this.botLocal.on('pointerout', () => {
-            this.botLocal = this.add.image(600, 500, 'bJugarLocal');
+            this.botLocal = this.add.image(200, 500, 'bJugarLocal');
             this.botLocal.setScale(0.3);
         });
         
@@ -566,7 +738,7 @@ class PantallaModoJuego extends Phaser.Scene{
 
 
 
-/////////////////////////////////////////Pantalla Elección Numero de Jugadores//////////////////////////////////////
+/////////////////////////////////////////Pantalla Elección Número de Jugadores//////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -580,12 +752,12 @@ class PantallaNumeroJugadores extends Phaser.Scene{
     }
 
     create(){
-        //Fondo del menú principal
-        this.fondoMJ= this.add.image(400, 300, 'fondoModoJuego');
-        this.fondoMJ.setScale(0.6);
+        //Fondo de la pantalla de elección de número de jugadores
+        this.fondoNJ= this.add.image(400, 300, 'fondoNumeroJugadores');
+        this.fondoNJ.setScale(0.6);
 
-        this.titleMJuego = this.add.image(400, 150, 'titleMJ');
-        this.titleMJuego.setScale(0.3);
+        this.titleNJ = this.add.image(400, 150, 'titleNJ');
+        this.titleNJ.setScale(0.3);
 
 
         this.ayud3 = this.add.image(750, 50, 'ayuda').setInteractive();
@@ -641,7 +813,7 @@ class PantallaNumeroJugadores extends Phaser.Scene{
         });
         
         this.DosJugadores.on('pointerdown', () => {
-            //this.scene.start('Menu');
+            this.scene.start('MenuPersonajes');
         });
 
         this.TresJugadores= this.add.image(400, 450, '3J');
@@ -687,50 +859,105 @@ class MenuPersonajes extends Phaser.Scene{
 
         chooseP1='null';
 		chooseP2='null';
+
         //Fondo de la pantalla de selección de personaje
-        this.fondoMP= this.add.image(400, 300, 'fondoMenu');
-        this.fondoMP.setScale(1.6);
+        this.fondoPer= this.add.image(400, 300, 'fondoPersonajes');
+        this.fondoPer.setScale(0.6);
 
-       
+        this.ayud4 = this.add.image(750, 50, 'ayuda').setInteractive();
+        this.ayud4.setScale(0.6);
 
+        this.ayud4.on('pointerover', () => {
+            this.ayud4 = this.add.image(750, 50, 'ayudaActivado');
+            this.ayud4.setScale(0.6);
+        });
+        
+        this.ayud4.on('pointerout', () => {
+            this.ayud4 = this.add.image(750, 50, 'ayuda');
+            this.ayud4.setScale(0.6);
+        });
+        
+        this.ayud4.on('pointerdown', () => {
+            //this.scene.start('Menu');
+        });
+
+
+        this.atras4 = this.add.image(75, 50, 'back').setInteractive();
+        this.atras4.setScale(0.8);
+
+        this.atras4.on('pointerover', () => {
+            this.atras4 = this.add.image(75, 50, 'backActivo');
+            this.atras4.setScale(0.8);
+        });
+        
+        this.atras4.on('pointerout', () => {
+            this.atras4 = this.add.image(75, 50, 'back');
+            this.atras4.setScale(0.8);
+        });
+        
+        this.atras4.on('pointerdown', () => {
+            this.scene.start('NumeroJugadores');
+        });
+
+        
         //Texto en forma de imagen
-        this.tex= this.add.image(400, 100, 'textoSelect');
-        this.tex.setScale(1.2);
+        //this.tex= this.add.image(400, 100, 'textoSelect');
+        //this.tex.setScale(1.2);
+
 
         //Chilli
-        this.per1 = this.add.image(150, 300, 'selectChilli').setInteractive();
+        this.per1 = this.add.image(150, 400, 'selectChilli').setInteractive();
         this.per1.setScale(1.5);
+
+        this.nombChilli = this.add.image(150, 325, 'nomChilli');
+        this.nombChilli.setScale(0.6);
+
         //Eventos del botón
         this.per1.on('pointerover', () => {
             this.per1.setScale(2);
+            if(chooseP1==='Chilli'||chooseP2==='Chilli' ||chooseP1!=='null'&&chooseP2!=='null'){
+                if(this.texPer1!=='undefined'){
+                this.texPer1.destroy();
+                }
+            } else{
+                this.texPer1 = this.add.image(400, 200, 'tex1');
+                this.texPer1.setScale(0.8);
+            }
         });
 
         this.per1.on('pointerout', () => {
             this.per1.setScale(1.5);
+            this.texPer1.destroy();
         });
 
         this.per1.on('pointerdown', () => {
             if(chooseP1==='null'&&chooseP2==='null'){
 				chooseP1='Chilli';
 				this.per1.destroy();
-                this.per1 = this.add.image(150, 300, 'selectPer1Chilli');
+                this.texPer1.destroy();
+                this.jug1 = this.add.image(150, 400, 'jugador1');
+                this.jug1.setScale(0.4);
+                this.per1 = this.add.image(150, 400, 'selectChilli');
                 this.per1.setScale(1.6);
 			}
 			if(chooseP2==='null'&&chooseP1!=='Chilli'){
 				chooseP2='Chilli';
                 this.per1.destroy();
-                this.per1 = this.add.image(150, 300, 'selectPer2Chilli');
+                this.texPer1.destroy();
+                this.jug2 = this.add.image(150, 400, 'jugador2');
+                this.jug2.setScale(0.4);
+                this.per1 = this.add.image(150, 400, 'selectChilli');
                 this.per1.setScale(1.6);
 				
                 //Botón continuar
-                this.bcont1=this.add.image(400, 500, 'BContinuar1').setInteractive();
-                this.bcont1.setScale(0.2);
+                this.bcont1=this.add.image(400, 550, 'BContinuar1').setInteractive();
+                this.bcont1.setScale(0.1);
                 this.bcont1.on('pointerover', () => {
-                    this.bcont1.setScale(0.25);
+                    this.bcont1.setScale(0.15);
                 });
         
                 this.bcont1.on('pointerout', () => {
-                    this.bcont1.setScale(0.2);
+                    this.bcont1.setScale(0.1);
                 });
         
                 this.bcont1.on('pointerdown', () => {
@@ -742,41 +969,63 @@ class MenuPersonajes extends Phaser.Scene{
     
 
         //Bernie
-        this.per2 = this.add.image(400, 300, 'selectBernie').setInteractive();
+        this.per2 = this.add.image(400, 400, 'selectBernie').setInteractive();
         this.per2.setScale(1.5);
+
+        this.nombBernie = this.add.image(400, 325, 'nomBernie');
+        this.nombBernie.setScale(0.6);
+
         //Eventos del botón
         this.per2.on('pointerover', () => {
             this.per2.setScale(2);
+            
+           if(chooseP1==='Bernie'||chooseP2==='Bernie' ||chooseP1!=='null'&&chooseP2!=='null'){
+                if(this.texPer2!=='undefined'){
+                    this.texPer2.destroy();
+                }
+                this.texPer2.destroy();
+            } else{
+                this.texPer2 = this.add.image(400, 200, 'tex2');
+                this.texPer2.setScale(0.8);
+            }
+            
         });
 
         this.per2.on('pointerout', () => {
             this.per2.setScale(1.5);
+            this.texPer2.destroy();
         });
 
         this.per2.on('pointerdown', () => {
             if(chooseP1==='null'&&chooseP2==='null'){
 				chooseP1='Bernie';
                 this.per2.destroy();
-                this.per2 = this.add.image(400, 300, 'selectPer1Bernie');
+                this.texPer2.destroy()
+                this.jug1 = this.add.image(400, 400, 'jugador1');
+                this.jug1.setScale(0.4);
+                this.per2 = this.add.image(400, 400, 'selectBernie');
                 this.per2.setScale(1.6);
 				
 			}
 			if(chooseP2==='null'&&chooseP1!=='Bernie'){
 				chooseP2='Bernie';
                 this.per2.destroy();
-                this.per2 = this.add.image(400, 300, 'selectPer2Bernie');
+                this.texPer2.destroy();
+                this.jug2 = this.add.image(400, 400, 'jugador2');
+                this.jug2.setScale(0.4);
+                this.per2 = this.add.image(400, 400, 'selectBernie');
                 this.per2.setScale(1.6);
 				
 
                 //Botón continuar
-                this.bcont1=this.add.image(400, 500, 'BContinuar1').setInteractive();
-                this.bcont1.setScale(0.2);
+                this.bcont1=this.add.image(400, 550, 'BContinuar1').setInteractive();
+                this.bcont1.setScale(0.1);
                 this.bcont1.on('pointerover', () => {
-                    this.bcont1.setScale(0.25);
+                    this.bcont1.setScale(0.15);
                 });
         
                 this.bcont1.on('pointerout', () => {
-                    this.bcont1.setScale(0.2);
+                    this.bcont1.setScale(0.1);
                 });
         
                 this.bcont1.on('pointerdown', () => {
@@ -787,40 +1036,60 @@ class MenuPersonajes extends Phaser.Scene{
          });
 
         //Wasabi
-        this.per3 = this.add.image(650, 300, 'selectWasabi').setInteractive();
+        this.per3 = this.add.image(650, 400, 'selectWasabi').setInteractive();
         this.per3.setScale(1.5);
+
+        this.nombWasabi = this.add.image(650, 325, 'nomWasabi');
+        this.nombWasabi.setScale(0.6);
+
         //Eventos del botón
         this.per3.on('pointerover', () => {
             this.per3.setScale(2);
+            if(chooseP1==='Wasabi'||chooseP2==='Wasabi' ||chooseP1!=='null'&&chooseP2!=='null'){
+                if(this.texPer3!=='undefined'){
+                    this.texPer3.destroy();
+                }
+            }else{
+                this.texPer3 = this.add.image(400, 200, 'tex3');
+                this.texPer3.setScale(0.8);
+            }
+
         });
 
         this.per3.on('pointerout', () => {
             this.per3.setScale(1.5);
+            this.texPer3.destroy();
         });
 
         this.per3.on('pointerdown', () => {
             if(chooseP1==='null'&&chooseP2==='null'){
 				chooseP1='Wasabi';
                 this.per3.destroy();
-                this.per3 = this.add.image(650, 300, 'selectPer1Wasabi');
+                this.texPer3.destroy();
+                this.jug1 = this.add.image(650, 400, 'jugador1');
+                this.jug1.setScale(0.4);
+                this.per3 = this.add.image(650, 400, 'selectWasabi');
                 this.per3.setScale(1.6);
 				
 			}
 			if(chooseP2==='null'&&chooseP1!=='Wasabi'){
 				chooseP2='Wasabi';
                 this.per3.destroy();
-                this.per3 = this.add.image(650, 300, 'selectPer2Wasabi');
+                this.texPer3.destroy();
+                this.jug2 = this.add.image(650, 400, 'jugador2');
+                this.jug2.setScale(0.4);
+                this.per3 = this.add.image(650, 400, 'selectWasabi');
                 this.per3.setScale(1.6);
 				
                 //Botón continuar
-                this.bcont1=this.add.image(400, 500, 'BContinuar1').setInteractive();
-                this.bcont1.setScale(0.2);
+                this.bcont1=this.add.image(400, 550, 'BContinuar1').setInteractive();
+                this.bcont1.setScale(0.1);
                 this.bcont1.on('pointerover', () => {
-                    this.bcont1.setScale(0.25);
+                    this.bcont1.setScale(0.15);
                 });
         
                 this.bcont1.on('pointerout', () => {
-                    this.bcont1.setScale(0.2);
+                    this.bcont1.setScale(0.1);
                 });
         
                 this.bcont1.on('pointerdown', () => {
@@ -856,15 +1125,54 @@ export class MenuEscenarios extends Phaser.Scene{
 
         //Texto en forma de imagen
         this.tex1= this.add.image(400, 100, 'textoSelectE');
-        this.tex1.setScale(1.2);
+        this.tex1.setScale(0.6);
+
+        this.ayud5 = this.add.image(750, 50, 'ayuda').setInteractive();
+        this.ayud5.setScale(0.6);
+
+        this.ayud5.on('pointerover', () => {
+            this.ayud5 = this.add.image(750, 50, 'ayudaActivado');
+            this.ayud5.setScale(0.6);
+        });
+        
+        this.ayud5.on('pointerout', () => {
+            this.ayud5 = this.add.image(750, 50, 'ayuda');
+            this.ayud5.setScale(0.6);
+        });
+        
+        this.ayud5.on('pointerdown', () => {
+            //this.scene.start('Menu');
+        });
+
+
+        this.atras5 = this.add.image(75, 50, 'back').setInteractive();
+        this.atras5.setScale(0.8);
+
+        this.atras5.on('pointerover', () => {
+            this.atras5 = this.add.image(75, 50, 'backActivo');
+            this.atras5.setScale(0.8);
+        });
+        
+        this.atras5.on('pointerout', () => {
+            this.atras5 = this.add.image(75, 50, 'back');
+            this.atras5.setScale(0.8);
+        });
+        
+        this.atras5.on('pointerdown', () => {
+            this.scene.start('MenuPersonajes');
+        });
 
         this.es1 = this.add.image(150, 300, 'Campo').setInteractive();
         this.es1.setScale(0.5);
+
+
         this.es1.on('pointerover', () => {
-            this.es1.setScale(0.55);
+            this.es1 = this.add.image(150, 300, 'CampoActivado');
+            this.es1.setScale(0.5);
         });
 
         this.es1.on('pointerout', () => {
+            this.es1 = this.add.image(150, 300, 'Campo');
             this.es1.setScale(0.5);
         });
 
@@ -879,10 +1187,12 @@ export class MenuEscenarios extends Phaser.Scene{
         this.es2 = this.add.image(400, 300, 'Lava').setInteractive();
         this.es2.setScale(0.5);
         this.es2.on('pointerover', () => {
-            this.es2.setScale(0.55);
+            this.es2 = this.add.image(400, 300, 'LavaActivado');
+            this.es2.setScale(0.5);
         });
 
         this.es2.on('pointerout', () => {
+            this.es2 = this.add.image(400, 300, 'Lava');
             this.es2.setScale(0.5);
         });
 
@@ -896,10 +1206,12 @@ export class MenuEscenarios extends Phaser.Scene{
         this.es3 = this.add.image(650, 300, 'Oriental').setInteractive();
         this.es3.setScale(0.5);
         this.es3.on('pointerover', () => {
-            this.es3.setScale(0.55);
+            this.es3 = this.add.image(650, 300, 'OrientalActivado');
+            this.es3.setScale(0.5);
         });
 
         this.es3.on('pointerout', () => {
+            this.es3 = this.add.image(650, 300, 'Oriental');
             this.es3.setScale(0.5);
         });
 
@@ -3060,7 +3372,7 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, MenuPrincipal, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, PantallaJuego, PantallaResultados/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
+    scene: [PantallaCarga, PantallaDeInicio, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, PantallaJuego, PantallaResultados/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
 	audio: {
         disableWebAudio: true
     }
