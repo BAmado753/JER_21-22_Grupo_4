@@ -79,6 +79,8 @@ class PantallaCarga extends Phaser.Scene{
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
         //////////////////////////////////Carga de assets del Menú Principal///////////////////////////////
 
         //Carga de fondo y botones
@@ -97,6 +99,33 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('ayuda', './asset/Ayuda.png');
 
         /////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+
+
+        //////////////////////////////////Carga de assets de Controles//////////////////////////////////////
+
+        //Carga de fondo, título e imagen
+        this.load.image('fondoControles', './asset/Fondo.png');
+        this.load.image('TitControles', './asset/TextoControles.png');
+        this.load.image('explicacion', './asset/GemasYComida.png');
+        this.load.image('TitSalto', './asset/Salto.png');
+        this.load.image('TitMovimiento', './asset/Movimiento.png');
+        this.load.image('teclaEspacio', './asset/SpaceSprite.png');
+        this.load.image('teclaMovimiento', './asset/SpriteASDW.png');
+        this.load.image('teclaQ', './asset/SpriteQ.png');
+        this.load.image('teclaE', './asset/SpriteE.png');
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        //////////////////////////////////Carga de assets de Créditos/////////////////////////////////////
+
+        //Carga de fondo, título e imagen
+        this.load.image('fondoCreditos', './asset/Fondo.png');
+        this.load.image('titCreditos', './asset/')
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -389,7 +418,7 @@ class MenuPrincipal extends Phaser.Scene{
         });
         
         this.control.on('pointerdown', () => {
-            //this.scene.start('Menu');
+            this.scene.start('Controles');
         });
 
         this.cred = this.add.image(550, 350, 'bCreditos').setInteractive();
@@ -457,6 +486,80 @@ class MenuPrincipal extends Phaser.Scene{
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////Pantalla de Controles////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class Controles extends Phaser.Scene{
+    constructor(){
+        //Inicio--> nombre que se le da a la escena
+        super({ key: "Controles"});
+    }
+
+    preload(){   
+    }
+
+    create(){
+        
+        //Fondo de la pantalla de controles
+        this.fondoCont= this.add.image(400, 300, 'fondoControles');
+        this.fondoCont.setScale(0.6);
+
+        this.tituloCont = this.add.image(400, 100, 'TitControles');
+        this.tituloCont.setScale(0.6);
+
+        this.expl = this.add.image(275, 300, 'explicacion');
+        this.expl.setScale(0.55);
+
+        this.mov = this.add.image(650, 200, 'TitMovimiento');
+        this.mov.setScale(0.6);
+
+        this.salt = this.add.image(650, 325, 'TitSalto');
+        this.salt.setScale(0.6);
+
+        this.tEsp = this.add.image(650, 375, 'teclaEspacio');
+        this.tEsp.setScale(0.6);
+
+        this.tMov = this.add.image(650,250, 'teclaMovimiento');
+        this.tMov.setScale(0.6);
+
+        this.tecQ = this.add.image(600, 500, 'teclaQ');
+        this.tecQ.setScale(0.6);
+
+        this.tecE = this.add.image(700, 500, 'teclaE');
+        this.tecE.setScale(0.6);
+
+
+        this.atras6 = this.add.image(75, 50, 'back').setInteractive();
+        this.atras6.setScale(0.8);
+
+        this.atras6.on('pointerover', () => {
+            this.atras6 = this.add.image(75, 50, 'backActivo');
+            this.atras6.setScale(0.8);
+        });
+        
+        this.atras6.on('pointerout', () => {
+            this.atras6 = this.add.image(75, 50, 'back');
+            this.atras6.setScale(0.8);
+        });
+        
+        this.atras6.on('pointerdown', () => {
+            this.scene.start('MenuPrincipal');
+        });
+
+    }
+
+    update(){
+
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 
@@ -3029,7 +3132,7 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, MenuPrincipal, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, PantallaJuego, PantallaResultados/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
+    scene: [PantallaCarga, PantallaDeInicio, MenuPrincipal, Controles, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, PantallaJuego, PantallaResultados/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
 	audio: {
         disableWebAudio: true
     }
