@@ -248,8 +248,8 @@ class PantallaCarga extends Phaser.Scene{
         this.load.spritesheet('Chilli_run_knife', 'asset/correrCuchilloRosa.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Chilli_run_pistol', 'asset/correrPistolaRosa.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Chilli_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
-		this.load.spritesheet('Chilli_attack_knife', 'asset/animacionCuchilloRosa.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Chilli_attack_pistol', 'asset/animacionPistolaRosa.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.spritesheet('Chilli_attack_knife', 'asset/animacionCuchilloRosa.png', { frameWidth: 36, frameHeight: 32 });
+        this.load.spritesheet('Chilli_attack_pistol', 'asset/animacionPistolaRosa.png', { frameWidth: 36, frameHeight: 32 });
         this.load.spritesheet('Chilli_hurt', 'asset/Pink_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Chilli_death', 'asset/Pink_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Chilli_climb', 'asset/Pink_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
@@ -263,8 +263,8 @@ class PantallaCarga extends Phaser.Scene{
         this.load.spritesheet('Bernie_run_knife', 'asset/correrCuchilloBlanco.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Bernie_run_pistol', 'asset/correrPistolaBlanco.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Bernie_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
-		this.load.spritesheet('Bernie_attack_knife', 'asset/animacionCuchilloBlanco.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Bernie_attack_pistol', 'asset/animacionPistolaBlanco.png', { frameWidth: 32, frameHeight: 32 });         this.load.spritesheet('Bernie_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.spritesheet('Bernie_attack_knife', 'asset/animacionCuchilloBlanco.png', { frameWidth: 36, frameHeight: 32 });
+        this.load.spritesheet('Bernie_attack_pistol', 'asset/animacionPistolaBlanco.png', { frameWidth: 36, frameHeight: 32 });         this.load.spritesheet('Bernie_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Bernie_death', 'asset/Owlet_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
         this.load.spritesheet('Bernie_climb', 'asset/Owlet_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
 
@@ -275,12 +275,13 @@ class PantallaCarga extends Phaser.Scene{
         this.load.spritesheet('Wasabi_run_knife', 'asset/correrCuchilloAzul.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Wasabi_run_pistol', 'asset/correrPistolaAzul.png', { frameWidth: 32, frameHeight: 32 });        
 		this.load.spritesheet('Wasabi_jump', 'asset/Dude_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
-		this.load.spritesheet('Wasabi_attack_knife', 'asset/animacionCuchilloAzul.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Wasabi_attack_pistol', 'asset/animacionPistolaAzul.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.spritesheet('Wasabi_attack_knife', 'asset/animacionCuchilloAzul.png', { frameWidth: 36, frameHeight: 32 });
+        this.load.spritesheet('Wasabi_attack_pistol', 'asset/animacionPistolaAzul.png', { frameWidth: 36, frameHeight: 32 });
         this.load.spritesheet('Wasabi_hurt', 'asset/Dude_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Wasabi_death', 'asset/Dude_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
         this.load.spritesheet('Wasabi_climb', 'asset/Dude_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
 
+        this.load.spritesheet('round_explosion', 'asset/round_explosion.png', { frameWidth: 100, frameHeight: 100 });
 
 
         //Audio - Sound effects
@@ -1406,6 +1407,8 @@ var lastTimeDebuff;
 var knifeHitbox= Phaser.GameObjects.Rectangle;
 var knifeHitbox2= Phaser.GameObjects.Rectangle;
 var blueSpecialAttack_Area= Phaser.GameObjects.Circle;
+var blueSpecialAttack_Explosion;
+
 var shield1;
 var shield2;
 var pinkCopy;
@@ -1418,6 +1421,7 @@ var controlIimedItemRespawn_Fruits;
 var controlIimedItemRespawn;
 
 var timedItemRespawn;
+
 //Inputs Player 1
 var respawn_P1=new Phaser.Math. Vector2;
 var spaceBar;
@@ -1588,29 +1592,29 @@ class PantallaJuego extends Phaser.Scene{
 	spAtk_p1_UI.anims.create({
             key: 'charge',
             frames: [
-                { key: 'special_attack_1' , duration: 500},
-                { key: 'special_attack_2' , duration: 500},
-                { key: 'special_attack_3' , duration: 500},
-                { key: 'special_attack_4' , duration: 500},
-                { key: 'special_attack_5' , duration: 500},
-                { key: 'special_attack_6' , duration: 500},
-                { key: 'special_attack_7' , duration: 500},
-                { key: 'special_attack_8' , duration: 500},
-                { key: 'special_attack_9' , duration: 500},
-                { key: 'special_attack_10' , duration: 500},
-                { key: 'special_attack_11', duration: 500 }
+                { key: 'special_attack_1' , duration: 1500},
+                { key: 'special_attack_2' , duration: 1500},
+                { key: 'special_attack_3' , duration: 1500},
+                { key: 'special_attack_4' , duration: 1500},
+                { key: 'special_attack_5' , duration: 1500},
+                { key: 'special_attack_6' , duration: 1500},
+                { key: 'special_attack_7' , duration: 1500},
+                { key: 'special_attack_8' , duration: 1500},
+                { key: 'special_attack_9' , duration: 1500},
+                { key: 'special_attack_10', duration: 1500},
+                { key: 'special_attack_11', duration: 1500 }
             ],
             frameRate: 10,
             repeat: 0
         });
 	var heartsF1_p1_UI=this.add.group({key: 'life_heart',
-        repeat: 10,
+        repeat: 9,
         setXY: { x: 20, y:575 , stepX: 20 },
 		setScale: { x: 0.5, y:0.5 }
 	});
 	lives_p1_UI=heartsF1_p1_UI.getChildren();
 	var heartsF2_p1_UI=this.add.group({key: 'life_heart',
-        repeat: 10,
+        repeat: 9,
         setXY: { x: 20, y:590 , stepX: 20 },
 		setScale: { x: 0.5, y:0.5 }
 
@@ -1619,7 +1623,6 @@ class PantallaJuego extends Phaser.Scene{
 	for( var i=0 ; i<10;i++){
 		lives_p1_UI.push(auxArray[i]);
 	}
-
         //  Store some data about this profile:
         profile_p1_UI.setDataEnabled();
 
@@ -1644,7 +1647,7 @@ class PantallaJuego extends Phaser.Scene{
             profile_p1_UI.data.get('gems') 
                 ]);
         });
-    text_p2_UI = this.add.text(590, 512, '', { font: '24px Courier', fill: '#ffffff' });
+    text_p2_UI = this.add.text(585, 512, '', { font: '24px Courier', fill: '#ffffff' });
 	profile_p2_UI = this.add.image(750, 510, 'j2').setScale(0.4,0.4); 
 	var gem_Icon= this.add.image(620, 550, 'gem');
 	var ammo_Icon= this.add.image(620, 520, 'ammo_item').setScale(0.6,0.6); 
@@ -1652,31 +1655,31 @@ class PantallaJuego extends Phaser.Scene{
 	spAtk_p2_UI.anims.create({
             key: 'charge',
             frames: [
-                { key: 'special_attack_1' , duration: 500},
-                { key: 'special_attack_2' , duration: 500},
-                { key: 'special_attack_3' , duration: 500},
-                { key: 'special_attack_4' , duration: 500},
-                { key: 'special_attack_5' , duration: 500},
-                { key: 'special_attack_6' , duration: 500},
-                { key: 'special_attack_7' , duration: 500},
-                { key: 'special_attack_8' , duration: 500},
-                { key: 'special_attack_9' , duration: 500},
-                { key: 'special_attack_10' , duration: 500},
-                { key: 'special_attack_11', duration: 500 }
+                { key: 'special_attack_1' , duration: 1500},
+                { key: 'special_attack_2' , duration: 1500},
+                { key: 'special_attack_3' , duration: 1500},
+                { key: 'special_attack_4' , duration: 1500},
+                { key: 'special_attack_5' , duration: 1500},
+                { key: 'special_attack_6' , duration: 1500},
+                { key: 'special_attack_7' , duration: 1500},
+                { key: 'special_attack_8' , duration: 1500},
+                { key: 'special_attack_9' , duration: 1500},
+                { key: 'special_attack_10' , duration: 1500},
+                { key: 'special_attack_11', duration: 1500 }
             ],
             frameRate: 10,
             repeat: 0
         });
 	spAtk_p2_UI.setFlipX(true);
 	var heartsF1_p2_UI=this.add.group({key: 'life_heart',
-        repeat: 10,
+        repeat: 9,
         setXY: { x: 580, y:575 , stepX: 20 },
 		setScale: { x: 0.5, y:0.5 }
 	});
 		lives_p2_UI= heartsF1_p2_UI.getChildren();
 
 	var heartsF2_p2_UI=this.add.group({key: 'life_heart',
-        repeat: 10,
+        repeat: 9,
         setXY: { x: 580, y:590 , stepX: 20 },
 		setScale: { x: 0.5, y:0.5 }
 
@@ -1685,6 +1688,7 @@ class PantallaJuego extends Phaser.Scene{
 	for( var i=0 ; i<10;i++){
 		lives_p2_UI.push(auxAr[i]);
 	}
+
 
         //  Store some data about this profile:
         profile_p2_UI.setDataEnabled();
@@ -1700,8 +1704,7 @@ class PantallaJuego extends Phaser.Scene{
         ]);
 		profile_p2_UI.on('changedata-gems', function (gameObject, value) {
                 text_p2_UI.setText([
-                    profile_p2_UI.data.get('name'),
-            		 profile_p2_UI.data.get('lives'),
+	
              profile_p2_UI.data.get('ammo'),
              profile_p2_UI.data.get('gems') 
                 ]);
@@ -1729,7 +1732,7 @@ class PantallaJuego extends Phaser.Scene{
     this.physics.world.remove(knifeHitbox2.body);
     knifeHitbox2.body.setAllowGravity(false);
     //Circle for explosion
-    blueSpecialAttack_Area=this.add.circle(120,120,120, 0xffffff,0.5);
+    blueSpecialAttack_Area=this.add.circle(90,90,90, 0xffffff,0.5);
     this.physics.add.existing(blueSpecialAttack_Area);
     blueSpecialAttack_Area.body.enable=false;
     blueSpecialAttack_Area.setVisible(false);
@@ -1780,6 +1783,14 @@ class PantallaJuego extends Phaser.Scene{
     		invisible: new InvisibleStateP2(),
           }, [this, player2]);
     
+blueSpecialAttack_Explosion=this.add.sprite(0,0,'round_explosion');
+blueSpecialAttack_Explosion.setVisible(false);
+blueSpecialAttack_Explosion.anims.create({
+	key: 'explosion',
+        frames: this.anims.generateFrameNumbers('round_explosion', { start: 0, end: 71 }),
+        frameRate: 20,
+        repeat: 0
+});
     //Animaciones player1
 	//Idle
 	
@@ -1787,7 +1798,7 @@ class PantallaJuego extends Phaser.Scene{
     player1.anims.create({
         key: 'idle',
         frames: this.anims.generateFrameNumbers(chooseP1+'_idl', { start: 0, end: 3 }),
-        frameRate: 8,
+        frameRate: 10,
         repeat: -1
     });
 	//Run
@@ -2181,7 +2192,7 @@ function onItemRespawnEvent(scene){
 }
 //Ataques especiales//
 function pinkSpecialAttack(player, gameObject){
-	if(player.canSpecial){
+	if(player.canSpecial&&player.invisible===false){
 		if(player.tag===1){		spAtk_p1_UI.play('charge');
 		}else if(player.tag===2){		spAtk_p2_UI.play('charge');}
 	player.invisible=true;
@@ -2201,6 +2212,7 @@ function whiteSpecialAttack(playerAttack, playerHurt){
 		if(playerAttack.tag===1){		spAtk_p1_UI.play('charge');
 		}else if(playerAttack.tag===2){		spAtk_p2_UI.play('charge');}
 	playerHurt.debuff=true;
+	playerHurt.setTint(0xB0BEC5);
 	playerAttack.LastTimeSpecial=0;
 	playerAttack.canSpecial=false;
 	}
@@ -2214,13 +2226,18 @@ function blueSpecialAttack(player){
 	blueSpecialAttack_Area.y=player.body.center.y;
 	player.LastTimeSpecial=0;
 	player.canSpecial=false;
-	blueSpecialAttack_Area.setVisible(true);
+	//blueSpecialAttack_Area.setVisible(true);
+	blueSpecialAttack_Explosion.setVisible(true);
+	blueSpecialAttack_Explosion.x=player.body.center.x;
+	blueSpecialAttack_Explosion.y=player.body.center.y;
+	blueSpecialAttack_Explosion.setScale(1.2,1.2);
+	blueSpecialAttack_Explosion.anims.play('explosion');
 	}
 }
 function checkTimeSpecial(player){
 	if(!player.canSpecial){
 	player.LastTimeSpecial+=1;
-	if(player.LastTimeSpecial>2000){
+	if(player.LastTimeSpecial>1000){
 		player.LastTimeSpecial=0;
 		player.canSpecial=true;
 	}
@@ -2234,6 +2251,8 @@ function checkDebuffTime(player1, player2){
 		lastTimeDebuff=0;
 		player1.debuff=false;
 		player2.debuff=false;
+		player1.clearTint();
+		player2.clearTint();
 	}
 }
 function checkExplosion(){
@@ -2276,7 +2295,6 @@ if(player.tag===2){
 function getPistol_P1(player, pistol){
 	if(Phaser.Input.Keyboard.JustDown(input_S)){
 	pistol.disableBody(true, true);
-	player.setTint(0xFFEE58);
 	player.hasPistol=true;
 	player.hasKnife=false;
 	}
@@ -2284,7 +2302,6 @@ function getPistol_P1(player, pistol){
 function getKnife_P1(player, knife){
 	if(Phaser.Input.Keyboard.JustDown(input_S)){
 	knife.disableBody(true, true);
-	player.setTint(0xB0BEC5);
 	player.hasPistol=false;
 	player.hasKnife=true;
 	}
@@ -2292,7 +2309,6 @@ function getKnife_P1(player, knife){
 function getPistol_P2(player, pistol){
 	if(Phaser.Input.Keyboard.JustDown(input_K)){
 	pistol.disableBody(true, true);
-	player.setTint(0xFFEE58);
 	player.hasPistol=true;
 	player.hasKnife=false;
 	}
@@ -2300,7 +2316,6 @@ function getPistol_P2(player, pistol){
 function getKnife_P2(player, knife){
 	if(Phaser.Input.Keyboard.JustDown(input_K)){
 	knife.disableBody(true, true);
-	player.setTint(0xB0BEC5);
 	player.hasPistol=false;
 	player.hasKnife=true;
 	}
@@ -2356,7 +2371,7 @@ function createAmmo(){
 
 function collectLemon(player, lemon){
 	lemon.disableBody(true, true);
-	if(player.life<19){
+	if(player.life<20){
 	if(player.tag===2){
 lives_p2_UI[player.life].setVisible(true);
 	}else{
@@ -2367,15 +2382,16 @@ lives_p1_UI[player.life].setVisible(true);
 }
 function collectGrape(player, grape){
 	grape.disableBody(true, true);
-	if(player.life<19){
+	if(player.life<20){
 	if(player.tag===2){
 lives_p2_UI[player.life].setVisible(true);
 if(player.life<19){lives_p2_UI[player.life+1].setVisible(true);}
-if(player.life<19){lives_p2_UI[player.life+2].setVisible(true);}
+if(player.life<18){lives_p2_UI[player.life+2].setVisible(true);}
+
 	}else{
 lives_p1_UI[player.life].setVisible(true);
 if(player.life<19){lives_p1_UI[player.life+1].setVisible(true);}
-if(player.life<19){lives_p1_UI[player.life+2].setVisible(true);}
+if(player.life<18){lives_p1_UI[player.life+2].setVisible(true);}
 
 	}
 	player.life+=3;
@@ -2383,19 +2399,21 @@ if(player.life<19){lives_p1_UI[player.life+2].setVisible(true);}
 }
 function collectStrawberry(player, strawberry){
 	strawberry.disableBody(true, true);
-	if(player.life<19){
+	if(player.life<20){
 	if(player.tag===2){
 lives_p2_UI[player.life].setVisible(true);
 if(player.life<19){lives_p2_UI[player.life+1].setVisible(true);}
-if(player.life<19){lives_p2_UI[player.life+2].setVisible(true);}
-if(player.life<19){lives_p2_UI[player.life+3].setVisible(true);}
-if(player.life<19){lives_p2_UI[player.life+4].setVisible(true);}
+if(player.life<18){lives_p2_UI[player.life+2].setVisible(true);}
+if(player.life<17){lives_p2_UI[player.life+3].setVisible(true);}
+if(player.life<16){lives_p2_UI[player.life+4].setVisible(true);}
+
 	}else{
 lives_p1_UI[player.life].setVisible(true);
 if(player.life<19){lives_p1_UI[player.life+1].setVisible(true);}
-if(player.life<19){lives_p1_UI[player.life+2].setVisible(true);}
-if(player.life<19){lives_p1_UI[player.life+3].setVisible(true);}
-if(player.life<19){lives_p1_UI[player.life+4].setVisible(true);}
+if(player.life<18){lives_p1_UI[player.life+2].setVisible(true);}
+if(player.life<17){lives_p1_UI[player.life+3].setVisible(true);}
+if(player.life<16){lives_p1_UI[player.life+4].setVisible(true);}
+
 	}
 		player.life+=5;
 		}
@@ -2534,19 +2552,19 @@ function PlayerHitted(player,bullet){
 	player.hitted=true;
 	if(bullet.damage===2){	player.life-=2;
 	if(player.tag===2){
-lives_p2_UI[player.life].setVisible(false);
-lives_p2_UI[player.life+1].setVisible(false);
+	if(player.life>=1){	lives_p2_UI[player.life+1].setVisible(false);	}
+	if(player.life>=0){lives_p2_UI[player.life].setVisible(false);}
 
 	}else{
-lives_p1_UI[player.life].setVisible(false);
-lives_p1_UI[player.life+1].setVisible(false);
+if(player.life>=1){lives_p1_UI[player.life+1].setVisible(false);}
+if(player.life>=0){lives_p1_UI[player.life].setVisible(false);}
 	}
 	}
 	else{player.life--;
 		if(player.tag===2){
-lives_p2_UI[player.life].setVisible(false);
+if(player.life>=0){lives_p2_UI[player.life].setVisible(false);}
 		}else{
-lives_p1_UI[player.life].setVisible(false);
+if(player.life>=0){lives_p1_UI[player.life].setVisible(false);}
 	}
 	}
 	}
@@ -2561,29 +2579,30 @@ if	(rectangle.body.enable){
 		player.hitted=true;
 		if(rectangle.damage===5){	player.life-=5;
 			if(player.tag===2){
-lives_p2_UI[player.life].setVisible(false);
-lives_p2_UI[player.life+1].setVisible(false);
-lives_p2_UI[player.life+2].setVisible(false);
-lives_p2_UI[player.life+3].setVisible(false);
-lives_p2_UI[player.life+4].setVisible(false);
+if(player.life>=4){lives_p2_UI[player.life+4].setVisible(false);}
+if(player.life>=3){lives_p2_UI[player.life+3].setVisible(false);}
+if(player.life>=2){lives_p2_UI[player.life+2].setVisible(false);}
+if(player.life>=1){lives_p2_UI[player.life+1].setVisible(false);}
+if(player.life>=0){lives_p2_UI[player.life].setVisible(false);}
 			}else{
-lives_p1_UI[player.life].setVisible(false);
-lives_p1_UI[player.life+1].setVisible(false);
-lives_p1_UI[player.life+2].setVisible(false);
-lives_p1_UI[player.life+3].setVisible(false);
-lives_p1_UI[player.life+4].setVisible(false);
+if(player.life>=4){lives_p1_UI[player.life+4].setVisible(false);}
+if(player.life>=3){lives_p1_UI[player.life+3].setVisible(false);}
+if(player.life>=2){lives_p1_UI[player.life+2].setVisible(false);}
+if(player.life>=1){lives_p1_UI[player.life+1].setVisible(false);}
+if(player.life>=0){lives_p1_UI[player.life].setVisible(false);}
 
 			}
 		}
 		else{player.life-=3;
 			if(player.tag===2){
-lives_p2_UI[player.life].setVisible(false);
-lives_p2_UI[player.life+1].setVisible(false);
-lives_p2_UI[player.life+2].setVisible(false);
+				console.log(player.life);
+if(player.life>=2){lives_p2_UI[player.life+2].setVisible(false);}
+if(player.life>=1){lives_p2_UI[player.life+1].setVisible(false);}
+if(player.life>=0){lives_p2_UI[player.life].setVisible(false);}
 			}else{
-lives_p1_UI[player.life].setVisible(false);
-lives_p1_UI[player.life+1].setVisible(false);
-lives_p1_UI[player.life+2].setVisible(false);
+if(player.life>=2){lives_p1_UI[player.life+2].setVisible(false);}
+if(player.life>=1){lives_p1_UI[player.life+1].setVisible(false);}
+if(player.life>=0){lives_p1_UI[player.life].setVisible(false);}
 			}
 		}
 		rectangle.body.enable=false;
@@ -2596,13 +2615,13 @@ if	(blueSpecialAttack_Area.body.enable){
 		player.life-=3;
 		if(player.tag===2){
 			
-lives_p2_UI[player.life].setVisible(false);
-lives_p2_UI[player.life+1].setVisible(false);
-lives_p2_UI[player.life+2].setVisible(false);
+if(player.life>=2){lives_p2_UI[player.life+2].setVisible(false);}
+if(player.life>=1){lives_p2_UI[player.life+1].setVisible(false);}
+if(player.life>=0){lives_p2_UI[player.life].setVisible(false);}
 		}else{
-lives_p1_UI[player.life].setVisible(false);
-lives_p1_UI[player.life+1].setVisible(false);
-lives_p1_UI[player.life+2].setVisible(false);
+if(player.life>=2){lives_p1_UI[player.life+2].setVisible(false);}
+if(player.life>=1){lives_p1_UI[player.life+1].setVisible(false);}
+if(player.life>=0){lives_p1_UI[player.life].setVisible(false);}
 		}
 }
 }
@@ -2610,11 +2629,11 @@ function CopyHitted(copy){
 	copy.disableBody(true, true);
 	if(pinkCopy.tag===2){
 			player2.invisible=false;
-					player2.canSpecial=true;
+					//player2.canSpecial=true;
 
 	}else{
 			player1.invisible=false;
-					player1.canSpecial=true;
+					//player1.canSpecial=true;
 
 	}
 	
@@ -2645,7 +2664,6 @@ function respawnPlayer1(){
 	player1.y=respawn_P1.y;
 	player1.life = 20;
 	player1.ammo = 10;
-	player1.gemsOwned = 0;
 	player1.direction='right';
 	player1.hitted=false;
 	player1.hasPistol=false;
@@ -2659,8 +2677,10 @@ function respawnPlayer1(){
 	player1.LastShieldBoost=0;
 	player1.onLadder=false;
 	player1.invisible=false;
-	profile_p1_UI.data.values.gems=player1.gemsOwned;
 	profile_p1_UI.data.values.ammo=player1.ammo;
+	for(var i=0; i<20;i++){
+		lives_p1_UI[i].setVisible(true);
+	}
 }
 function respawnPlayer2(){
 	player2.setVisible(true);
@@ -2668,7 +2688,6 @@ function respawnPlayer2(){
 	player2.y=respawn_P2.y;
 	player2.life = 20;
 	player2.ammo = 10;
-	player2.gemsOwned = 0;
 	player2.direction='right';
 	player2.hitted=false;
 	player2.hasPistol=false;
@@ -2681,8 +2700,10 @@ function respawnPlayer2(){
 	player2.LastSpeedBoost=0;
 	player2.LastShieldBoost=0;
 	player2.onLadder=false;
-	profile_p2_UI.data.values.gems=player2.gemsOwned;
 	profile_p2_UI.data.values.ammo=player2.ammo;
+	for(var i=0; i<20;i++){
+		lives_p2_UI[i].setVisible(true);
+	}
 }
 
 ///STATES P1//////////
@@ -3206,8 +3227,7 @@ execute(scene, player2){
       return;
     }
 
-	if( player2.invisible){player2.anims.play('invisible');}
-		else{player2.anims.play('climb',true);}
+	
 }
 }
 
