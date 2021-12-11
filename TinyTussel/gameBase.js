@@ -202,7 +202,24 @@ class PantallaCarga extends Phaser.Scene{
         /////////////////////////////////////////////////////////////////////////////////////////////////// 
 
         ///////////////////////////Carga de assets del Juego///////////////////////////////////////////////
-
+		//Interfaz de la partida
+		this.load.image('j1',             'asset/J1.png');
+        this.load.image('j2',             'asset/J2.png');
+        this.load.image('life_heart',             'asset/Vida.png');
+        this.load.image('special_attack_1',             'asset/AtaqueEspecial/AEsp1.png');
+        this.load.image('special_attack_2',             'asset/AtaqueEspecial/AEsp2.png');
+        this.load.image('special_attack_3',             'asset/AtaqueEspecial/AEsp3.png');
+        this.load.image('special_attack_4',             'asset/AtaqueEspecial/AEsp4.png');
+        this.load.image('special_attack_5',             'asset/AtaqueEspecial/AEsp5.png');
+        this.load.image('special_attack_6',             'asset/AtaqueEspecial/AEsp6.png');
+        this.load.image('special_attack_7',             'asset/AtaqueEspecial/AEsp7.png');
+        this.load.image('special_attack_8',             'asset/AtaqueEspecial/AEsp8.png');
+        this.load.image('special_attack_9',             'asset/AtaqueEspecial/AEsp9.png');
+        this.load.image('special_attack_10',             'asset/AtaqueEspecial/AEsp10.png');
+        this.load.image('special_attack_11',             'asset/AtaqueEspecial/AEsp11.png');
+        this.load.image('shield_bubble',             'asset/bubble_shield.png');
+        this.load.image('speed_item',             'asset/feather.png');
+        this.load.image('power_item',             'asset/strength.png');
         //Objetos
         this.load.image('gem',             'asset/gem.png');
         this.load.image('pistol_item',             'asset/pistol_icon.png');
@@ -228,6 +245,8 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('Chilli_profile', 'asset/Pink_Monster_closeUp.png');
         this.load.spritesheet('Chilli_idl', 'asset/Pink_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Chilli_run', 'asset/Pink_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Chilli_run_knife', 'asset/correrCuchilloRosa.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Chilli_run_pistol', 'asset/correrPistolaRosa.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Chilli_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
 		this.load.spritesheet('Chilli_attack_knife', 'asset/animacionCuchilloRosa.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Chilli_attack_pistol', 'asset/animacionPistolaRosa.png', { frameWidth: 32, frameHeight: 32 });
@@ -241,6 +260,8 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('Bernie_profile', 'asset/Owlet_Monster_closeUp.png');
         this.load.spritesheet('Bernie_idl', 'asset/Owlet_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Bernie_run', 'asset/Owlet_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Bernie_run_knife', 'asset/correrCuchilloBlanco.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Bernie_run_pistol', 'asset/correrPistolaBlanco.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Bernie_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
 		this.load.spritesheet('Bernie_attack_knife', 'asset/animacionCuchilloBlanco.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Bernie_attack_pistol', 'asset/animacionPistolaBlanco.png', { frameWidth: 32, frameHeight: 32 });         this.load.spritesheet('Bernie_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
@@ -251,7 +272,9 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('Wasabi_profile', 'asset/Dude_Monster_closeUp.png');
         this.load.spritesheet('Wasabi_idl', 'asset/Dude_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Wasabi_run', 'asset/Dude_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Wasabi_jump', 'asset/Dude_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Wasabi_run_knife', 'asset/correrCuchilloAzul.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Wasabi_run_pistol', 'asset/correrPistolaAzul.png', { frameWidth: 32, frameHeight: 32 });        
+		this.load.spritesheet('Wasabi_jump', 'asset/Dude_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
 		this.load.spritesheet('Wasabi_attack_knife', 'asset/animacionCuchilloAzul.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Wasabi_attack_pistol', 'asset/animacionPistolaAzul.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('Wasabi_hurt', 'asset/Dude_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
@@ -1621,7 +1644,7 @@ class PantallaJuego extends Phaser.Scene{
             profile_p1_UI.data.get('gems') 
                 ]);
         });
-    text_p2_UI = this.add.text(600, 512, '', { font: '16px Courier', fill: '#ffffff' });
+    text_p2_UI = this.add.text(590, 512, '', { font: '24px Courier', fill: '#ffffff' });
 	profile_p2_UI = this.add.image(750, 510, 'j2').setScale(0.4,0.4); 
 	var gem_Icon= this.add.image(620, 550, 'gem');
 	var ammo_Icon= this.add.image(620, 520, 'ammo_item').setScale(0.6,0.6); 
@@ -1776,6 +1799,18 @@ class PantallaJuego extends Phaser.Scene{
         frameRate: 10,
         repeat: -1
     });
+	player1.anims.create({
+        key: 'run_knife',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_run_knife', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	player1.anims.create({
+        key: 'run_pistol',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_run_pistol', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
 	//Jump
 	
 
@@ -1835,17 +1870,26 @@ class PantallaJuego extends Phaser.Scene{
         repeat: -1
     });
 	//Run
-	
-
     player2.anims.create({
         key: 'run',
         frames: this.anims.generateFrameNumbers(chooseP2+'_run', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
-	//Jump
-	
+	player2.anims.create({
+        key: 'run_knife',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_run_knife', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	player2.anims.create({
+        key: 'run_pistol',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_run_pistol', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
 
+	//Jump	
     player2.anims.create({
         key: 'jump',
         frames: this.anims.generateFrameNumbers(chooseP2+'_jump', { start: 3, end: 7 }),
@@ -2749,8 +2793,14 @@ class MoveStateP1 extends State {
 	  if(player1.speedBoost){player1.setVelocityX(150);}
       player1.direction = 'right';
     }
+if(player1.hasKnife){
+	    player1.anims.play('run_knife', true);
 
-    player1.anims.play('run', true);
+}else if(player1.hasPistol){
+	    player1.anims.play('run_pistol', true);
+}else{
+	    player1.anims.play('run', true);
+}
     
   }
 }
@@ -3067,8 +3117,14 @@ class MoveStateP2 extends State {
 	  if(player2.speedBoost){player2.setVelocityX(150);}
       player2.direction = 'right';
     }
-    player2.anims.play('run', true);
-    
+if(player2.hasKnife){
+	    player2.anims.play('run_knife', true);
+
+}else if(player2.hasPistol){
+	    player2.anims.play('run_pistol', true);
+}else{
+	    player2.anims.play('run', true);
+}    
   }
 }
 
