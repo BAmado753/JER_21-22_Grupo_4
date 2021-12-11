@@ -68,83 +68,28 @@ class PantallaCarga extends Phaser.Scene{
 
 
         this.load.image('logo', './asset/stormedialogo.png');
+        /*//Sólo para comprobar que la barra de carga funciona bien
+            for (var i = 0; i < 5000; i++) {
+                this.load.image('logo'+i);
+            }*/
+        
+
 
 
         ////////////////////////////Carga de assets de Pantalla de Inicio//////////////////////////////////
 
         //Carga de fondo, título e imagen
-        this.load.image('fondoInicio', './asset/Fondo.png');
-        this.load.image('title', './asset/LogoTinyTussle.png');
-        this.load.image('start', './asset/Continuar.png');
+        this.load.image('fondoInicio', './asset/fondoInicio_prueba.jpg');
+        this.load.image('title', './asset/tituloTinyTussle.png');
+        this.load.spritesheet('botonPlay', './asset/button-start-prueba.png', { frameWidth: 200, frameHeight: 70 });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //////////////////////////////////Carga de assets del Menú Principal///////////////////////////////
-
-        //Carga de fondo y botones
-        this.load.image('fondoMenuPrincipal', './asset/Fondo.png');
-        this.load.image('titleMP', './asset/LogoTinyTussle.png');
-        this.load.image('bJugarActivado', './asset/JugarActivado.png');
-        this.load.image('bJugar', './asset/Jugar.png');
-        this.load.image('bControlesActivado', './asset/ControlesActivado.png');
-        this.load.image('bControles', './asset/Controles.png');
-        this.load.image('bCreditosActivado', './asset/CreditosActivado.png');
-        this.load.image('bCreditos', './asset/Creditos.png');
-        this.load.image('bAjustes', './asset/Ajustes.png');
-        this.load.image('backActivo', './asset/AtrasActivado.png');
-        this.load.image('back', './asset/Atras.png');
-        this.load.image('ayudaActivado', './asset/AyudaActivado.png');
-        this.load.image('ayuda', './asset/Ayuda.png');
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////// 
-
-
-
-        ///////////////////////////Carga de assets de Pantalla de Modo de Juego////////////////////////////
-
-        //Carga de fondos y botones
-        this.load.image('fondoModoJuego', './asset/Fondo.png');
-        this.load.image('titleMJ', './asset/LogoTinyTussle.png');
-        this.load.image('iconoLocal', './asset/IconoJugarLocal.png');
-        this.load.image('iconoRed', './asset/IconoJugarRed.png');
-        this.load.image('bJugarLinea', './asset/JugarEnLinea.png');
-        this.load.image('bJugarLocal', './asset/JugarEnLocal.png');
-        this.load.image('bJugarLocalActivado', './asset/JugarEnLocalActivado.png');
-        this.load.image('textoLinea', './asset/TextoEnLinea.png');
-        this.load.image('textoLocal', './asset/TextoLocal.png');
-        this.load.image('backActivo2', './asset/AtrasActivado.png');
-        this.load.image('back2', './asset/Atras.png');
-        this.load.image('ayudaActivado2', './asset/AyudaActivado.png');
-        this.load.image('ayuda2', './asset/Ayuda.png');
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////// 
-
-
-        ////////////////////////Carga de assets de Pantalla de Numero de Jugadores////////////////////////
-
-        //Carga de fondos y botones
-        this.load.image('fondoNueroJugadores', './asset/Fondo.png');
-        this.load.image('titleNJ', './asset/LogoTinyTussle.png');
-        this.load.image('textoNJ', './asset/CuantosJugadores.png');
-        this.load.image('backActivo3', './asset/AtrasActivado.png');
-        this.load.image('back3', './asset/Atras.png');
-        this.load.image('ayudaActivado3', './asset/AyudaActivado.png');
-        this.load.image('ayuda3', './asset/Ayuda.png');
-        this.load.image('2JActivo', './asset/2-Jugadores.png');
-        this.load.image('2J', './asset/2jugadores.png');
-        this.load.image('3J', './asset/3jugadores.png');
-        this.load.image('4J', './asset/4jugadores.png');
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////// 
-
 
 
         ////////////////////////////Carga de assets de Pantalla Selección de Personajes////////////////////
 
         //Carga de fondo y selección de personajes
-        this.load.image('fondoMenu', './asset/Fondo.png');
+        this.load.image('fondoMenu', './asset/fondoMenu_prueba.jpg');
         this.load.image('textoSelect', './asset/TextoEleccionPersonaje.png');
         this.load.image('BContinuar1', './asset/BotonContinuar_prueba.png');
         this.load.image('selectChilli', './asset/Pink_Monster.png');
@@ -226,17 +171,15 @@ class PantallaCarga extends Phaser.Scene{
         this.load.spritesheet('Wasabi_death', 'asset/Dude_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
         this.load.spritesheet('Wasabi_climb', 'asset/Dude_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
 
-
-
         //Audio - Sound effects
         this.load.audio('pistolFire',       'asset/sound_effects/pistolFire.wav');
-        //Music
-        this.load.audio('backgroundTitleMusic',       'asset/music/Abstraction - Three Red Hearts - Princess Quest (No Boing).wav');
-        this.load.audio('backgroundSelectionMusic',       'asset/music/Abstraction - Three Red Hearts - Puzzle Pieces.wav');
-        this.load.audio('backgroundBattleMusic1',       'asset/music/Abstraction - Three Red Hearts - Box Jump.wav');
-        this.load.audio('backgroundBattleMusic2',       'asset/music/Abstraction - Three Red Hearts - Penguins vs Rabbits.wav');
-        this.load.audio('backgroundBattleMusic3',       'asset/music/Abstraction - Three Red Hearts - Pixel War 1.wav');
-        this.load.audio('backgroundResultsMusic',       'asset/music/Abstraction - Three Red Hearts - Candy.wav');
+		//Music
+		this.load.audio('backgroundTitleMusic',       'asset/music/Abstraction - Three Red Hearts - Princess Quest (No Boing).wav');
+		this.load.audio('backgroundSelectionMusic',       'asset/music/Abstraction - Three Red Hearts - Puzzle Pieces.wav');
+		this.load.audio('backgroundBattleMusic1',       'asset/music/Abstraction - Three Red Hearts - Box Jump.wav');
+		this.load.audio('backgroundBattleMusic2',       'asset/music/Abstraction - Three Red Hearts - Penguins vs Rabbits.wav');
+		this.load.audio('backgroundBattleMusic3',       'asset/music/Abstraction - Three Red Hearts - Pixel War 1.wav');
+		this.load.audio('backgroundResultsMusic',       'asset/music/Abstraction - Three Red Hearts - Candy.wav');
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -279,9 +222,6 @@ class PantallaCarga extends Phaser.Scene{
 var bg_music_initial_screen;
 //////////////////////////////////////////////Pantalla de Inicio////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-var enterKey;
-
 class PantallaDeInicio extends Phaser.Scene{
     constructor(){
         //Inicio--> nombre que se le da a la escena
@@ -294,162 +234,34 @@ class PantallaDeInicio extends Phaser.Scene{
     }
 
     create(){
-
         //Musica
-        bg_music_initial_screen = this.sound.add('backgroundTitleMusic');
-        bg_music_initial_screen.setLoop(true);
-        bg_music_initial_screen.play();
-        
+			bg_music_initial_screen = this.sound.add('backgroundTitleMusic');
+			bg_music_initial_screen.setLoop(true);
+        	bg_music_initial_screen.play();
         //Fondo de la pantalla de inicio
-        this.fondoIni= this.add.image(400, 300, 'fondoMenuPrincipal');
-        this.fondoIni.setScale(0.6);
+        this.fondoIni= this.add.image(400, 300, 'fondoInicio');
+        this.fondoIni.setScale(1.6);
 
-        //Título del juego e instrucción
+        //Título del juego
         this.tit=this.add.image(400, 250, 'title');
-        this.tit.setScale(0.6);
 
-        this.texCont = this.add.image(400, 500, 'start');
-        this.texCont.setScale(0.6);
-
-        
-        enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-
-    }
-
-    update(){
-        if(Phaser.Input.Keyboard.JustDown(enterKey)){
-            this.scene.start('MenuPrincipal');
-            bg_music_initial_screen.setLoop(false);
-            bg_music_initial_screen.stop();
-        }
-    }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-//Variables Menú Principal
-var bg_music_selection_screen;
-
-/////////////////////////////////////////Pantalla de Menú Principal/////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-class MenuPrincipal extends Phaser.Scene{
-    constructor(){
-        //Inicio--> nombre que se le da a la escena
-        super({ key: "MenuPrincipal"});
-    }
-
-    preload(){   
-    }
-
-    create(){
-
-        //Musica
-        bg_music_selection_screen = this.sound.add('backgroundSelectionMusic');
-        bg_music_selection_screen.setLoop(true);
-        bg_music_selection_screen.play();
-
-
-        //Fondo del menú principal
-        this.fondoMP= this.add.image(400, 300, 'fondoMenuPrincipal');
-        this.fondoMP.setScale(0.6);
-
-        this.title2 = this.add.image(400, 150, 'titleMP');
-        this.title2.setScale(0.3);
-
-        this.jug = this.add.image(250, 350, 'bJugar').setInteractive();
-        this.jug.setScale(0.3);
-
-        this.jug.on('pointerover', () => {
-            this.jug = this.add.image(250, 350, 'bJugarActivado');
-            this.jug.setScale(0.3);
-        });
-        
-        this.jug.on('pointerout', () => {
-            this.jug = this.add.image(250, 350, 'bJugar');
-            this.jug.setScale(0.3);
-        });
-        
-        this.jug.on('pointerdown', () => {
-            this.scene.start('ModoJuego');
+        //Botón de jugar
+        this.play = this.add.sprite(390, 530, 'botonPlay').setInteractive();
+        //Eventos del botón
+        this.play.on('pointerover', () => {
+            this.play.setFrame(1);
         });
 
-        this.control = this.add.image(250, 450, 'bControles').setInteractive();
-        this.control.setScale(0.3);
-
-        this.control.on('pointerover', () => {
-            this.control = this.add.image(250, 450, 'bControlesActivado');
-            this.control.setScale(0.3);
-        });
-        
-        this.control.on('pointerout', () => {
-            this.control = this.add.image(250, 450, 'bControles');
-            this.control.setScale(0.3);
-        });
-        
-        this.control.on('pointerdown', () => {
-            //this.scene.start('Menu');
+        this.play.on('pointerout', () => {
+            this.play.setFrame(0);
         });
 
-        this.cred = this.add.image(550, 350, 'bCreditos').setInteractive();
-        this.cred.setScale(0.3);
-
-        this.cred.on('pointerover', () => {
-            this.cred = this.add.image(550, 350, 'bCreditosActivado');
-            this.cred.setScale(0.3);
+        this.play.on('pointerdown', () => {
+            this.play.setFrame(2);
+            this.scene.start('MenuPersonajes');
+			bg_music_initial_screen.setLoop(false);
+        	bg_music_initial_screen.stop();
         });
-        
-        this.cred.on('pointerout', () => {
-            this.cred = this.add.image(550, 350, 'bCreditos');
-            this.cred.setScale(0.3);
-        });
-        
-        this.control.on('pointerdown', () => {
-            //this.scene.start('Menu');
-        });
-
-        this.ajust = this.add.image(550, 450, 'bAjustes');
-        this.ajust.setScale(0.3);
-
-
-        this.ayud = this.add.image(750, 50, 'ayuda').setInteractive();
-        this.ayud.setScale(0.6);
-
-        this.ayud.on('pointerover', () => {
-            this.ayud = this.add.image(750, 50, 'ayudaActivado');
-            this.ayud.setScale(0.6);
-        });
-        
-        this.ayud.on('pointerout', () => {
-            this.ayud = this.add.image(750, 50, 'ayuda');
-            this.ayud.setScale(0.6);
-        });
-        
-        this.ayud.on('pointerdown', () => {
-            //this.scene.start('Menu');
-        });
-
-
-        this.atras = this.add.image(75, 50, 'back').setInteractive();
-        this.atras.setScale(0.8);
-
-        this.atras.on('pointerover', () => {
-            this.atras = this.add.image(75, 50, 'backActivo');
-            this.atras.setScale(0.8);
-        });
-        
-        this.atras.on('pointerout', () => {
-            this.atras = this.add.image(75, 50, 'back');
-            this.atras.setScale(0.8);
-        });
-        
-        this.atras.on('pointerdown', () => {
-            this.scene.start('Inicio');
-        });
-
     }
 
     update(){
@@ -459,212 +271,10 @@ class MenuPrincipal extends Phaser.Scene{
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-/////////////////////////////////////////Pantalla de Modo de Juego/////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-class PantallaModoJuego extends Phaser.Scene{
-    constructor(){
-        //Inicio--> nombre que se le da a la escena
-        super({ key: "ModoJuego"});
-    }
-
-    preload(){   
-    }
-
-    create(){
-        //Fondo del menú principal
-        this.fondoMJ= this.add.image(400, 300, 'fondoModoJuego');
-        this.fondoMJ.setScale(0.6);
-
-        this.titleMJuego = this.add.image(400, 150, 'titleMJ');
-        this.titleMJuego.setScale(0.3);
-
-
-        this.ayud2 = this.add.image(750, 50, 'ayuda').setInteractive();
-        this.ayud2.setScale(0.6);
-
-        this.ayud2.on('pointerover', () => {
-            this.ayud2 = this.add.image(750, 50, 'ayudaActivado');
-            this.ayud2.setScale(0.6);
-        });
-        
-        this.ayud2.on('pointerout', () => {
-            this.ayud2 = this.add.image(750, 50, 'ayuda');
-            this.ayud2.setScale(0.6);
-        });
-        
-        this.ayud2.on('pointerdown', () => {
-            //this.scene.start('Menu');
-        });
-
-
-        this.atras2 = this.add.image(75, 50, 'back').setInteractive();
-        this.atras2.setScale(0.8);
-
-        this.atras2.on('pointerover', () => {
-            this.atras2 = this.add.image(75, 50, 'backActivo');
-            this.atras2.setScale(0.8);
-        });
-        
-        this.atras2.on('pointerout', () => {
-            this.atras2 = this.add.image(75, 50, 'back');
-            this.atras2.setScale(0.8);
-        });
-        
-        this.atras2.on('pointerdown', () => {
-            this.scene.start('MenuPrincipal');
-        });
-
-        this.IcLinea = this.add.image(200, 300, 'iconoRed');
-        this.IcLinea.setScale(0.4);
-
-        this.IcLocal = this.add.image(600, 300, 'iconoLocal');
-        this.IcLocal.setScale(0.4);
-
-        this.texLinea = this.add.image(200, 400, 'textoLinea');
-        this.texLinea.setScale(0.4);
-
-        this.texLocal = this.add.image(600, 400, 'textoLocal');
-        this.texLocal.setScale(0.4);
-
-        this.botLinea = this.add.image(200, 500, 'bJugarLinea');
-        this.botLinea.setScale(0.3);
-
-        this.botLocal = this.add.image(600, 500, 'bJugarLocal').setInteractive();
-        this.botLocal.setScale(0.3);
-
-        this.botLocal.on('pointerover', () => {
-            this.botLocal = this.add.image(600, 500, 'bJugarLocalActivado');
-            this.botLocal.setScale(0.3);
-        });
-        
-        this.botLocal.on('pointerout', () => {
-            this.botLocal = this.add.image(600, 500, 'bJugarLocal');
-            this.botLocal.setScale(0.3);
-        });
-        
-        this.botLocal.on('pointerdown', () => {
-            this.scene.start('NumeroJugadores');
-        });
-
-
-    }
-
-    update(){
-
-    }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-/////////////////////////////////////////Pantalla Elección Numero de Jugadores//////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-class PantallaNumeroJugadores extends Phaser.Scene{
-    constructor(){
-        //NumeroJugadores--> nombre que se le da a la escena
-        super({ key: "NumeroJugadores"});
-    }
-
-    preload(){   
-    }
-
-    create(){
-        //Fondo del menú principal
-        this.fondoMJ= this.add.image(400, 300, 'fondoModoJuego');
-        this.fondoMJ.setScale(0.6);
-
-        this.titleMJuego = this.add.image(400, 150, 'titleMJ');
-        this.titleMJuego.setScale(0.3);
-
-
-        this.ayud3 = this.add.image(750, 50, 'ayuda').setInteractive();
-        this.ayud3.setScale(0.6);
-
-        this.ayud3.on('pointerover', () => {
-            this.ayud3 = this.add.image(750, 50, 'ayudaActivado');
-            this.ayud3.setScale(0.6);
-        });
-        
-        this.ayud3.on('pointerout', () => {
-            this.ayud3 = this.add.image(750, 50, 'ayuda');
-            this.ayud3.setScale(0.6);
-        });
-        
-        this.ayud3.on('pointerdown', () => {
-            //this.scene.start('Menu');
-        });
-
-
-        this.atras3 = this.add.image(75, 50, 'back').setInteractive();
-        this.atras3.setScale(0.8);
-
-        this.atras3.on('pointerover', () => {
-            this.atras3 = this.add.image(75, 50, 'backActivo');
-            this.atras3.setScale(0.8);
-        });
-        
-        this.atras3.on('pointerout', () => {
-            this.atras3 = this.add.image(75, 50, 'back');
-            this.atras3.setScale(0.8);
-        });
-        
-        this.atras3.on('pointerdown', () => {
-            this.scene.start('ModoJuego');
-        });
-
-
-        this.textoNumJug= this.add.image(400, 300, 'textoNJ');
-        this.textoNumJug.setScale(0.5);
-
-        this.DosJugadores= this.add.image(200, 450, '2J').setInteractive();
-        this.DosJugadores.setScale(0.4);
-
-        this.DosJugadores.on('pointerover', () => {
-            this.DosJugadores = this.add.image(200, 450, '2JActivo');
-            this.DosJugadores.setScale(0.4);
-        });
-        
-        this.DosJugadores.on('pointerout', () => {
-            this.DosJugadores = this.add.image(200, 450, '2J');
-            this.DosJugadores.setScale(0.4);
-        });
-        
-        this.DosJugadores.on('pointerdown', () => {
-            //this.scene.start('Menu');
-        });
-
-        this.TresJugadores= this.add.image(400, 450, '3J');
-        this.TresJugadores.setScale(0.4);
-
-        this.CuatroJugadores= this.add.image(600, 450, '4J');
-        this.CuatroJugadores.setScale(0.4);
-
-
-    }
-
-    update(){
-
-    }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
 ////Variables Selección de personajes//////
 var chooseP1;
 var chooseP2;
-
+var bg_music_selection_screen;
 
 //////////////////////////////////////Pantalla de Selección de Personajes///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -682,7 +292,12 @@ class MenuPersonajes extends Phaser.Scene{
 
 
     create(){
-
+	//Musica
+			bg_music_selection_screen = this.sound.add('backgroundSelectionMusic');
+			bg_music_selection_screen.setLoop(true);
+        	bg_music_selection_screen.play();
+	
+	
         chooseP1='null';
 		chooseP2='null';
         //Fondo de la pantalla de selección de personaje
@@ -868,8 +483,8 @@ export class MenuEscenarios extends Phaser.Scene{
 
         this.es1.on('pointerdown', () => {
             this.scene.start('Escenario1');
-            bg_music_selection_screen.setLoop(false);
-            bg_music_selection_screen.stop();
+			bg_music_selection_screen.setLoop(false);
+        	bg_music_selection_screen.stop();
         });
 
 
@@ -886,8 +501,8 @@ export class MenuEscenarios extends Phaser.Scene{
 
         this.es2.on('pointerdown', () => {
             this.scene.start('Escenario2');
-            bg_music_selection_screen.setLoop(false);
-            bg_music_selection_screen.stop();
+			bg_music_selection_screen.setLoop(false);
+        	bg_music_selection_screen.stop();
         });
 
 
@@ -903,8 +518,8 @@ export class MenuEscenarios extends Phaser.Scene{
 
         this.es3.on('pointerdown', () => {
             this.scene.start('Escenario3');
-            bg_music_selection_screen.setLoop(false);
-            bg_music_selection_screen.stop();
+			bg_music_selection_screen.setLoop(false);
+        	bg_music_selection_screen.stop();
         });
 
 
@@ -921,8 +536,8 @@ export class MenuEscenarios extends Phaser.Scene{
 
         this.bcont2.on('pointerdown', () => {
             this.scene.start('Juego');
-            bg_music_selection_screen.setLoop(false);
-            bg_music_selection_screen.stop();
+			bg_music_selection_screen.setLoop(false);
+        	bg_music_selection_screen.stop();
         });
 
     }
@@ -935,7 +550,6 @@ export class MenuEscenarios extends Phaser.Scene{
 var bg_music_battleground_1;
 var bg_music_battleground_2;
 var bg_music_battleground_3;
-
 
 class StateMachine {
   constructor(initialState, possibleStates, stateArgs=[]) {
@@ -1117,11 +731,10 @@ class PantallaJuego extends Phaser.Scene{
 	//Background
     this.add.image(400,300, 'gray').setScale(2,2);
     
-    //Musica
-    bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
-    bg_music_battleground_1.setLoop(true);
+	//Musica
+	bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
+	bg_music_battleground_1.setLoop(true);
     bg_music_battleground_1.play();
-
 
     //Timer
      lastTimeDebuff = 0;
@@ -1712,10 +1325,10 @@ class PantallaEscenario3 extends Phaser.Scene{
 ///Funciones de timer///
 function onCountDownEvent ()
 {
-    bg_music_battleground_1.setLoop(false);
+	bg_music_battleground_1.setLoop(false);
     bg_music_battleground_1.stop();
     this.scene.start('Resultados');
-    
+
 }
 function onItemRespawnEvent(scene){
 	 
@@ -2181,7 +1794,6 @@ function respawnPlayer1(){
 	player1.y=respawn_P1.y;
 	player1.life = 20;
 	player1.ammo = 10;
-	player1.gemsOwned = 0;
 	player1.direction='right';
 	player1.hitted=false;
 	player1.hasPistol=false;
@@ -2205,7 +1817,6 @@ function respawnPlayer2(){
 	player2.y=respawn_P2.y;
 	player2.life = 20;
 	player2.ammo = 10;
-	player2.gemsOwned = 0;
 	player2.direction='right';
 	player2.hitted=false;
 	player2.hasPistol=false;
@@ -2804,6 +2415,7 @@ execute(scene, player2) {
 
 var text_p1_Results;
 var text_p2_Results;
+var bg_music_results_screen;
 
 class PantallaResultados extends Phaser.Scene{
     constructor(){
@@ -2818,10 +2430,9 @@ class PantallaResultados extends Phaser.Scene{
 
 
     create(){
-
-        //Music
-        bg_music_results_screen = this.sound.add('backgroundResultsMusic');
-        bg_music_results_screen.setLoop(true);
+		//Music
+		bg_music_results_screen = this.sound.add('backgroundResultsMusic');
+		bg_music_results_screen.setLoop(true);
         bg_music_results_screen.play();
 
         this.fondoRan= this.add.image(400, 300, 'fondoRanking');
@@ -2890,9 +2501,10 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, MenuPrincipal, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, PantallaJuego, PantallaResultados/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
+    scene: [PantallaCarga, PantallaDeInicio, MenuPersonajes, MenuEscenarios, PantallaJuego, PantallaResultados/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
 	audio: {
-        disableWebAudio: true
+        disableWebAudio: true,
+		noAudio: false
     }
 };
 
