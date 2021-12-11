@@ -70,7 +70,7 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('logo', './asset/stormedialogo.png');
 
 
-        ////////////////////////////Carga de assets de Pantalla de Inicio//////////////////////////////////
+         ////////////////////////////Carga de assets de Pantalla de Inicio//////////////////////////////////
 
         //Carga de fondo, título e imagen
         this.load.image('fondoInicio', './asset/Fondo.png');
@@ -127,8 +127,30 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('titEquipo', './asset/Stormediateam.png');
         this.load.image('miembros', './asset/MiembrosGrupo.png');
         this.load.image('assetsExternos', './asset/AssetsExternos.png');
+        this.load.image('tex1', './asset/tex1Creditos.png');
+        this.load.image('tex2', './asset/tex2Creditos.png');
+        this.load.image('tex3', './asset/tex3Creditos.png');
+        this.load.image('tex4', './asset/tex4Creditos.png');
+        this.load.image('tex5', './asset/tex5Creditos.png');
+        this.load.image('tex6', './asset/tex6Creditos.png');
+        this.load.image('tex7', './asset/tex7Creditos.png');
+
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        ////////////////////////////////////Carga de assets de Ayuda///////////////////////////////////////
+         //Carga de fondo, título e imagen
+        this.load.image('fondoAyuda', './asset/Fondo.png');
+        this.load.image('titAyuda', './asset/AyudaT.png');
+        this.load.image('texto1', './asset/Contactar.png');
+        this.load.image('texto2', './asset/Link.png');
+        this.load.image('texto3', './asset/unnamed.png');
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 
@@ -176,12 +198,13 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('selectWasabi', './asset/Dude_Monster.png');
         this.load.image('jugador1', './asset/Jugador1.png');
         this.load.image('jugador2', './asset/Jugador2.png');
-        this.load.image('tex1', './asset/DescripcionChili.png');
-        this.load.image('tex2', './asset/DescripcionBernie.png');
-        this.load.image('tex3', './asset/DescripcionWasabi.png');
+        this.load.image('text1', './asset/DescripcionChili.png');
+        this.load.image('text2', './asset/DescripcionBernie.png');
+        this.load.image('text3', './asset/DescripcionWasabi.png');
         this.load.image('nomChilli', './asset/ChiliNombre.png');
         this.load.image('nomBernie', './asset/BernieNombre.png');
         this.load.image('nomWasabi', './asset/WasabiNombre.png');
+        this.load.image('elegirPers', './asset/TextoEleccionPersonaje.png');
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////  
@@ -403,6 +426,7 @@ class MenuPrincipal extends Phaser.Scene{
 
     create(){
 
+       
         //Musica
         bg_music_selection_screen = this.sound.add('backgroundSelectionMusic');
         bg_music_selection_screen.setLoop(true);
@@ -485,7 +509,8 @@ class MenuPrincipal extends Phaser.Scene{
         });
         
         this.ayud.on('pointerdown', () => {
-            //this.scene.start('Menu');
+            this.scene.moveBelow('MenuPrincipal');
+            this.scene.launch('Ayuda'); 
         });
 
 
@@ -604,7 +629,7 @@ class Creditos extends Phaser.Scene{
     }
 
     create(){
-        //Fondo de la pantalla de créditos
+       //Fondo de la pantalla de créditos
         this.fondoCred= this.add.image(400, 300, 'fondoCreditos');
         this.fondoCred.setScale(0.6);
 
@@ -635,16 +660,23 @@ class Creditos extends Phaser.Scene{
         this.miem = this.add.image(160, 425, 'miembros');
         this.miem.setScale(0.5);
 
-        this.assetEx = this.add.image(525, 150, 'assetsExternos');
+        this.assetEx = this.add.image(550, 150, 'assetsExternos');
         this.assetEx.setScale(0.6);
 
-        this.ext1 = this.add.text(350, 200, 'Los personajes son de Craftpix', { font: '16px Courier', fill: '#00ff00' });
-        this.ext2 = this.add.text(350, 250, 'Los objetos de apoyo son de Cheekyinkling', { font: '16px Courier', fill: '#00ff00' });
-        this.ext3 = this.add.text(350, 300, 'Los tilesets de los escenarios son de Maytch', { font: '16px Courier', fill: '#00ff00' });
-        this.ext4 = this.add.text(350, 350, 'El icono de pistola es de MunStudios', { font: '16px Courier', fill: '#00ff00' });
-        this.ext5 = this.add.text(350, 400, 'El cuchillo es de antrixglow98', { font: '16px Courier', fill: '#00ff00' });
-        this.ext6 = this.add.text(350, 450, 'Fuente utilizada para el logo del juego', { font: '16px Courier', fill: '#00ff00' });
-        this.ext7 = this.add.text(350, 500, 'Iconos de inputs', { font: '16px Courier', fill: '#00ff00' });
+        this.ext1 = this.add.image(550, 200, 'tex1');
+        this.ext1.setScale(0.4);
+        this.ext2 = this.add.image(550, 250, 'tex2');
+        this.ext2.setScale(0.4);
+        this.ext3 = this.add.image(550, 300, 'tex3');
+        this.ext3.setScale(0.4);
+        this.ext4 = this.add.image(550, 350, 'tex4');
+        this.ext4.setScale(0.4);
+        this.ext5 = this.add.image(550, 400, 'tex5');
+        this.ext5.setScale(0.4);
+        this.ext6 = this.add.image(550, 450, 'tex6');
+        this.ext6.setScale(0.4);
+        this.ext7 = this.add.image(550, 500, 'tex7');
+        this.ext7.setScale(0.4);
 
     }
 
@@ -656,6 +688,58 @@ class Creditos extends Phaser.Scene{
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+/////////////////////////////////////////////Pantalla de Ayuda//////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Ayuda extends Phaser.Scene{
+    constructor(){
+        //Ayuda--> nombre que se le da a la escena
+        super({ key: "Ayuda"});
+    }
+
+    preload(){   
+    }
+
+    create(){
+
+
+        this.fondoA = this.add.image(400, 300, 'fondoAyuda');
+        this.fondoA.setScale(0.6);
+
+        this.titleAyud = this.add.image(400, 100, 'titAyuda');
+        this.titleAyud.setScale(0.6);
+
+        this.atras7 = this.add.image(75, 50, 'back').setInteractive();
+        this.atras7.setScale(0.8);
+
+        this.atras7.on('pointerover', () => {
+            this.atras7 = this.add.image(75, 50, 'backActivo');
+            this.atras7.setScale(0.8);
+        });
+        
+        this.atras7.on('pointerout', () => {
+            this.atras7 = this.add.image(75, 50, 'back');
+            this.atras7.setScale(0.8);
+        });
+        
+        this.atras7.on('pointerdown', () => {
+            this.scene.moveBelow('Ayuda');
+            this.scene.stop('Ayuda');
+        });
+
+        this.textoContacto = this.add.image(400, 250, 'texto1');
+        this.textoContacto.setScale(0.55);
+
+        this.textoDir = this.add.image(400, 400, 'texto2');
+        this.textoDir.setScale(0.55);
+
+        this.textoContacto1 = this.add.image(400, 500, 'texto3');
+        this.textoContacto1.setScale(0.55);
+
+    }
+
+    update(){
+    }
+}
 
 
 
@@ -673,7 +757,7 @@ class PantallaModoJuego extends Phaser.Scene{
     }
 
     create(){
-        //Fondo del menú principal
+         //Fondo del menú principal
         this.fondoMJ= this.add.image(400, 300, 'fondoModoJuego');
         this.fondoMJ.setScale(0.6);
 
@@ -695,7 +779,8 @@ class PantallaModoJuego extends Phaser.Scene{
         });
         
         this.ayud2.on('pointerdown', () => {
-            //this.scene.start('Menu');
+            this.scene.moveBelow('ModoJuego');
+            this.scene.launch('Ayuda'); 
         });
 
 
@@ -749,7 +834,6 @@ class PantallaModoJuego extends Phaser.Scene{
             this.scene.start('NumeroJugadores');
         });
 
-
     }
 
     update(){
@@ -798,7 +882,8 @@ class PantallaNumeroJugadores extends Phaser.Scene{
         });
         
         this.ayud3.on('pointerdown', () => {
-            //this.scene.start('Menu');
+            this.scene.moveBelow('NumeroJugadores');
+            this.scene.launch('Ayuda'); 
         });
 
 
@@ -881,12 +966,15 @@ class MenuPersonajes extends Phaser.Scene{
 
     create(){
 
-        chooseP1='null';
+       chooseP1='null';
 		chooseP2='null';
 
         //Fondo de la pantalla de selección de personaje
         this.fondoPer= this.add.image(400, 300, 'fondoPersonajes');
         this.fondoPer.setScale(0.6);
+
+        this.titlePer = this.add.image(400, 50, 'elegirPers');
+        this.titlePer.setScale(0.6);
 
         this.ayud4 = this.add.image(750, 50, 'ayuda').setInteractive();
         this.ayud4.setScale(0.6);
@@ -902,7 +990,8 @@ class MenuPersonajes extends Phaser.Scene{
         });
         
         this.ayud4.on('pointerdown', () => {
-            //this.scene.start('Menu');
+            this.scene.moveBelow('MenuPersonajes');
+            this.scene.launch('Ayuda'); 
         });
 
 
@@ -944,8 +1033,8 @@ class MenuPersonajes extends Phaser.Scene{
                 this.texPer1.destroy();
                 }
             } else{
-                this.texPer1 = this.add.image(400, 200, 'tex1');
-                this.texPer1.setScale(0.8);
+                this.texPer1 = this.add.image(400, 200, 'text1');
+                this.texPer1.setScale(1.4);
             }
         });
 
@@ -1009,8 +1098,8 @@ class MenuPersonajes extends Phaser.Scene{
                 }
                 this.texPer2.destroy();
             } else{
-                this.texPer2 = this.add.image(400, 200, 'tex2');
-                this.texPer2.setScale(0.8);
+                this.texPer2 = this.add.image(400, 200, 'text2');
+                this.texPer2.setScale(1.4);
             }
             
         });
@@ -1074,8 +1163,8 @@ class MenuPersonajes extends Phaser.Scene{
                     this.texPer3.destroy();
                 }
             }else{
-                this.texPer3 = this.add.image(400, 200, 'tex3');
-                this.texPer3.setScale(0.8);
+                this.texPer3 = this.add.image(400, 200, 'text3');
+                this.texPer3.setScale(1.4);
             }
 
         });
@@ -1165,7 +1254,8 @@ export class MenuEscenarios extends Phaser.Scene{
         });
         
         this.ayud5.on('pointerdown', () => {
-            //this.scene.start('Menu');
+            this.scene.moveBelow('MenuEscenarios');
+            this.scene.launch('Ayuda'); 
         });
 
 
@@ -3448,7 +3538,7 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, PantallaJuego, PantallaResultados/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
+    scene: [PantallaCarga, PantallaDeInicio, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaJuego, PantallaResultados/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
 	audio: {
         disableWebAudio: true
     }
