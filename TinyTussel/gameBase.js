@@ -123,7 +123,10 @@ class PantallaCarga extends Phaser.Scene{
 
         //Carga de fondo, título e imagen
         this.load.image('fondoCreditos', './asset/Fondo.png');
-        this.load.image('titCreditos', './asset/')
+        this.load.image('TituloCred', './asset/LogoTinyTussle.png');
+        this.load.image('titEquipo', './asset/Stormediateam.png');
+        this.load.image('miembros', './asset/MiembrosGrupo.png');
+        this.load.image('assetsExternos', './asset/AssetsExternos.png');
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -434,8 +437,8 @@ class MenuPrincipal extends Phaser.Scene{
             this.cred.setScale(0.3);
         });
         
-        this.control.on('pointerdown', () => {
-            //this.scene.start('Menu');
+        this.cred.on('pointerdown', () => {
+            this.scene.start('Creditos');
         });
 
         this.ajust = this.add.image(550, 450, 'bAjustes');
@@ -563,7 +566,74 @@ class Controles extends Phaser.Scene{
 
 
 
-/////////////////////////////////////////Pantalla de Modo de Juego/////////////////////////////////////////////////
+////////////////////////////////////////////Pantalla de Créditos////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Creditos extends Phaser.Scene{
+    constructor(){
+        //Creditos--> nombre que se le da a la escena
+        super({ key: "Creditos"});
+    }
+
+    preload(){   
+    }
+
+    create(){
+        //Fondo de la pantalla de créditos
+        this.fondoCred= this.add.image(400, 300, 'fondoCreditos');
+        this.fondoCred.setScale(0.6);
+
+        this.atras7 = this.add.image(75, 50, 'back').setInteractive();
+        this.atras7.setScale(0.8);
+
+        this.atras7.on('pointerover', () => {
+            this.atras7 = this.add.image(75, 50, 'backActivo');
+            this.atras7.setScale(0.8);
+        });
+        
+        this.atras7.on('pointerout', () => {
+            this.atras7 = this.add.image(75, 50, 'back');
+            this.atras7.setScale(0.8);
+        });
+        
+        this.atras7.on('pointerdown', () => {
+            this.scene.start('MenuPrincipal');
+        });
+
+        this.titleCred = this.add.image(160, 175, 'TituloCred');
+        this.titleCred.setScale(0.2);
+
+
+        this.nombreEq = this.add.image(160, 275, 'titEquipo');
+        this.nombreEq.setScale(0.6);
+
+        this.miem = this.add.image(160, 425, 'miembros');
+        this.miem.setScale(0.5);
+
+        this.assetEx = this.add.image(525, 150, 'assetsExternos');
+        this.assetEx.setScale(0.6);
+
+        this.ext1 = this.add.text(350, 200, 'Los personajes son de Craftpix', { font: '16px Courier', fill: '#00ff00' });
+        this.ext2 = this.add.text(350, 250, 'Los objetos de apoyo son de Cheekyinkling', { font: '16px Courier', fill: '#00ff00' });
+        this.ext3 = this.add.text(350, 300, 'Los tilesets de los escenarios son de Maytch', { font: '16px Courier', fill: '#00ff00' });
+        this.ext4 = this.add.text(350, 350, 'El icono de pistola es de MunStudios', { font: '16px Courier', fill: '#00ff00' });
+        this.ext5 = this.add.text(350, 400, 'El cuchillo es de antrixglow98', { font: '16px Courier', fill: '#00ff00' });
+        this.ext6 = this.add.text(350, 450, 'Fuente utilizada para el logo del juego', { font: '16px Courier', fill: '#00ff00' });
+        this.ext7 = this.add.text(350, 500, 'Iconos de inputs', { font: '16px Courier', fill: '#00ff00' });
+
+    }
+
+    update(){
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+/////////////////////////////////////////Pantalla de Modo de Juego//////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -3132,7 +3202,7 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, MenuPrincipal, Controles, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, PantallaJuego, PantallaResultados/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
+    scene: [PantallaCarga, PantallaDeInicio, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, PantallaJuego, PantallaResultados/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
 	audio: {
         disableWebAudio: true
     }
