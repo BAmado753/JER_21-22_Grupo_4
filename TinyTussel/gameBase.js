@@ -410,9 +410,12 @@ class PantallaCarga extends Phaser.Scene{
 
         ///////////////////////////Carga de assets de la Pantalla de Resultados/////////////////////////////////////
 
-        this.load.image('fondoRanking', './asset/fondoRanking_prueba.jpg');
-        this.load.image('tituloRanking', './asset/tituloRanking-prueba.png')
-        this.load.image('trofeo', './asset/Trofeo_prueba.png');
+        this.load.image('fondoRanking', './asset/Fondo.png');
+        this.load.image('podio', './asset/Podio.png');
+        this.load.image('bRevancha', './asset/Revancha.png');
+        this.load.image('bRevanchaActivado', './asset/RevanchaActivado.png');
+        this.load.image('bSalir', './asset/Salir.png');
+        this.load.image('bSalirActivado', './asset/SalirActivado.png');
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -1143,6 +1146,8 @@ class MenuPersonajes extends Phaser.Scene{
             this.per1.setScale(1.5);
             this.texPer1.destroy();
         });
+
+
 
         this.per1.on('pointerdown', () => {
             if(chooseP1==='null'&&chooseP2==='null'){
@@ -3672,6 +3677,7 @@ execute(scene, player2) {
 
 var text_p1_Results;
 var text_p2_Results;
+var bg_music_results_screen;
 
 class PantallaResultados extends Phaser.Scene{
     constructor(){
@@ -3693,53 +3699,129 @@ class PantallaResultados extends Phaser.Scene{
         bg_music_results_screen.play();
 
         this.fondoRan= this.add.image(400, 300, 'fondoRanking');
-        this.fondoRan.setScale(1.6);
+        this.fondoRan.setScale(0.6);
 
-        this.titulo = this.add.image(400, 100, 'tituloRanking');
-
-        this.primerPuesto = this.add.image(100, 250, 'trofeo');
-        this.primerPuesto.setScale(0.7);
+        this.pod = this.add.image(400, 300, 'podio');
+        this.pod.setScale(0.5);
 
 
-        /*if(player1.gemsOwned > player2.gemsOwned){
-            this.primerPuesto = this.add.image(100, 250, 'trofeo');
-            this.primerPuesto.setScale(0.7);
+        if(player1.gemsOwned > player2.gemsOwned){
+            if(chooseP1 ==='Chilli'){
+            this.winp1 = this.add.image(400, 145, 'selectChilli');
+            }
+            else if(chooseP1 ==='Bernie'){
+            this.winp1 = this.add.image(400, 145, 'selectBernie');
+            }
+            else{
+            this.winp1 = this.add.image(400, 145, 'selectWasabi');
+            }
 
-            this.winp1 = this.add.image(200, 250, chooseP1+'_profile');
-            //text_p1_Results = this.add.text(200, 150, 'name', { font: '16px Courier', fill: '#00ff00' });
-            //text_p2_Results = this.add.text(600, 450, 'gemsOwned', { font: '16px Courier', fill: '#00ff00' });
+
+            if(chooseP2 ==='Chilli'){
+            this.winp2 = this.add.image(290, 200, 'selectChilli');
+            this.winp2.setScale(1.5);
+            }
+            else if(chooseP2 ==='Bernie'){
+            this.winp2 = this.add.image(290, 200, 'selectBernie');
+            }
+            else{
+            this.winp2 = this.add.image(290, 200, 'selectWasabi');
+            }
+
 
         } else if(player1.gemsOwned < player2.gemsOwned){
-            this.primerPuesto = this.add.image(100, 250, 'trofeo');
-            this.primerPuesto.setScale(0.7);
+            if(chooseP2 ==='Chilli'){
+            this.winp2 = this.add.image(400, 145, 'selectChilli');
+            this.winp2.setScale(1.5);
+            }
+            else if(chooseP2 ==='Bernie'){
+            this.winp2 = this.add.image(400, 145, 'selectBernie');
+            }
+            else{
+            this.winp2 = this.add.image(400, 145, 'selectWasabi');
+            }
 
-            this.winp1 = this.add.image(200, 250, chooseP2+'_profile');
-            //text_p1_Results = this.add.text(600, 150, '', { font: '16px Courier', fill: '#00ff00' });
-            //text_p2_Results = this.add.text(200, 450, '', { font: '16px Courier', fill: '#00ff00' });
 
-        } else{
-            this.primerPuesto = this.add.image(400, 300, 'trofeo');
-            this.primerPuesto.setScale(0.7);
-            //text_p1_Results = this.add.text(400, 150, '', { font: '16px Courier', fill: '#00ff00' });
-            //text_p2_Results = this.add.text(400, 450, '', { font: '16px Courier', fill: '#00ff00' });
-        }*/
+            if(chooseP1 ==='Chilli'){
+            this.winp1 = this.add.image(430, 145, 'selectChilli');
+            this.winp1.setScale(1.5);
+            }
+            else if(chooseP1 ==='Bernie'){
+            this.winp1 = this.add.image(430, 145, 'selectBernie');
+            }
+            else{
+            this.winp1 = this.add.image(430, 145, 'selectWasabi');
+            }
+
+
+        } else if(player1.gemsOwned == player2.gemsOwned){
+            if(chooseP2 ==='Chilli'){
+            this.winp2 = this.add.image(400, 145, 'selectChilli');
+            this.winp2.setScale(1.5);
+            }
+            else if(chooseP2 ==='Bernie'){
+            this.winp2 = this.add.image(400, 145, 'selectBernie');
+            }
+            else{
+            this.winp2 = this.add.image(400, 145, 'selectWasabi');
+            }
+
+            if(chooseP1 ==='Chilli'){
+            this.winp1 = this.add.image(370, 145, 'selectChilli');
+            this.winp1.setScale(1.5);
+            }
+            else if(chooseP1 ==='Bernie'){
+            this.winp1 = this.add.image(370, 145, 'selectBernie');
+            }
+            else{
+            this.winp1 = this.add.image(370, 145, 'selectWasabi');
+            }
+            
+        }
         
+        
+        this.rev = this.add.image(250, 500, 'bRevancha').setInteractive();
+        this.rev.setScale(0.4);
 
-        /*text_p1_Results.setText([
-            'Name: ' + profile_p1_UI.data.get('name'),
-            'Gems: ' + profile_p1_UI.data.get('gems') 
-        ]);
+        this.rev.on('pointerover', () => {
+            this.rev = this.add.image(250, 500, 'bRevanchaActivado');
+            this.rev.setScale(0.4);
+        });
+        
+        this.rev.on('pointerout', () => {
+            this.rev = this.add.image(250, 500, 'bRevancha');
+            this.rev.setScale(0.4);
+        });
+        
+        this.rev.on('pointerdown', () => {
+            this.scene.start('MenuPersonajes');
+        });
 
-        text_p2_Results.setText([
-            'Name: ' + profile_p2_UI.data.get('name'),
-            'Gems: ' + profile_p2_UI.data.get('gems') 
-        ]);*/
+        this.sal = this.add.image(550, 500, 'bSalir').setInteractive();
+        this.sal.setScale(0.4);
+
+        this.sal.on('pointerover', () => {
+            this.sal = this.add.image(550, 500, 'bSalirActivado');
+            this.sal.setScale(0.4);
+        });
+        
+        this.sal.on('pointerout', () => {
+            this.sal = this.add.image(550, 500, 'bSalir');
+            this.sal.setScale(0.4);
+        });
+        
+        this.sal.on('pointerdown', () => {
+            //Para cerrar la ventana del navegador
+            window.close();
+        });
+
     }
 
     update(){
     }
 
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
