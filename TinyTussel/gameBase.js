@@ -258,53 +258,129 @@ class PantallaCarga extends Phaser.Scene{
 
 
         //Escenario
-        this.load.image('gray',             'asset/gray.jpg');
-        this.load.image('platform',         'asset/platform.jpg');
+        this.load.image('gray',             'asset/FondoEscenario1.png');
+        this.load.image('platform_T1',         'asset/PlataformaTipo1.png');
+        this.load.image('platform_T1_double',         'asset/PlataformaTipo1_Doble.png');
+        this.load.image('platform_T2',         'asset/PlataformaTipo2.png');
+        this.load.image('platform_T2_double',         'asset/PlataformaTipo2_Doble.png');
         this.load.image('bullet',           'asset/bullet.png');
         this.load.image('ladder',         'asset/ladder.jpg');
 
 
         //Chilli
         this.load.image('Chilli_profile', 'asset/Pink_Monster_closeUp.png');
-        this.load.spritesheet('Chilli_idl', 'asset/Pink_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Chilli_run', 'asset/Pink_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Chilli_run_knife', 'asset/correrCuchilloRosa.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Chilli_run_pistol', 'asset/correrPistolaRosa.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Chilli_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
-		this.load.spritesheet('Chilli_attack_knife', 'asset/animacionCuchilloRosa.png', { frameWidth: 36, frameHeight: 32 });
-        this.load.spritesheet('Chilli_attack_pistol', 'asset/animacionPistolaRosa.png', { frameWidth: 36, frameHeight: 32 });
-        this.load.spritesheet('Chilli_hurt', 'asset/Pink_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Chilli_death', 'asset/Pink_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Chilli_climb', 'asset/Pink_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Chilli_run_dust', 'asset/Walk_Run_Push_Dust.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Chilli_idl', 'asset/Pink_Monster_Idle.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Chilli_run', 'asset/Pink_Monster_Run.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Chilli_run_knife', 'asset/correrCuchilloRosa.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Chilli_run_pistol', 'asset/correrPistolaRosa.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Chilli_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 31, frameHeight: 31 });
+		this.load.spritesheet('Chilli_attack_knife', 'asset/animacionCuchilloRosa.png', { frameWidth: 35, frameHeight: 31 });
+        this.load.spritesheet('Chilli_attack_pistol', 'asset/animacionPistolaRosa.png', { frameWidth: 35, frameHeight: 31 });
+        this.load.spritesheet('Chilli_hurt', 'asset/Pink_Monster_Hurt.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Chilli_death', 'asset/Pink_Monster_Death.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Chilli_climb', 'asset/Pink_Monster_Climb.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Chilli_run_dust', 'asset/Walk_Run_Push_Dust.png', { frameWidth: 31, frameHeight: 31 });
 
 
         //Bernie
         this.load.image('Bernie_profile', 'asset/Owlet_Monster_closeUp.png');
-        this.load.spritesheet('Bernie_idl', 'asset/Owlet_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Bernie_run', 'asset/Owlet_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Bernie_run_knife', 'asset/correrCuchilloBlanco.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Bernie_run_pistol', 'asset/correrPistolaBlanco.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Bernie_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
-		this.load.spritesheet('Bernie_attack_knife', 'asset/animacionCuchilloBlanco.png', { frameWidth: 36, frameHeight: 32 });
-        this.load.spritesheet('Bernie_attack_pistol', 'asset/animacionPistolaBlanco.png', { frameWidth: 36, frameHeight: 32 });         this.load.spritesheet('Bernie_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Bernie_death', 'asset/Owlet_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
-        this.load.spritesheet('Bernie_climb', 'asset/Owlet_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Bernie_idl', 'asset/Owlet_Monster_Idle.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Bernie_run', 'asset/Owlet_Monster_Run.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Bernie_run_knife', 'asset/correrCuchilloBlanco.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Bernie_run_pistol', 'asset/correrPistolaBlanco.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Bernie_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 31, frameHeight: 31 });
+		this.load.spritesheet('Bernie_attack_knife', 'asset/animacionCuchilloBlanco.png', { frameWidth: 35, frameHeight: 31 });
+        this.load.spritesheet('Bernie_attack_pistol', 'asset/animacionPistolaBlanco.png', { frameWidth: 35, frameHeight: 31 });         this.load.spritesheet('Bernie_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Bernie_death', 'asset/Owlet_Monster_Death.png', { frameWidth: 31, frameHeight: 31 });  
+        this.load.spritesheet('Bernie_climb', 'asset/Owlet_Monster_Climb.png', { frameWidth: 31, frameHeight: 31 });
 
         //Wasabi
         this.load.image('Wasabi_profile', 'asset/Dude_Monster_closeUp.png');
-        this.load.spritesheet('Wasabi_idl', 'asset/Dude_Monster_Idle.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Wasabi_run', 'asset/Dude_Monster_Run.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Wasabi_run_knife', 'asset/correrCuchilloAzul.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Wasabi_run_pistol', 'asset/correrPistolaAzul.png', { frameWidth: 32, frameHeight: 32 });        
-		this.load.spritesheet('Wasabi_jump', 'asset/Dude_Monster_Jump.png', { frameWidth: 32, frameHeight: 32 });
-		this.load.spritesheet('Wasabi_attack_knife', 'asset/animacionCuchilloAzul.png', { frameWidth: 36, frameHeight: 32 });
-        this.load.spritesheet('Wasabi_attack_pistol', 'asset/animacionPistolaAzul.png', { frameWidth: 36, frameHeight: 32 });
-        this.load.spritesheet('Wasabi_hurt', 'asset/Dude_Monster_Hurt.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Wasabi_death', 'asset/Dude_Monster_Death.png', { frameWidth: 32, frameHeight: 32 });  
-        this.load.spritesheet('Wasabi_climb', 'asset/Dude_Monster_Climb.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Wasabi_idl', 'asset/Dude_Monster_Idle.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Wasabi_run', 'asset/Dude_Monster_Run.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Wasabi_run_knife', 'asset/correrCuchilloAzul.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Wasabi_run_pistol', 'asset/correrPistolaAzul.png', { frameWidth: 31, frameHeight: 31 });        
+		this.load.spritesheet('Wasabi_jump', 'asset/Dude_Monster_Jump.png', { frameWidth: 31, frameHeight: 31 });
+		this.load.spritesheet('Wasabi_attack_knife', 'asset/animacionCuchilloAzul.png', { frameWidth: 35, frameHeight: 31 });
+        this.load.spritesheet('Wasabi_attack_pistol', 'asset/animacionPistolaAzul.png', { frameWidth: 35, frameHeight: 31 });
+        this.load.spritesheet('Wasabi_hurt', 'asset/Dude_Monster_Hurt.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Wasabi_death', 'asset/Dude_Monster_Death.png', { frameWidth: 31, frameHeight: 31 });  
+        this.load.spritesheet('Wasabi_climb', 'asset/Dude_Monster_Climb.png', { frameWidth: 31, frameHeight: 31 });
 
-        this.load.spritesheet('round_explosion', 'asset/round_explosion.png', { frameWidth: 100, frameHeight: 100 });
+		//Explosion
+        this.load.spritesheet('round_explosion_spsh', 'asset/round_explosion.png', { frameWidth: 100, frameHeight: 100 });
+        this.load.image('round_explosion_0', 'asset/AnimacionExplosion/frame0000.png');
+        this.load.image('round_explosion_1', 'asset/AnimacionExplosion/frame0001.png');
+        this.load.image('round_explosion_2', 'asset/AnimacionExplosion/frame0002.png');
+        this.load.image('round_explosion_3', 'asset/AnimacionExplosion/frame0003.png');
+        this.load.image('round_explosion_4', 'asset/AnimacionExplosion/frame0004.png');
+        this.load.image('round_explosion_5', 'asset/AnimacionExplosion/frame0005.png');
+        this.load.image('round_explosion_6', 'asset/AnimacionExplosion/frame0006.png');
+        this.load.image('round_explosion_7', 'asset/AnimacionExplosion/frame0007.png');
+        this.load.image('round_explosion_8', 'asset/AnimacionExplosion/frame0008.png');
+        this.load.image('round_explosion_9', 'asset/AnimacionExplosion/frame0009.png');
+        this.load.image('round_explosion_10', 'asset/AnimacionExplosion/frame0010.png');
+        this.load.image('round_explosion_11', 'asset/AnimacionExplosion/frame0011.png');
+        this.load.image('round_explosion_12', 'asset/AnimacionExplosion/frame0012.png');
+        this.load.image('round_explosion_13', 'asset/AnimacionExplosion/frame0013.png');
+        this.load.image('round_explosion_14', 'asset/AnimacionExplosion/frame0014.png');
+        this.load.image('round_explosion_15', 'asset/AnimacionExplosion/frame0015.png');
+        this.load.image('round_explosion_16', 'asset/AnimacionExplosion/frame0016.png');
+        this.load.image('round_explosion_17', 'asset/AnimacionExplosion/frame0017.png');
+        this.load.image('round_explosion_18', 'asset/AnimacionExplosion/frame0018.png');
+        this.load.image('round_explosion_19', 'asset/AnimacionExplosion/frame0019.png');
+        this.load.image('round_explosion_20', 'asset/AnimacionExplosion/frame0020.png');
+        this.load.image('round_explosion_21', 'asset/AnimacionExplosion/frame0021.png');
+        this.load.image('round_explosion_22', 'asset/AnimacionExplosion/frame0022.png');
+        this.load.image('round_explosion_23', 'asset/AnimacionExplosion/frame0023.png');
+        this.load.image('round_explosion_24', 'asset/AnimacionExplosion/frame0024.png');
+        this.load.image('round_explosion_25', 'asset/AnimacionExplosion/frame0025.png');
+        this.load.image('round_explosion_26', 'asset/AnimacionExplosion/frame0026.png');
+        this.load.image('round_explosion_27', 'asset/AnimacionExplosion/frame0027.png');
+        this.load.image('round_explosion_28', 'asset/AnimacionExplosion/frame0028.png');
+        this.load.image('round_explosion_29', 'asset/AnimacionExplosion/frame0029.png');
+        this.load.image('round_explosion_30', 'asset/AnimacionExplosion/frame0030.png');
+        this.load.image('round_explosion_31', 'asset/AnimacionExplosion/frame0031.png');
+        this.load.image('round_explosion_32', 'asset/AnimacionExplosion/frame0032.png');
+        this.load.image('round_explosion_33', 'asset/AnimacionExplosion/frame0033.png');
+        this.load.image('round_explosion_34', 'asset/AnimacionExplosion/frame0034.png');
+        this.load.image('round_explosion_35', 'asset/AnimacionExplosion/frame0035.png');
+        this.load.image('round_explosion_36', 'asset/AnimacionExplosion/frame0036.png');
+        this.load.image('round_explosion_37', 'asset/AnimacionExplosion/frame0037.png');
+        this.load.image('round_explosion_38', 'asset/AnimacionExplosion/frame0038.png');
+        this.load.image('round_explosion_39', 'asset/AnimacionExplosion/frame0039.png');
+        this.load.image('round_explosion_40', 'asset/AnimacionExplosion/frame0040.png');
+        this.load.image('round_explosion_41', 'asset/AnimacionExplosion/frame0041.png');
+        this.load.image('round_explosion_42', 'asset/AnimacionExplosion/frame0042.png');
+        this.load.image('round_explosion_43', 'asset/AnimacionExplosion/frame0043.png');
+        this.load.image('round_explosion_44', 'asset/AnimacionExplosion/frame0044.png');
+        this.load.image('round_explosion_45', 'asset/AnimacionExplosion/frame0045.png');
+        this.load.image('round_explosion_46', 'asset/AnimacionExplosion/frame0046.png');
+        this.load.image('round_explosion_47', 'asset/AnimacionExplosion/frame0047.png');
+        this.load.image('round_explosion_48', 'asset/AnimacionExplosion/frame0048.png');
+        this.load.image('round_explosion_49', 'asset/AnimacionExplosion/frame0049.png');
+        this.load.image('round_explosion_50', 'asset/AnimacionExplosion/frame0050.png');
+        this.load.image('round_explosion_51', 'asset/AnimacionExplosion/frame0051.png');
+        this.load.image('round_explosion_52', 'asset/AnimacionExplosion/frame0052.png');
+        this.load.image('round_explosion_53', 'asset/AnimacionExplosion/frame0053.png');
+        this.load.image('round_explosion_54', 'asset/AnimacionExplosion/frame0054.png');
+        this.load.image('round_explosion_55', 'asset/AnimacionExplosion/frame0055.png');
+        this.load.image('round_explosion_56', 'asset/AnimacionExplosion/frame0056.png');
+        this.load.image('round_explosion_57', 'asset/AnimacionExplosion/frame0057.png');
+        this.load.image('round_explosion_58', 'asset/AnimacionExplosion/frame0058.png');
+        this.load.image('round_explosion_59', 'asset/AnimacionExplosion/frame0059.png');
+        this.load.image('round_explosion_60', 'asset/AnimacionExplosion/frame0060.png');
+        this.load.image('round_explosion_61', 'asset/AnimacionExplosion/frame0061.png');
+        this.load.image('round_explosion_62', 'asset/AnimacionExplosion/frame0062.png');
+        this.load.image('round_explosion_63', 'asset/AnimacionExplosion/frame0063.png');
+        this.load.image('round_explosion_64', 'asset/AnimacionExplosion/frame0064.png');
+        this.load.image('round_explosion_65', 'asset/AnimacionExplosion/frame0065.png');
+        this.load.image('round_explosion_66', 'asset/AnimacionExplosion/frame0066.png');
+        this.load.image('round_explosion_67', 'asset/AnimacionExplosion/frame0067.png');
+        this.load.image('round_explosion_68', 'asset/AnimacionExplosion/frame0068.png');
+        this.load.image('round_explosion_69', 'asset/AnimacionExplosion/frame0069.png');
+        this.load.image('round_explosion_70', 'asset/AnimacionExplosion/frame0070.png');
+        
 
 
         //Audio - Sound effects
@@ -1565,15 +1641,16 @@ class PantallaJuego extends Phaser.Scene{
     controlIimedItemRespawn=0;
     text_time = this.add.text(32, 32);
     timedCountdown = this.time.delayedCall(180000, onCountDownEvent, [], this);
+
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
     
     //Plataformas
     platforms = this.physics.add.staticGroup();
 
-    platforms.create(150,350,'platform').setScale(10,1).refreshBody();
-    platforms.create(650,350,'platform').setScale(10,1).refreshBody();
-    platforms.create(400,580,'platform').setScale(50,3).refreshBody();
+    platforms.create(150,350,'platform_T1');
+    platforms.create(650,350,'platform_T1_double');
+    platforms.create(400,580,'platform_T1').setScale(50,3).refreshBody();
     
     //Escaleras
     
@@ -1873,14 +1950,95 @@ class PantallaJuego extends Phaser.Scene{
     		invisible: new InvisibleStateP2(),
           }, [this, player2]);
     
-blueSpecialAttack_Explosion=this.add.sprite(0,0,'round_explosion');
+blueSpecialAttack_Explosion=this.add.sprite(0,0,'round_explosion_0');
+blueSpecialAttack_Explosion.DelayTimer=0;
+blueSpecialAttack_Explosion.exist=false;
 blueSpecialAttack_Explosion.setVisible(false);
-blueSpecialAttack_Explosion.anims.create({
+/*blueSpecialAttack_Explosion.anims.create({
 	key: 'explosion',
         frames: this.anims.generateFrameNumbers('round_explosion', { start: 0, end: 71 }),
         frameRate: 20,
         repeat: 0
-});
+});*/
+blueSpecialAttack_Explosion.anims.create({
+            
+	key: 'explosion',
+            frames: [
+                { key:'round_explosion_0', duration: 1500},
+        { key:'round_explosion_1', duration: 50},
+        { key:'round_explosion_2', duration: 50},
+        { key:'round_explosion_3', duration: 50},
+        { key:'round_explosion_4', duration: 50},
+        { key:'round_explosion_5', duration: 50},
+        { key:'round_explosion_6', duration: 50},
+        { key:'round_explosion_7'},
+        { key:'round_explosion_8'},
+        { key:'round_explosion_9'},
+        { key:'round_explosion_10'},
+        { key:'round_explosion_11'},
+        { key:'round_explosion_12'},
+        { key:'round_explosion_13'},
+        { key:'round_explosion_14'},
+        { key:'round_explosion_15'},
+        { key:'round_explosion_16'},
+        { key:'round_explosion_17'},
+        { key:'round_explosion_18'},
+        { key:'round_explosion_19'},
+        { key:'round_explosion_20'},
+        { key:'round_explosion_21'},
+        { key:'round_explosion_22'},
+        { key:'round_explosion_23'},
+        { key:'round_explosion_24'},
+        { key:'round_explosion_25'},
+        { key:'round_explosion_26'},
+        { key:'round_explosion_27'},
+        { key:'round_explosion_28'},
+        { key:'round_explosion_29'},
+        { key:'round_explosion_30'},
+        { key:'round_explosion_31'},
+        { key:'round_explosion_32'},
+        { key:'round_explosion_33'},
+        { key:'round_explosion_34'},
+        { key:'round_explosion_35'},
+        { key:'round_explosion_36'},
+        { key:'round_explosion_37'},
+        { key:'round_explosion_38'},
+        { key:'round_explosion_39'},
+        { key:'round_explosion_40'},
+        { key:'round_explosion_41'},
+        { key:'round_explosion_42'},
+        { key:'round_explosion_43'},
+        { key:'round_explosion_44'},
+        { key:'round_explosion_45'},
+        { key:'round_explosion_46'},
+        { key:'round_explosion_47'},
+        { key:'round_explosion_48'},
+        { key:'round_explosion_49'},
+        { key:'round_explosion_50'},
+        { key:'round_explosion_51'},
+        { key:'round_explosion_52'},
+        { key:'round_explosion_53'},
+        { key:'round_explosion_54'},
+        { key:'round_explosion_55'},
+        { key:'round_explosion_56'},
+        { key:'round_explosion_57'},
+        { key:'round_explosion_58'},
+        { key:'round_explosion_59'},
+        { key:'round_explosion_60'},
+        { key:'round_explosion_61'},
+        { key:'round_explosion_62'},
+        { key:'round_explosion_63'},
+        { key:'round_explosion_64'},
+        { key:'round_explosion_65'},
+        { key:'round_explosion_66'},
+        { key:'round_explosion_67'},
+        { key:'round_explosion_68'},
+        { key:'round_explosion_69'},
+        { key:'round_explosion_70'},
+            ],
+            frameRate: 10,
+            repeat: 0
+        });
     //Animaciones player1
 	//Idle
 	
@@ -2107,6 +2265,8 @@ blueSpecialAttack_Explosion.anims.create({
 	checkTimeSpecial(player1);
     checkTimeSpecial(player2)
 	checkExplosion();
+	if(chooseP1==='Wasabi'){checkDelayExplosion(player1)}
+	if(chooseP2==='Wasabi'){checkDelayExplosion(player2)}
 	if(player1.direction!=='right') {  player1.flipX = true; }
 	if(player1.direction!=='left') {  player1.flipX = false; }
 	if(player2.direction!=='right') {  player2.flipX = true;}
@@ -2118,14 +2278,14 @@ blueSpecialAttack_Explosion.anims.create({
     if	(Phaser.Input.Keyboard.JustDown(input_Q)){
     	if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
     	if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
-    	if(chooseP1==='Wasabi'){blueSpecialAttack(player1);	}
+    	if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
     
     }
     
     if	(Phaser.Input.Keyboard.JustDown(input_U)){
     	if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
     	if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
-    	if(chooseP2==='Wasabi'){blueSpecialAttack(player2);	}
+    	if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
     
     }
     
@@ -2307,13 +2467,12 @@ function whiteSpecialAttack(playerAttack, playerHurt){
 	playerAttack.canSpecial=false;
 	}
 }
-function blueSpecialAttack(player){
+function blueSpecialAttack(player,scene){
 	if(player.canSpecial){
 		if(player.tag===1){		spAtk_p1_UI.play('charge');
 		}else if(player.tag===2){		spAtk_p2_UI.play('charge');}
-	blueSpecialAttack_Area.body.enable=true;
-	blueSpecialAttack_Area.x=player.body.center.x;
-	blueSpecialAttack_Area.y=player.body.center.y;
+	//timedCharge=scene.time.delayedCall(300, blueSpecialAttack_HitBox(player), [], this);
+	
 	player.LastTimeSpecial=0;
 	player.canSpecial=false;
 	//blueSpecialAttack_Area.setVisible(true);
@@ -2321,10 +2480,30 @@ function blueSpecialAttack(player){
 	blueSpecialAttack_Explosion.x=player.body.center.x;
 	blueSpecialAttack_Explosion.y=player.body.center.y;
 	blueSpecialAttack_Explosion.setScale(1.2,1.2);
+	blueSpecialAttack_Explosion.exist=true;
 	blueSpecialAttack_Explosion.anims.play('explosion');
+	
+	}
+}
+function blueSpecialAttack_HitBox(player){
+	blueSpecialAttack_Area.body.enable=true;
+	blueSpecialAttack_Area.x=player.body.center.x;
+	blueSpecialAttack_Area.y=player.body.center.y;
+}
+function checkDelayExplosion(player){
+	if(blueSpecialAttack_Explosion.exist){
+	blueSpecialAttack_Explosion.DelayTimer+=1;
+	if(blueSpecialAttack_Explosion.DelayTimer>130){
+		blueSpecialAttack_Explosion.DelayTimer=0;
+		blueSpecialAttack_Explosion.exist=false;
+		blueSpecialAttack_HitBox(player);
+	}
 	}
 }
 function checkTimeSpecial(player){
+	blueSpecialAttack_Explosion.once('animationcomplete', () => {
+		blueSpecialAttack_Explosion.setVisible(false);
+    	});
 	if(!player.canSpecial){
 	player.LastTimeSpecial+=1;
 	if(player.LastTimeSpecial>1000){
