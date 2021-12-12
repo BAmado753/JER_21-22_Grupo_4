@@ -1702,7 +1702,7 @@ class PantallaEscenario1 extends Phaser.Scene{
     controlIimedItemRespawn=0;
 	controlIimedWeaponRespawn=0;
     text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(60000, onCountDownEvent, [], this);
+    timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this);
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
@@ -2223,55 +2223,55 @@ blueSpecialAttack_Explosion.anims.create({
         { key:'round_explosion_18'},
         { key:'round_explosion_19'},
         { key:'round_explosion_20'},
-        { key:'round_explosion_21'},
+        //{ key:'round_explosion_21'},
         { key:'round_explosion_22'},
-        { key:'round_explosion_23'},
+       // { key:'round_explosion_23'},
         { key:'round_explosion_24'},
-        { key:'round_explosion_25'},
+       // { key:'round_explosion_25'},
         { key:'round_explosion_26'},
-        { key:'round_explosion_27'},
+       // { key:'round_explosion_27'},
         { key:'round_explosion_28'},
-        { key:'round_explosion_29'},
+       // { key:'round_explosion_29'},
         { key:'round_explosion_30'},
-        { key:'round_explosion_31'},
+      //  { key:'round_explosion_31'},
         { key:'round_explosion_32'},
-        { key:'round_explosion_33'},
+       // { key:'round_explosion_33'},
         { key:'round_explosion_34'},
-        { key:'round_explosion_35'},
+      //  { key:'round_explosion_35'},
         { key:'round_explosion_36'},
-        { key:'round_explosion_37'},
+       // { key:'round_explosion_37'},
         { key:'round_explosion_38'},
-        { key:'round_explosion_39'},
+      //  { key:'round_explosion_39'},
         { key:'round_explosion_40'},
-        { key:'round_explosion_41'},
+      //  { key:'round_explosion_41'},
         { key:'round_explosion_42'},
-        { key:'round_explosion_43'},
+      //  { key:'round_explosion_43'},
         { key:'round_explosion_44'},
-        { key:'round_explosion_45'},
+      //  { key:'round_explosion_45'},
         { key:'round_explosion_46'},
-        { key:'round_explosion_47'},
+      //  { key:'round_explosion_47'},
         { key:'round_explosion_48'},
-        { key:'round_explosion_49'},
+      //  { key:'round_explosion_49'},
         { key:'round_explosion_50'},
-        { key:'round_explosion_51'},
+       // { key:'round_explosion_51'},
         { key:'round_explosion_52'},
-        { key:'round_explosion_53'},
+      //  { key:'round_explosion_53'},
         { key:'round_explosion_54'},
-        { key:'round_explosion_55'},
+      //  { key:'round_explosion_55'},
         { key:'round_explosion_56'},
-        { key:'round_explosion_57'},
+     //   { key:'round_explosion_57'},
         { key:'round_explosion_58'},
-        { key:'round_explosion_59'},
+       // { key:'round_explosion_59'},
         { key:'round_explosion_60'},
-        { key:'round_explosion_61'},
+      //  { key:'round_explosion_61'},
         { key:'round_explosion_62'},
-        { key:'round_explosion_63'},
+     //   { key:'round_explosion_63'},
         { key:'round_explosion_64'},
-        { key:'round_explosion_65'},
+     //   { key:'round_explosion_65'},
         { key:'round_explosion_66'},
-        { key:'round_explosion_67'},
+     //   { key:'round_explosion_67'},
         { key:'round_explosion_68'},
-        { key:'round_explosion_69'},
+     //   { key:'round_explosion_69'},
         { key:'round_explosion_70'},
             ],
             frameRate: 10,
@@ -2634,7 +2634,7 @@ function onItemRespawnEvent(scene){
 			break;
 		}
 	}
-	if(controlIimedItemRespawn>1000){
+	if(controlIimedItemRespawn>900){
 		controlIimedItemRespawn=0;
 		switch(Phaser.Math.Between(0, 3)){
 			case 0:
@@ -2728,6 +2728,15 @@ function checkDelayExplosion(player,scene){
 	}
 }
 function checkTimeSpecial(player){
+	if(chooseP2 ==='Wasabi' && blueSpecialAttack_Explosion.visible===true){
+		player2.x=blueSpecialAttack_Explosion.x;
+		player2.y=blueSpecialAttack_Explosion.y;
+		}
+	if(chooseP1 ==='Wasabi'&& blueSpecialAttack_Explosion.visible===true){
+		player1.x=blueSpecialAttack_Explosion.x;
+		player1.y=blueSpecialAttack_Explosion.y;
+	}
+
 	blueSpecialAttack_Explosion.once('animationcomplete', () => {
 		blueSpecialAttack_Explosion.setVisible(false);
     	});
@@ -2827,61 +2836,61 @@ function getKnife_P2(player, knife,scene){
 }
 function createPistol(){
 	
-            let x = Phaser.Math.Between(140, 690);
+            let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_pistol.create(x,y,'pistol_item');  
 }
 function createKnife(){
 	
-            let x = Phaser.Math.Between(140, 690);
+            let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_knife.create(x,y,'knife_item');  
 }
 function createGem(){
 	
-            let x = Phaser.Math.Between(140, 690);
+            let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		gems.create(x,y,'gem');  
 }
 function createShield(){
 	
-            let x = Phaser.Math.Between(140, 690);
+            let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_shield.create(x,y,'shield_item');  
 }
 function createPower(){
 	
-            let x = Phaser.Math.Between(140, 690);
+            let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_power.create(x,y,'power_item');  
 }
 function createSpeed(){
 	
-            let x = Phaser.Math.Between(140, 690);
+            let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_speed.create(x,y,'speed_item');  
 }
 function createLemon(){
 	
-            let x = Phaser.Math.Between(140, 690);
+            let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_lemon.create(x,y,'lemon_item');  
 }
 function createGrape(){
 	
-            let x = Phaser.Math.Between(140, 690);
+            let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_grape.create(x,y,'grape_item');  
 }
 function createStrawberry(){
 	
-            let x = Phaser.Math.Between(140, 690);
+            let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_strawberry.create(x,y,'strawberry_item');  
 }
 function createAmmo(){
 	
-            let x = Phaser.Math.Between(140, 690);
+            let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_ammo.create(x,y,'ammo_item').setScale(0.3,0.3).refreshBody();  
 }
@@ -2942,14 +2951,12 @@ if(player.life<16){lives_p1_UI[player.life+4].setVisible(true);}
 function collectPower(player, power, scene){
 	sound_powerup.play();
 	power.disableBody(true, true);
-		player.setTint(0xFF0909);
 	player.strengthBoost=true;
 
 }
 function collectSpeed(player, speed,scene){
 	sound_powerup.play();
 	speed.disableBody(true, true);
-		player.setTint(0x5BF0FF);
 	player.speedBoost=true;
 }
 function collectShield(player, shield_,scene){
@@ -3076,19 +3083,19 @@ function PlayerHitted(player,bullet){
 	player.hitted=true;
 	if(bullet.damage===2){	player.life-=2;
 	if(player.tag===2){
-	if(player.life>=1){	lives_p2_UI[player.life+1].setVisible(false);	}
-	if(player.life>=0){lives_p2_UI[player.life].setVisible(false);}
+	if(0<=(player.life+1) && (player.life+1)<lives_p2_UI.length){	lives_p2_UI[player.life+1].setVisible(false);	}
+	if(0<=(player.life) && (player.life)<lives_p2_UI.length){lives_p2_UI[player.life].setVisible(false);}
 
 	}else{
-if(player.life>=1){lives_p1_UI[player.life+1].setVisible(false);}
-if(player.life>=0){lives_p1_UI[player.life].setVisible(false);}
+if(0<=(player.life+1) && (player.life+1)<lives_p1_UI.length){lives_p1_UI[player.life+1].setVisible(false);}
+if(0<=(player.life) && (player.life)<lives_p1_UI.length){lives_p1_UI[player.life].setVisible(false);}
 	}
 	}
 	else{player.life--;
 		if(player.tag===2){
-if(player.life>=0){lives_p2_UI[player.life].setVisible(false);}
+if(0<=(player.life) && (player.life)<lives_p2_UI.length){lives_p2_UI[player.life].setVisible(false);}
 		}else{
-if(player.life>=0){lives_p1_UI[player.life].setVisible(false);}
+if(0<=(player.life) && (player.life)<lives_p1_UI.length){lives_p1_UI[player.life].setVisible(false);}
 	}
 	}
 	}
@@ -3103,29 +3110,29 @@ if	(rectangle.body.enable){
 		player.hitted=true;
 		if(rectangle.damage===5){	player.life-=5;
 			if(player.tag===2){
-if(player.life>=4){lives_p2_UI[player.life+4].setVisible(false);}
-if(player.life>=3){lives_p2_UI[player.life+3].setVisible(false);}
-if(player.life>=2){lives_p2_UI[player.life+2].setVisible(false);}
-if(player.life>=1){lives_p2_UI[player.life+1].setVisible(false);}
-if(player.life>=0){lives_p2_UI[player.life].setVisible(false);}
+if(0<=(player.life+4) && (player.life+4)<lives_p2_UI.length){lives_p2_UI[player.life+4].setVisible(false);}
+if(0<=(player.life+3) && (player.life+3)<lives_p2_UI.length){lives_p2_UI[player.life+3].setVisible(false);}
+if(0<=(player.life+2) && (player.life+2)<lives_p2_UI.length){lives_p2_UI[player.life+2].setVisible(false);}
+if(0<=(player.life+1) && (player.life+1)<lives_p2_UI.length){lives_p2_UI[player.life+1].setVisible(false);}
+if(0<=(player.life) && (player.life)<lives_p2_UI.length){lives_p2_UI[player.life].setVisible(false);}
 			}else{
-if(player.life>=4){lives_p1_UI[player.life+4].setVisible(false);}
-if(player.life>=3){lives_p1_UI[player.life+3].setVisible(false);}
-if(player.life>=2){lives_p1_UI[player.life+2].setVisible(false);}
-if(player.life>=1){lives_p1_UI[player.life+1].setVisible(false);}
-if(player.life>=0){lives_p1_UI[player.life].setVisible(false);}
+if(0<=(player.life+4) && (player.life+4)<lives_p1_UI.length){lives_p1_UI[player.life+4].setVisible(false);}
+if(0<=(player.life+3) && (player.life+3)<lives_p1_UI.length){lives_p1_UI[player.life+3].setVisible(false);}
+if(0<=(player.life+2) && (player.life+2)<lives_p1_UI.length){lives_p1_UI[player.life+2].setVisible(false);}
+if(0<=(player.life+1) && (player.life+1)<lives_p1_UI.length){lives_p1_UI[player.life+1].setVisible(false);}
+if(0<=(player.life) && (player.life)<lives_p1_UI.length){lives_p1_UI[player.life].setVisible(false);}
 
 			}
 		}
 		else{player.life-=3;
 			if(player.tag===2){
-if(player.life>=2){lives_p2_UI[player.life+2].setVisible(false);}
-if(player.life>=1){lives_p2_UI[player.life+1].setVisible(false);}
-if(player.life>=0){lives_p2_UI[player.life].setVisible(false);}
+if(0<=(player.life+2) && (player.life+2)<lives_p2_UI.length){lives_p2_UI[player.life+2].setVisible(false);}
+if(0<=(player.life+1) && (player.life+1)<lives_p2_UI.length){lives_p2_UI[player.life+1].setVisible(false);}
+if(0<=(player.life) && (player.life)<lives_p2_UI.length){lives_p2_UI[player.life].setVisible(false);}
 			}else{
-if(player.life>=2){lives_p1_UI[player.life+2].setVisible(false);}
-if(player.life>=1){lives_p1_UI[player.life+1].setVisible(false);}
-if(player.life>=0){lives_p1_UI[player.life].setVisible(false);}
+if(0<=(player.life+2) && (player.life+2)<lives_p1_UI.length){lives_p1_UI[player.life+2].setVisible(false);}
+if(0<=(player.life+1) && (player.life+1)<lives_p1_UI.length){lives_p1_UI[player.life+1].setVisible(false);}
+if(0<=(player.life) && (player.life)<lives_p1_UI.length){lives_p1_UI[player.life].setVisible(false);}
 			}
 		}
 		rectangle.body.enable=false;
@@ -3138,13 +3145,13 @@ if	(blueSpecialAttack_Area.body.enable){
 		player.life-=3;
 		if(player.tag===2){
 			
-if(player.life>=2){lives_p2_UI[player.life+2].setVisible(false);}
-if(player.life>=1){lives_p2_UI[player.life+1].setVisible(false);}
-if(player.life>=0){lives_p2_UI[player.life].setVisible(false);}
+if(0<=(player.life+2) && (player.life+2)<lives_p2_UI.length){lives_p2_UI[player.life+2].setVisible(false);}
+if(0<=(player.life+1) && (player.life+1)<lives_p2_UI.length){lives_p2_UI[player.life+1].setVisible(false);}
+if(0<=(player.life) && (player.life)<lives_p2_UI.length){lives_p2_UI[player.life].setVisible(false);}
 		}else{
-if(player.life>=2){lives_p1_UI[player.life+2].setVisible(false);}
-if(player.life>=1){lives_p1_UI[player.life+1].setVisible(false);}
-if(player.life>=0){lives_p1_UI[player.life].setVisible(false);}
+if(0<=(player.life+2) && (player.life+2)<lives_p1_UI.length){lives_p1_UI[player.life+2].setVisible(false);}
+if(0<=(player.life+1) && (player.life+1)<lives_p1_UI.length){lives_p1_UI[player.life+1].setVisible(false);}
+if(0<=(player.life) && (player.life)<lives_p1_UI.length){lives_p1_UI[player.life].setVisible(false);}
 		}
 }
 }
