@@ -621,6 +621,8 @@ class MenuPrincipal extends Phaser.Scene{
         
         this.atras.on('pointerdown', () => {
             this.scene.start('Inicio');
+ bg_music_selection_screen.setLoop(false);
+        bg_music_selection_screen.stop();
         });
 
     }
@@ -1076,6 +1078,10 @@ class MenuPersonajes extends Phaser.Scene{
 
        chooseP1='null';
 		chooseP2='null';
+		if(!bg_music_selection_screen.isPlaying){
+			bg_music_selection_screen.setLoop(true);
+        bg_music_selection_screen.play();
+		}
 
         //Fondo de la pantalla de selección de personaje
         this.fondoPer= this.add.image(400, 300, 'fondoPersonajes');
