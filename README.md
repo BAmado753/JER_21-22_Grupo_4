@@ -86,15 +86,24 @@ Todas las acciones que se pueden llevar a cabo se activan mediante el teclado ú
   
 |Input|Acción que se realiza|
 |:---:|:-------------------:|
-|![Tecla A!](/images/a_input.png)|Movimiento lateral izquierda|
-|![Tecla D!](/images/d_input.png)|Movimiento lateral derecha|
-|![Tecla W!](/images/w_input.png)|Subir escaleras|
-|![Tecla S!](/images/s_input.png)|Bajar escaleras|
-|![Space!](/images/space_input.png)|Saltar|
-|![Tecla E!](/images/e_input.png)|Atacar|
-|![Tecla Q!](/images/q_input.png)|Habilidad especial|
-|![Enter!](/images/enter_input.png)|Avanzar pantalla, confirmar selección|
-|![Retroceso!](/images/back_input.png)|Retroceder pantalla, deshacer selección|
+|Jugador 1|
+|A|Movimiento lateral izquierda|
+|D|Movimiento lateral derecha|
+|W|Subir escaleras|
+|S|Bajar escaleras y recoger armas|
+|Space|Saltar|
+|E|Atacar|
+|Q|Habilidad especial|
+|Enter|Avanzar pantalla, confirmar selección|
+|Jugador 2|
+|J|Movimiento lateral izquierda|
+|L|Movimiento lateral derecha|
+|I|Subir escaleras|
+|K|Bajar escaleras y recoger armas|
+|Shift|Saltar|
+|O|Atacar|
+|U|Habilidad especial|
+|Retroceso|Retroceder pantalla, deshacer selección|
 
  ### <h2>Flujo de pantallas</h2>
   Este sería las pantallas por las que pasaría el jugador durante su experiencia con el juego.
