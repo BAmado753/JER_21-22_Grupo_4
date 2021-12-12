@@ -99,7 +99,7 @@ Todas las acciones que se pueden llevar a cabo se activan mediante el teclado ú
  ### <h2>Flujo de pantallas</h2>
   Este sería las pantallas por las que pasaría el jugador durante su experiencia con el juego.
   
-  ![Diagrama de flujo!](/images/Diagrama_de_flujo.png)
+  ![Diagrama de flujo!](/images/DiagramaDeFlujo.png)
   
 ### <h2>Assets</h2>
 <h3> Música </h3>
