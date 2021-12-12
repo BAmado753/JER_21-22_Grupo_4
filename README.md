@@ -3,7 +3,7 @@
 | Título | Tiny Tussle | 
 |:------------:|:-------------:|
 | Estudio (equipo) | Stormedia |
-| Integrantes |  Barbara Amado Camuñas<br> Ana Barrio Gil <br> Laura Benavente Prieto <br> Clara Núñez Millán |  
+| Integrantes |  Bárbara Amado Camuñas<br> Ana Barrio Gil <br> Laura Benavente Prieto <br> Clara Núñez Millán |  
 | Correos corporativos | b.amado.2019@alumnos.urjc.es<br> a.barrio.2019@alumnos.urjc.es <br> l.benavente.2019@alumnos.urjc.es<br> c.nunez.2018@alumnos.urjc.es<br> |
 | Cuentas de GitHub | anabgg<br> ClaraNM <br> laurabnvt <br> BAmado753 |
 | Género |  Shooter/plataformas |
@@ -14,7 +14,7 @@
 Tiny Tussle es un juego de disparos en el que los jugadores deberán recolectar las gemas para ganar. Pero por supuesto no es así de fácil, aparecerán armas aleatoriamente por el mapa y los jugadores deberán usarlas para matarse entre sí, pues cuando uno se muere perderá una pequeña cantidad de las gemas que había recolectado y podrán ser recogidas por los demás. Aquel que tenga la mayor cantidad de gemas cuando termine la partida, será el ganador. 
 
 ### <h3>Mission Statement</h3>
-Tiny Tussle es un shooter 2D plataformero de hasta 3 jugadores pensado para jugarse en navegador y pasar un buen rato con los amigos.
+Tiny Tussle es un shooter 2D plataformero de hasta 2 jugadores pensado para jugarse en navegador y pasar un buen rato con los amigos.
 
 ### <h3>Target Audience</h3>
 PEGI 12, para adolescentes y jóvenes. Un juego apto para jugadores casuales con mecánicas sencillas fáciles de comprender cuyo objetivo es la diversión de competir entre ellos.
@@ -51,12 +51,12 @@ El juego tiene lugar en el planeta de los personajes, Nulia. Por otro lado, el t
 El objetivo del juego es conseguir el mayor número de gemas que aparecen por el mapa mientras se derriba al resto de jugadores en un límite de tiempo determinado.
 
 #### <h3>Progreso del juego</h3>
-Antes de comenzar el juego se podrá elegir el número de rondas que se desea jugar, cada una contará con un tiempo limitado de tiempo. Al final de cada ronda se acumularán en un contador los puntos ganados, para, al finalizar, poder determinar quién ha conseguido una mayor puntuación.
+Antes de comenzar el juego se podrá elegir el modo de juego que se desea jugar, local o en línea (actualmente sólo está disponible el modo local). Una vez seleccionado, se pedirá a los jugadores que elijan un personaje cada uno y un escenario. Seguidamente, se iniciará la partida. Al final esta, se determinará quién ha conseguido una mayor puntuación en función de las gemas recogidas.
 
 ### <h2>Mecánicas</h2>
 
 #### <h3>Reglas</h3>
-Al comienzo de la partida cada jugador tendrá que elegir un personaje del repertorio. Luego se eligen la cantidad de batallas que quieren hacer. Después podrán elegir en cuál de los 3 escenarios quieren jugar, o dejar que el juego lo elija por ellos
+Al comienzo de la partida cada jugador tendrá que elegir un personaje del repertorio. Después podrán elegir en cuál de los 3 escenarios quieren jugar (actualmente sólo se encuentra disponible 1 escenario, Ilumen).
 Cada jugador empieza en un punto del mapa diferente y ambos deberán intentar alcanzar las gemas lo antes posible, las cuales indican la puntuación de cada jugador.
 Poco después de empezar, aparecerán aleatoriamente armas de distinto tipo en lugares diferentes del mapa, las cuales se utilizarán para atacar al resto pudiendo así adquirir gran parte de las gemas recolectadas.
 Si un jugador se queda sin vida, perderá el 30% de la puntuación adquirida y será automáticamente añadida al contador del atacante.
