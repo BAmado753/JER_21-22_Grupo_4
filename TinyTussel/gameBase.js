@@ -110,10 +110,15 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('explicacion', './asset/GemasYComida.png');
         this.load.image('TitSalto', './asset/Salto.png');
         this.load.image('TitMovimiento', './asset/Movimiento.png');
+        this.load.image('TitDispHab', './asset/DisparoyHabilidadEspecial.png');
         this.load.image('teclaEspacio', './asset/SpaceSprite.png');
         this.load.image('teclaMovimiento', './asset/SpriteASDW.png');
         this.load.image('teclaQ', './asset/SpriteQ.png');
         this.load.image('teclaE', './asset/SpriteE.png');
+        this.load.image('teclaMovimientoJug2', './asset/SpriteJKLI.png');
+        this.load.image('teclaO', './asset/SpriteO.png');
+        this.load.image('teclaU', './asset/SpriteU.png');
+        this.load.image('teclaShift', './asset/SpriteShift.png');
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -192,7 +197,8 @@ class PantallaCarga extends Phaser.Scene{
         //Carga de fondo y selección de personajes
         this.load.image('fondoPersonajes', './asset/Fondo.png');
         this.load.image('titlePer', './asset/LogoTinyTussle.png');
-        this.load.image('BContinuar1', './asset/BotonContinuar_prueba.png');
+        this.load.image('BContinuar1', './asset/bContinuar.png');
+        this.load.image('BContinuar1Activado', './asset/bContinuarActivado.png');
         this.load.image('selectChilli', './asset/Pink_Monster.png');
         this.load.image('selectBernie', './asset/Owlet_Monster.png');
         this.load.image('selectWasabi', './asset/Dude_Monster.png');
@@ -290,7 +296,8 @@ class PantallaCarga extends Phaser.Scene{
         this.load.spritesheet('Bernie_run_pistol', 'asset/correrPistolaBlanco.png', { frameWidth: 32, frameHeight: 31 });
         this.load.spritesheet('Bernie_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 32, frameHeight: 31 });
 		this.load.spritesheet('Bernie_attack_knife', 'asset/animacionCuchilloBlanco.png', { frameWidth: 36, frameHeight: 31 });
-        this.load.spritesheet('Bernie_attack_pistol', 'asset/animacionPistolaBlanco.png', { frameWidth: 36, frameHeight: 31 });         this.load.spritesheet('Bernie_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Bernie_attack_pistol', 'asset/animacionPistolaBlanco.png', { frameWidth: 36, frameHeight: 31 });        
+        this.load.spritesheet('Bernie_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 31 });
         this.load.spritesheet('Bernie_death', 'asset/Owlet_Monster_Death.png', { frameWidth: 32, frameHeight: 31 });  
         this.load.spritesheet('Bernie_climb', 'asset/Owlet_Monster_Climb.png', { frameWidth: 32, frameHeight: 31 });
 
@@ -656,17 +663,33 @@ class Controles extends Phaser.Scene{
         this.salt = this.add.image(650, 325, 'TitSalto');
         this.salt.setScale(0.6);
 
-        this.tEsp = this.add.image(650, 375, 'teclaEspacio');
-        this.tEsp.setScale(0.6);
+        this.dispHab = this.add.image(570, 450, 'TitDispHab');
+        this.dispHab.setScale(0.6);
 
-        this.tMov = this.add.image(650,250, 'teclaMovimiento');
-        this.tMov.setScale(0.6);
+        this.tEsp = this.add.image(570, 375, 'teclaEspacio');
+        this.tEsp.setScale(0.45);
 
-        this.tecQ = this.add.image(600, 500, 'teclaQ');
-        this.tecQ.setScale(0.6);
+        this.Shi = this.add.image(710, 375, 'teclaShift');
+        this.Shi.setScale(0.45);
 
-        this.tecE = this.add.image(700, 500, 'teclaE');
-        this.tecE.setScale(0.6);
+        this.tMov = this.add.image(580,250, 'teclaMovimiento');
+        this.tMov.setScale(0.35);
+
+        this.tMovJug2 = this.add.image(720, 250, 'teclaMovimientoJug2');
+        this.tMovJug2.setScale(0.35);
+
+        this.tecQ = this.add.image(450, 500, 'teclaQ');
+        this.tecQ.setScale(0.5);
+
+        this.tecE = this.add.image(530, 500, 'teclaE');
+        this.tecE.setScale(0.5);
+
+        this.tecO = this.add.image(610, 500, 'teclaO');
+        this.tecO.setScale(0.5);
+
+        this.tecU = this.add.image(690, 500, 'teclaU');
+        this.tecU.setScale(0.5);
+
 
 
         this.atras6 = this.add.image(75, 50, 'back').setInteractive();
@@ -1055,7 +1078,7 @@ class MenuPersonajes extends Phaser.Scene{
         this.fondoPer= this.add.image(400, 300, 'fondoPersonajes');
         this.fondoPer.setScale(0.6);
 
-        this.titlePer = this.add.image(400, 50, 'elegirPers');
+        this.titlePer = this.add.image(400, 75, 'elegirPers');
         this.titlePer.setScale(0.6);
 
         this.ayud4 = this.add.image(750, 50, 'ayuda').setInteractive();
@@ -1094,10 +1117,6 @@ class MenuPersonajes extends Phaser.Scene{
             this.scene.start('NumeroJugadores');
         });
 
-        
-        //Texto en forma de imagen
-        //this.tex= this.add.image(400, 100, 'textoSelect');
-        //this.tex.setScale(1.2);
 
 
         //Chilli
@@ -1146,18 +1165,20 @@ class MenuPersonajes extends Phaser.Scene{
 				
                 //Botón continuar
                 this.bcont1=this.add.image(400, 550, 'BContinuar1').setInteractive();
-                this.bcont1.setScale(0.1);
+                this.bcont1.setScale(0.3);
+
                 this.bcont1.on('pointerover', () => {
-                    this.bcont1.setScale(0.15);
+                    this.bcont1 = this.add.image(400, 550, 'BContinuar1Activado');
+                    this.bcont1.setScale(0.3);
                 });
         
                 this.bcont1.on('pointerout', () => {
-                    this.bcont1.setScale(0.1);
+                    this.bcont1 = this.add.image(400, 550, 'BContinuar1');
+                    this.bcont1.setScale(0.3);
                 });
         
                 this.bcont1.on('pointerdown', () => {
                     this.scene.start('MenuEscenarios');
-                    //this.scene.start('Resultados');
                 });
 			}
         });
@@ -1214,18 +1235,20 @@ class MenuPersonajes extends Phaser.Scene{
 
                 //Botón continuar
                 this.bcont1=this.add.image(400, 550, 'BContinuar1').setInteractive();
-                this.bcont1.setScale(0.1);
+                this.bcont1.setScale(0.3);
+
                 this.bcont1.on('pointerover', () => {
-                    this.bcont1.setScale(0.15);
+                    this.bcont1 = this.add.image(400, 550, 'BContinuar1Activado');
+                    this.bcont1.setScale(0.3);
                 });
         
                 this.bcont1.on('pointerout', () => {
-                    this.bcont1.setScale(0.1);
+                    this.bcont1 = this.add.image(400, 550, 'BContinuar1');
+                    this.bcont1.setScale(0.3);
                 });
         
                 this.bcont1.on('pointerdown', () => {
                     this.scene.start('MenuEscenarios');
-                    //this.scene.start('Resultados');
                 });
 		  	}
          });
@@ -1278,18 +1301,20 @@ class MenuPersonajes extends Phaser.Scene{
 				
                 //Botón continuar
                 this.bcont1=this.add.image(400, 550, 'BContinuar1').setInteractive();
-                this.bcont1.setScale(0.1);
+                this.bcont1.setScale(0.3);
+
                 this.bcont1.on('pointerover', () => {
-                    this.bcont1.setScale(0.15);
+                    this.bcont1 = this.add.image(400, 550, 'BContinuar1Activado');
+                    this.bcont1.setScale(0.3);
                 });
         
                 this.bcont1.on('pointerout', () => {
-                    this.bcont1.setScale(0.1);
+                    this.bcont1 = this.add.image(400, 550, 'BContinuar1');
+                    this.bcont1.setScale(0.3);
                 });
         
                 this.bcont1.on('pointerdown', () => {
                     this.scene.start('MenuEscenarios');
-                    //this.scene.start('Resultados');
                 });
 			}
         });
@@ -1380,8 +1405,10 @@ export class MenuEscenarios extends Phaser.Scene{
 
 
 
-        this.es2 = this.add.image(400, 300, 'Lava').setInteractive();
-        this.es2.setScale(0.5);
+        this.es2 = this.add.image(400, 300, 'Lava');
+        this.es2.setScale(0.325);
+
+        /*
         this.es2.on('pointerover', () => {
             this.es2 = this.add.image(400, 300, 'LavaActivado');
             this.es2.setScale(0.5);
@@ -1396,11 +1423,13 @@ export class MenuEscenarios extends Phaser.Scene{
             this.scene.start('Escenario2');
             bg_music_selection_screen.setLoop(false);
             bg_music_selection_screen.stop();
-        });
+        });*/
 
 
-        this.es3 = this.add.image(650, 300, 'Oriental').setInteractive();
-        this.es3.setScale(0.5);
+        this.es3 = this.add.image(650, 300, 'Oriental');
+        this.es3.setScale(0.325);
+
+        /*
         this.es3.on('pointerover', () => {
             this.es3 = this.add.image(650, 300, 'OrientalActivado');
             this.es3.setScale(0.5);
@@ -1415,25 +1444,8 @@ export class MenuEscenarios extends Phaser.Scene{
             this.scene.start('Escenario3');
             bg_music_selection_screen.setLoop(false);
             bg_music_selection_screen.stop();
-        });
+        });*/
 
-
-        //Botón continuar
-        this.bcont2=this.add.image(400, 500, 'BContinuar2').setInteractive();
-        this.bcont2.setScale(0.2);
-        this.bcont2.on('pointerover', () => {
-            this.bcont2.setScale(0.25);
-        });
-
-        this.bcont2.on('pointerout', () => {
-            this.bcont2.setScale(0.2);
-        });
-
-        this.bcont2.on('pointerdown', () => {
-            this.scene.start('Juego');
-            bg_music_selection_screen.setLoop(false);
-            bg_music_selection_screen.stop();
-        });
 
     }
 }
@@ -1623,12 +1635,12 @@ var input_U;
 
 
 
-/////////////////////////////////////////////Pantalla De Juego//////////////////////////////////////////////////////
+//////////////////////////////////////////Pantalla del Escenario1///////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class PantallaJuego extends Phaser.Scene{
+class PantallaEscenario1 extends Phaser.Scene{
     constructor(){
         //Juego--> nombre que se le da a la escena
-        super({ key: "Juego"});
+        super({ key: "Escenario1"});
     }
 
     
@@ -2337,35 +2349,7 @@ blueSpecialAttack_Explosion.anims.create({
 
 
 
-
-//////////////////////////////////////////PANTALLA ESCENARIO 1//////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class PantallaEscenario1 extends Phaser.Scene{
-    constructor(){
-        //Escenario1--> nombre que se le da a la escena
-        super({ key: "Escenario1"});
-    }
-
-    
-
-    preload(){
-    }
-
-
-    create(){
-    }
-
-    update(){
-    }
-
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
+/*
 //////////////////////////////////////////PANTALLA ESCENARIO 2//////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2419,7 +2403,7 @@ class PantallaEscenario3 extends Phaser.Scene{
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+*/
 
 
 
@@ -3774,7 +3758,7 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaJuego, PantallaResultados/*, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, PantallaResultados*/],
+    scene: [PantallaCarga, PantallaDeInicio, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaEscenario1, PantallaResultados],
 	audio: {
         disableWebAudio: true
     }
