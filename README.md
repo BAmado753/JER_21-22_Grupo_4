@@ -33,17 +33,17 @@ Chili, Bernie y Wasabi son los tres guerreros escogidos por las diferentes nacio
 
 | Personaje | Imagen | Descripción | 
 |:------------:|:-------------:|:-------------:|
-| Chili | ![Chili!](/images/Pink_Monster.png) | Este personaje es capaz de crear un espejismo de sí mismo para hacer de señuelo. <br> El clon solo tiene una vida y crearlo gasta energía que debe ser recargada.|
-| Bernie |  ![Bernie!](/images/Owlet_Monster.png) | Este personaje puede intimidar al resto de personajes haciendo que se muevan más lento durante 4 segundos. <br> La habilidad consume energía del personaje que debe ser recargada.| 
+| Chili | ![Chili!](/images/Pink_Monster.png) | Este personaje es capaz de crear un espejismo de sí mismo para hacer de señuelo, y volverse invisible mientras exista el señuelo activo. <br> El clon solo tiene una vida y crearlo gasta energía que debe ser recargada.|
+| Bernie |  ![Bernie!](/images/Owlet_Monster.png) | Este personaje puede intimidar al resto de personajes haciendo que se muevan más lento durante un tiempo. <br> La habilidad consume energía del personaje que debe ser recargada.| 
 | Wasabi |  ![Wasabi!](/images/Dude_Monster.png) | Este personaje tiene la habilidad de generar una pequeña explosión a su alrededor dañando a todo aquel que esté a su alrededor en un radio de 5 unidades. <br> Esta explosión requiere mucha energía que debe ser recargada. Además, los otros jugadores podrán ver que va a explotar y tendrán 3 segundos para huir.| 
 
  #### <h3>Localizaciones</h3>
 El juego tiene lugar en el planeta de los personajes, Nulia. Por otro lado, el torneo donde competirán los personajes se llevará a cabo en 3 escenarios diferentes.
 | Niveles | Descripción |
 |------------|-------------|
-| ![Escenario 1!](/images/escenario1.png) | Fondo con plataformas cuya temática es el campo, con un ambiente diurno | 
-| ![Escenario 2!](/images/escenario2.png) | Fondo con plataformas que incluye una estructura china, con un ambiente nocturno | 
-| ![Escenario 3!](/images/escenario3.png) | Fondo con plataformas ambientado en una cueva con lava | 
+| ![Escenario 1!](/images/captura_escenario1.png) | Fondo con plataformas cuya temática es el bosque, con un ambiente diurno | 
+| ![Escenario 2!](/images/escenario2.png) | Fondo con plataformas que incluye una estructura china, con un ambiente nocturno [Sin implementar] | 
+| ![Escenario 3!](/images/escenario3.png) | Fondo con plataformas ambientado en una cueva con lava [Sin implementar]| 
 
 ### <h2>Gameplay</h2>
 
@@ -59,7 +59,7 @@ Antes de comenzar el juego se podrá elegir el modo de juego que se desea jugar,
 Al comienzo de la partida cada jugador tendrá que elegir un personaje del repertorio. Después podrán elegir en cuál de los 3 escenarios quieren jugar (actualmente sólo se encuentra disponible 1 escenario, Ilumen).
 Cada jugador empieza en un punto del mapa diferente y ambos deberán intentar alcanzar las gemas lo antes posible, las cuales indican la puntuación de cada jugador.
 Poco después de empezar, aparecerán aleatoriamente armas de distinto tipo en lugares diferentes del mapa, las cuales se utilizarán para atacar al resto pudiendo así adquirir gran parte de las gemas recolectadas.
-Si un jugador se queda sin vida, perderá el 30% de la puntuación adquirida y será automáticamente añadida al contador del atacante.
+Si un jugador se queda sin vida, perderá el 3 gemas de las que tenga y las podrá recoger el contrincante.
 Las armas de largo alcance tienen un número limitado de disparos, si estos se agotan será necesario recoger un item que recargue las balas.
 
 #### <h3>Items</h3>
@@ -74,7 +74,7 @@ A continuación se muestra una tabla con los diferentes items que se pueden reco
 | ![Municion!](/images/Municion.png)|  Municion | Recarga la munición de las escopetas y las metralletas | 
 | ![Comida!](/images/fruits.png) |  Comida | Recupera vida | 
 | ![Escudo!](/images/escudo.png) | Escudo | Aguanta 10 disparos y luego se rompe |
-| ![Trampa!](/images/trampa.png) | Trampa | Stunea al jugador unos segundos | 
+| ![Trampa!](/images/trampa.png) | Trampa | Stunea al jugador unos segundos [Sin implementar]| 
 | ![Boost fuerza!](/images/strenght.png) |  Más daño | Hace que los ataques hagan más daño |
 | ![Boost velocidad!](/images/feather.png) | Más velocidad | Hace más veloz al jugador que la coja |
 | <strong>Imagen<strong/> |<strong>Objetos recoletables</strong> | <strong>Descripción</strong> |
