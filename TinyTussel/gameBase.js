@@ -271,6 +271,23 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('platform_T2_double',         'asset/PlataformaTipo2_Doble.png');
         this.load.image('bullet',           'asset/bullet.png');
         this.load.image('ladder',         'asset/ladder.jpg');
+        this.load.image('bg_arboles',         'asset/escenario1/Background arboles.png');
+        this.load.image('bg_tierra',         'asset/escenario1/Background tierra.png');
+        this.load.image('escalera',         'asset/escenario1/Escalera.png');
+        this.load.image('tierra_borde_dch',         'asset/escenario1/Tierra_borde_dch.png');
+        this.load.image('tierra_borde_izq',         'asset/escenario1/Tierra_borde_izq.png');
+        this.load.image('tierra_centro',         'asset/escenario1/Tierra_centro.png');
+        this.load.image('tierra_escalera',         'asset/escenario1/Tierra_escalera.png');
+        this.load.image('tierra_esq_3',         'asset/escenario1/Tierra_esq_3.png');
+        this.load.image('tierra_esq_4',         'asset/escenario1/Tierra_esq_4.png');
+        this.load.image('tierra_esq_inf_dch',         'asset/escenario1/Tierra_esq_inf_dch.png');
+        this.load.image('tierra_esq_inf_izq',         'asset/escenario1/Tierra_esq_inf_izq.png');
+        this.load.image('tierra_esq_sup_dch',         'asset/escenario1/Tierra_esq_sup_dch.png');
+        this.load.image('tierra_esq_sup_izq',         'asset/escenario1/Tierra_esq_sup_izq.png');
+        this.load.image('tierra_pared_dch',         'asset/escenario1/Tierra_pared_dch.png');
+        this.load.image('tierra_pared_izq',         'asset/escenario1/Tierra_pared_izq.png');
+        this.load.image('tierra_suelo_inf',         'asset/escenario1/Tierra_suelo_inf.png');
+        this.load.image('tierra_suelo_sup',         'asset/escenario1/Tierra_suelo_sup(new).png');
 
 
         //Chilli
@@ -1664,8 +1681,9 @@ class PantallaEscenario1 extends Phaser.Scene{
 
     create(){
 	//Background
-    this.add.image(400,300, 'gray').setScale(2,2);
-    
+    this.add.image(400,300, 'bg_arboles');
+    this.add.image(400,400, 'bg_tierra');
+
     //Musica
     bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
     bg_music_battleground_1.setLoop(true);
@@ -1691,16 +1709,174 @@ class PantallaEscenario1 extends Phaser.Scene{
     
     //Plataformas
     platforms = this.physics.add.staticGroup();
-
-    platforms.create(150,350,'platform_T1');
-    platforms.create(650,350,'platform_T1_double');
-    platforms.create(400,580,'platform_T1').setScale(50,3).refreshBody();
+	
+	platforms.create(720,424,'tierra_esq_sup_izq');
+	platforms.create(112,296,'tierra_esq_sup_dch');
+	platforms.create(144,552,'tierra_suelo_sup');
+	platforms.create(176,552,'tierra_suelo_sup');
+	platforms.create(208,552,'tierra_suelo_sup');
+	platforms.create(240,552,'tierra_suelo_sup');
+	platforms.create(272,552,'tierra_suelo_sup');
+	platforms.create(304,552,'tierra_suelo_sup');
+	platforms.create(336,552,'tierra_suelo_sup');
+	platforms.create(368,552,'tierra_suelo_sup');
+	platforms.create(400,552,'tierra_suelo_sup');
+	platforms.create(432,552,'tierra_suelo_sup');
+	platforms.create(464,552,'tierra_suelo_sup');
+	platforms.create(496,552,'tierra_suelo_sup');
+	platforms.create(528,552,'tierra_suelo_sup');
+	platforms.create(560,552,'tierra_suelo_sup');
+	platforms.create(592,552,'tierra_suelo_sup');
+	platforms.create(624,552,'tierra_suelo_sup');
+	platforms.create(656,552,'tierra_suelo_sup');
+	platforms.create(688,552,'tierra_suelo_sup');
+	platforms.create(784,424,'tierra_suelo_sup');
+	platforms.create(752,424,'tierra_suelo_sup');
+	platforms.create(16,296,'tierra_suelo_sup');
+	platforms.create(48,296,'tierra_suelo_sup');
+	platforms.create(80,296,'tierra_suelo_sup');
+	platforms.create(16,168,'tierra_suelo_sup');
+	platforms.create(48,168,'tierra_suelo_sup');
+	platforms.create(112,168,'tierra_suelo_sup');
+	platforms.create(144,168,'tierra_suelo_sup');
+	platforms.create(176,168,'tierra_suelo_sup');
+	platforms.create(240,424,'tierra_suelo_sup');
+	platforms.create(208,424,'tierra_suelo_sup');
+	platforms.create(272,424,'tierra_suelo_sup');
+	platforms.create(464,424,'tierra_suelo_sup');
+	platforms.create(528,424,'tierra_suelo_sup');
+	platforms.create(560,424,'tierra_suelo_sup');
+	platforms.create(592,424,'tierra_suelo_sup');
+	platforms.create(272,296,'tierra_suelo_sup');
+	platforms.create(304,296,'tierra_suelo_sup');
+	platforms.create(336,296,'tierra_suelo_sup');
+	platforms.create(368,296,'tierra_suelo_sup');
+	platforms.create(400,296,'tierra_suelo_sup');
+	platforms.create(432,296,'tierra_suelo_sup');
+	platforms.create(349,102,'tierra_suelo_sup');
+	platforms.create(381,102,'tierra_suelo_sup');
+	platforms.create(413,102,'tierra_suelo_sup');
+	platforms.create(688,200,'tierra_suelo_sup');
+	platforms.create(656,200,'tierra_suelo_sup');
+	platforms.create(592,200,'tierra_suelo_sup');
+	platforms.create(560,200,'tierra_suelo_sup');
+	platforms.create(720,520,'tierra_pared_izq');
+	platforms.create(720,488,'tierra_pared_izq');
+	platforms.create(720,456,'tierra_pared_izq');
+	platforms.create(112,520,'tierra_pared_dch');
+	platforms.create(112,488,'tierra_pared_dch');
+	platforms.create(112,456,'tierra_pared_dch');
+	platforms.create(112,424,'tierra_pared_dch');
+	platforms.create(112,392,'tierra_pared_dch');
+	platforms.create(112,360,'tierra_pared_dch');
+	platforms.create(112,328,'tierra_pared_dch');
+	platforms.create(112,552,'tierra_esq_3');
+	platforms.create(720,552,'tierra_esq_4');
+	platforms.create(80,168,'tierra_escalera');
+	platforms.create(240,296,'tierra_escalera');
+	platforms.create(496,424,'tierra_escalera');
+	platforms.create(624,200,'tierra_escalera');
+	platforms.create(208,168,'tierra_borde_dch');
+	platforms.create(304,424,'tierra_borde_dch');
+	platforms.create(624,424,'tierra_borde_dch');
+	platforms.create(464,296,'tierra_borde_dch');
+	platforms.create(445,102,'tierra_borde_dch');
+	platforms.create(720,200,'tierra_borde_dch');
+	platforms.create(208,296,'tierra_borde_izq');
+	platforms.create(176,424,'tierra_borde_izq');
+	platforms.create(432,424,'tierra_borde_izq');
+	platforms.create(317,102,'tierra_borde_izq');
+	platforms.create(528,200,'tierra_borde_izq');
+	platforms.create(16,584,'tierra_centro');
+	platforms.create(48,584,'tierra_centro');
+	platforms.create(80,584,'tierra_centro');
+	platforms.create(112,584,'tierra_centro');
+	platforms.create(144,584,'tierra_centro');
+	platforms.create(176,584,'tierra_centro');
+	platforms.create(208,584,'tierra_centro');
+	platforms.create(240,584,'tierra_centro');
+	platforms.create(272,584,'tierra_centro');
+	platforms.create(304,584,'tierra_centro');
+	platforms.create(336,584,'tierra_centro');
+	platforms.create(368,584,'tierra_centro');
+	platforms.create(400,584,'tierra_centro');
+	platforms.create(432,584,'tierra_centro');
+	platforms.create(464,584,'tierra_centro');
+	platforms.create(496,584,'tierra_centro');
+	platforms.create(528,584,'tierra_centro');
+	platforms.create(560,584,'tierra_centro');
+	platforms.create(592,584,'tierra_centro');
+	platforms.create(624,584,'tierra_centro');
+	platforms.create(656,584,'tierra_centro');
+	platforms.create(688,584,'tierra_centro');
+	platforms.create(720,584,'tierra_centro');
+	platforms.create(752,584,'tierra_centro');
+	platforms.create(784,584,'tierra_centro');
+	platforms.create(16,552,'tierra_centro');
+	platforms.create(48,552,'tierra_centro');
+	platforms.create(80,552,'tierra_centro');
+	platforms.create(16,520,'tierra_centro');
+	platforms.create(48,520,'tierra_centro');
+	platforms.create(80,520,'tierra_centro');
+	platforms.create(784,552,'tierra_centro');
+	platforms.create(761,552,'tierra_centro');
+	platforms.create(784,520,'tierra_centro');
+	platforms.create(761,520,'tierra_centro');
+	platforms.create(784,488,'tierra_centro');
+	platforms.create(761,488,'tierra_centro');
+	platforms.create(784,456,'tierra_centro');
+	platforms.create(761,456,'tierra_centro');
+	platforms.create(16,488,'tierra_centro');
+	platforms.create(16,456,'tierra_centro');
+	platforms.create(16,424,'tierra_centro');
+	platforms.create(16,392,'tierra_centro');
+	platforms.create(16,360,'tierra_centro');
+	platforms.create(16,328,'tierra_centro');
+	platforms.create(48,488,'tierra_centro');
+	platforms.create(48,456,'tierra_centro');
+	platforms.create(48,424,'tierra_centro');
+	platforms.create(48,392,'tierra_centro');
+	platforms.create(48,360,'tierra_centro');
+	platforms.create(48,328,'tierra_centro');
+	platforms.create(80,488,'tierra_centro');
+	platforms.create(80,456,'tierra_centro');
+	platforms.create(80,424,'tierra_centro');
+	platforms.create(80,392,'tierra_centro');
+	platforms.create(80,360,'tierra_centro');
+	platforms.create(80,328,'tierra_centro');
+	platforms.create(752,456,'tierra_centro');
+	platforms.create(752,488,'tierra_centro');
+	platforms.create(752,520,'tierra_centro');
+	platforms.create(752,552,'tierra_centro');
+	platforms.create(752,584,'tierra_centro');
+	platforms.create(752,616,'tierra_centro');
+    //platforms.create(150,350,'platform_T1');
+    //platforms.create(650,350,'platform_T1_double');
+    //platforms.create(400,580,'platform_T1').setScale(50,3).refreshBody();
     
     //Escaleras
     
-    ladder = this.physics.add.image(150, 450, 'ladder').setScale(1,10).refreshBody();
-    ladder.body.setAllowGravity(false);
-    
+    ladder = this.physics.add.group();
+	ladder.create(80,264,'escalera');
+	ladder.create(80,232,'escalera');
+	ladder.create(80,200,'escalera');
+	ladder.create(240,328,'escalera');
+	ladder.create(240,360,'escalera');
+	ladder.create(240,392,'escalera');
+	ladder.create(496,456,'escalera');
+	ladder.create(496,488,'escalera');
+	ladder.create(496,520,'escalera');
+	ladder.create(624,392,'escalera');
+	ladder.create(624,360,'escalera');
+	ladder.create(624,328,'escalera');
+	ladder.create(624,296,'escalera');
+	ladder.create(624,264,'escalera');
+	ladder.create(624,232,'escalera');
+     ladder.children.iterate(function (child) {
+        //  Give each ladder no gravity
+    child.body.setAllowGravity(false);
+
+    });
     //Gemas
     gems = this.physics.add.group();
     
@@ -1742,7 +1918,7 @@ class PantallaEscenario1 extends Phaser.Scene{
 
 
     //Player 1
-	respawn_P1.x=100;
+	respawn_P1.x=300;
 	respawn_P1.y=450;
     player1 = this.physics.add.sprite(respawn_P1.x, respawn_P1.y, chooseP1+'_idl');
 	player1.setBodySize(player1.width *0.5,player1.height *1);
@@ -1797,19 +1973,16 @@ class PantallaEscenario1 extends Phaser.Scene{
 	player_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
 	
 	
-	//Interfaz
-	var text_box1 = Phaser.GameObjects.Rectangle;
-	text_box1=this.add.rectangle(205,532,40,55, 0x000000, 1);
-	text_box1.setDepth(1);
-	text_p1_UI = this.add.text(190, 512, '', { font: '24px Courier', fill: '#ffffff' });
+	
+	text_p1_UI = this.add.text(230, 562, '', { font: '16px Courier', fill: '#ffffff' });
 	text_p1_UI.setDepth(2);
-	profile_p1_UI = this.add.image(50, 510, 'j1').setScale(0.4,0.4); 
+	profile_p1_UI = this.add.image(40, 510, 'j1').setScale(0.3,0.3); 
 	profile_p1_UI.setDepth(1);
-	var gem_Icon= this.add.image(170, 550, 'gem');
+	var gem_Icon= this.add.image(220, 586, 'gem').setScale(0.6,0.6); 
 	gem_Icon.setDepth(1);
-	var ammo_Icon= this.add.image(170, 520, 'ammo_item').setScale(0.6,0.6); 
+	var ammo_Icon= this.add.image(220, 569, 'ammo_item').setScale(0.4,0.3); 
 	ammo_Icon.setDepth(1);
-	spAtk_p1_UI=this.add.sprite(80, 530, 'special_attack_11').setScale(0.5,0.5);
+	spAtk_p1_UI=this.add.sprite(50, 530, 'special_attack_11').setScale(0.35,0.35);
 	spAtk_p1_UI.anims.create({
             key: 'charge',
             frames: [
@@ -1831,14 +2004,14 @@ class PantallaEscenario1 extends Phaser.Scene{
 	spAtk_p1_UI.setDepth(1);
 	var heartsF1_p1_UI=this.add.group({key: 'life_heart',
         repeat: 9,
-        setXY: { x: 20, y:575 , stepX: 20 },
+        setXY: { x: 20, y:570 , stepX: 20 },
 		setScale: { x: 0.5, y:0.5 }
 	});
 	heartsF1_p1_UI.setDepth(1);
 	lives_p1_UI=heartsF1_p1_UI.getChildren();
 	var heartsF2_p1_UI=this.add.group({key: 'life_heart',
         repeat: 9,
-        setXY: { x: 20, y:590 , stepX: 20 },
+        setXY: { x: 20, y:585 , stepX: 20 },
 		setScale: { x: 0.5, y:0.5 }
 
 	});
@@ -1871,18 +2044,16 @@ class PantallaEscenario1 extends Phaser.Scene{
             profile_p1_UI.data.get('gems') 
                 ]);
         });
-	var text_box2 = Phaser.GameObjects.Rectangle;
-	text_box2=this.add.rectangle(587,532,40,55, 0x000000, 1);
-	text_box2.setDepth(1);
-    text_p2_UI = this.add.text(575, 512, '', { font: '24px Courier', fill: '#ffffff' });
+	
+    text_p2_UI = this.add.text(550, 562, '', { font: '16px Courier', fill: '#ffffff' });
 	text_p2_UI.setDepth(2);
-	profile_p2_UI = this.add.image(750, 510, 'j2').setScale(0.4,0.4); 
+	profile_p2_UI = this.add.image(760, 510, 'j2').setScale(0.3,0.3); 
 	profile_p2_UI.setDepth(1);
-	var gem_Icon= this.add.image(620, 550, 'gem');
+	var gem_Icon= this.add.image(580, 586, 'gem').setScale(0.6,0.6);
 	gem_Icon.setDepth(1);
-	var ammo_Icon= this.add.image(620, 520, 'ammo_item').setScale(0.6,0.6); 
+	var ammo_Icon= this.add.image(580, 569, 'ammo_item').setScale(0.4,0.3); 
 	ammo_Icon.setDepth(1);
-	spAtk_p2_UI=this.add.sprite(710, 530, 'special_attack_11').setScale(0.5,0.5);
+	spAtk_p2_UI=this.add.sprite(750, 530, 'special_attack_11').setScale(0.35,0.35);
 	spAtk_p2_UI.anims.create({
             key: 'charge',
             frames: [
@@ -1905,7 +2076,7 @@ class PantallaEscenario1 extends Phaser.Scene{
 	spAtk_p2_UI.setDepth(1);
 	var heartsF1_p2_UI=this.add.group({key: 'life_heart',
         repeat: 9,
-        setXY: { x: 580, y:575 , stepX: 20 },
+        setXY: { x: 600, y:570 , stepX: 20 },
 		setScale: { x: 0.5, y:0.5 }
 	});
 	heartsF1_p2_UI.setDepth(1);
@@ -1913,7 +2084,7 @@ class PantallaEscenario1 extends Phaser.Scene{
 
 	var heartsF2_p2_UI=this.add.group({key: 'life_heart',
         repeat: 9,
-        setXY: { x: 580, y:590 , stepX: 20 },
+        setXY: { x: 600, y:585 , stepX: 20 },
 		setScale: { x: 0.5, y:0.5 }
 
 	});
@@ -2656,62 +2827,62 @@ function getKnife_P2(player, knife,scene){
 }
 function createPistol(){
 	
-            let x = Phaser.Math.Between(0, 800);
-            let y = Phaser.Math.Between(0, 600);
+            let x = Phaser.Math.Between(140, 690);
+            let y = Phaser.Math.Between(0, 530);
 		items_pistol.create(x,y,'pistol_item');  
 }
 function createKnife(){
 	
-            let x = Phaser.Math.Between(0, 800);
-            let y = Phaser.Math.Between(0, 600);
+            let x = Phaser.Math.Between(140, 690);
+            let y = Phaser.Math.Between(0, 530);
 		items_knife.create(x,y,'knife_item');  
 }
 function createGem(){
 	
-            let x = Phaser.Math.Between(0, 800);
-            let y = Phaser.Math.Between(0, 600);
+            let x = Phaser.Math.Between(140, 690);
+            let y = Phaser.Math.Between(0, 530);
 		gems.create(x,y,'gem');  
 }
 function createShield(){
 	
-            let x = Phaser.Math.Between(0, 800);
-            let y = Phaser.Math.Between(0, 600);
+            let x = Phaser.Math.Between(140, 690);
+            let y = Phaser.Math.Between(0, 530);
 		items_shield.create(x,y,'shield_item');  
 }
 function createPower(){
 	
-            let x = Phaser.Math.Between(0, 800);
-            let y = Phaser.Math.Between(0, 600);
+            let x = Phaser.Math.Between(140, 690);
+            let y = Phaser.Math.Between(0, 530);
 		items_power.create(x,y,'power_item');  
 }
 function createSpeed(){
 	
-            let x = Phaser.Math.Between(0, 800);
-            let y = Phaser.Math.Between(0, 600);
+            let x = Phaser.Math.Between(140, 690);
+            let y = Phaser.Math.Between(0, 530);
 		items_speed.create(x,y,'speed_item');  
 }
 function createLemon(){
 	
-            let x = Phaser.Math.Between(0, 800);
-            let y = Phaser.Math.Between(0, 600);
+            let x = Phaser.Math.Between(140, 690);
+            let y = Phaser.Math.Between(0, 530);
 		items_lemon.create(x,y,'lemon_item');  
 }
 function createGrape(){
 	
-            let x = Phaser.Math.Between(0, 800);
-            let y = Phaser.Math.Between(0, 600);
+            let x = Phaser.Math.Between(140, 690);
+            let y = Phaser.Math.Between(0, 530);
 		items_grape.create(x,y,'grape_item');  
 }
 function createStrawberry(){
 	
-            let x = Phaser.Math.Between(0, 800);
-            let y = Phaser.Math.Between(0, 600);
+            let x = Phaser.Math.Between(140, 690);
+            let y = Phaser.Math.Between(0, 530);
 		items_strawberry.create(x,y,'strawberry_item');  
 }
 function createAmmo(){
 	
-            let x = Phaser.Math.Between(0, 800);
-            let y = Phaser.Math.Between(0, 600);
+            let x = Phaser.Math.Between(140, 690);
+            let y = Phaser.Math.Between(0, 530);
 		items_ammo.create(x,y,'ammo_item').setScale(0.3,0.3).refreshBody();  
 }
 
@@ -3374,12 +3545,13 @@ execute(scene, player1) {
       this.stateMachine.transition('getHit');
       return;
     }
-	player1.x=ladder.body.center.x;
+
+	//player1.x=ladder.body.center.x;
     player1.setVelocityX(0);
 	if(input_W.isDown){
-		player1.setVelocityY(-100);
+		player1.setVelocityY(-140);
 	}else if (input_S.isDown){
-			player1.setVelocityY(100);
+			player1.setVelocityY(140);
 
 	}
 	if( player1.invisible){player1.anims.play('invisible');}
@@ -3697,12 +3869,12 @@ execute(scene, player2) {
       this.stateMachine.transition('getHit');
       return;
     }
-	player2.x=ladder.body.center.x;
+	//player2.x=ladder.body.center.x;
     player2.setVelocityX(0);
 	if(input_I.isDown){
-		player2.setVelocityY(-100);
+		player2.setVelocityY(-140);
 	}else if (input_K.isDown){
-			player2.setVelocityY(100);
+			player2.setVelocityY(140);
 
 	}
 	player2.anims.play('climb',true);
