@@ -1586,7 +1586,9 @@ var profile_p2_UI;
 var spAtk_p2_UI;
 var lives_p2_UI;
 var player2;
-var player_Bullets
+var player_Bullets;
+var items_pistol;
+var items_knife;
 var item_pistol;
 var item_knife;
 var gems;
@@ -1614,6 +1616,7 @@ var timedCountdown;
 var controlIimedItemRespawn_Gems;
 var controlIimedItemRespawn_Fruits;
 var controlIimedItemRespawn;
+var controlIimedWeaponRespawn;
 
 var timedItemRespawn;
 //audio effects
@@ -1679,8 +1682,9 @@ class PantallaEscenario1 extends Phaser.Scene{
     controlIimedItemRespawn_Gems=0;
     controlIimedItemRespawn_Fruits=0;
     controlIimedItemRespawn=0;
+	controlIimedWeaponRespawn=0;
     text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(20000, onCountDownEvent, [], this);
+    timedCountdown = this.time.delayedCall(60000, onCountDownEvent, [], this);
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
@@ -1701,12 +1705,15 @@ class PantallaEscenario1 extends Phaser.Scene{
     gems = this.physics.add.group();
     
     //Items
-    item_pistol=this.physics.add.sprite(200, 450, 'pistol_item');
-    item_pistol.setCollideWorldBounds(true);
+    //item_pistol=this.physics.add.sprite(200, 450, 'pistol_item');
+    //item_pistol.setCollideWorldBounds(true);
     
-    item_knife=this.physics.add.sprite(300, 450, 'knife_item');
-    item_knife.setCollideWorldBounds(true);
-
+    //item_knife=this.physics.add.sprite(300, 450, 'knife_item');
+    //item_knife.setCollideWorldBounds(true);
+	items_pistol=this.physics.add.group();
+	createPistol();
+	items_knife=this.physics.add.group();
+	createKnife();
     items_power=this.physics.add.group();
     items_speed=this.physics.add.group();
     items_shield=this.physics.add.group();
@@ -2273,8 +2280,8 @@ blueSpecialAttack_Explosion.anims.create({
     //Physics
     this.physics.add.collider(player1, platforms, null, checkUp);
     this.physics.add.collider(player2, platforms, null, checkUp);
-    this.physics.add.collider(item_pistol, platforms);
-    this.physics.add.collider(item_knife, platforms);
+    this.physics.add.collider(items_pistol, platforms);
+    this.physics.add.collider(items_knife, platforms);
     this.physics.add.collider(gems, platforms);
     this.physics.add.collider(items_shield, platforms);
     this.physics.add.collider(items_power, platforms);
@@ -2291,10 +2298,10 @@ blueSpecialAttack_Explosion.anims.create({
     this.physics.add.overlap(pinkCopy, knifeHitbox2, CopyHitted,null, this);
 	if(chooseP1==='Wasabi'){   this.physics.add.overlap(player2, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);}
 	else {    this.physics.add.overlap(player1, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);}
-    this.physics.add.overlap(player1, item_pistol, getPistol_P1, null, this);
-    this.physics.add.overlap(player2, item_pistol, getPistol_P2, null, this);
-    this.physics.add.overlap(player1, item_knife, getKnife_P1, null, this);
-    this.physics.add.overlap(player2, item_knife, getKnife_P2, null, this);
+    this.physics.add.overlap(player1, items_pistol, getPistol_P1, null, this);
+    this.physics.add.overlap(player2, items_pistol, getPistol_P2, null, this);
+    this.physics.add.overlap(player1, items_knife, getKnife_P1, null, this);
+    this.physics.add.overlap(player2, items_knife, getKnife_P2, null, this);
 	this.physics.add.overlap(player1, ladder, checkLadder, null, this);
 	this.physics.add.overlap(player2, ladder, checkLadder, null, this);
 	
@@ -2436,6 +2443,7 @@ function onItemRespawnEvent(scene){
 		controlIimedItemRespawn_Fruits+=1;
 		controlIimedItemRespawn_Gems+=1;
 		controlIimedItemRespawn+=1;
+		controlIimedWeaponRespawn+=1;
 		}
 	if(controlIimedItemRespawn_Gems>300){
 		controlIimedItemRespawn_Gems=0;
@@ -2457,7 +2465,6 @@ function onItemRespawnEvent(scene){
 	}
 	if(controlIimedItemRespawn>1000){
 		controlIimedItemRespawn=0;
-		scene.time.addEvent(timedItemRespawn);
 		switch(Phaser.Math.Between(0, 3)){
 			case 0:
 			createShield();
@@ -2472,6 +2479,20 @@ function onItemRespawnEvent(scene){
 			createAmmo();
 			break;
 		}
+	}
+	
+	if(controlIimedWeaponRespawn>1500){
+		controlIimedWeaponRespawn=0;
+		scene.time.addEvent(timedItemRespawn);
+		switch(Phaser.Math.Between(0, 1)){
+		case 0:
+		createPistol();
+		break;
+		case 1:
+		createKnife();
+		break;
+		}
+
 	}
 }
 //Ataques especiales//
@@ -2632,6 +2653,18 @@ function getKnife_P2(player, knife,scene){
 	player.hasPistol=false;
 	player.hasKnife=true;
 	}
+}
+function createPistol(){
+	
+            let x = Phaser.Math.Between(0, 800);
+            let y = Phaser.Math.Between(0, 600);
+		items_pistol.create(x,y,'pistol_item');  
+}
+function createKnife(){
+	
+            let x = Phaser.Math.Between(0, 800);
+            let y = Phaser.Math.Between(0, 600);
+		items_knife.create(x,y,'knife_item');  
 }
 function createGem(){
 	
