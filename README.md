@@ -41,7 +41,7 @@ Chili, Bernie y Wasabi son los tres guerreros escogidos por las diferentes nacio
 El juego tiene lugar en el planeta de los personajes, Nulia. Por otro lado, el torneo donde competirán los personajes se llevará a cabo en 3 escenarios diferentes.
 | Niveles | Descripción |
 |------------|-------------|
-| ![Escenario 1!](/images/captura_escenario1.png) | Fondo con plataformas cuya temática es el bosque, con un ambiente diurno | 
+| ![Escenario 1!](/images/captura_escenario1.PNG) | Fondo con plataformas cuya temática es el bosque, con un ambiente diurno | 
 | ![Escenario 2!](/images/escenario2.png) | Fondo con plataformas que incluye una estructura china, con un ambiente nocturno [Sin implementar] | 
 | ![Escenario 3!](/images/escenario3.png) | Fondo con plataformas ambientado en una cueva con lava [Sin implementar]| 
 
@@ -158,5 +158,15 @@ https://www.1001freefonts.com/alba.font
 Iconos de inputs<br>
 https://retrocademedia.itch.io/buttonprompts4
 
-
-
+La animación de explosión es Will's Pixel Explosion
+https://untiedgames.itch.io/five-free-pixel-explosions?download
+  
+La música de fondo es de Abstraction 
+http://www.abstractionmusic.com/
+  
+Los efectos de sonido son @Shades
+https://opengameart.org/content/8-bit-sound-effect-pack-vol-001
+  
+Menos el efecto de sonido de la gema que es de Wobblebox
+wobbleboxx.com
+ 
