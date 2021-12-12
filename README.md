@@ -158,15 +158,15 @@ https://www.1001freefonts.com/alba.font
 Iconos de inputs<br>
 https://retrocademedia.itch.io/buttonprompts4
 
-La animación de explosión es Will's Pixel Explosion
+La animación de explosión es Will's Pixel Explosion<br>
 https://untiedgames.itch.io/five-free-pixel-explosions?download
   
-La música de fondo es de Abstraction 
+La música de fondo es de Abstraction <br>
 http://www.abstractionmusic.com/
   
-Los efectos de sonido son @Shades
+Los efectos de sonido son @Shades<br>
 https://opengameart.org/content/8-bit-sound-effect-pack-vol-001
   
-Menos el efecto de sonido de la gema que es de Wobblebox
+Menos el efecto de sonido de la gema que es de Wobblebox<br>
 wobbleboxx.com
  
