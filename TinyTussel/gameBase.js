@@ -269,43 +269,43 @@ class PantallaCarga extends Phaser.Scene{
 
         //Chilli
         this.load.image('Chilli_profile', 'asset/Pink_Monster_closeUp.png');
-        this.load.spritesheet('Chilli_idl', 'asset/Pink_Monster_Idle.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Chilli_run', 'asset/Pink_Monster_Run.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Chilli_run_knife', 'asset/correrCuchilloRosa.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Chilli_run_pistol', 'asset/correrPistolaRosa.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Chilli_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 31, frameHeight: 31 });
-		this.load.spritesheet('Chilli_attack_knife', 'asset/animacionCuchilloRosa.png', { frameWidth: 35, frameHeight: 31 });
-        this.load.spritesheet('Chilli_attack_pistol', 'asset/animacionPistolaRosa.png', { frameWidth: 35, frameHeight: 31 });
-        this.load.spritesheet('Chilli_hurt', 'asset/Pink_Monster_Hurt.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Chilli_death', 'asset/Pink_Monster_Death.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Chilli_climb', 'asset/Pink_Monster_Climb.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Chilli_run_dust', 'asset/Walk_Run_Push_Dust.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Chilli_idl', 'asset/Pink_Monster_Idle.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Chilli_run', 'asset/Pink_Monster_Run.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Chilli_run_knife', 'asset/correrCuchilloRosa.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Chilli_run_pistol', 'asset/correrPistolaRosa.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Chilli_jump', 'asset/Pink_Monster_Jump.png', { frameWidth: 32, frameHeight: 31 });
+		this.load.spritesheet('Chilli_attack_knife', 'asset/animacionCuchilloRosa.png', { frameWidth: 36, frameHeight: 31 });
+        this.load.spritesheet('Chilli_attack_pistol', 'asset/animacionPistolaRosa.png', { frameWidth: 36, frameHeight: 31 });
+        this.load.spritesheet('Chilli_hurt', 'asset/Pink_Monster_Hurt.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Chilli_death', 'asset/Pink_Monster_Death.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Chilli_climb', 'asset/Pink_Monster_Climb.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Chilli_run_dust', 'asset/Walk_Run_Push_Dust.png', { frameWidth: 32, frameHeight: 31 });
 
 
         //Bernie
         this.load.image('Bernie_profile', 'asset/Owlet_Monster_closeUp.png');
-        this.load.spritesheet('Bernie_idl', 'asset/Owlet_Monster_Idle.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Bernie_run', 'asset/Owlet_Monster_Run.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Bernie_run_knife', 'asset/correrCuchilloBlanco.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Bernie_run_pistol', 'asset/correrPistolaBlanco.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Bernie_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 31, frameHeight: 31 });
-		this.load.spritesheet('Bernie_attack_knife', 'asset/animacionCuchilloBlanco.png', { frameWidth: 35, frameHeight: 31 });
-        this.load.spritesheet('Bernie_attack_pistol', 'asset/animacionPistolaBlanco.png', { frameWidth: 35, frameHeight: 31 });         this.load.spritesheet('Bernie_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Bernie_death', 'asset/Owlet_Monster_Death.png', { frameWidth: 31, frameHeight: 31 });  
-        this.load.spritesheet('Bernie_climb', 'asset/Owlet_Monster_Climb.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Bernie_idl', 'asset/Owlet_Monster_Idle.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Bernie_run', 'asset/Owlet_Monster_Run.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Bernie_run_knife', 'asset/correrCuchilloBlanco.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Bernie_run_pistol', 'asset/correrPistolaBlanco.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Bernie_jump', 'asset/Owlet_Monster_Jump.png', { frameWidth: 32, frameHeight: 31 });
+		this.load.spritesheet('Bernie_attack_knife', 'asset/animacionCuchilloBlanco.png', { frameWidth: 36, frameHeight: 31 });
+        this.load.spritesheet('Bernie_attack_pistol', 'asset/animacionPistolaBlanco.png', { frameWidth: 36, frameHeight: 31 });         this.load.spritesheet('Bernie_hurt', 'asset/Owlet_Monster_Hurt.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Bernie_death', 'asset/Owlet_Monster_Death.png', { frameWidth: 32, frameHeight: 31 });  
+        this.load.spritesheet('Bernie_climb', 'asset/Owlet_Monster_Climb.png', { frameWidth: 32, frameHeight: 31 });
 
         //Wasabi
         this.load.image('Wasabi_profile', 'asset/Dude_Monster_closeUp.png');
-        this.load.spritesheet('Wasabi_idl', 'asset/Dude_Monster_Idle.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Wasabi_run', 'asset/Dude_Monster_Run.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Wasabi_run_knife', 'asset/correrCuchilloAzul.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Wasabi_run_pistol', 'asset/correrPistolaAzul.png', { frameWidth: 31, frameHeight: 31 });        
-		this.load.spritesheet('Wasabi_jump', 'asset/Dude_Monster_Jump.png', { frameWidth: 31, frameHeight: 31 });
-		this.load.spritesheet('Wasabi_attack_knife', 'asset/animacionCuchilloAzul.png', { frameWidth: 35, frameHeight: 31 });
-        this.load.spritesheet('Wasabi_attack_pistol', 'asset/animacionPistolaAzul.png', { frameWidth: 35, frameHeight: 31 });
-        this.load.spritesheet('Wasabi_hurt', 'asset/Dude_Monster_Hurt.png', { frameWidth: 31, frameHeight: 31 });
-        this.load.spritesheet('Wasabi_death', 'asset/Dude_Monster_Death.png', { frameWidth: 31, frameHeight: 31 });  
-        this.load.spritesheet('Wasabi_climb', 'asset/Dude_Monster_Climb.png', { frameWidth: 31, frameHeight: 31 });
+        this.load.spritesheet('Wasabi_idl', 'asset/Dude_Monster_Idle.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Wasabi_run', 'asset/Dude_Monster_Run.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Wasabi_run_knife', 'asset/correrCuchilloAzul.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Wasabi_run_pistol', 'asset/correrPistolaAzul.png', { frameWidth: 32, frameHeight: 31 });        
+		this.load.spritesheet('Wasabi_jump', 'asset/Dude_Monster_Jump.png', { frameWidth: 32, frameHeight: 31 });
+		this.load.spritesheet('Wasabi_attack_knife', 'asset/animacionCuchilloAzul.png', { frameWidth: 36, frameHeight: 31 });
+        this.load.spritesheet('Wasabi_attack_pistol', 'asset/animacionPistolaAzul.png', { frameWidth: 36, frameHeight: 31 });
+        this.load.spritesheet('Wasabi_hurt', 'asset/Dude_Monster_Hurt.png', { frameWidth: 32, frameHeight: 31 });
+        this.load.spritesheet('Wasabi_death', 'asset/Dude_Monster_Death.png', { frameWidth: 32, frameHeight: 31 });  
+        this.load.spritesheet('Wasabi_climb', 'asset/Dude_Monster_Climb.png', { frameWidth: 32, frameHeight: 31 });
 
 		//Explosion
         this.load.spritesheet('round_explosion_spsh', 'asset/round_explosion.png', { frameWidth: 100, frameHeight: 100 });
@@ -384,7 +384,13 @@ class PantallaCarga extends Phaser.Scene{
 
 
         //Audio - Sound effects
-        this.load.audio('pistolFire',       'asset/sound_effects/pistolFire.wav');
+        this.load.audio('pistolFire',       'asset/sound_effects/Shoot 3.wav');
+        this.load.audio('powerUp',       'asset/sound_effects/Powerup 3.wav');
+        this.load.audio('pickWeapon',       'asset/sound_effects/Select 2.wav');
+        this.load.audio('explosion_sfx',       'asset/sound_effects/Explosion 2.wav');
+        this.load.audio('hit',       'asset/sound_effects/Hit 3.wav');
+        this.load.audio('collect_gem',       'asset/sound_effects/Coin 3.wav');
+
         //Music
         this.load.audio('backgroundTitleMusic',       'asset/music/Abstraction - Three Red Hearts - Princess Quest (No Boing).wav');
         this.load.audio('backgroundSelectionMusic',       'asset/music/Abstraction - Three Red Hearts - Puzzle Pieces.wav');
@@ -1587,6 +1593,13 @@ var controlIimedItemRespawn_Fruits;
 var controlIimedItemRespawn;
 
 var timedItemRespawn;
+//audio effects
+var sound_knife;
+var sound_explosion;
+var sound_powerup;
+var sound_shoot;
+var sound_getGem;
+var sound_pickupWeapon;
 
 //Inputs Player 1
 var respawn_P1=new Phaser.Math. Vector2;
@@ -1632,7 +1645,12 @@ class PantallaJuego extends Phaser.Scene{
     bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
     bg_music_battleground_1.setLoop(true);
     bg_music_battleground_1.play();
-
+	sound_knife= this.sound.add('hit');
+	sound_explosion= this.sound.add('explosion_sfx');
+	sound_powerup= this.sound.add('powerUp');
+	sound_shoot= this.sound.add('pistolFire');
+	sound_getGem= this.sound.add('collect_gem');
+	sound_pickupWeapon= this.sound.add('pickWeapon');
 
     //Timer
      lastTimeDebuff = 0;
@@ -1751,10 +1769,17 @@ class PantallaJuego extends Phaser.Scene{
 	
 	
 	//Interfaz
+	var text_box1 = Phaser.GameObjects.Rectangle;
+	text_box1=this.add.rectangle(205,532,40,55, 0x000000, 1);
+	text_box1.setDepth(1);
 	text_p1_UI = this.add.text(190, 512, '', { font: '24px Courier', fill: '#ffffff' });
+	text_p1_UI.setDepth(2);
 	profile_p1_UI = this.add.image(50, 510, 'j1').setScale(0.4,0.4); 
+	profile_p1_UI.setDepth(1);
 	var gem_Icon= this.add.image(170, 550, 'gem');
+	gem_Icon.setDepth(1);
 	var ammo_Icon= this.add.image(170, 520, 'ammo_item').setScale(0.6,0.6); 
+	ammo_Icon.setDepth(1);
 	spAtk_p1_UI=this.add.sprite(80, 530, 'special_attack_11').setScale(0.5,0.5);
 	spAtk_p1_UI.anims.create({
             key: 'charge',
@@ -1774,11 +1799,13 @@ class PantallaJuego extends Phaser.Scene{
             frameRate: 10,
             repeat: 0
         });
+	spAtk_p1_UI.setDepth(1);
 	var heartsF1_p1_UI=this.add.group({key: 'life_heart',
         repeat: 9,
         setXY: { x: 20, y:575 , stepX: 20 },
 		setScale: { x: 0.5, y:0.5 }
 	});
+	heartsF1_p1_UI.setDepth(1);
 	lives_p1_UI=heartsF1_p1_UI.getChildren();
 	var heartsF2_p1_UI=this.add.group({key: 'life_heart',
         repeat: 9,
@@ -1786,6 +1813,7 @@ class PantallaJuego extends Phaser.Scene{
 		setScale: { x: 0.5, y:0.5 }
 
 	});
+	heartsF2_p1_UI.setDepth(1);
 	var auxArray=heartsF2_p1_UI.getChildren();
 	for( var i=0 ; i<10;i++){
 		lives_p1_UI.push(auxArray[i]);
@@ -1814,10 +1842,17 @@ class PantallaJuego extends Phaser.Scene{
             profile_p1_UI.data.get('gems') 
                 ]);
         });
-    text_p2_UI = this.add.text(585, 512, '', { font: '24px Courier', fill: '#ffffff' });
+	var text_box2 = Phaser.GameObjects.Rectangle;
+	text_box2=this.add.rectangle(587,532,40,55, 0x000000, 1);
+	text_box2.setDepth(1);
+    text_p2_UI = this.add.text(575, 512, '', { font: '24px Courier', fill: '#ffffff' });
+	text_p2_UI.setDepth(2);
 	profile_p2_UI = this.add.image(750, 510, 'j2').setScale(0.4,0.4); 
+	profile_p2_UI.setDepth(1);
 	var gem_Icon= this.add.image(620, 550, 'gem');
+	gem_Icon.setDepth(1);
 	var ammo_Icon= this.add.image(620, 520, 'ammo_item').setScale(0.6,0.6); 
+	ammo_Icon.setDepth(1);
 	spAtk_p2_UI=this.add.sprite(710, 530, 'special_attack_11').setScale(0.5,0.5);
 	spAtk_p2_UI.anims.create({
             key: 'charge',
@@ -1838,11 +1873,13 @@ class PantallaJuego extends Phaser.Scene{
             repeat: 0
         });
 	spAtk_p2_UI.setFlipX(true);
+	spAtk_p2_UI.setDepth(1);
 	var heartsF1_p2_UI=this.add.group({key: 'life_heart',
         repeat: 9,
         setXY: { x: 580, y:575 , stepX: 20 },
 		setScale: { x: 0.5, y:0.5 }
 	});
+	heartsF1_p2_UI.setDepth(1);
 		lives_p2_UI= heartsF1_p2_UI.getChildren();
 
 	var heartsF2_p2_UI=this.add.group({key: 'life_heart',
@@ -1851,6 +1888,7 @@ class PantallaJuego extends Phaser.Scene{
 		setScale: { x: 0.5, y:0.5 }
 
 	});
+	heartsF2_p2_UI.setDepth(1);
 	var auxAr=heartsF2_p2_UI.getChildren();
 	for( var i=0 ; i<10;i++){
 		lives_p2_UI.push(auxAr[i]);
@@ -1878,7 +1916,7 @@ class PantallaJuego extends Phaser.Scene{
         });
 		
 		profile_p2_UI.on('changedata-ammo', function (gameObject, value) {
-                text_p1_UI.setText([
+                text_p2_UI.setText([
                     
              profile_p2_UI.data.get('ammo'),
              profile_p2_UI.data.get('gems') 
@@ -2260,13 +2298,13 @@ blueSpecialAttack_Explosion.anims.create({
 
   update(){
 	onItemRespawnEvent(this);
-	text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
+	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
 	checkNoLadder();
 	checkTimeSpecial(player1);
     checkTimeSpecial(player2)
 	checkExplosion();
-	if(chooseP1==='Wasabi'){checkDelayExplosion(player1)}
-	if(chooseP2==='Wasabi'){checkDelayExplosion(player2)}
+	if(chooseP1==='Wasabi'){checkDelayExplosion(player1,this)}
+	if(chooseP2==='Wasabi'){checkDelayExplosion(player2,this)}
 	if(player1.direction!=='right') {  player1.flipX = true; }
 	if(player1.direction!=='left') {  player1.flipX = false; }
 	if(player2.direction!=='right') {  player2.flipX = true;}
@@ -2490,11 +2528,12 @@ function blueSpecialAttack_HitBox(player){
 	blueSpecialAttack_Area.x=player.body.center.x;
 	blueSpecialAttack_Area.y=player.body.center.y;
 }
-function checkDelayExplosion(player){
+function checkDelayExplosion(player,scene){
 	if(blueSpecialAttack_Explosion.exist){
 	blueSpecialAttack_Explosion.DelayTimer+=1;
 	if(blueSpecialAttack_Explosion.DelayTimer>130){
 		blueSpecialAttack_Explosion.DelayTimer=0;
+   		 sound_explosion.play();
 		blueSpecialAttack_Explosion.exist=false;
 		blueSpecialAttack_HitBox(player);
 	}
@@ -2533,7 +2572,8 @@ function checkExplosion(){
 }
 
 //Relacionadas con objetos////////////////////////
-function collectGem(player, gem){
+function collectGem(player, gem,scene){
+    sound_getGem.play();
 	gem.disableBody(true, true);
 
     //  Add and update the score
@@ -2554,35 +2594,43 @@ gems.create(player.body.center.x-10,player.body.center.y-50,'gem');
 gems.create(player.body.center.x,player.body.center.y-50,'gem');
 if(player.tag===2){
 	profile_p2_UI.data.values.gems -= 3;
-	}else{
+	player2.gemsOwned-=3;
+	}else if(player-tag==1){
 	profile_p1_UI.data.values.gems -= 3;
+	player1.gemsOwned-=3;
 	}
 			
 
 }
 
-function getPistol_P1(player, pistol){
+function getPistol_P1(player, pistol,scene){
 	if(Phaser.Input.Keyboard.JustDown(input_S)){
+	
+    sound_pickupWeapon.play();
 	pistol.disableBody(true, true);
 	player.hasPistol=true;
 	player.hasKnife=false;
 	}
 }
-function getKnife_P1(player, knife){
+function getKnife_P1(player, knife,scene){
+    sound_pickupWeapon.play();
 	if(Phaser.Input.Keyboard.JustDown(input_S)){
 	knife.disableBody(true, true);
 	player.hasPistol=false;
 	player.hasKnife=true;
 	}
 }
-function getPistol_P2(player, pistol){
+function getPistol_P2(player, pistol,scene){
+	
+    sound_pickupWeapon.play();
 	if(Phaser.Input.Keyboard.JustDown(input_K)){
 	pistol.disableBody(true, true);
 	player.hasPistol=true;
 	player.hasKnife=false;
 	}
 }
-function getKnife_P2(player, knife){
+function getKnife_P2(player, knife,scene){
+    sound_pickupWeapon.play();
 	if(Phaser.Input.Keyboard.JustDown(input_K)){
 	knife.disableBody(true, true);
 	player.hasPistol=false;
@@ -2638,7 +2686,8 @@ function createAmmo(){
 		items_ammo.create(x,y,'ammo_item').setScale(0.3,0.3).refreshBody();  
 }
 
-function collectLemon(player, lemon){
+function collectLemon(player, lemon,scene){
+    sound_powerup.play();
 	lemon.disableBody(true, true);
 	if(player.life<20){
 	if(player.tag===2){
@@ -2649,7 +2698,8 @@ lives_p1_UI[player.life].setVisible(true);
 	player.life++;
 	}	
 }
-function collectGrape(player, grape){
+function collectGrape(player, grape,scene){
+	sound_powerup.play();
 	grape.disableBody(true, true);
 	if(player.life<20){
 	if(player.tag===2){
@@ -2666,7 +2716,8 @@ if(player.life<18){lives_p1_UI[player.life+2].setVisible(true);}
 	player.life+=3;
 	}
 }
-function collectStrawberry(player, strawberry){
+function collectStrawberry(player, strawberry,scene){
+	sound_powerup.play();
 	strawberry.disableBody(true, true);
 	if(player.life<20){
 	if(player.tag===2){
@@ -2688,18 +2739,21 @@ if(player.life<16){lives_p1_UI[player.life+4].setVisible(true);}
 		}
 }
 
-function collectPower(player, power){
+function collectPower(player, power, scene){
+	sound_powerup.play();
 	power.disableBody(true, true);
 		player.setTint(0xFF0909);
 	player.strengthBoost=true;
 
 }
-function collectSpeed(player, speed){
+function collectSpeed(player, speed,scene){
+	sound_powerup.play();
 	speed.disableBody(true, true);
 		player.setTint(0x5BF0FF);
 	player.speedBoost=true;
 }
-function collectShield(player, shield_){
+function collectShield(player, shield_,scene){
+	sound_powerup.play();
 	shield_.disableBody(true, true);
 	if(player.tag===2){
 	shield2.setVisible(true);
@@ -2714,7 +2768,8 @@ function collectShield(player, shield_){
 	}
 	player.shieldBoost=true;
 	}
-	function collectAmmo(player, ammo){
+	function collectAmmo(player, ammo, scene){
+	sound_powerup.play();
 	ammo.disableBody(true, true);
 	if(player.tag===2){
 	profile_p2_UI.data.values.ammo = 10;
@@ -2947,6 +3002,8 @@ function respawnPlayer1(){
 	player1.onLadder=false;
 	player1.invisible=false;
 	profile_p1_UI.data.values.ammo=player1.ammo;
+	profile_p1_UI.data.values.gems=player1.gemsOwned;
+
 	for(var i=0; i<20;i++){
 		lives_p1_UI[i].setVisible(true);
 	}
@@ -2970,6 +3027,8 @@ function respawnPlayer2(){
 	player2.LastShieldBoost=0;
 	player2.onLadder=false;
 	profile_p2_UI.data.values.ammo=player2.ammo;
+	profile_p2_UI.data.values.gems=player2.gemsOwned;
+
 	for(var i=0; i<20;i++){
 		lives_p2_UI[i].setVisible(true);
 	}
@@ -3175,6 +3234,7 @@ execute(scene, player1){
 
 class AttackKnifeStateP1 extends State {
   enter(scene, player1) {
+    sound_knife.play();
 if(player1.strengthBoost){knifeHitbox.damage=5;}else{knifeHitbox.damage=3;}
 	    player1.anims.play('attack_knife');
 
@@ -3206,9 +3266,7 @@ execute(scene,player1){
 }
 class AttackPistolStateP1 extends State {
   enter(scene, player1) {
-    var sfx;
-    sfx = scene.sound.add('pistolFire');
-    sfx.play();
+    sound_shoot.play();
    	playerFire(player1, player1.direction, scene);
     player1.anims.play('attack_pistol');
 		player1.once('animationcomplete', () => {
@@ -3503,6 +3561,7 @@ execute(scene, player2){
 class AttackKnifeStateP2 extends State {
   enter(scene, player2) {
 
+    sound_knife.play();
 		if(player2.strengthBoost){knifeHitbox2.damage=5;}else{knifeHitbox2.damage=3;}
 
 	    player2.anims.play('attack_knife');
@@ -3536,9 +3595,7 @@ exectue(scene,player2){
 }
 class AttackPistolStateP2 extends State {
   enter(scene, player2) {
-    var sfx;
-    sfx = scene.sound.add('pistolFire');
-    sfx.play();
+    sound_shoot.play();
    	playerFire(player2, player2.direction, scene);
     player2.anims.play('attack_pistol');
 		player2.once('animationcomplete', () => {
