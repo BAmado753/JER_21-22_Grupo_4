@@ -1639,7 +1639,6 @@ var input_O;
 var input_U;
 
 
-
 //////////////////////////////////////////Pantalla del Escenario1///////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PantallaEscenario1 extends Phaser.Scene{
@@ -1675,7 +1674,7 @@ class PantallaEscenario1 extends Phaser.Scene{
     controlIimedItemRespawn_Fruits=0;
     controlIimedItemRespawn=0;
     text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(180000, onCountDownEvent, [], this);
+    timedCountdown = this.time.delayedCall(20000, onCountDownEvent, [], this);
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
@@ -2346,6 +2345,7 @@ blueSpecialAttack_Explosion.anims.create({
     
     checkDebuffTime(player1, player2);
     checkBoosts(player1, player2)
+	
         }//update
         
     }
@@ -2417,6 +2417,7 @@ class PantallaEscenario3 extends Phaser.Scene{
 ///Funciones de timer///
 function onCountDownEvent ()
 {
+
     bg_music_battleground_1.setLoop(false);
     bg_music_battleground_1.stop();
     this.scene.start('Resultados');
@@ -2567,10 +2568,10 @@ function collectGem(player, gem,scene){
 
     //  Add and update the score
 if(player.tag===2){
-	player.GemsOwned+=1;
+	player.gemsOwned+=1;
 	profile_p2_UI.data.values.gems += 1;
 }else{
-	player.GemsOwned+=1;
+	player.gemsOwned+=1;
 	profile_p1_UI.data.values.gems += 1;
 }
     
@@ -2584,7 +2585,7 @@ gems.create(player.body.center.x,player.body.center.y-50,'gem');
 if(player.tag===2){
 	profile_p2_UI.data.values.gems -= 3;
 	player2.gemsOwned-=3;
-	}else if(player-tag==1){
+	}else if(player.tag===1){
 	profile_p1_UI.data.values.gems -= 3;
 	player1.gemsOwned-=3;
 	}
@@ -2908,7 +2909,6 @@ if(player.life>=0){lives_p1_UI[player.life].setVisible(false);}
 		}
 		else{player.life-=3;
 			if(player.tag===2){
-				console.log(player.life);
 if(player.life>=2){lives_p2_UI[player.life+2].setVisible(false);}
 if(player.life>=1){lives_p2_UI[player.life+1].setVisible(false);}
 if(player.life>=0){lives_p2_UI[player.life].setVisible(false);}
@@ -3704,7 +3704,6 @@ class PantallaResultados extends Phaser.Scene{
         this.pod = this.add.image(400, 300, 'podio');
         this.pod.setScale(0.5);
 
-
         if(player1.gemsOwned > player2.gemsOwned){
             if(chooseP1 ==='Chilli'){
             this.winp1 = this.add.image(400, 145, 'selectChilli');
@@ -3754,7 +3753,7 @@ class PantallaResultados extends Phaser.Scene{
             }
 
 
-        } else if(player1.gemsOwned == player2.gemsOwned){
+        } else if(player1.gemsOwned === player2.gemsOwned){
             if(chooseP2 ==='Chilli'){
             this.winp2 = this.add.image(400, 145, 'selectChilli');
             this.winp2.setScale(1.5);
@@ -3794,7 +3793,11 @@ class PantallaResultados extends Phaser.Scene{
         });
         
         this.rev.on('pointerdown', () => {
+	bg_music_results_screen.setLoop(false);
+        bg_music_results_screen.stop();
             this.scene.start('MenuPersonajes');
+		
+
         });
 
         this.sal = this.add.image(550, 500, 'bSalir').setInteractive();
