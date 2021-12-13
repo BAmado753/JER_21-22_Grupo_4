@@ -110,6 +110,41 @@ Todas las acciones que se pueden llevar a cabo se activan mediante el teclado ú
   
   ![Diagrama de flujo!](/images/DiagramaDeFlujo.png)
 ### <h2>Pantallas</h2>
+  En orden de aparición se comentan las pantalla del juego<br>
+  <br>
+   ![Pantalla de carga!](/images/pantalla_carga.PNG) <br>
+    Al iniciar el proyecto lo primero que aparece es esta pantalla que tras cargar todos los assets permite avanzar <br><br>
+   ![Pantalla de inicio!](/images/pantalla_inicio.PNG) <br>
+    Primera pantalla del juego como tal, que sirve de introducción de la estética del juego <br><br>
+   ![Pantalla de menú!](/images/pantalla_menu.PNG) <br>
+      Esta pantalla es el hub central que permite acceder a a la ruta de pantallas que llevan al juego y pantallas secundarias  <br><br>
+   ![Pantalla de créditos!](/images/pantalla_creditos.PNG) <br>
+     Aquí se acreditan todos los assets que se han utilizado en la creación del juego <br><br>
+   ![Pantalla de controles!](/images/pantalla_controles.PNG) <br>
+      En esta pantalla se muestran los controles de ambos jugadores en local <br><br>
+   ![Pantalla de ayuda!](/images/pantalla_ayuda.PNG) <br>
+      Se puede acceder a esta pantalla desde muchas otras mediante el símbolo de interrogación. Aquí se dejan los datos de contacto del equipo por si el jugador necesita ayuda<br>
+<br>
+   ![Pantalla de conexión!](/images/pantalla_conexion.PNG) <br>
+     Aunque actualmente está bloqueado, en esta pantalla se decide si la partida va a ser en conexión local o en online <br><br>
+
+   ![Pantalla de cantidad de jugadores!](/images/pantalla_jugadores.PNG) <br>
+      Aquí se selecciona la cantidad de jugadores que van a jugar <br><br>
+
+   ![Pantalla de elección de personajes!](/images/pantalla_personajes.PNG) <br>
+      En esta pantalla se seleccionan los personajes que se van a usar en partida. Cuando se pasa el cursor por encima de ellos cada uno muestra su descripción de personaje. <br><br>
+
+   ![Pantalla de personajes elegidos!](/images/pantalla_personajes_elegidos.PNG) <br>
+      Esta sería la misma pantalla que la anterior, pero así se ve cuando ambos jugadores han elegido a su personaje. <br><br>
+
+   ![Pantalla de escenario1!](/images/pantalla_escenarios.PNG) <br>
+     Tras elegir a los personajes, se elige el escenario donde se va a desarrollar la partida <br><br>
+
+   ![Pantalla de escenario1!](/images/pantalla_escenario1.PNG) <br>
+     Esta imagen captura un instánte exacto de una partida. Dependiendo del escenario elegido el mapa mostrado en esta pantalla será uno u otro, y en el se desarrollará la partida <br><br>
+
+   ![Pantalla de resultados!](/images/pantalla_resultados.PNG) <br>
+      Cuando se acaba el tiempo de juego, se muestra la pantalla de resultados que enseña un podio en el que los jugadores están colocados según la cantidad de gemas que posean. En esta pantalla permite una revancha que redirigiría a la pantalla de elección de personaje, o simplemente se puede salir del juego <br><br>
 
 ### <h2>Assets</h2>
 <h3> Música </h3>
@@ -124,7 +159,13 @@ Se dispondrá de diferentes pistas de música que sigan la misma temática y est
   <li>Pista de música para ambientar la arena oriental/agua</li>
   <li>Pista de música para ambientar la arena de fuego/tierra</li>
   </ul>
-
+Ahora mismo hay música de 8bits implementada en las siguiente pantallas: 
+  <ul>
+  <li>Pantalla de inicio</li>
+  <li>Pantallas de menús</li>
+  <li>Pantalla de escenario</li>
+  <li>Pantalla de resultados</li>
+  </ul>
   <h3>Efectos de sonido</h3>
   El videojuego dispondrá de efectos de sonido cuando se realicen acciones determinadas así como:
   <ul>
@@ -134,7 +175,16 @@ Se dispondrá de diferentes pistas de música que sigan la misma temática y est
     <li>Derrota</li>
     <li>Recoger gemas</li>
   </ul>
-
+Actualmente los efectos de sonido que hay disponibles en el juego son:
+   <ul>
+    <li>Recoger gema</li>
+    <li>Recoger objetos</li>
+    <li>Recoger arma del suelo</li>
+    <li>Explosión</li>
+    <li>Disparo</li>
+    <li>Ataque con cuchillo</li>
+  </ul>
+  
  
 ### <h2>Referencias</h2>
 
