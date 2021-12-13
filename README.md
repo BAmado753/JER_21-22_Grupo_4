@@ -109,7 +109,8 @@ Todas las acciones que se pueden llevar a cabo se activan mediante el teclado ú
   Este sería las pantallas por las que pasaría el jugador durante su experiencia con el juego.
   
   ![Diagrama de flujo!](/images/DiagramaDeFlujo.png)
-  
+### <h2>Pantallas</h2>
+
 ### <h2>Assets</h2>
 <h3> Música </h3>
 Se dispondrá de diferentes pistas de música que sigan la misma temática y estilo, rítmica y animada, para las diferentes pantallas del juego:
