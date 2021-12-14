@@ -67,7 +67,7 @@ class PantallaCarga extends Phaser.Scene{
          });
 
 
-        this.load.image('logo', './asset/stormedialogo.png');
+        //this.load.image('logo', './asset/stormedialogo.png');
 
 
          ////////////////////////////Carga de assets de Pantalla de Inicio//////////////////////////////////
@@ -441,7 +441,7 @@ class PantallaCarga extends Phaser.Scene{
 
     create(){
         
-        this.logo = this.add.image(400, 400, 'logo').setInteractive();
+        /*this.logo = this.add.image(400, 400, 'logo').setInteractive();
         this.logo.setScale(0.3);
         
         //Botón continuar (también es el logo)
@@ -455,7 +455,8 @@ class PantallaCarga extends Phaser.Scene{
 
         this.logo.on('pointerdown', () => {
             this.scene.start('Inicio');
-        });
+        });*/
+        this.scene.start('Inicio');
         
     }
 }
