@@ -462,8 +462,9 @@ class PantallaCarga extends Phaser.Scene{
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+var id;
+var fallosServidor = 0;
+var errorServidor;
 var bg_music_initial_screen;
 //////////////////////////////////////////////Pantalla de Inicio////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -499,13 +500,43 @@ class PantallaDeInicio extends Phaser.Scene{
         this.texCont = this.add.image(400, 500, 'start');
         this.texCont.setScale(0.6);
 
-        
+		//Inputs
+                $("#nombre").show();
+
         enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
     }
 
     update(){
         if(Phaser.Input.Keyboard.JustDown(enterKey)){
+	            $("#nombre").hide();
+
+			 $(document).ready(function () {
+
+
+                var data = {
+
+                    name: $("#nombre").val(),
+					id:0
+
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/player",
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType:"json"
+
+
+                }).done(function (idJug) {
+                    id=idJug;
+                }).fail(function(data, textStatus){
+					console.log(textStatus);
+				});
+            });
+	
             this.scene.start('MenuPrincipal');
             bg_music_initial_screen.setLoop(false);
             bg_music_initial_screen.stop();
@@ -1594,6 +1625,7 @@ var Bullet = new Phaser.Class({
 
 //objects
 var player1;
+var player1_name;
 var text_p1_UI;
 var profile_p1_UI;
 var spAtk_p1_UI;
@@ -1664,7 +1696,8 @@ var input_L;
 var input_O;
 var input_U;
 
-
+var lastTimeConnected=new Date();
+var nJug="";
 //////////////////////////////////////////Pantalla del Escenario1///////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PantallaEscenario1 extends Phaser.Scene{
@@ -1923,6 +1956,7 @@ class PantallaEscenario1 extends Phaser.Scene{
     player1 = this.physics.add.sprite(respawn_P1.x, respawn_P1.y, chooseP1+'_idl');
 	player1.setBodySize(player1.width *0.5,player1.height *1);
 	player1.tag=1;
+	player1.name="default";
 	player1.life = 20;
 	player1.ammo = 10;
 	player1.gemsOwned = 0;
@@ -1942,7 +1976,7 @@ class PantallaEscenario1 extends Phaser.Scene{
 	player1.LastTimeSpecial=0;
 	player1.canSpecial=true;
     player1.setCollideWorldBounds(true);
-
+player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px Courier', fill: '#ffffff' });
     //Player 2
 	respawn_P2.x=400;
 	respawn_P2.y=450;
@@ -2494,9 +2528,74 @@ blueSpecialAttack_Explosion.anims.create({
 	this.physics.add.overlap(player1, items_ammo, collectAmmo, null, this);
     this.physics.add.overlap(player2, items_ammo, collectAmmo, null, this);
 	
+	//ajax vars
+	this.listaJugadores;
+        this.mensajeError ;
+        this.nJugadores;
     }//create
 
   update(){
+	//AJAX	
+	/*$(document).ready(function () {
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "http://localhost:8080/player",
+                    dataType: "json"
+
+                }).fail(function () {
+			console.log("get lista jugadores");
+                    fallosServidor += 1;
+                    if (fallosServidor > 2) {
+
+                        errorServidor = "Servidor desconectado";
+					console.log(errorServidor);
+                    }
+                }).done(function (data) {
+
+                    errorServidor = " ";
+                    fallosServidor = 0;
+                    listaJugadores = JSON.stringify(data);
+                })
+
+            });*/
+		if(id!=null){
+			
+            $(document).ready(function () {
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "http://localhost:8080/player/name/"+id,
+                    dataType: "text"
+
+                }).fail(function () {
+			//console.log("get lista jugadores");
+
+                    fallosServidor += 1;
+                    if (fallosServidor > 2) {
+
+                        errorServidor = "Servidor desconectado";
+				//	console.log(errorServidor);
+
+                    }
+                }).done(function (data) {
+                    errorServidor = "Servidor conectado";
+
+                    fallosServidor = 0;
+                    player1.name =data;
+                })
+
+            });
+
+        }
+	///////////
+	player1_name.x=player1.x-20;
+	player1_name.y=player1.y-30;
+	if(player1_name.text != player1.name){
+		player1_name.text=player1.name;
+	}
 	onItemRespawnEvent(this);
 	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
 	checkNoLadder();
