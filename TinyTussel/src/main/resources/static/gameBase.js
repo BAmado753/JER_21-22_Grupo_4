@@ -87,6 +87,22 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('fondoReg', './asset/Fondo.png');
         this.load.image('bcont2', './asset/bContinuar.png');
         this.load.image('bcont2Ativado', './asset/bContinuarActivado.png');
+        this.load.image('bVerDatos', './asset/BotonVerDatos.png');
+        this.load.image('bVerDatosActivado', './asset/BotonVerDatosActivado.png');
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        ////////////////////////////Carga de assets de Pantalla de Datos////////////////////////////////////
+
+        //Carga de fondo, título e imagen
+        this.load.image('fondoDatos', './asset/Fondo.png');
+        this.load.image('nombre', './asset/Nombre.png');
+        this.load.image('score', './asset/Score.png');
+        this.load.image('PerFavorito', './asset/PersonajeFavorito.png');
+        this.load.image('bModificar', './asset/BotonModificar.png');
+        this.load.image('bModificarActivado', './asset/BotonModificarActivado.png');
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -626,22 +642,141 @@ class Registro extends Phaser.Scene{
         
 
 
-        this.continuar = this.add.image(400, 550, 'bcont2').setInteractive();
+        this.continuar = this.add.image(500, 500, 'bcont2').setInteractive();
         this.continuar.setScale(0.3);
 
         this.continuar.on('pointerover', () => {
-            this.continuar = this.add.image(400, 550, 'bcont2Ativado');
+            this.continuar = this.add.image(500, 500, 'bcont2Ativado');
             this.continuar.setScale(0.3);
         });
         
         this.continuar.on('pointerout', () => {
-            this.continuar = this.add.image(400, 550, 'bcont2');
+            this.continuar = this.add.image(500, 500, 'bcont2');
             this.continuar.setScale(0.3);
         });
         
         this.continuar.on('pointerdown', () => {
             this.scene.start('MenuPrincipal');
         });
+
+
+        this.datos = this.add.image(300, 500, 'bVerDatos').setInteractive();
+        this.datos.setScale(0.3);
+
+        this.datos.on('pointerover', () => {
+            this.datos = this.add.image(300, 500, 'bVerDatosActivado');
+            this.datos.setScale(0.3);
+        });
+        
+        this.datos.on('pointerout', () => {
+            this.datos = this.add.image(300, 500, 'bVerDatos');
+            this.datos.setScale(0.3);
+        });
+        
+        this.datos.on('pointerdown', () => {
+            this.scene.start('Datos');
+        });
+
+
+        this.atras8 = this.add.image(75, 50, 'back').setInteractive();
+        this.atras8.setScale(0.8);
+
+        this.atras8.on('pointerover', () => {
+            this.atras8 = this.add.image(75, 50, 'backActivo');
+            this.atras8.setScale(0.8);
+        });
+        
+        this.atras8.on('pointerout', () => {
+            this.atras8 = this.add.image(75, 50, 'back');
+            this.atras8.setScale(0.8);
+        });
+        
+        this.atras8.on('pointerdown', () => {
+            this.scene.start('Inicio');
+        });
+
+
+    }
+
+    update(){
+
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+////////////////////////////////////////////Pantalla de Datos///////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class Datos extends Phaser.Scene{
+    constructor(){
+        //Regristo--> nombre que se le da a la escena
+        super({ key: "Datos"});
+    }
+
+    preload(){   
+    }
+
+    create(){
+
+
+        //Fondo de la pantalla de registro
+        this.fondoD= this.add.image(400, 300, 'fondoDatos');
+        this.fondoD.setScale(0.6);
+        
+
+        this.titNombre= this.add.image(400, 100, 'nombre');
+        this.titNombre.setScale(0.3);
+
+
+        this.titScore= this.add.image(400, 250, 'score');
+        this.titScore.setScale(0.3);
+
+
+        this.titPersonaje= this.add.image(400, 450, 'PerFavorito');
+        this.titPersonaje.setScale(0.3);
+
+
+
+        this.atras8 = this.add.image(75, 50, 'back').setInteractive();
+        this.atras8.setScale(0.8);
+
+        this.atras8.on('pointerover', () => {
+            this.atras8 = this.add.image(75, 50, 'backActivo');
+            this.atras8.setScale(0.8);
+        });
+        
+        this.atras8.on('pointerout', () => {
+            this.atras8 = this.add.image(75, 50, 'back');
+            this.atras8.setScale(0.8);
+        });
+        
+        this.atras8.on('pointerdown', () => {
+            this.scene.start('Registro');
+        });
+
+
+        this.mod = this.add.image(600, 175, 'bModificar').setInteractive();
+        this.mod.setScale(0.25);
+
+        this.mod.on('pointerover', () => {
+            this.mod = this.add.image(600, 175, 'bModificarActivado');
+            this.mod.setScale(0.25);
+        });
+        
+        this.mod.on('pointerout', () => {
+            this.mod = this.add.image(600, 175, 'bModificar');
+            this.mod.setScale(0.25);
+        });
+        
+        this.mod.on('pointerdown', () => {
+            
+        });
+
 
     }
 
@@ -767,7 +902,7 @@ class MenuPrincipal extends Phaser.Scene{
         });
         
         this.atras.on('pointerdown', () => {
-            this.scene.start('Inicio');
+            this.scene.start('Registro');
             bg_music_selection_screen.setLoop(false);
             bg_music_selection_screen.stop();
         });
@@ -1876,17 +2011,17 @@ class PantallaEscenario1 extends Phaser.Scene{
     this.add.image(400,400, 'bg_tierra');
 
     //Pausa
-    this.paus1 = this.add.image(50, 550, 'bPausa').setInteractive();
+    this.paus1 = this.add.image(700, 50, 'bPausa').setInteractive();
         this.paus1.setScale(0.5);
 
         
         this.paus1.on('pointerover', () => {
-            this.paus1 = this.add.image(50, 550, 'bPausaActivado');
+            this.paus1 = this.add.image(700, 50, 'bPausaActivado');
             this.paus1.setScale(0.5);
         });
 
         this.paus1.on('pointerout', () => {
-            this.paus1 = this.add.image(50, 550, 'bPausa');
+            this.paus1 = this.add.image(700, 50, 'bPausa');
             this.paus1.setScale(0.5);
         });
 
@@ -5831,7 +5966,7 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, Registro, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, Pausa, PantallaResultados],
+    scene: [PantallaCarga, PantallaDeInicio, Registro, Datos, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, Pausa, PantallaResultados],
 	audio: {
         disableWebAudio: true
     }
