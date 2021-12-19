@@ -462,8 +462,9 @@ class PantallaCarga extends Phaser.Scene{
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+var id;
+var fallosServidor = 0;
+var errorServidor;
 var bg_music_initial_screen;
 //////////////////////////////////////////////Pantalla de Inicio////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -499,13 +500,72 @@ class PantallaDeInicio extends Phaser.Scene{
         this.texCont = this.add.image(400, 500, 'start');
         this.texCont.setScale(0.6);
 
-        
+		//Inputs
+                $("#nombre").show();
+
         enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
     }
 
     update(){
         if(Phaser.Input.Keyboard.JustDown(enterKey)){
+	            $("#nombre").hide();
+
+			 $(document).ready(function () {
+
+
+                var data = {
+
+                    name: $("#nombre").val(),
+					id:0,
+					maxPuntuacion:0,
+					 favChara:"none",
+	  				usosChilli:0,
+	  				usosWasabi:0,
+	  				usosBernie:0,
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/player",
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType:"json"
+
+
+                }).done(function (data) {
+                    id=data;
+                }).fail(function(data, textStatus){
+					console.log(textStatus);
+				});
+            });
+//Cambiar el nombre ded id 0
+	$(document).ready(function () {
+
+
+                var data = {
+
+                    name: $("#nombre").val(),
+					
+                };
+                $.ajax({
+	
+                    type: "PUT",
+                    url: "http://localhost:8080/player/name/"+0,
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType:"text"
+
+
+                }).done(function (data) {
+	console.log("nuevo nombre de id0 es "+data);
+                }).fail(function(data, textStatus){
+					console.log(textStatus);
+				});
+            });
             this.scene.start('MenuPrincipal');
             bg_music_initial_screen.setLoop(false);
             bg_music_initial_screen.stop();
@@ -1357,7 +1417,7 @@ class MenuPersonajes extends Phaser.Scene{
 
 ///////////////////////////////////Pantalla de Selección de Escenario///////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-export class MenuEscenarios extends Phaser.Scene{
+class MenuEscenarios extends Phaser.Scene{
     constructor(){
         //MenuEscenarios--> nombre que se le da a la escena
         super({ key: "MenuEscenarios"});
@@ -1594,6 +1654,7 @@ var Bullet = new Phaser.Class({
 
 //objects
 var player1;
+var player1_name;
 var text_p1_UI;
 var profile_p1_UI;
 var spAtk_p1_UI;
@@ -1664,7 +1725,8 @@ var input_L;
 var input_O;
 var input_U;
 
-
+var lastTimeConnected=new Date();
+var nJug="";
 //////////////////////////////////////////Pantalla del Escenario1///////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PantallaEscenario1 extends Phaser.Scene{
@@ -1923,6 +1985,7 @@ class PantallaEscenario1 extends Phaser.Scene{
     player1 = this.physics.add.sprite(respawn_P1.x, respawn_P1.y, chooseP1+'_idl');
 	player1.setBodySize(player1.width *0.5,player1.height *1);
 	player1.tag=1;
+	player1.name="default";
 	player1.life = 20;
 	player1.ammo = 10;
 	player1.gemsOwned = 0;
@@ -1942,7 +2005,7 @@ class PantallaEscenario1 extends Phaser.Scene{
 	player1.LastTimeSpecial=0;
 	player1.canSpecial=true;
     player1.setCollideWorldBounds(true);
-
+player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px Courier', fill: '#ffffff' });
     //Player 2
 	respawn_P2.x=400;
 	respawn_P2.y=450;
@@ -2494,9 +2557,74 @@ blueSpecialAttack_Explosion.anims.create({
 	this.physics.add.overlap(player1, items_ammo, collectAmmo, null, this);
     this.physics.add.overlap(player2, items_ammo, collectAmmo, null, this);
 	
+	//ajax vars
+	this.listaJugadores;
+        this.mensajeError ;
+        this.nJugadores;
     }//create
 
   update(){
+	//AJAX	
+	/*$(document).ready(function () {
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "http://localhost:8080/player",
+                    dataType: "json"
+
+                }).fail(function () {
+			console.log("get lista jugadores");
+                    fallosServidor += 1;
+                    if (fallosServidor > 2) {
+
+                        errorServidor = "Servidor desconectado";
+					console.log(errorServidor);
+                    }
+                }).done(function (data) {
+
+                    errorServidor = " ";
+                    fallosServidor = 0;
+                    listaJugadores = JSON.stringify(data);
+                })
+
+            });*/
+		if(id!=null){
+			console.log("entra al if del null");
+
+            $(document).ready(function () {
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "http://localhost:8080/player/name/"+id,
+                    dataType: "text"
+
+                }).fail(function () {
+			//console.log("error get lista jugadores");
+
+                    fallosServidor += 1;
+                    if (fallosServidor > 2) {
+
+                        errorServidor = "Servidor desconectado";
+					//console.log(errorServidor);
+
+                    }
+                }).done(function (data) {
+                    errorServidor = "Servidor conectado";
+                    fallosServidor = 0;
+                    player1.name =data;
+                })
+
+            });
+
+        }
+	///////////
+	player1_name.x=player1.x-20;
+	player1_name.y=player1.y-30;
+	if(player1_name.text != player1.name){
+		player1_name.text=player1.name;
+	}
 	onItemRespawnEvent(this);
 	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
 	checkNoLadder();
@@ -2554,11 +2682,751 @@ class PantallaEscenario2 extends Phaser.Scene{
     }
 
 
-    create(){
-    }
+   create(){
+	//Background
+    this.add.image(400,300, 'bg_arboles');
+    this.add.image(400,400, 'bg_tierra');
 
-    update(){
+    //Musica
+    bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
+    bg_music_battleground_1.setLoop(true);
+    bg_music_battleground_1.play();
+	sound_knife= this.sound.add('hit');
+	sound_explosion= this.sound.add('explosion_sfx');
+	sound_powerup= this.sound.add('powerUp');
+	sound_shoot= this.sound.add('pistolFire');
+	sound_getGem= this.sound.add('collect_gem');
+	sound_pickupWeapon= this.sound.add('pickWeapon');
+
+    //Timer
+     lastTimeDebuff = 0;
+    controlIimedItemRespawn_Gems=0;
+    controlIimedItemRespawn_Fruits=0;
+    controlIimedItemRespawn=0;
+	controlIimedWeaponRespawn=0;
+    text_time = this.add.text(32, 32);
+    timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this);
+
+    timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
+    this.time.addEvent(timedItemRespawn)
+    
+    //Plataformas
+    platforms = this.physics.add.staticGroup();
+	
+	//Aquí van las plataformas/////////////////////////////////////////////////
+	//Ejemplo-> platforms.create(720,424,'tierra_esq_sup_izq');
+
+    
+    //Escaleras
+    
+    ladder = this.physics.add.group();
+
+	//Aquí van las escaleras/////////////////////////////////////////////////
+	//Ejemplo-> ladder.create(80,264,'escalera');
+	
+     ladder.children.iterate(function (child) {
+        //  Give each ladder no gravity
+    child.body.setAllowGravity(false);
+
+    });
+    //Gemas
+    gems = this.physics.add.group();
+    
+    //Items
+    //item_pistol=this.physics.add.sprite(200, 450, 'pistol_item');
+    //item_pistol.setCollideWorldBounds(true);
+    
+    //item_knife=this.physics.add.sprite(300, 450, 'knife_item');
+    //item_knife.setCollideWorldBounds(true);
+	items_pistol=this.physics.add.group();
+	createPistol();
+	items_knife=this.physics.add.group();
+	createKnife();
+    items_power=this.physics.add.group();
+    items_speed=this.physics.add.group();
+    items_shield=this.physics.add.group();
+    items_lemon=this.physics.add.group();
+    items_grape=this.physics.add.group();
+    items_strawberry=this.physics.add.group();
+    items_ammo=this.physics.add.group();
+    
+
+    //Input 
+    spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    input_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    input_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    input_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    input_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    input_E = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+    input_Q = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+
+    input_Shift= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+    input_J=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
+    input_L=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
+    input_I=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
+    input_K=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
+    input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
+    input_U=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);
+
+
+    //Player 1
+	respawn_P1.x=300;
+	respawn_P1.y=450;
+    player1 = this.physics.add.sprite(respawn_P1.x, respawn_P1.y, chooseP1+'_idl');
+	player1.setBodySize(player1.width *0.5,player1.height *1);
+	player1.tag=1;
+	player1.name="default";
+	player1.life = 20;
+	player1.ammo = 10;
+	player1.gemsOwned = 0;
+	player1.direction='right';
+	player1.hitted=false;
+	player1.hasPistol=false;
+	player1.hasKnife=false;
+	player1.debuff=false;
+	player1.strengthBoost=false;
+	player1.speedBoost=false;
+	player1.shieldBoost=false;
+	player1.LastStrengthBoost=0;
+	player1.LastSpeedBoost=0;
+	player1.LastShieldBoost=0;
+	player1.onLadder=false;
+	player1.invisible=false;
+	player1.LastTimeSpecial=0;
+	player1.canSpecial=true;
+    player1.setCollideWorldBounds(true);
+player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px Courier', fill: '#ffffff' });
+    //Player 2
+	respawn_P2.x=400;
+	respawn_P2.y=450;
+  	player2 = this.physics.add.sprite(respawn_P2.x, respawn_P2.y, chooseP2+'_idl');
+	player2.setBodySize(player2.width *0.5,player2.height *1);
+	player2.tag=2;
+	player2.life = 20;
+	player2.ammo = 10;
+	player2.gemsOwned = 0;
+	player2.direction='right';
+	player2.hitted=false;
+	player2.hasPistol=false;
+	player2.hasKnife=false;
+	player2.debuff=false;
+	player2.strengthBoost=false;
+	player2.speedBoost=false;
+	player2.shieldBoost=false;
+	player2.LastStrengthBoost=0;
+	player2.LastSpeedBoost=0;
+	player2.LastShieldBoost=0;
+	player2.onLadder=false;
+	player2.invisible=false;
+	player2.LastTimeSpecial=0;
+	player2.canSpecial=true;
+	player2.setCollideWorldBounds(true);
+	
+	
+	player_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
+	
+	
+	
+	text_p1_UI = this.add.text(230, 562, '', { font: '16px Courier', fill: '#ffffff' });
+	text_p1_UI.setDepth(2);
+	profile_p1_UI = this.add.image(40, 510, 'j1').setScale(0.3,0.3); 
+	profile_p1_UI.setDepth(1);
+	var gem_Icon= this.add.image(220, 586, 'gem').setScale(0.6,0.6); 
+	gem_Icon.setDepth(1);
+	var ammo_Icon= this.add.image(220, 569, 'ammo_item').setScale(0.4,0.3); 
+	ammo_Icon.setDepth(1);
+	spAtk_p1_UI=this.add.sprite(50, 530, 'special_attack_11').setScale(0.35,0.35);
+	spAtk_p1_UI.anims.create({
+            key: 'charge',
+            frames: [
+                { key: 'special_attack_1' , duration: 1500},
+                { key: 'special_attack_2' , duration: 1500},
+                { key: 'special_attack_3' , duration: 1500},
+                { key: 'special_attack_4' , duration: 1500},
+                { key: 'special_attack_5' , duration: 1500},
+                { key: 'special_attack_6' , duration: 1500},
+                { key: 'special_attack_7' , duration: 1500},
+                { key: 'special_attack_8' , duration: 1500},
+                { key: 'special_attack_9' , duration: 1500},
+                { key: 'special_attack_10', duration: 1500},
+                { key: 'special_attack_11', duration: 1500 }
+            ],
+            frameRate: 10,
+            repeat: 0
+        });
+	spAtk_p1_UI.setDepth(1);
+	var heartsF1_p1_UI=this.add.group({key: 'life_heart',
+        repeat: 9,
+        setXY: { x: 20, y:570 , stepX: 20 },
+		setScale: { x: 0.5, y:0.5 }
+	});
+	heartsF1_p1_UI.setDepth(1);
+	lives_p1_UI=heartsF1_p1_UI.getChildren();
+	var heartsF2_p1_UI=this.add.group({key: 'life_heart',
+        repeat: 9,
+        setXY: { x: 20, y:585 , stepX: 20 },
+		setScale: { x: 0.5, y:0.5 }
+
+	});
+	heartsF2_p1_UI.setDepth(1);
+	var auxArray=heartsF2_p1_UI.getChildren();
+	for( var i=0 ; i<10;i++){
+		lives_p1_UI.push(auxArray[i]);
+	}
+        //  Store some data about this profile:
+        profile_p1_UI.setDataEnabled();
+
+        profile_p1_UI.data.set('ammo', player1.ammo);
+        profile_p1_UI.data.set('gems', player1.gemsOwned);
+
+        text_p1_UI.setText([
+         
+            profile_p1_UI.data.get('ammo'),
+            profile_p1_UI.data.get('gems') 
+        ]);
+		profile_p1_UI.on('changedata-gems', function (gameObject, value) {
+                text_p1_UI.setText([
+                   
+            profile_p1_UI.data.get('ammo'),
+           profile_p1_UI.data.get('gems') 
+                ]);
+        });
+		profile_p1_UI.on('changedata-ammo', function (gameObject, value) {
+                text_p1_UI.setText([
+            profile_p1_UI.data.get('ammo'),
+            profile_p1_UI.data.get('gems') 
+                ]);
+        });
+	
+    text_p2_UI = this.add.text(550, 562, '', { font: '16px Courier', fill: '#ffffff' });
+	text_p2_UI.setDepth(2);
+	profile_p2_UI = this.add.image(760, 510, 'j2').setScale(0.3,0.3); 
+	profile_p2_UI.setDepth(1);
+	var gem_Icon= this.add.image(580, 586, 'gem').setScale(0.6,0.6);
+	gem_Icon.setDepth(1);
+	var ammo_Icon= this.add.image(580, 569, 'ammo_item').setScale(0.4,0.3); 
+	ammo_Icon.setDepth(1);
+	spAtk_p2_UI=this.add.sprite(750, 530, 'special_attack_11').setScale(0.35,0.35);
+	spAtk_p2_UI.anims.create({
+            key: 'charge',
+            frames: [
+                { key: 'special_attack_1' , duration: 1500},
+                { key: 'special_attack_2' , duration: 1500},
+                { key: 'special_attack_3' , duration: 1500},
+                { key: 'special_attack_4' , duration: 1500},
+                { key: 'special_attack_5' , duration: 1500},
+                { key: 'special_attack_6' , duration: 1500},
+                { key: 'special_attack_7' , duration: 1500},
+                { key: 'special_attack_8' , duration: 1500},
+                { key: 'special_attack_9' , duration: 1500},
+                { key: 'special_attack_10' , duration: 1500},
+                { key: 'special_attack_11', duration: 1500 }
+            ],
+            frameRate: 10,
+            repeat: 0
+        });
+	spAtk_p2_UI.setFlipX(true);
+	spAtk_p2_UI.setDepth(1);
+	var heartsF1_p2_UI=this.add.group({key: 'life_heart',
+        repeat: 9,
+        setXY: { x: 600, y:570 , stepX: 20 },
+		setScale: { x: 0.5, y:0.5 }
+	});
+	heartsF1_p2_UI.setDepth(1);
+		lives_p2_UI= heartsF1_p2_UI.getChildren();
+
+	var heartsF2_p2_UI=this.add.group({key: 'life_heart',
+        repeat: 9,
+        setXY: { x: 600, y:585 , stepX: 20 },
+		setScale: { x: 0.5, y:0.5 }
+
+	});
+	heartsF2_p2_UI.setDepth(1);
+	var auxAr=heartsF2_p2_UI.getChildren();
+	for( var i=0 ; i<10;i++){
+		lives_p2_UI.push(auxAr[i]);
+	}
+
+
+        //  Store some data about this profile:
+        profile_p2_UI.setDataEnabled();
+
+        
+        profile_p2_UI.data.set('ammo', player2.ammo);
+        profile_p2_UI.data.set('gems', player2.gemsOwned);
+
+        text_p2_UI.setText([
+           
+            profile_p2_UI.data.get('ammo'),
+            profile_p2_UI.data.get('gems') 
+        ]);
+		profile_p2_UI.on('changedata-gems', function (gameObject, value) {
+                text_p2_UI.setText([
+	
+             profile_p2_UI.data.get('ammo'),
+             profile_p2_UI.data.get('gems') 
+                ]);
+        });
+		
+		profile_p2_UI.on('changedata-ammo', function (gameObject, value) {
+                text_p2_UI.setText([
+                    
+             profile_p2_UI.data.get('ammo'),
+             profile_p2_UI.data.get('gems') 
+                ]);
+        });
+    //Knife
+    knifeHitbox= this.add.rectangle(0,0,10,20, 0xffffff, 0);
+    this.physics.add.existing(knifeHitbox);
+    knifeHitbox.damage=3;
+    knifeHitbox.body.enable=false;
+    this.physics.world.remove(knifeHitbox.body);
+    knifeHitbox.body.setAllowGravity(false);
+    
+    knifeHitbox2= this.add.rectangle(0,0,10,20, 0xffffff, 0);
+    this.physics.add.existing(knifeHitbox2);
+    knifeHitbox2.damage=3;
+    knifeHitbox2.body.enable=false;
+    this.physics.world.remove(knifeHitbox2.body);
+    knifeHitbox2.body.setAllowGravity(false);
+    //Circle for explosion
+    blueSpecialAttack_Area=this.add.circle(90,90,90, 0xffffff,0.5);
+    this.physics.add.existing(blueSpecialAttack_Area);
+    blueSpecialAttack_Area.body.enable=false;
+    blueSpecialAttack_Area.setVisible(false);
+    blueSpecialAttack_Area.body.setAllowGravity(false);
+    //Shield
+    shield1=  this.physics.add.image(0, 0, 'shield_bubble').setScale(0.05,0.05).refreshBody();;
+    shield1.body.enable=false;
+    shield1.setVisible(false);
+    shield1.body.setAllowGravity(false);
+    
+    shield2=  this.physics.add.image(0, 0, 'shield_bubble').setScale(0.05,0.05).refreshBody();;
+    shield2.body.enable=false;
+    shield2.setVisible(false);
+    shield2.body.setAllowGravity(false);
+    //Copia de Chilli
+    if(chooseP1==='Chilli'){
+    	pinkCopy= this.physics.add.sprite(0,0, chooseP1+'_idl');
+    	pinkCopy.tag=1;
+    	}
+    else {
+    	pinkCopy= this.physics.add.sprite(0,0, chooseP2+'_idl');
+    	pinkCopy.tag=2;
+    	}
+    pinkCopy.body.enable=false;
+    pinkCopy.setVisible(false);
+    //Create StateMachine
+    this.stateMachine_player1 = new StateMachine('idle', {
+            idle: new IdleStateP1(),
+            move: new MoveStateP1(),
+            jump: new JumpStateP1(),
+    		climb: new ClimbStateP1(),
+			attack_knife: new AttackKnifeStateP1(),
+            attack_pistol: new AttackPistolStateP1(),
+    		getHit: new GetHitStateP1(),
+    		death: new DeathStateP1(),
+    		invisible: new InvisibleStateP1(),
+         }, [this, player1]);
+
+    this.stateMachine_player2 = new StateMachine('idle', {
+            idle: new IdleStateP2(),
+            move: new MoveStateP2(),
+            jump: new JumpStateP2(),
+    		climb: new ClimbStateP2(),
+			attack_knife: new AttackKnifeStateP2(),
+            attack_pistol: new AttackPistolStateP2(),
+	   		getHit: new GetHitStateP2(),
+    		death: new DeathStateP2(),
+    		invisible: new InvisibleStateP2(),
+          }, [this, player2]);
+    
+blueSpecialAttack_Explosion=this.add.sprite(0,0,'round_explosion_0');
+blueSpecialAttack_Explosion.DelayTimer=0;
+blueSpecialAttack_Explosion.exist=false;
+blueSpecialAttack_Explosion.setVisible(false);
+/*blueSpecialAttack_Explosion.anims.create({
+	key: 'explosion',
+        frames: this.anims.generateFrameNumbers('round_explosion', { start: 0, end: 71 }),
+        frameRate: 20,
+        repeat: 0
+});
+blueSpecialAttack_Explosion.anims.create({
+            
+	key: 'explosion',
+            frames: [
+                { key:'round_explosion_0', duration: 1500},
+        { key:'round_explosion_1', duration: 50},
+        { key:'round_explosion_2', duration: 50},
+        { key:'round_explosion_3', duration: 50},
+        { key:'round_explosion_4', duration: 50},
+        { key:'round_explosion_5', duration: 50},
+        { key:'round_explosion_6', duration: 50},
+        { key:'round_explosion_7'},
+        { key:'round_explosion_8'},
+        { key:'round_explosion_9'},
+        { key:'round_explosion_10'},
+        { key:'round_explosion_11'},
+        { key:'round_explosion_12'},
+        { key:'round_explosion_13'},
+        { key:'round_explosion_14'},
+        { key:'round_explosion_15'},
+        { key:'round_explosion_16'},
+        { key:'round_explosion_17'},
+        { key:'round_explosion_18'},
+        { key:'round_explosion_19'},
+        { key:'round_explosion_20'},
+        //{ key:'round_explosion_21'},
+        { key:'round_explosion_22'},
+       // { key:'round_explosion_23'},
+        { key:'round_explosion_24'},
+       // { key:'round_explosion_25'},
+        { key:'round_explosion_26'},
+       // { key:'round_explosion_27'},
+        { key:'round_explosion_28'},
+       // { key:'round_explosion_29'},
+        { key:'round_explosion_30'},
+      //  { key:'round_explosion_31'},
+        { key:'round_explosion_32'},
+       // { key:'round_explosion_33'},
+        { key:'round_explosion_34'},
+      //  { key:'round_explosion_35'},
+        { key:'round_explosion_36'},
+       // { key:'round_explosion_37'},
+        { key:'round_explosion_38'},
+      //  { key:'round_explosion_39'},
+        { key:'round_explosion_40'},
+      //  { key:'round_explosion_41'},
+        { key:'round_explosion_42'},
+      //  { key:'round_explosion_43'},
+        { key:'round_explosion_44'},
+      //  { key:'round_explosion_45'},
+        { key:'round_explosion_46'},
+      //  { key:'round_explosion_47'},
+        { key:'round_explosion_48'},
+      //  { key:'round_explosion_49'},
+        { key:'round_explosion_50'},
+       // { key:'round_explosion_51'},
+        { key:'round_explosion_52'},
+      //  { key:'round_explosion_53'},
+        { key:'round_explosion_54'},
+      //  { key:'round_explosion_55'},
+        { key:'round_explosion_56'},
+     //   { key:'round_explosion_57'},
+        { key:'round_explosion_58'},
+       // { key:'round_explosion_59'},
+        { key:'round_explosion_60'},
+      //  { key:'round_explosion_61'},
+        { key:'round_explosion_62'},
+     //   { key:'round_explosion_63'},
+        { key:'round_explosion_64'},
+     //   { key:'round_explosion_65'},
+        { key:'round_explosion_66'},
+     //   { key:'round_explosion_67'},
+        { key:'round_explosion_68'},
+     //   { key:'round_explosion_69'},
+        { key:'round_explosion_70'},
+            ],
+            frameRate: 10,
+            repeat: 0
+        });
+    //Animaciones player1
+	//Idle
+	
+
+    player1.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_idl', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	//Run
+	
+
+    player1.anims.create({
+        key: 'run',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_run', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	player1.anims.create({
+        key: 'run_knife',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_run_knife', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	player1.anims.create({
+        key: 'run_pistol',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_run_pistol', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	//Jump
+	
+
+    player1.anims.create({
+        key: 'jump',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_jump', { start: 3, end: 7 }),
+        frameRate: 10,
+		repeat:0
+    });
+
+	//Attack
+
+   player1.anims.create({
+        key: 'attack_knife',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_attack_knife', { start: 2, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player1.anims.create({
+        key: 'attack_pistol',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_attack_pistol', { start: 2, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	 player1.anims.create({
+        key: 'hurt',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_hurt', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player1.anims.create({
+        key: 'death',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_death', { start: 0, end: 7 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player1.anims.create({
+        key: 'climb',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_climb', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:-1
+    });
+	player1.anims.create({
+        key: 'invisible',
+        frames: this.anims.generateFrameNumbers('Chilli_run_dust', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    //Animaciones player2
+	//Idle
+	
+
+    player2.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_idl', { start: 0, end: 3 }),
+        frameRate: 8,
+        repeat: -1
+    });
+	//Run
+    player2.anims.create({
+        key: 'run',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_run', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	player2.anims.create({
+        key: 'run_knife',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_run_knife', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	player2.anims.create({
+        key: 'run_pistol',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_run_pistol', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+	//Jump	
+    player2.anims.create({
+        key: 'jump',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_jump', { start: 3, end: 7 }),
+        frameRate: 10,
+		repeat:0
+    });
+
+	//Attack
+
+    player2.anims.create({
+        key: 'attack_knife',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_attack_knife', { start: 2, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player2.anims.create({
+        key: 'attack_pistol',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_attack_pistol', { start: 2, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	 player2.anims.create({
+        key: 'hurt',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_hurt', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player2.anims.create({
+        key: 'death',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_death', { start: 0, end: 7 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player2.anims.create({
+        key: 'climb',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_climb', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:-1
+    });
+    player2.anims.create({
+        key: 'invisible',
+        frames: this.anims.generateFrameNumbers('Chilli_run_dust', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    //Copia
+    if(pinkCopy.tag===1){
+    pinkCopy.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_idl', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:-1
+    });
+    }else{
+	pinkCopy.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_idl', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:-1
+    });
+}
+    //Physics
+    this.physics.add.collider(player1, platforms, null, checkUp);
+    this.physics.add.collider(player2, platforms, null, checkUp);
+    this.physics.add.collider(items_pistol, platforms);
+    this.physics.add.collider(items_knife, platforms);
+    this.physics.add.collider(gems, platforms);
+    this.physics.add.collider(items_shield, platforms);
+    this.physics.add.collider(items_power, platforms);
+    this.physics.add.collider(items_speed, platforms);
+    this.physics.add.collider(items_lemon, platforms);
+    this.physics.add.collider(items_strawberry, platforms);
+    this.physics.add.collider(items_grape, platforms);
+    this.physics.add.collider(items_ammo, platforms);
+
+    this.physics.add.collider(player1, player2);
+    this.physics.add.overlap(player2, knifeHitbox, PlayerKnifeHitted,null, this);
+    this.physics.add.overlap(player1, knifeHitbox2, PlayerKnifeHitted,null, this);
+    this.physics.add.overlap(pinkCopy, knifeHitbox, CopyHitted,null, this);
+    this.physics.add.overlap(pinkCopy, knifeHitbox2, CopyHitted,null, this);
+	if(chooseP1==='Wasabi'){   this.physics.add.overlap(player2, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);}
+	else {    this.physics.add.overlap(player1, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);}
+    this.physics.add.overlap(player1, items_pistol, getPistol_P1, null, this);
+    this.physics.add.overlap(player2, items_pistol, getPistol_P2, null, this);
+    this.physics.add.overlap(player1, items_knife, getKnife_P1, null, this);
+    this.physics.add.overlap(player2, items_knife, getKnife_P2, null, this);
+	this.physics.add.overlap(player1, ladder, checkLadder, null, this);
+	this.physics.add.overlap(player2, ladder, checkLadder, null, this);
+	
+	//objetos
+    this.physics.add.overlap(player1, gems, collectGem, null, this);
+    this.physics.add.overlap(player2, gems, collectGem, null, this);
+	this.physics.add.overlap(player1, items_shield, collectShield, null, this);
+    this.physics.add.overlap(player2, items_shield, collectShield, null, this);
+	this.physics.add.overlap(player1, items_power, collectPower, null, this);
+    this.physics.add.overlap(player2, items_power, collectPower, null, this);
+	this.physics.add.overlap(player1, items_speed, collectSpeed, null, this);
+    this.physics.add.overlap(player2, items_speed, collectSpeed, null, this);
+	this.physics.add.overlap(player1, items_lemon, collectLemon, null, this);
+    this.physics.add.overlap(player2, items_lemon, collectLemon, null, this);
+	this.physics.add.overlap(player1, items_grape, collectGrape, null, this);
+    this.physics.add.overlap(player2, items_grape, collectGrape, null, this);
+	this.physics.add.overlap(player1, items_strawberry, collectStrawberry, null, this);
+    this.physics.add.overlap(player2, items_strawberry, collectStrawberry, null, this);
+	this.physics.add.overlap(player1, items_ammo, collectAmmo, null, this);
+    this.physics.add.overlap(player2, items_ammo, collectAmmo, null, this);
+	
+	//ajax vars
+	this.listaJugadores;
+        this.mensajeError ;
+        this.nJugadores;
+    }//create
+
+  update(){
+	//AJAX	
+	
+		if(id!=null){
+			console.log("entra al if del null");
+
+            $(document).ready(function () {
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "http://localhost:8080/player/name/"+id,
+                    dataType: "text"
+
+                }).fail(function () {
+			//console.log("error get lista jugadores");
+
+                    fallosServidor += 1;
+                    if (fallosServidor > 2) {
+
+                        errorServidor = "Servidor desconectado";
+					//console.log(errorServidor);
+
+                    }
+                }).done(function (data) {
+                    errorServidor = "Servidor conectado";
+                    fallosServidor = 0;
+                    player1.name =data;
+                })
+
+            });
+
+        }
+	///////////
+	player1_name.x=player1.x-20;
+	player1_name.y=player1.y-30;
+	if(player1_name.text != player1.name){
+		player1_name.text=player1.name;
+	}
+	onItemRespawnEvent(this);
+	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
+	checkNoLadder();
+	checkTimeSpecial(player1);
+    checkTimeSpecial(player2)
+	checkExplosion();
+	if(chooseP1==='Wasabi'){checkDelayExplosion(player1,this)}
+	if(chooseP2==='Wasabi'){checkDelayExplosion(player2,this)}
+	if(player1.direction!=='right') {  player1.flipX = true; }
+	if(player1.direction!=='left') {  player1.flipX = false; }
+	if(player2.direction!=='right') {  player2.flipX = true;}
+	if(player2.direction!=='left') {  player2.flipX = false; }
+	      this.stateMachine_player1.step();
+	      this.stateMachine_player2.step();
+
+
+    if	(Phaser.Input.Keyboard.JustDown(input_Q)){
+    	if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
+    	if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
+    	if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
+    
     }
+    
+    if	(Phaser.Input.Keyboard.JustDown(input_U)){
+    	if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
+    	if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
+    	if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
+    
+    }
+    
+    checkDebuffTime(player1, player2);
+    checkBoosts(player1, player2)
+	
+        }//update
+        
 
 }
 
@@ -2583,10 +3451,749 @@ class PantallaEscenario3 extends Phaser.Scene{
 
 
     create(){
-    }
+	//Background
+    this.add.image(400,300, 'bg_arboles');
+    this.add.image(400,400, 'bg_tierra');
 
-    update(){
+    //Musica
+    bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
+    bg_music_battleground_1.setLoop(true);
+    bg_music_battleground_1.play();
+	sound_knife= this.sound.add('hit');
+	sound_explosion= this.sound.add('explosion_sfx');
+	sound_powerup= this.sound.add('powerUp');
+	sound_shoot= this.sound.add('pistolFire');
+	sound_getGem= this.sound.add('collect_gem');
+	sound_pickupWeapon= this.sound.add('pickWeapon');
+
+    //Timer
+     lastTimeDebuff = 0;
+    controlIimedItemRespawn_Gems=0;
+    controlIimedItemRespawn_Fruits=0;
+    controlIimedItemRespawn=0;
+	controlIimedWeaponRespawn=0;
+    text_time = this.add.text(32, 32);
+    timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this);
+
+    timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
+    this.time.addEvent(timedItemRespawn)
+    
+    //Plataformas
+    platforms = this.physics.add.staticGroup();
+	
+	//Aquí van las plataformas/////////////////////////////////////////////////
+	//Ejemplo-> platforms.create(720,424,'tierra_esq_sup_izq');
+
+    
+    //Escaleras
+    
+    ladder = this.physics.add.group();
+
+	//Aquí van las escaleras/////////////////////////////////////////////////
+	//Ejemplo-> ladder.create(80,264,'escalera');
+	
+     ladder.children.iterate(function (child) {
+        //  Give each ladder no gravity
+    child.body.setAllowGravity(false);
+
+    });
+    //Gemas
+    gems = this.physics.add.group();
+    
+    //Items
+    //item_pistol=this.physics.add.sprite(200, 450, 'pistol_item');
+    //item_pistol.setCollideWorldBounds(true);
+    
+    //item_knife=this.physics.add.sprite(300, 450, 'knife_item');
+    //item_knife.setCollideWorldBounds(true);
+	items_pistol=this.physics.add.group();
+	createPistol();
+	items_knife=this.physics.add.group();
+	createKnife();
+    items_power=this.physics.add.group();
+    items_speed=this.physics.add.group();
+    items_shield=this.physics.add.group();
+    items_lemon=this.physics.add.group();
+    items_grape=this.physics.add.group();
+    items_strawberry=this.physics.add.group();
+    items_ammo=this.physics.add.group();
+    
+
+    //Input 
+    spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    input_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    input_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    input_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    input_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    input_E = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+    input_Q = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+
+    input_Shift= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+    input_J=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
+    input_L=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
+    input_I=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
+    input_K=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
+    input_O=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.O);
+    input_U=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U);
+
+
+    //Player 1
+	respawn_P1.x=300;
+	respawn_P1.y=450;
+    player1 = this.physics.add.sprite(respawn_P1.x, respawn_P1.y, chooseP1+'_idl');
+	player1.setBodySize(player1.width *0.5,player1.height *1);
+	player1.tag=1;
+	player1.name="default";
+	player1.life = 20;
+	player1.ammo = 10;
+	player1.gemsOwned = 0;
+	player1.direction='right';
+	player1.hitted=false;
+	player1.hasPistol=false;
+	player1.hasKnife=false;
+	player1.debuff=false;
+	player1.strengthBoost=false;
+	player1.speedBoost=false;
+	player1.shieldBoost=false;
+	player1.LastStrengthBoost=0;
+	player1.LastSpeedBoost=0;
+	player1.LastShieldBoost=0;
+	player1.onLadder=false;
+	player1.invisible=false;
+	player1.LastTimeSpecial=0;
+	player1.canSpecial=true;
+    player1.setCollideWorldBounds(true);
+player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px Courier', fill: '#ffffff' });
+    //Player 2
+	respawn_P2.x=400;
+	respawn_P2.y=450;
+  	player2 = this.physics.add.sprite(respawn_P2.x, respawn_P2.y, chooseP2+'_idl');
+	player2.setBodySize(player2.width *0.5,player2.height *1);
+	player2.tag=2;
+	player2.life = 20;
+	player2.ammo = 10;
+	player2.gemsOwned = 0;
+	player2.direction='right';
+	player2.hitted=false;
+	player2.hasPistol=false;
+	player2.hasKnife=false;
+	player2.debuff=false;
+	player2.strengthBoost=false;
+	player2.speedBoost=false;
+	player2.shieldBoost=false;
+	player2.LastStrengthBoost=0;
+	player2.LastSpeedBoost=0;
+	player2.LastShieldBoost=0;
+	player2.onLadder=false;
+	player2.invisible=false;
+	player2.LastTimeSpecial=0;
+	player2.canSpecial=true;
+	player2.setCollideWorldBounds(true);
+	
+	
+	player_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
+	
+	
+	
+	text_p1_UI = this.add.text(230, 562, '', { font: '16px Courier', fill: '#ffffff' });
+	text_p1_UI.setDepth(2);
+	profile_p1_UI = this.add.image(40, 510, 'j1').setScale(0.3,0.3); 
+	profile_p1_UI.setDepth(1);
+	var gem_Icon= this.add.image(220, 586, 'gem').setScale(0.6,0.6); 
+	gem_Icon.setDepth(1);
+	var ammo_Icon= this.add.image(220, 569, 'ammo_item').setScale(0.4,0.3); 
+	ammo_Icon.setDepth(1);
+	spAtk_p1_UI=this.add.sprite(50, 530, 'special_attack_11').setScale(0.35,0.35);
+	spAtk_p1_UI.anims.create({
+            key: 'charge',
+            frames: [
+                { key: 'special_attack_1' , duration: 1500},
+                { key: 'special_attack_2' , duration: 1500},
+                { key: 'special_attack_3' , duration: 1500},
+                { key: 'special_attack_4' , duration: 1500},
+                { key: 'special_attack_5' , duration: 1500},
+                { key: 'special_attack_6' , duration: 1500},
+                { key: 'special_attack_7' , duration: 1500},
+                { key: 'special_attack_8' , duration: 1500},
+                { key: 'special_attack_9' , duration: 1500},
+                { key: 'special_attack_10', duration: 1500},
+                { key: 'special_attack_11', duration: 1500 }
+            ],
+            frameRate: 10,
+            repeat: 0
+        });
+	spAtk_p1_UI.setDepth(1);
+	var heartsF1_p1_UI=this.add.group({key: 'life_heart',
+        repeat: 9,
+        setXY: { x: 20, y:570 , stepX: 20 },
+		setScale: { x: 0.5, y:0.5 }
+	});
+	heartsF1_p1_UI.setDepth(1);
+	lives_p1_UI=heartsF1_p1_UI.getChildren();
+	var heartsF2_p1_UI=this.add.group({key: 'life_heart',
+        repeat: 9,
+        setXY: { x: 20, y:585 , stepX: 20 },
+		setScale: { x: 0.5, y:0.5 }
+
+	});
+	heartsF2_p1_UI.setDepth(1);
+	var auxArray=heartsF2_p1_UI.getChildren();
+	for( var i=0 ; i<10;i++){
+		lives_p1_UI.push(auxArray[i]);
+	}
+        //  Store some data about this profile:
+        profile_p1_UI.setDataEnabled();
+
+        profile_p1_UI.data.set('ammo', player1.ammo);
+        profile_p1_UI.data.set('gems', player1.gemsOwned);
+
+        text_p1_UI.setText([
+         
+            profile_p1_UI.data.get('ammo'),
+            profile_p1_UI.data.get('gems') 
+        ]);
+		profile_p1_UI.on('changedata-gems', function (gameObject, value) {
+                text_p1_UI.setText([
+                   
+            profile_p1_UI.data.get('ammo'),
+           profile_p1_UI.data.get('gems') 
+                ]);
+        });
+		profile_p1_UI.on('changedata-ammo', function (gameObject, value) {
+                text_p1_UI.setText([
+            profile_p1_UI.data.get('ammo'),
+            profile_p1_UI.data.get('gems') 
+                ]);
+        });
+	
+    text_p2_UI = this.add.text(550, 562, '', { font: '16px Courier', fill: '#ffffff' });
+	text_p2_UI.setDepth(2);
+	profile_p2_UI = this.add.image(760, 510, 'j2').setScale(0.3,0.3); 
+	profile_p2_UI.setDepth(1);
+	var gem_Icon= this.add.image(580, 586, 'gem').setScale(0.6,0.6);
+	gem_Icon.setDepth(1);
+	var ammo_Icon= this.add.image(580, 569, 'ammo_item').setScale(0.4,0.3); 
+	ammo_Icon.setDepth(1);
+	spAtk_p2_UI=this.add.sprite(750, 530, 'special_attack_11').setScale(0.35,0.35);
+	spAtk_p2_UI.anims.create({
+            key: 'charge',
+            frames: [
+                { key: 'special_attack_1' , duration: 1500},
+                { key: 'special_attack_2' , duration: 1500},
+                { key: 'special_attack_3' , duration: 1500},
+                { key: 'special_attack_4' , duration: 1500},
+                { key: 'special_attack_5' , duration: 1500},
+                { key: 'special_attack_6' , duration: 1500},
+                { key: 'special_attack_7' , duration: 1500},
+                { key: 'special_attack_8' , duration: 1500},
+                { key: 'special_attack_9' , duration: 1500},
+                { key: 'special_attack_10' , duration: 1500},
+                { key: 'special_attack_11', duration: 1500 }
+            ],
+            frameRate: 10,
+            repeat: 0
+        });
+	spAtk_p2_UI.setFlipX(true);
+	spAtk_p2_UI.setDepth(1);
+	var heartsF1_p2_UI=this.add.group({key: 'life_heart',
+        repeat: 9,
+        setXY: { x: 600, y:570 , stepX: 20 },
+		setScale: { x: 0.5, y:0.5 }
+	});
+	heartsF1_p2_UI.setDepth(1);
+		lives_p2_UI= heartsF1_p2_UI.getChildren();
+
+	var heartsF2_p2_UI=this.add.group({key: 'life_heart',
+        repeat: 9,
+        setXY: { x: 600, y:585 , stepX: 20 },
+		setScale: { x: 0.5, y:0.5 }
+
+	});
+	heartsF2_p2_UI.setDepth(1);
+	var auxAr=heartsF2_p2_UI.getChildren();
+	for( var i=0 ; i<10;i++){
+		lives_p2_UI.push(auxAr[i]);
+	}
+
+
+        //  Store some data about this profile:
+        profile_p2_UI.setDataEnabled();
+
+        
+        profile_p2_UI.data.set('ammo', player2.ammo);
+        profile_p2_UI.data.set('gems', player2.gemsOwned);
+
+        text_p2_UI.setText([
+           
+            profile_p2_UI.data.get('ammo'),
+            profile_p2_UI.data.get('gems') 
+        ]);
+		profile_p2_UI.on('changedata-gems', function (gameObject, value) {
+                text_p2_UI.setText([
+	
+             profile_p2_UI.data.get('ammo'),
+             profile_p2_UI.data.get('gems') 
+                ]);
+        });
+		
+		profile_p2_UI.on('changedata-ammo', function (gameObject, value) {
+                text_p2_UI.setText([
+                    
+             profile_p2_UI.data.get('ammo'),
+             profile_p2_UI.data.get('gems') 
+                ]);
+        });
+    //Knife
+    knifeHitbox= this.add.rectangle(0,0,10,20, 0xffffff, 0);
+    this.physics.add.existing(knifeHitbox);
+    knifeHitbox.damage=3;
+    knifeHitbox.body.enable=false;
+    this.physics.world.remove(knifeHitbox.body);
+    knifeHitbox.body.setAllowGravity(false);
+    
+    knifeHitbox2= this.add.rectangle(0,0,10,20, 0xffffff, 0);
+    this.physics.add.existing(knifeHitbox2);
+    knifeHitbox2.damage=3;
+    knifeHitbox2.body.enable=false;
+    this.physics.world.remove(knifeHitbox2.body);
+    knifeHitbox2.body.setAllowGravity(false);
+    //Circle for explosion
+    blueSpecialAttack_Area=this.add.circle(90,90,90, 0xffffff,0.5);
+    this.physics.add.existing(blueSpecialAttack_Area);
+    blueSpecialAttack_Area.body.enable=false;
+    blueSpecialAttack_Area.setVisible(false);
+    blueSpecialAttack_Area.body.setAllowGravity(false);
+    //Shield
+    shield1=  this.physics.add.image(0, 0, 'shield_bubble').setScale(0.05,0.05).refreshBody();;
+    shield1.body.enable=false;
+    shield1.setVisible(false);
+    shield1.body.setAllowGravity(false);
+    
+    shield2=  this.physics.add.image(0, 0, 'shield_bubble').setScale(0.05,0.05).refreshBody();;
+    shield2.body.enable=false;
+    shield2.setVisible(false);
+    shield2.body.setAllowGravity(false);
+    //Copia de Chilli
+    if(chooseP1==='Chilli'){
+    	pinkCopy= this.physics.add.sprite(0,0, chooseP1+'_idl');
+    	pinkCopy.tag=1;
+    	}
+    else {
+    	pinkCopy= this.physics.add.sprite(0,0, chooseP2+'_idl');
+    	pinkCopy.tag=2;
+    	}
+    pinkCopy.body.enable=false;
+    pinkCopy.setVisible(false);
+    //Create StateMachine
+    this.stateMachine_player1 = new StateMachine('idle', {
+            idle: new IdleStateP1(),
+            move: new MoveStateP1(),
+            jump: new JumpStateP1(),
+    		climb: new ClimbStateP1(),
+			attack_knife: new AttackKnifeStateP1(),
+            attack_pistol: new AttackPistolStateP1(),
+    		getHit: new GetHitStateP1(),
+    		death: new DeathStateP1(),
+    		invisible: new InvisibleStateP1(),
+         }, [this, player1]);
+
+    this.stateMachine_player2 = new StateMachine('idle', {
+            idle: new IdleStateP2(),
+            move: new MoveStateP2(),
+            jump: new JumpStateP2(),
+    		climb: new ClimbStateP2(),
+			attack_knife: new AttackKnifeStateP2(),
+            attack_pistol: new AttackPistolStateP2(),
+	   		getHit: new GetHitStateP2(),
+    		death: new DeathStateP2(),
+    		invisible: new InvisibleStateP2(),
+          }, [this, player2]);
+    
+blueSpecialAttack_Explosion=this.add.sprite(0,0,'round_explosion_0');
+blueSpecialAttack_Explosion.DelayTimer=0;
+blueSpecialAttack_Explosion.exist=false;
+blueSpecialAttack_Explosion.setVisible(false);
+/*blueSpecialAttack_Explosion.anims.create({
+	key: 'explosion',
+        frames: this.anims.generateFrameNumbers('round_explosion', { start: 0, end: 71 }),
+        frameRate: 20,
+        repeat: 0
+});
+blueSpecialAttack_Explosion.anims.create({
+            
+	key: 'explosion',
+            frames: [
+                { key:'round_explosion_0', duration: 1500},
+        { key:'round_explosion_1', duration: 50},
+        { key:'round_explosion_2', duration: 50},
+        { key:'round_explosion_3', duration: 50},
+        { key:'round_explosion_4', duration: 50},
+        { key:'round_explosion_5', duration: 50},
+        { key:'round_explosion_6', duration: 50},
+        { key:'round_explosion_7'},
+        { key:'round_explosion_8'},
+        { key:'round_explosion_9'},
+        { key:'round_explosion_10'},
+        { key:'round_explosion_11'},
+        { key:'round_explosion_12'},
+        { key:'round_explosion_13'},
+        { key:'round_explosion_14'},
+        { key:'round_explosion_15'},
+        { key:'round_explosion_16'},
+        { key:'round_explosion_17'},
+        { key:'round_explosion_18'},
+        { key:'round_explosion_19'},
+        { key:'round_explosion_20'},
+        //{ key:'round_explosion_21'},
+        { key:'round_explosion_22'},
+       // { key:'round_explosion_23'},
+        { key:'round_explosion_24'},
+       // { key:'round_explosion_25'},
+        { key:'round_explosion_26'},
+       // { key:'round_explosion_27'},
+        { key:'round_explosion_28'},
+       // { key:'round_explosion_29'},
+        { key:'round_explosion_30'},
+      //  { key:'round_explosion_31'},
+        { key:'round_explosion_32'},
+       // { key:'round_explosion_33'},
+        { key:'round_explosion_34'},
+      //  { key:'round_explosion_35'},
+        { key:'round_explosion_36'},
+       // { key:'round_explosion_37'},
+        { key:'round_explosion_38'},
+      //  { key:'round_explosion_39'},
+        { key:'round_explosion_40'},
+      //  { key:'round_explosion_41'},
+        { key:'round_explosion_42'},
+      //  { key:'round_explosion_43'},
+        { key:'round_explosion_44'},
+      //  { key:'round_explosion_45'},
+        { key:'round_explosion_46'},
+      //  { key:'round_explosion_47'},
+        { key:'round_explosion_48'},
+      //  { key:'round_explosion_49'},
+        { key:'round_explosion_50'},
+       // { key:'round_explosion_51'},
+        { key:'round_explosion_52'},
+      //  { key:'round_explosion_53'},
+        { key:'round_explosion_54'},
+      //  { key:'round_explosion_55'},
+        { key:'round_explosion_56'},
+     //   { key:'round_explosion_57'},
+        { key:'round_explosion_58'},
+       // { key:'round_explosion_59'},
+        { key:'round_explosion_60'},
+      //  { key:'round_explosion_61'},
+        { key:'round_explosion_62'},
+     //   { key:'round_explosion_63'},
+        { key:'round_explosion_64'},
+     //   { key:'round_explosion_65'},
+        { key:'round_explosion_66'},
+     //   { key:'round_explosion_67'},
+        { key:'round_explosion_68'},
+     //   { key:'round_explosion_69'},
+        { key:'round_explosion_70'},
+            ],
+            frameRate: 10,
+            repeat: 0
+        });
+    //Animaciones player1
+	//Idle
+	
+
+    player1.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_idl', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	//Run
+	
+
+    player1.anims.create({
+        key: 'run',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_run', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	player1.anims.create({
+        key: 'run_knife',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_run_knife', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	player1.anims.create({
+        key: 'run_pistol',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_run_pistol', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	//Jump
+	
+
+    player1.anims.create({
+        key: 'jump',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_jump', { start: 3, end: 7 }),
+        frameRate: 10,
+		repeat:0
+    });
+
+	//Attack
+
+   player1.anims.create({
+        key: 'attack_knife',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_attack_knife', { start: 2, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player1.anims.create({
+        key: 'attack_pistol',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_attack_pistol', { start: 2, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	 player1.anims.create({
+        key: 'hurt',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_hurt', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player1.anims.create({
+        key: 'death',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_death', { start: 0, end: 7 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player1.anims.create({
+        key: 'climb',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_climb', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:-1
+    });
+	player1.anims.create({
+        key: 'invisible',
+        frames: this.anims.generateFrameNumbers('Chilli_run_dust', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    //Animaciones player2
+	//Idle
+	
+
+    player2.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_idl', { start: 0, end: 3 }),
+        frameRate: 8,
+        repeat: -1
+    });
+	//Run
+    player2.anims.create({
+        key: 'run',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_run', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	player2.anims.create({
+        key: 'run_knife',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_run_knife', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+	player2.anims.create({
+        key: 'run_pistol',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_run_pistol', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+	//Jump	
+    player2.anims.create({
+        key: 'jump',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_jump', { start: 3, end: 7 }),
+        frameRate: 10,
+		repeat:0
+    });
+
+	//Attack
+
+    player2.anims.create({
+        key: 'attack_knife',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_attack_knife', { start: 2, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player2.anims.create({
+        key: 'attack_pistol',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_attack_pistol', { start: 2, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	 player2.anims.create({
+        key: 'hurt',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_hurt', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player2.anims.create({
+        key: 'death',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_death', { start: 0, end: 7 }),
+        frameRate: 10,
+		repeat:0
+    });
+	player2.anims.create({
+        key: 'climb',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_climb', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:-1
+    });
+    player2.anims.create({
+        key: 'invisible',
+        frames: this.anims.generateFrameNumbers('Chilli_run_dust', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    //Copia
+    if(pinkCopy.tag===1){
+    pinkCopy.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers(chooseP1+'_idl', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:-1
+    });
+    }else{
+	pinkCopy.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers(chooseP2+'_idl', { start: 0, end: 3 }),
+        frameRate: 10,
+		repeat:-1
+    });
+}
+    //Physics
+    this.physics.add.collider(player1, platforms, null, checkUp);
+    this.physics.add.collider(player2, platforms, null, checkUp);
+    this.physics.add.collider(items_pistol, platforms);
+    this.physics.add.collider(items_knife, platforms);
+    this.physics.add.collider(gems, platforms);
+    this.physics.add.collider(items_shield, platforms);
+    this.physics.add.collider(items_power, platforms);
+    this.physics.add.collider(items_speed, platforms);
+    this.physics.add.collider(items_lemon, platforms);
+    this.physics.add.collider(items_strawberry, platforms);
+    this.physics.add.collider(items_grape, platforms);
+    this.physics.add.collider(items_ammo, platforms);
+
+    this.physics.add.collider(player1, player2);
+    this.physics.add.overlap(player2, knifeHitbox, PlayerKnifeHitted,null, this);
+    this.physics.add.overlap(player1, knifeHitbox2, PlayerKnifeHitted,null, this);
+    this.physics.add.overlap(pinkCopy, knifeHitbox, CopyHitted,null, this);
+    this.physics.add.overlap(pinkCopy, knifeHitbox2, CopyHitted,null, this);
+	if(chooseP1==='Wasabi'){   this.physics.add.overlap(player2, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);}
+	else {    this.physics.add.overlap(player1, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);}
+    this.physics.add.overlap(player1, items_pistol, getPistol_P1, null, this);
+    this.physics.add.overlap(player2, items_pistol, getPistol_P2, null, this);
+    this.physics.add.overlap(player1, items_knife, getKnife_P1, null, this);
+    this.physics.add.overlap(player2, items_knife, getKnife_P2, null, this);
+	this.physics.add.overlap(player1, ladder, checkLadder, null, this);
+	this.physics.add.overlap(player2, ladder, checkLadder, null, this);
+	
+	//objetos
+    this.physics.add.overlap(player1, gems, collectGem, null, this);
+    this.physics.add.overlap(player2, gems, collectGem, null, this);
+	this.physics.add.overlap(player1, items_shield, collectShield, null, this);
+    this.physics.add.overlap(player2, items_shield, collectShield, null, this);
+	this.physics.add.overlap(player1, items_power, collectPower, null, this);
+    this.physics.add.overlap(player2, items_power, collectPower, null, this);
+	this.physics.add.overlap(player1, items_speed, collectSpeed, null, this);
+    this.physics.add.overlap(player2, items_speed, collectSpeed, null, this);
+	this.physics.add.overlap(player1, items_lemon, collectLemon, null, this);
+    this.physics.add.overlap(player2, items_lemon, collectLemon, null, this);
+	this.physics.add.overlap(player1, items_grape, collectGrape, null, this);
+    this.physics.add.overlap(player2, items_grape, collectGrape, null, this);
+	this.physics.add.overlap(player1, items_strawberry, collectStrawberry, null, this);
+    this.physics.add.overlap(player2, items_strawberry, collectStrawberry, null, this);
+	this.physics.add.overlap(player1, items_ammo, collectAmmo, null, this);
+    this.physics.add.overlap(player2, items_ammo, collectAmmo, null, this);
+	
+	//ajax vars
+	this.listaJugadores;
+        this.mensajeError ;
+        this.nJugadores;
+    }//create
+
+  update(){
+	//AJAX	
+	
+		if(id!=null){
+			console.log("entra al if del null");
+
+            $(document).ready(function () {
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "http://localhost:8080/player/name/"+id,
+                    dataType: "text"
+
+                }).fail(function () {
+			//console.log("error get lista jugadores");
+
+                    fallosServidor += 1;
+                    if (fallosServidor > 2) {
+
+                        errorServidor = "Servidor desconectado";
+					//console.log(errorServidor);
+
+                    }
+                }).done(function (data) {
+                    errorServidor = "Servidor conectado";
+                    fallosServidor = 0;
+                    player1.name =data;
+                })
+
+            });
+
+        }
+	///////////
+	player1_name.x=player1.x-20;
+	player1_name.y=player1.y-30;
+	if(player1_name.text != player1.name){
+		player1_name.text=player1.name;
+	}
+	onItemRespawnEvent(this);
+	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
+	checkNoLadder();
+	checkTimeSpecial(player1);
+    checkTimeSpecial(player2)
+	checkExplosion();
+	if(chooseP1==='Wasabi'){checkDelayExplosion(player1,this)}
+	if(chooseP2==='Wasabi'){checkDelayExplosion(player2,this)}
+	if(player1.direction!=='right') {  player1.flipX = true; }
+	if(player1.direction!=='left') {  player1.flipX = false; }
+	if(player2.direction!=='right') {  player2.flipX = true;}
+	if(player2.direction!=='left') {  player2.flipX = false; }
+	      this.stateMachine_player1.step();
+	      this.stateMachine_player2.step();
+
+
+    if	(Phaser.Input.Keyboard.JustDown(input_Q)){
+    	if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
+    	if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
+    	if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
+    
     }
+    
+    if	(Phaser.Input.Keyboard.JustDown(input_U)){
+    	if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
+    	if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
+    	if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
+    
+    }
+    
+    checkDebuffTime(player1, player2);
+    checkBoosts(player1, player2)
+	
+        }//update
 
 }
 
