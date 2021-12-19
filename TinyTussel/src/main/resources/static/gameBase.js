@@ -81,6 +81,17 @@ class PantallaCarga extends Phaser.Scene{
 
 
 
+        ////////////////////////////Carga de assets de Pantalla de Registro//////////////////////////////////
+
+        //Carga de fondo, título e imagen
+        this.load.image('fondoReg', './asset/Fondo.png');
+        this.load.image('bcont2', './asset/bContinuar.png');
+        this.load.image('bcont2Ativado', './asset/bContinuarActivado.png');
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
         //////////////////////////////////Carga de assets del Menú Principal///////////////////////////////
 
         //Carga de fondo y botones
@@ -231,6 +242,11 @@ class PantallaCarga extends Phaser.Scene{
         /////////////////////////////////////////////////////////////////////////////////////////////////// 
 
         ///////////////////////////Carga de assets del Juego///////////////////////////////////////////////
+
+        //Pausa
+        this.load.image('bPausa', './asset/BotonPausa.png');
+        this.load.image('bPausaActivado', './asset/BotonPausaActivado.png');
+
 		//Interfaz de la partida
 		this.load.image('j1',             'asset/J1.png');
         this.load.image('j2',             'asset/J2.png');
@@ -425,6 +441,22 @@ class PantallaCarga extends Phaser.Scene{
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+        ////////////////////////////////////////Carga de assets de Pausa////////////////////////////////////////////
+         //Carga de fondo, título e imagen
+        this.load.image('fondoPausa', './asset/Fondo.png');
+        this.load.image('pContinuar', './asset/BotonContinuar.png');
+        this.load.image('pContinuarActivado', './asset/BotonContinuarActivado.png');
+        this.load.image('bResume', './asset/BotonResume.png');
+        this.load.image('bResumeActivado', './asset/BotonResumeActivado.png');
+        this.load.image('bRestart', './asset/BotonRestart.png');
+        this.load.image('bRestartActivado', './asset/BotonRestartActivado.png');
+        
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
         ///////////////////////////Carga de assets de la Pantalla de Resultados/////////////////////////////////////
 
         this.load.image('fondoRanking', './asset/Fondo.png');
@@ -441,21 +473,7 @@ class PantallaCarga extends Phaser.Scene{
 
     create(){
         
-        this.logo = this.add.image(400, 400, 'logo').setInteractive();
-        this.logo.setScale(0.3);
-        
-        //Botón continuar (también es el logo)
-        this.logo.on('pointerover', () => {
-            this.logo.setScale(0.35);
-        });
-
-        this.logo.on('pointerout', () => {
-            this.logo.setScale(0.3);
-        });
-
-        this.logo.on('pointerdown', () => {
-            this.scene.start('Inicio');
-        });
+        this.scene.start('Inicio');
         
     }
 }
@@ -501,7 +519,7 @@ class PantallaDeInicio extends Phaser.Scene{
         this.texCont.setScale(0.6);
 
 		//Inputs
-                $("#nombre").show();
+               // $("#nombre").show();
 
         enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
@@ -509,7 +527,7 @@ class PantallaDeInicio extends Phaser.Scene{
 
     update(){
         if(Phaser.Input.Keyboard.JustDown(enterKey)){
-	            $("#nombre").hide();
+	           /* $("#nombre").hide();
 
 			 $(document).ready(function () {
 
@@ -565,8 +583,8 @@ class PantallaDeInicio extends Phaser.Scene{
                 }).fail(function(data, textStatus){
 					console.log(textStatus);
 				});
-            });
-            this.scene.start('MenuPrincipal');
+            });*/
+            this.scene.start('Registro');
             bg_music_initial_screen.setLoop(false);
             bg_music_initial_screen.stop();
         }
@@ -579,6 +597,64 @@ class PantallaDeInicio extends Phaser.Scene{
 
 //Variables Menú Principal
 var bg_music_selection_screen;
+
+
+////////////////////////////////////////////Pantalla de Registro////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class Registro extends Phaser.Scene{
+    constructor(){
+        //Regristo--> nombre que se le da a la escena
+        super({ key: "Registro"});
+    }
+
+    preload(){   
+    }
+
+    create(){
+
+       
+        //Musica
+        bg_music_selection_screen = this.sound.add('backgroundSelectionMusic');
+        bg_music_selection_screen.setLoop(true);
+        bg_music_selection_screen.play();
+
+        //Fondo de la pantalla de registro
+        this.fondoRegi= this.add.image(400, 300, 'fondoReg');
+        this.fondoRegi.setScale(0.6);
+        
+
+
+        this.continuar = this.add.image(400, 550, 'bcont2').setInteractive();
+        this.continuar.setScale(0.3);
+
+        this.continuar.on('pointerover', () => {
+            this.continuar = this.add.image(400, 550, 'bcont2Ativado');
+            this.continuar.setScale(0.3);
+        });
+        
+        this.continuar.on('pointerout', () => {
+            this.continuar = this.add.image(400, 550, 'bcont2');
+            this.continuar.setScale(0.3);
+        });
+        
+        this.continuar.on('pointerdown', () => {
+            this.scene.start('MenuPrincipal');
+        });
+
+    }
+
+    update(){
+
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 /////////////////////////////////////////Pantalla de Menú Principal/////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -594,12 +670,6 @@ class MenuPrincipal extends Phaser.Scene{
     }
 
     create(){
-
-       
-        //Musica
-        bg_music_selection_screen = this.sound.add('backgroundSelectionMusic');
-        bg_music_selection_screen.setLoop(true);
-        bg_music_selection_screen.play();
 
 
         //Fondo del menú principal
@@ -698,8 +768,8 @@ class MenuPrincipal extends Phaser.Scene{
         
         this.atras.on('pointerdown', () => {
             this.scene.start('Inicio');
- bg_music_selection_screen.setLoop(false);
-        bg_music_selection_screen.stop();
+            bg_music_selection_screen.setLoop(false);
+            bg_music_selection_screen.stop();
         });
 
     }
@@ -927,6 +997,65 @@ class Ayuda extends Phaser.Scene{
     update(){
     }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+/////////////////////////////////////////////Pantalla de Pausa//////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Pausa extends Phaser.Scene{
+    constructor(){
+        //Ayuda--> nombre que se le da a la escena
+        super({ key: "Pausa"});
+    }
+
+    preload(){   
+    }
+
+    create(){
+
+
+        this.fondoP = this.add.image(400, 300, 'fondoPausa');
+        this.fondoP.setScale(0.6);
+
+
+        this.continue = this.add.image(50, 550, 'bContinuar').setInteractive();
+        this.continue.setScale(0.5);
+
+        this.continue.on('pointerover', () => {
+            this.continue = this.add.image(50, 550, 'bContinuarActivado');
+            this.continue.setScale(0.5);
+        });
+        
+        this.continue.on('pointerout', () => {
+            this.continue = this.add.image(50, 550, 'bContinuarActivado');
+            this.continue.setScale(0.5);
+        });
+        
+        this.continue.on('pointerdown', () => {
+            this.scene.moveBelow('Pausa');
+            this.scene.stop('Pausa');
+        });
+
+        this.textoContacto = this.add.image(400, 250, 'texto1');
+        this.textoContacto.setScale(0.55);
+
+        this.textoDir = this.add.image(400, 400, 'texto2');
+        this.textoDir.setScale(0.55);
+
+        this.textoContacto1 = this.add.image(400, 500, 'texto3');
+        this.textoContacto1.setScale(0.55);
+
+    }
+
+    update(){
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -1493,10 +1622,10 @@ class MenuEscenarios extends Phaser.Scene{
 
 
 
-        this.es2 = this.add.image(400, 300, 'Lava');
-        this.es2.setScale(0.325);
+        this.es2 = this.add.image(400, 300, 'Lava').setInteractive();
+        this.es2.setScale(0.5);
 
-        /*
+        
         this.es2.on('pointerover', () => {
             this.es2 = this.add.image(400, 300, 'LavaActivado');
             this.es2.setScale(0.5);
@@ -1511,13 +1640,13 @@ class MenuEscenarios extends Phaser.Scene{
             this.scene.start('Escenario2');
             bg_music_selection_screen.setLoop(false);
             bg_music_selection_screen.stop();
-        });*/
+        });
 
 
-        this.es3 = this.add.image(650, 300, 'Oriental');
-        this.es3.setScale(0.325);
+        this.es3 = this.add.image(650, 300, 'Oriental').setInteractive();
+        this.es3.setScale(0.5);
 
-        /*
+        
         this.es3.on('pointerover', () => {
             this.es3 = this.add.image(650, 300, 'OrientalActivado');
             this.es3.setScale(0.5);
@@ -1532,7 +1661,7 @@ class MenuEscenarios extends Phaser.Scene{
             this.scene.start('Escenario3');
             bg_music_selection_screen.setLoop(false);
             bg_music_selection_screen.stop();
-        });*/
+        });
 
 
     }
@@ -1745,6 +1874,28 @@ class PantallaEscenario1 extends Phaser.Scene{
 	//Background
     this.add.image(400,300, 'bg_arboles');
     this.add.image(400,400, 'bg_tierra');
+
+    //Pausa
+    this.paus1 = this.add.image(50, 550, 'bPausa').setInteractive();
+        this.paus1.setScale(0.5);
+
+        
+        this.paus1.on('pointerover', () => {
+            this.paus1 = this.add.image(50, 550, 'bPausaActivado');
+            this.paus1.setScale(0.5);
+        });
+
+        this.paus1.on('pointerout', () => {
+            this.paus1 = this.add.image(50, 550, 'bPausa');
+            this.paus1.setScale(0.5);
+        });
+
+        this.paus1.on('pointerdown', () => {
+            this.scene.sleep('Escenario1');
+            this.scene.launch('Pausa');
+            this.scene.moveAbove('Pausa');
+        });
+
 
     //Musica
     bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
@@ -2589,7 +2740,7 @@ blueSpecialAttack_Explosion.anims.create({
                 })
 
             });*/
-		if(id!=null){
+		/*if(id!=null){
 			console.log("entra al if del null");
 
             $(document).ready(function () {
@@ -2624,7 +2775,7 @@ blueSpecialAttack_Explosion.anims.create({
 	player1_name.y=player1.y-30;
 	if(player1_name.text != player1.name){
 		player1_name.text=player1.name;
-	}
+	}*/
 	onItemRespawnEvent(this);
 	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
 	checkNoLadder();
@@ -2666,7 +2817,7 @@ blueSpecialAttack_Explosion.anims.create({
 
 
 
-/*
+
 //////////////////////////////////////////PANTALLA ESCENARIO 2//////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2683,10 +2834,12 @@ class PantallaEscenario2 extends Phaser.Scene{
 
 
    create(){
+    
 	//Background
     this.add.image(400,300, 'bg_arboles');
     this.add.image(400,400, 'bg_tierra');
 
+    /*
     //Musica
     bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
     bg_music_battleground_1.setLoop(true);
@@ -3045,7 +3198,7 @@ blueSpecialAttack_Explosion=this.add.sprite(0,0,'round_explosion_0');
 blueSpecialAttack_Explosion.DelayTimer=0;
 blueSpecialAttack_Explosion.exist=false;
 blueSpecialAttack_Explosion.setVisible(false);
-/*blueSpecialAttack_Explosion.anims.create({
+blueSpecialAttack_Explosion.anims.create({
 	key: 'explosion',
         frames: this.anims.generateFrameNumbers('round_explosion', { start: 0, end: 71 }),
         frameRate: 20,
@@ -3351,9 +3504,12 @@ blueSpecialAttack_Explosion.anims.create({
 	this.listaJugadores;
         this.mensajeError ;
         this.nJugadores;
+
+    */
     }//create
 
   update(){
+    /*
 	//AJAX	
 	
 		if(id!=null){
@@ -3425,6 +3581,7 @@ blueSpecialAttack_Explosion.anims.create({
     checkDebuffTime(player1, player2);
     checkBoosts(player1, player2)
 	
+    */
         }//update
         
 
@@ -3455,6 +3612,7 @@ class PantallaEscenario3 extends Phaser.Scene{
     this.add.image(400,300, 'bg_arboles');
     this.add.image(400,400, 'bg_tierra');
 
+    /*
     //Musica
     bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
     bg_music_battleground_1.setLoop(true);
@@ -4119,9 +4277,13 @@ blueSpecialAttack_Explosion.anims.create({
 	this.listaJugadores;
         this.mensajeError ;
         this.nJugadores;
+
+    */
     }//create
 
   update(){
+
+    /*
 	//AJAX	
 	
 		if(id!=null){
@@ -4193,13 +4355,14 @@ blueSpecialAttack_Explosion.anims.create({
     checkDebuffTime(player1, player2);
     checkBoosts(player1, player2)
 	
+    */
         }//update
 
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-*/
+
 
 
 
@@ -5668,7 +5831,7 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaEscenario1, PantallaResultados],
+    scene: [PantallaCarga, PantallaDeInicio, Registro, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, Pausa, PantallaResultados],
 	audio: {
         disableWebAudio: true
     }
