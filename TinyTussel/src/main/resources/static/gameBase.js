@@ -461,12 +461,11 @@ class PantallaCarga extends Phaser.Scene{
         ////////////////////////////////////////Carga de assets de Pausa////////////////////////////////////////////
          //Carga de fondo, título e imagen
         this.load.image('fondoPausa', './asset/Fondo.png');
-        this.load.image('pContinuar', './asset/BotonContinuar.png');
-        this.load.image('pContinuarActivado', './asset/BotonContinuarActivado.png');
         this.load.image('bResume', './asset/BotonResume.png');
         this.load.image('bResumeActivado', './asset/BotonResumeActivado.png');
         this.load.image('bRestart', './asset/BotonRestart.png');
         this.load.image('bRestartActivado', './asset/BotonRestartActivado.png');
+        this.load.image('tituloPausa', './asset/LogoTinyTusslePausa.png');
         
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1140,6 +1139,11 @@ class Ayuda extends Phaser.Scene{
 
 /////////////////////////////////////////////Pantalla de Pausa//////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var sleepE1 = 'false';
+var sleepE2 = 'false';
+var sleepE3 = 'false';
+
 class Pausa extends Phaser.Scene{
     constructor(){
         //Ayuda--> nombre que se le da a la escena
@@ -1155,33 +1159,67 @@ class Pausa extends Phaser.Scene{
         this.fondoP = this.add.image(400, 300, 'fondoPausa');
         this.fondoP.setScale(0.6);
 
+        this.titP = this.add.image(400, 200, 'tituloPausa');
+        this.titP.setScale(0.55);
 
-        this.continue = this.add.image(50, 550, 'bContinuar').setInteractive();
-        this.continue.setScale(0.5);
+        //Continuar partida
+        this.contp = this.add.image(250, 450, 'bResume').setInteractive();
+        this.contp.setScale(0.35);
 
-        this.continue.on('pointerover', () => {
-            this.continue = this.add.image(50, 550, 'bContinuarActivado');
-            this.continue.setScale(0.5);
+        
+        this.contp.on('pointerover', () => {
+            this.contp = this.add.image(250, 450, 'bResumeActivado');
+            this.contp.setScale(0.35);
+        });
+
+        this.contp.on('pointerout', () => {
+            this.contp = this.add.image(250, 450, 'bResume');
+            this.contp.setScale(0.35);
+        });
+
+        this.contp.on('pointerdown', () => {
+        
+            if(sleepE1 === 'true'){
+                this.scene.moveAbove('Escenario1');
+                this.scene.wake('Escenario1');
+                this.scene.stop('Pausa');
+
+            } else if(sleepE2 === 'true'){
+                this.scene.moveAbove('Escenario2');
+                this.scene.wake('Escenario2');
+                this.scene.stop('Pausa');
+
+            } else if(sleepE3 === 'true'){
+                this.scene.moveAbove('Escenario3');
+                this.scene.wake('Escenario3');
+                this.scene.stop('Pausa');
+            }
+            
+            
         });
         
-        this.continue.on('pointerout', () => {
-            this.continue = this.add.image(50, 550, 'bContinuarActivado');
-            this.continue.setScale(0.5);
-        });
+
+        //Volver a empezar
+        this.restart = this.add.image(550, 450, 'bRestart').setInteractive();
+        this.restart.setScale(0.35);
+
         
-        this.continue.on('pointerdown', () => {
-            this.scene.moveBelow('Pausa');
-            this.scene.stop('Pausa');
+        this.restart.on('pointerover', () => {
+            this.restart = this.add.image(550, 450, 'bRestartActivado');
+            this.restart.setScale(0.35);
         });
 
-        this.textoContacto = this.add.image(400, 250, 'texto1');
-        this.textoContacto.setScale(0.55);
+        this.restart.on('pointerout', () => {
+            this.restart = this.add.image(550, 450, 'bRestart');
+            this.restart.setScale(0.35);
+        });
 
-        this.textoDir = this.add.image(400, 400, 'texto2');
-        this.textoDir.setScale(0.55);
+        this.restart.on('pointerdown', () => {
+            this.scene.start('MenuPrincipal');
+            
+            
+        });
 
-        this.textoContacto1 = this.add.image(400, 500, 'texto3');
-        this.textoContacto1.setScale(0.55);
 
     }
 
@@ -2011,21 +2049,22 @@ class PantallaEscenario1 extends Phaser.Scene{
     this.add.image(400,400, 'bg_tierra');
 
     //Pausa
-    this.paus1 = this.add.image(700, 50, 'bPausa').setInteractive();
+    this.paus1 = this.add.image(750, 50, 'bPausa').setInteractive();
         this.paus1.setScale(0.5);
 
         
         this.paus1.on('pointerover', () => {
-            this.paus1 = this.add.image(700, 50, 'bPausaActivado');
+            this.paus1 = this.add.image(750, 50, 'bPausaActivado');
             this.paus1.setScale(0.5);
         });
 
         this.paus1.on('pointerout', () => {
-            this.paus1 = this.add.image(700, 50, 'bPausa');
+            this.paus1 = this.add.image(750, 50, 'bPausa');
             this.paus1.setScale(0.5);
         });
 
         this.paus1.on('pointerdown', () => {
+            sleepE1 = 'true';
             this.scene.sleep('Escenario1');
             this.scene.launch('Pausa');
             this.scene.moveAbove('Pausa');
@@ -2974,6 +3013,28 @@ class PantallaEscenario2 extends Phaser.Scene{
     this.add.image(400,300, 'bg_arboles');
     this.add.image(400,400, 'bg_tierra');
 
+    //Pausa
+    this.paus2 = this.add.image(750, 50, 'bPausa').setInteractive();
+        this.paus2.setScale(0.5);
+
+        
+        this.paus2.on('pointerover', () => {
+            this.paus2 = this.add.image(750, 50, 'bPausaActivado');
+            this.paus2.setScale(0.5);
+        });
+
+        this.paus2.on('pointerout', () => {
+            this.paus2 = this.add.image(750, 50, 'bPausa');
+            this.paus2.setScale(0.5);
+        });
+
+        this.paus2.on('pointerdown', () => {
+            sleepE2 = 'true';
+            this.scene.sleep('Escenario2');
+            this.scene.launch('Pausa');
+            this.scene.moveAbove('Pausa');
+        });
+
     /*
     //Musica
     bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
@@ -3746,6 +3807,28 @@ class PantallaEscenario3 extends Phaser.Scene{
 	//Background
     this.add.image(400,300, 'bg_arboles');
     this.add.image(400,400, 'bg_tierra');
+
+    //Pausa
+    this.paus3 = this.add.image(750, 50, 'bPausa').setInteractive();
+    this.paus3.setScale(0.5);
+
+        
+    this.paus3.on('pointerover', () => {
+        this.paus3 = this.add.image(750, 50, 'bPausaActivado');
+        this.paus3.setScale(0.5);
+    });
+
+    this.paus3.on('pointerout', () => {
+        this.paus3 = this.add.image(750, 50, 'bPausa');
+        this.paus3.setScale(0.5);
+    });
+
+    this.paus3.on('pointerdown', () => {
+        sleepE3 = 'true';
+        this.scene.sleep('Escenario3');
+        this.scene.launch('Pausa');
+        this.scene.moveAbove('Pausa');
+    });
 
     /*
     //Musica
