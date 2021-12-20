@@ -1,4 +1,4 @@
-
+var url="localhost"
 
 /////////////////////////////////////////Pantalla de Carga//////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -612,6 +612,7 @@ class PantallaDeInicio extends Phaser.Scene{
 
 //Variables Menú Principal
 var bg_music_selection_screen;
+var player_profile;
 
 
 ////////////////////////////////////////////Pantalla de Registro////////////////////////////////////////////////////
@@ -658,7 +659,7 @@ class Registro extends Phaser.Scene{
         this.continuar.on('pointerdown', () => {
 	$("#nombre").hide();
 	createProfile();
-            this.scene.start('MenuPrincipal');
+     this.scene.start('MenuPrincipal');
         });
 
 
@@ -803,7 +804,7 @@ if(player_text.text==='Cargando'){
                 $.ajax({
 
                     type: "GET",
-                    url: "http://localhost:8080/player/name/"+id,
+                    url: "http://"+url+":8080/player/name/"+id,
                     dataType: "text"
 
                 }).fail(function () {
@@ -831,7 +832,7 @@ if(titScore_text.text==='Cargando'){
                 $.ajax({
 
                     type: "GET",
-                    url: "http://localhost:8080/player/maxpuntuacion/"+id,
+                    url: "http://"+url+":8080/player/maxpuntuacion/"+id,
                     dataType: "text"
 
                 }).fail(function () {
@@ -859,7 +860,7 @@ if(titPersonaje_text.text==='Cargando'){
                 $.ajax({
 
                     type: "GET",
-                    url: "http://localhost:8080/player/pjfav/"+id,
+                    url: "http://"+url+":8080/player/pjfav/"+id,
                     dataType: "text"
 
                 }).fail(function () {
@@ -895,7 +896,7 @@ if(titPersonaje_text.text==='Cargando'){
                 $.ajax({
 	
                     type: "PUT",
-                    url: "http://localhost:8080/player/name/"+id,
+                    url: "http://"+url+":8080/player/name/"+id,
                     data: JSON.stringify(data),
                     headers: {
                         "Content-Type": "application/json"
@@ -915,7 +916,7 @@ if(titPersonaje_text.text==='Cargando'){
                 $.ajax({
 
                     type: "GET",
-                    url: "http://localhost:8080/player/name/"+id,
+                    url: "http://"+url+":8080/player/name/"+id,
                     dataType: "text"
 
                 }).fail(function () {
@@ -989,7 +990,16 @@ class MenuPrincipal extends Phaser.Scene{
     }
 
     create(){
+		//Chat
+		getProfileName();
+		updateMessage();
+		$("#chat").show();
+		$("#message").show();
+		$("#send").show();
+		$("#send").click(function () {
+			sendMessage();
 
+        });
 
         //Fondo del menú principal
         this.fondoMP= this.add.image(400, 300, 'fondoMenuPrincipal');
@@ -1094,10 +1104,12 @@ class MenuPrincipal extends Phaser.Scene{
     }
 
     update(){
+if(id!=null){
 
+           getProfileName();
     }
 }
-
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -6233,7 +6245,7 @@ function createProfile(){
                 };
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8080/player",
+                    url: "http://"+url+":8080/player",
                     data: JSON.stringify(data),
                     headers: {
                         "Content-Type": "application/json"
@@ -6262,7 +6274,7 @@ function updatePuntuación(){
                 $.ajax({
 	
                     type: "PUT",
-                    url: "http://localhost:8080/player/maxpuntuacion/"+id,
+                    url: "http://"+url+":8080/player/maxpuntuacion/"+id,
                     data: JSON.stringify(data),
                     headers: {
                         "Content-Type": "application/json"
@@ -6280,7 +6292,92 @@ function updatePuntuación(){
             });
 	}
 }
+function sendMessage(){
+	
+	
+	console.log(player_profile);
+	$(document).ready(function () {
+		var data = {
 
+                    sender: player_profile,
+                    msg:$("#message").val(),
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "http://"+url+":8080/messages",
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType:"json"
+
+
+                }).done(function () {
+                });
+	});
+	updateMessage();
+	
+}
+function updateMessage(){
+	
+	for(var i=0;i<5;i++){
+		let t = i.toString();
+		$(document).ready(function () {
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "http://"+url+":8080/messages/"+t,
+                    dataType: "text"
+
+                }).fail(function () {
+			//console.log("error get lista jugadores");
+
+                    fallosServidor += 1;
+                    if (fallosServidor > 2) {
+
+                        errorServidor = "Servidor desconectado";
+					//console.log(errorServidor);
+
+                    }
+                }).done(function (data) {
+                    errorServidor = "Servidor conectado";
+                    fallosServidor = 0;
+
+				document.getElementById("msj"+t).innerHTML=data;
+                })
+
+            });
+	}
+}
+function getProfileName(){
+	$(document).ready(function () {
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "http://"+url+":8080/player/name/"+id,
+                    dataType: "text"
+
+                }).fail(function () {
+			//console.log("error get lista jugadores");
+
+                    fallosServidor += 1;
+                    if (fallosServidor > 2) {
+
+                        errorServidor = "Servidor desconectado";
+					//console.log(errorServidor);
+
+                    }
+                }).done(function (data) {
+                    errorServidor = "Servidor conectado";
+                    fallosServidor = 0;
+
+                    player_profile=data;
+                })
+
+            });
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

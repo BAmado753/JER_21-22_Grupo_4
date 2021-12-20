@@ -35,11 +35,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class PlayerController {
 	@Autowired private Player player;
-	private List<Player> playerList = new ArrayList<>();
+	//private List<Player> playerList = new ArrayList<>();
 	
-	private List<String> playerNames = new ArrayList<>();
+	//private List<String> playerNames = new ArrayList<>();
 	private int id;
-	private void readNames() {
+	/*private void readNames() {
 		if (!playerList.isEmpty())
 			for (int i = 0; i < playerList.size(); i++) {
 
@@ -58,7 +58,7 @@ public class PlayerController {
 
 		return playerNames;
 	}
-	
+	*/
 	@PostMapping("/player")
 	public int addPlayer(@RequestBody Player player) {
 		player.setId(id);
