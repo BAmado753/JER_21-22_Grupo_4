@@ -2235,7 +2235,7 @@ class PantallaEscenario1 extends Phaser.Scene{
     controlIimedItemRespawn=0;
 	controlIimedWeaponRespawn=0;
     text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this);
+    timedCountdown = this.time.delayedCall(3000, onCountDownEvent, [], this); //75000 tiempoo oficial
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
@@ -4688,8 +4688,7 @@ blueSpecialAttack_Explosion.anims.create({
 
 ////////FUNCIONES ///////////////////////////////////////////////////////
 ///Funciones de timer///
-function onCountDownEvent ()
-{
+function onCountDownEvent (){
 
     bg_music_battleground_1.setLoop(false);
     bg_music_battleground_1.stop();
@@ -6169,12 +6168,13 @@ function createProfile(){
 }
 function updatePuntuación(){
 	if(titScore_text<player1.gemsOwned){
+		
 		$(document).ready(function () {
 
 
                 var data = {
 
-                    maxPuntuacion: ""+player1.gemsOwned					
+                    maxPuntuacion: player1.gemsOwned,					
                 };
                 $.ajax({
 	

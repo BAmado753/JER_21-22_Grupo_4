@@ -188,6 +188,7 @@ public class PlayerController {
 	
 	@PutMapping("/player/maxpuntuacion/{id}")
 	public int actualizaPuntuación (@PathVariable int id , @RequestBody String newScore ){
+		System.out.println(newScore);
 		Player player_aux = null;
 		newScore=newScore.substring(newScore.indexOf(":") + 2, newScore.indexOf("}")-1);
 		try {
