@@ -629,7 +629,8 @@ class Registro extends Phaser.Scene{
 
     create(){
 
-       
+             $("#nombre").show();
+
         //Musica
         bg_music_selection_screen = this.sound.add('backgroundSelectionMusic');
         bg_music_selection_screen.setLoop(true);
@@ -655,6 +656,8 @@ class Registro extends Phaser.Scene{
         });
         
         this.continuar.on('pointerdown', () => {
+	$("#nombre").hide();
+	createProfile();
             this.scene.start('MenuPrincipal');
         });
 
@@ -673,6 +676,8 @@ class Registro extends Phaser.Scene{
         });
         
         this.datos.on('pointerdown', () => {
+	$("#nombre").hide();
+createProfile();
             this.scene.start('Datos');
         });
 
@@ -691,6 +696,7 @@ class Registro extends Phaser.Scene{
         });
         
         this.atras8.on('pointerdown', () => {
+	$("#nombre").hide();
             this.scene.start('Inicio');
         });
 
@@ -698,6 +704,8 @@ class Registro extends Phaser.Scene{
     }
 
     update(){
+	
+ 
 
     }
 }
@@ -706,11 +714,11 @@ class Registro extends Phaser.Scene{
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
 ////////////////////////////////////////////Pantalla de Datos///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+var player_text;
+var titScore_text;
+var titPersonaje_text;
 class Datos extends Phaser.Scene{
     constructor(){
         //Regristo--> nombre que se le da a la escena
@@ -721,6 +729,7 @@ class Datos extends Phaser.Scene{
     }
 
     create(){
+             $("#modNombre").show();
 
 
         //Fondo de la pantalla de registro
@@ -730,16 +739,18 @@ class Datos extends Phaser.Scene{
 
         this.titNombre= this.add.image(400, 100, 'nombre');
         this.titNombre.setScale(0.3);
-
+		player_text=	this.add.text(this.titNombre.x, this.titNombre.y+20, 'Cargando', { font: '16px Courier', fill: '#ffffff' });
 
         this.titScore= this.add.image(400, 250, 'score');
         this.titScore.setScale(0.3);
+		titScore_text=	this.add.text(this.titScore.x, this.titScore.y+20, 'Cargando', { font: '16px Courier', fill: '#ffffff' });
 
 
         this.titPersonaje= this.add.image(400, 450, 'PerFavorito');
         this.titPersonaje.setScale(0.3);
+		titPersonaje_text=	this.add.text(this.titPersonaje.x, this.titPersonaje.y+20, 'Cargando', { font: '16px Courier', fill: '#ffffff' });
 
-
+		this.modificar=false;
 
         this.atras8 = this.add.image(75, 50, 'back').setInteractive();
         this.atras8.setScale(0.8);
@@ -755,7 +766,11 @@ class Datos extends Phaser.Scene{
         });
         
         this.atras8.on('pointerdown', () => {
-            this.scene.start('Registro');
+            //this.scene.start('Registro');
+            this.scene.start('MenuPrincipal');
+
+             $("#modNombre").hide();
+
         });
 
 
@@ -773,14 +788,184 @@ class Datos extends Phaser.Scene{
         });
         
         this.mod.on('pointerdown', () => {
-            
+	console.log("modicar down");
+            			this.modificar=true;
+
         });
 
 
     }
 
     update(){
+if(player_text.text==='Cargando'){
+	$(document).ready(function () {
 
+                $.ajax({
+
+                    type: "GET",
+                    url: "http://localhost:8080/player/name/"+id,
+                    dataType: "text"
+
+                }).fail(function () {
+			//console.log("error get lista jugadores");
+
+                    fallosServidor += 1;
+                    if (fallosServidor > 2) {
+
+                        errorServidor = "Servidor desconectado";
+					//console.log(errorServidor);
+
+                    }
+                }).done(function (data) {
+                    errorServidor = "Servidor conectado";
+                    fallosServidor = 0;
+
+                    player_text.setText(data);
+                })
+
+            });
+}
+if(titScore_text.text==='Cargando'){
+	$(document).ready(function () {
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "http://localhost:8080/player/maxpuntuacion/"+id,
+                    dataType: "text"
+
+                }).fail(function () {
+			//console.log("error get lista jugadores");
+
+                    fallosServidor += 1;
+                    if (fallosServidor > 2) {
+
+                        errorServidor = "Servidor desconectado";
+					//console.log(errorServidor);
+
+                    }
+                }).done(function (data) {
+                    errorServidor = "Servidor conectado";
+                    fallosServidor = 0;
+
+                    titScore_text.setText(data);
+                })
+
+            });
+}
+if(titPersonaje_text.text==='Cargando'){
+	$(document).ready(function () {
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "http://localhost:8080/player/pjfav/"+id,
+                    dataType: "text"
+
+                }).fail(function () {
+			//console.log("error get lista jugadores");
+
+                    fallosServidor += 1;
+                    if (fallosServidor > 2) {
+
+                        errorServidor = "Servidor desconectado";
+					//console.log(errorServidor);
+
+                    }
+                }).done(function (data) {
+                    errorServidor = "Servidor conectado";
+                    fallosServidor = 0;
+
+                    titPersonaje_text.setText(data);
+                })
+
+            });
+}
+	
+	if(this.modificar===true){
+		console.log("entra a modificar")
+		 $(document).ready(function () {
+
+
+                var data = {
+
+                    name: $("#modNombre").val(),
+					
+                };
+                $.ajax({
+	
+                    type: "PUT",
+                    url: "http://localhost:8080/player/name/"+id,
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType:"json"
+
+
+                }).done(function (data) {
+	console.log("nombre devuelto del put "+data);
+		//player_text.setText(data);
+                }).fail(function(data, textStatus){
+					console.log(textStatus);
+				});
+            });
+		$(document).ready(function () {
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "http://localhost:8080/player/name/"+id,
+                    dataType: "text"
+
+                }).fail(function () {
+			//console.log("error get lista jugadores");
+
+                    fallosServidor += 1;
+                    if (fallosServidor > 2) {
+
+                        errorServidor = "Servidor desconectado";
+					//console.log(errorServidor);
+
+                    }
+                }).done(function (data) {
+                    errorServidor = "Servidor conectado";
+                    fallosServidor = 0;
+					console.log("no,bre devuelto por el segundo get "+data);
+                    player_text.setText(data);
+                })
+
+            });
+			this.modificar=false;
+
+	}
+			
+//Cambiar el nombre ded id 0
+	/*$(document).ready(function () {
+
+
+                var data = {
+
+                    name: $("#nombre").val(),
+					
+                };
+                $.ajax({
+	
+                    type: "PUT",
+                    url: "http://localhost:8080/player/name/"+0,
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType:"text"
+
+
+                }).done(function (data) {
+	console.log("nuevo nombre de id0 es "+data);
+                }).fail(function(data, textStatus){
+					console.log(textStatus);
+				});
+            });*/
     }
 }
 
@@ -2089,7 +2274,7 @@ class PantallaEscenario1 extends Phaser.Scene{
     controlIimedItemRespawn=0;
 	controlIimedWeaponRespawn=0;
     text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this);
+    timedCountdown = this.time.delayedCall(3000, onCountDownEvent, [], this); //75000 tiempoo oficial
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
@@ -2914,8 +3099,7 @@ blueSpecialAttack_Explosion.anims.create({
                 })
 
             });*/
-		/*if(id!=null){
-			console.log("entra al if del null");
+		if(id!=null){
 
             $(document).ready(function () {
 
@@ -2949,7 +3133,7 @@ blueSpecialAttack_Explosion.anims.create({
 	player1_name.y=player1.y-30;
 	if(player1_name.text != player1.name){
 		player1_name.text=player1.name;
-	}*/
+	}
 	onItemRespawnEvent(this);
 	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
 	checkNoLadder();
@@ -4587,8 +4771,7 @@ blueSpecialAttack_Explosion.anims.create({
 
 ////////FUNCIONES ///////////////////////////////////////////////////////
 ///Funciones de timer///
-function onCountDownEvent ()
-{
+function onCountDownEvent (){
 
     bg_music_battleground_1.setLoop(false);
     bg_music_battleground_1.stop();
@@ -5884,7 +6067,7 @@ execute(scene, player2) {
 var text_p1_Results;
 var text_p2_Results;
 var bg_music_results_screen;
-
+var maxscorep1;
 class PantallaResultados extends Phaser.Scene{
     constructor(){
         //Resultado--> nombre que se le da a la escena
@@ -5903,9 +6086,9 @@ class PantallaResultados extends Phaser.Scene{
         bg_music_results_screen = this.sound.add('backgroundResultsMusic');
         bg_music_results_screen.setLoop(true);
         bg_music_results_screen.play();
-
         this.fondoRan= this.add.image(400, 300, 'fondoRanking');
         this.fondoRan.setScale(0.6);
+maxscorep1=this.add.text(400, 450, 'Cargando', { font: '16px Courier', fill: '#ffffff' });
 
         this.pod = this.add.image(400, 300, 'podio');
         this.pod.setScale(0.5);
@@ -6030,7 +6213,73 @@ class PantallaResultados extends Phaser.Scene{
     }
 
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////FUNCIONES PARA API REST////////////////////////////////////////////
+function createProfile(){
+	
+		$(document).ready(function () {
 
+
+                var data = {
+
+                    name: $("#nombre").val(),
+					id:0,
+					maxPuntuacion:0,
+					 favChara:"none",
+	  				usosChilli:0,
+	  				usosWasabi:0,
+	  				usosBernie:0,
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/player",
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType:"json"
+
+
+                }).done(function (data) {
+                    id=data;
+                }).fail(function(data, textStatus){
+					console.log(textStatus);
+				});
+            });
+
+}
+function updatePuntuación(){
+	if(titScore_text<player1.gemsOwned){
+		
+		$(document).ready(function () {
+
+
+                var data = {
+
+                    maxPuntuacion: player1.gemsOwned,					
+                };
+                $.ajax({
+	
+                    type: "PUT",
+                    url: "http://localhost:8080/player/maxpuntuacion/"+id,
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType:"json"
+
+
+                }).done(function (data) {
+	//console.log("nombre devuelto del put "+data);
+		//player_text.setText(data);
+		maxscorep1.setText(data);
+                }).fail(function(data, textStatus){
+					console.log(textStatus);
+				});
+            });
+	}
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

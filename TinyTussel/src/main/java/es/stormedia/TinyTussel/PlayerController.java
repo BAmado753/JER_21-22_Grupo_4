@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -80,17 +81,18 @@ public class PlayerController {
 
 		return player.getId();
 	}
-	
+/////NAME//////////////
 	@GetMapping("/player/name/{id}")
 	public String getPlayerName(@PathVariable int id) {
-		
+		Player player_aux = null;
 		try {
 			ObjectMapper mapper= new ObjectMapper();
 			InputStream inputStream = new FileInputStream (new File("player"+id+".json"));
 			//System.out.println(inputStream);
 			TypeReference<Player> typeReference= new TypeReference<Player>() {};
 			try {
-				playerList.add( mapper.readValue(inputStream, typeReference));
+				player_aux= mapper.readValue(inputStream, typeReference);
+				//playerList.add( mapper.readValue(inputStream, typeReference));
 				inputStream.close();
 			} catch (StreamReadException e) {
 				// TODO Auto-generated catch block
@@ -106,66 +108,20 @@ public class PlayerController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (!playerList.isEmpty())
-			for (Player p: playerList) {
-
-				if (p.getId() == id) {
-					return p.getName();
-				}
-
-			}
-
-		return null;
-
-	}
-	@GetMapping("/player/maxPuntuacion/{id}")
-	public int getMaxPuntuacion(@PathVariable int id) {
-		
-		try {
-			ObjectMapper mapper= new ObjectMapper();
-			InputStream inputStream = new FileInputStream (new File("player"+id+".json"));
-			//System.out.println(inputStream);
-			TypeReference<Player> typeReference= new TypeReference<Player>() {};
-			try {
-				playerList.add( mapper.readValue(inputStream, typeReference));
-				inputStream.close();
-			} catch (StreamReadException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (DatabindException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (!playerList.isEmpty())
-			for (Player p: playerList) {
-
-				if (p.getId() == id) {
-					return p.getMaxPuntuacion();
-				}
-
-			}
-
-		return 0;
-
+		return player_aux.getName();
 	}
 	
 	@PutMapping("/player/name/{id}")
 	public String actualizaNombre (@PathVariable int id , @RequestBody String newName ){
-
+		Player player_aux = null;
+		newName=newName.substring(newName.indexOf(":") + 2, newName.indexOf("}")-1);
 		try {
 			ObjectMapper mapper= new ObjectMapper();
 			InputStream inputStream = new FileInputStream (new File("player"+id+".json"));
 			//System.out.println(inputStream);
 			TypeReference<Player> typeReference= new TypeReference<Player>() {};
 			try {
-				Player player= mapper.readValue(inputStream, typeReference);
+				 player_aux= mapper.readValue(inputStream, typeReference);
 				inputStream.close();
 			} catch (StreamReadException e) {
 				// TODO Auto-generated catch block
@@ -177,9 +133,9 @@ public class PlayerController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			player.setName(newName);
+			player_aux.setName(newName);
 			try {
-				mapper.writeValue(new File("player"+id+".json"), player);
+				mapper.writeValue(new File("player"+id+".json"), player_aux);
 			} catch (StreamWriteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -195,8 +151,373 @@ public class PlayerController {
 			e.printStackTrace();
 		}
 		
-					return player.getName();
-				
-
+					return player_aux.getName();		
 		}
+	
+/////PUNTUACION////////////////////////////////////////////////////////////////////
+	@GetMapping("/player/maxpuntuacion/{id}")
+	public int getMaxPuntuacion(@PathVariable int id) {
+		Player player_aux = null;
+		try {
+			ObjectMapper mapper= new ObjectMapper();
+			InputStream inputStream = new FileInputStream (new File("player"+id+".json"));
+			//System.out.println(inputStream);
+			TypeReference<Player> typeReference= new TypeReference<Player>() {};
+			try {
+				player_aux= mapper.readValue(inputStream, typeReference);
+				//playerList.add( mapper.readValue(inputStream, typeReference));
+				inputStream.close();
+			} catch (StreamReadException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return player_aux.getMaxPuntuacion();
+
+	}
+
+	
+	@PutMapping("/player/maxpuntuacion/{id}")
+	public int actualizaPuntuación (@PathVariable int id , @RequestBody String newScore ){
+		System.out.println(newScore);
+		Player player_aux = null;
+		newScore=newScore.substring(newScore.indexOf(":") + 2, newScore.indexOf("}")-1);
+		try {
+			ObjectMapper mapper= new ObjectMapper();
+			InputStream inputStream = new FileInputStream (new File("player"+id+".json"));
+			//System.out.println(inputStream);
+			TypeReference<Player> typeReference= new TypeReference<Player>() {};
+			try {
+				 player_aux= mapper.readValue(inputStream, typeReference);
+				inputStream.close();
+			} catch (StreamReadException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			player_aux.setMaxPuntuacion(Integer.parseInt(newScore));
+			try {
+				mapper.writeValue(new File("player"+id+".json"), player_aux);
+			} catch (StreamWriteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+					return player_aux.getMaxPuntuacion();		
+		}
+	
+///////PERSONAJE FAV//////////////////////////////////////////////////////////////////////
+	@GetMapping("/player/pjfav/{id}")
+	public String getPlayerFav(@PathVariable int id) {
+		Player player_aux = null;
+		try {
+			ObjectMapper mapper= new ObjectMapper();
+			InputStream inputStream = new FileInputStream (new File("player"+id+".json"));
+			//System.out.println(inputStream);
+			TypeReference<Player> typeReference= new TypeReference<Player>() {};
+			try {
+				player_aux= mapper.readValue(inputStream, typeReference);
+				//playerList.add( mapper.readValue(inputStream, typeReference));
+				inputStream.close();
+			} catch (StreamReadException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return player_aux.getFavChara();
+	}
+	
+	@PutMapping("/player/pjfav/{id}")
+	public String actualizaPjFav (@PathVariable int id , @RequestBody String newPjFav ){
+		Player player_aux = null;
+		newPjFav=newPjFav.substring(newPjFav.indexOf(":") + 2, newPjFav.indexOf("}")-1);
+		try {
+			ObjectMapper mapper= new ObjectMapper();
+			InputStream inputStream = new FileInputStream (new File("player"+id+".json"));
+			//System.out.println(inputStream);
+			TypeReference<Player> typeReference= new TypeReference<Player>() {};
+			try {
+				 player_aux= mapper.readValue(inputStream, typeReference);
+				inputStream.close();
+			} catch (StreamReadException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			player_aux.setFavChara(newPjFav);
+			try {
+				mapper.writeValue(new File("player"+id+".json"), player_aux);
+			} catch (StreamWriteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+					return player_aux.getFavChara();		
+		}
+	
+/////////////////USOS CHILLI/////////////////////////////
+	@GetMapping("/player/usoschilli/{id}")
+	public int getUsosChilli(@PathVariable int id) {
+		Player player_aux = null;
+		try {
+			ObjectMapper mapper= new ObjectMapper();
+			InputStream inputStream = new FileInputStream (new File("player"+id+".json"));
+			//System.out.println(inputStream);
+			TypeReference<Player> typeReference= new TypeReference<Player>() {};
+			try {
+				player_aux= mapper.readValue(inputStream, typeReference);
+				//playerList.add( mapper.readValue(inputStream, typeReference));
+				inputStream.close();
+			} catch (StreamReadException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return player_aux.getUsosChilli();
+	}
+	
+	@PutMapping("/player/usoschilli/{id}")
+	public int actualizaUsosChilli (@PathVariable int id , @RequestBody String newUsos ){
+		Player player_aux = null;
+		newUsos=newUsos.substring(newUsos.indexOf(":") + 2, newUsos.indexOf("}")-1);
+		try {
+			ObjectMapper mapper= new ObjectMapper();
+			InputStream inputStream = new FileInputStream (new File("player"+id+".json"));
+			//System.out.println(inputStream);
+			TypeReference<Player> typeReference= new TypeReference<Player>() {};
+			try {
+				 player_aux= mapper.readValue(inputStream, typeReference);
+				inputStream.close();
+			} catch (StreamReadException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			player_aux.setUsosChilli(Integer.parseInt(newUsos));
+			try {
+				mapper.writeValue(new File("player"+id+".json"), player_aux);
+			} catch (StreamWriteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+					return player_aux.getUsosChilli();		
+		}
+////////////////USOS WASABI/////////////////////////////
+	@GetMapping("/player/usoswasabi/{id}")
+	public int getUsosWasabi(@PathVariable int id) {
+		Player player_aux = null;
+		try {
+			ObjectMapper mapper= new ObjectMapper();
+			InputStream inputStream = new FileInputStream (new File("player"+id+".json"));
+			//System.out.println(inputStream);
+			TypeReference<Player> typeReference= new TypeReference<Player>() {};
+			try {
+				player_aux= mapper.readValue(inputStream, typeReference);
+				//playerList.add( mapper.readValue(inputStream, typeReference));
+				inputStream.close();
+			} catch (StreamReadException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return player_aux.getUsosChilli();
+	}
+	
+	@PutMapping("/player/usoswasabi/{id}")
+	public int actualizaUsosWasabi (@PathVariable int id , @RequestBody String newUsos ){
+		Player player_aux = null;
+		newUsos=newUsos.substring(newUsos.indexOf(":") + 2, newUsos.indexOf("}")-1);
+		try {
+			ObjectMapper mapper= new ObjectMapper();
+			InputStream inputStream = new FileInputStream (new File("player"+id+".json"));
+			//System.out.println(inputStream);
+			TypeReference<Player> typeReference= new TypeReference<Player>() {};
+			try {
+				 player_aux= mapper.readValue(inputStream, typeReference);
+				inputStream.close();
+			} catch (StreamReadException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			player_aux.setUsosWasabi(Integer.parseInt(newUsos));
+			try {
+				mapper.writeValue(new File("player"+id+".json"), player_aux);
+			} catch (StreamWriteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+					return player_aux.getUsosWasabi();		
+		}
+///////////////USOS BERNIE//////////////////////////////////
+	@GetMapping("/player/usosbernie/{id}")
+	public int getUsosBernie(@PathVariable int id) {
+		Player player_aux = null;
+		try {
+			ObjectMapper mapper= new ObjectMapper();
+			InputStream inputStream = new FileInputStream (new File("player"+id+".json"));
+			//System.out.println(inputStream);
+			TypeReference<Player> typeReference= new TypeReference<Player>() {};
+			try {
+				player_aux= mapper.readValue(inputStream, typeReference);
+				//playerList.add( mapper.readValue(inputStream, typeReference));
+				inputStream.close();
+			} catch (StreamReadException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return player_aux.getUsosBernie();
+	}
+	
+	@PutMapping("/player/usosbernie/{id}")
+	public int actualizaUsosBernie (@PathVariable int id , @RequestBody String newUsos ){
+		Player player_aux = null;
+		newUsos=newUsos.substring(newUsos.indexOf(":") + 2, newUsos.indexOf("}")-1);
+		try {
+			ObjectMapper mapper= new ObjectMapper();
+			InputStream inputStream = new FileInputStream (new File("player"+id+".json"));
+			//System.out.println(inputStream);
+			TypeReference<Player> typeReference= new TypeReference<Player>() {};
+			try {
+				 player_aux= mapper.readValue(inputStream, typeReference);
+				inputStream.close();
+			} catch (StreamReadException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			player_aux.setUsosChilli(Integer.parseInt(newUsos));
+			try {
+				mapper.writeValue(new File("player"+id+".json"), player_aux);
+			} catch (StreamWriteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (DatabindException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+					return player_aux.getUsosChilli();		
+		}
+
 }
