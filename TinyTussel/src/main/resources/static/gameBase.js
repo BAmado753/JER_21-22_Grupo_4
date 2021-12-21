@@ -78,6 +78,39 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('start', './asset/Continuar.png');
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		/////////////////////////Carga de assets de Pantalla de SelecTipoInicio/////////////////////////////
+
+        //Carga de fondo, título e imagen
+        this.load.image('fondoSelecIni', './asset/Fondo.png');
+        this.load.image('titleSelIni', './asset/LogoTinyTussle.png');
+		this.load.image('bCrearPerfil', './asset/BotonCrearPerfil.png');
+		this.load.image('bCrearPerfilActivado', './asset/BotonCrearPerfilActivado.png');
+        this.load.image('bElegirPerfil', './asset/BotonElegirPerfil.png');
+		this.load.image('bElegirPerfilActivado', './asset/BotonElegirPerfilActivado.png');
+		this.load.image('bContinuarAnonimo', './asset/BotonContinuarSinPerfil.png');
+		this.load.image('bContinuarAnonimoActivado', './asset/BotonContinuarSinPerfilActivado.png');
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+		
+		/////////////////////////Carga de assets de Pantalla de SelecPerfil/////////////////////////////
+
+        //Carga de fondo, título e imagen
+        this.load.image('fondoSelecPerfil', './asset/Fondo.png');
+		this.load.image('bPerfil1', './asset/RecuadroRegistro.png');
+		this.load.image('bPerfil1Activado', './asset/RecuadroRegistroActivado.png');
+        this.load.image('bPerfil2', './asset/RecuadroRegistro.png');
+		this.load.image('bPerfil2Activado', './asset/RecuadroRegistroActivado.png');
+		this.load.image('bPerfil3', './asset/RecuadroRegistro.png');
+		this.load.image('bPerfil3Activado', './asset/RecuadroRegistroActivado.png');
+		this.load.image('bPerfil4', './asset/RecuadroRegistro.png');
+		this.load.image('bPerfil4Activado', './asset/RecuadroRegistroActivado.png');
+		this.load.image('bcont3', './asset/bContinuar.png');
+        this.load.image('bcont3Ativado', './asset/bContinuarActivado.png');
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -599,7 +632,7 @@ class PantallaDeInicio extends Phaser.Scene{
 					console.log(textStatus);
 				});
             });*/
-            this.scene.start('Registro');
+            this.scene.start('SelecTipoInicio');
             bg_music_initial_screen.setLoop(false);
             bg_music_initial_screen.stop();
         }
@@ -608,6 +641,224 @@ class PantallaDeInicio extends Phaser.Scene{
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////Pantalla de SelecTipoInicio///////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class SelecTipoInicio extends Phaser.Scene{
+    constructor(){
+        //Inicio--> nombre que se le da a la escena
+        super({ key: "SelecTipoInicio"});
+    }
+
+    preload(){
+
+        
+    }
+
+    create(){
+
+       
+        //Fondo de la pantalla de inicio
+        this.SelecIni= this.add.image(400, 300, 'fondoSelecIni');
+        this.SelecIni.setScale(0.6);
+
+        this.titleS = this.add.image(400, 150, 'titleSelIni');
+        this.titleS.setScale(0.3);
+
+		this.crearP = this.add.image(400, 350, 'bCrearPerfil').setInteractive();
+        this.crearP.setScale(0.3);
+
+		this.crearP.on('pointerover', () => {
+            this.crearP = this.add.image(400, 350, 'bCrearPerfilActivado');
+            this.crearP.setScale(0.3);
+        });
+        
+        this.crearP.on('pointerout', () => {
+            this.crearP = this.add.image(400, 350, 'bCrearPerfil');
+            this.crearP.setScale(0.3);
+        });
+        
+        this.crearP.on('pointerdown', () => {
+            this.scene.start('Registro');
+        });
+
+		this.elegirP = this.add.image(300, 470, 'bElegirPerfil').setInteractive();
+        this.elegirP.setScale(0.3);
+
+		this.elegirP.on('pointerover', () => {
+            this.elegirP = this.add.image(300, 470, 'bElegirPerfilActivado');
+            this.elegirP.setScale(0.3);
+        });
+        
+        this.elegirP.on('pointerout', () => {
+            this.elegirP = this.add.image(300, 470, 'bElegirPerfil');
+            this.elegirP.setScale(0.3);
+        });
+        
+        this.elegirP.on('pointerdown', () => {
+            this.scene.start('SelecPerfil');
+        });
+
+
+		this.contA = this.add.image(500, 470, 'bContinuarAnonimo').setInteractive();
+        this.contA.setScale(0.3);
+
+		this.contA.on('pointerover', () => {
+            this.contA = this.add.image(500, 470, 'bContinuarAnonimoActivado');
+            this.contA.setScale(0.3);
+        });
+        
+        this.contA.on('pointerout', () => {
+            this.contA = this.add.image(500, 470, 'bContinuarAnonimo');
+            this.contA.setScale(0.3);
+        });
+        
+        this.contA.on('pointerdown', () => {
+            this.scene.start('MenuPrincipal');
+        });
+
+    }
+
+    update(){
+        
+        }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+//////////////////////////////////////Pantalla de SelecPerfil///////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var registroActivado = 'null';
+
+class SelecPerfil extends Phaser.Scene{
+    constructor(){
+        //SelecPerfil--> nombre que se le da a la escena
+        super({ key: "SelecPerfil"});
+    }
+
+    preload(){
+
+        
+    }
+
+    create(){
+
+       
+        //Fondo de la pantalla de inicio
+        this.FondoSelecPerfil= this.add.image(400, 300, 'fondoSelecPerfil');
+        this.FondoSelecPerfil.setScale(0.6);
+
+		
+		
+		this.perfil1 = this.add.image(250, 200, 'bPerfil1').setInteractive();
+        this.perfil1.setScale(0.4);
+
+		this.perfil1.on('pointerover', () => {
+            this.perfil1 = this.add.image(250, 200, 'bPerfil1Activado');
+            this.perfil1.setScale(0.4);
+        });
+        
+        this.perfil1.on('pointerout', () => {
+            this.perfil1 = this.add.image(250, 200, 'bPerfil1');
+            this.perfil1.setScale(0.4);
+        });
+        
+        this.perfil1.on('pointerdown', () => {
+            registroActivado = 'true';
+        });
+
+
+		this.perfil2 = this.add.image(550, 200, 'bPerfil2').setInteractive();
+        this.perfil2.setScale(0.4);
+
+		this.perfil2.on('pointerover', () => {
+            this.perfil2 = this.add.image(550, 200, 'bPerfil2Activado');
+            this.perfil2.setScale(0.4);
+        });
+        
+        this.perfil2.on('pointerout', () => {
+            this.perfil2 = this.add.image(550, 200, 'bPerfil2');
+            this.perfil2.setScale(0.4);
+        });
+        
+        this.perfil2.on('pointerdown', () => {
+            registroActivado = 'true';
+        });
+
+		
+		this.perfil3 = this.add.image(250, 400, 'bPerfil3').setInteractive();
+        this.perfil3.setScale(0.4);
+
+		this.perfil3.on('pointerover', () => {
+            this.perfil3 = this.add.image(250, 400, 'bPerfil3Activado');
+            this.perfil3.setScale(0.4);
+        });
+        
+        this.perfil3.on('pointerout', () => {
+            this.perfil3 = this.add.image(250, 400, 'bPerfil3');
+            this.perfil3.setScale(0.4);
+        });
+        
+        this.perfil3.on('pointerdown', () => {
+            registroActivado = 'true';
+        });
+
+		
+		this.perfil4 = this.add.image(550, 400, 'bPerfil4').setInteractive();
+        this.perfil4.setScale(0.4);
+
+		this.perfil4.on('pointerover', () => {
+            this.perfil4 = this.add.image(550, 400, 'bPerfil4Activado');
+            this.perfil4.setScale(0.4);
+        });
+        
+        this.perfil4.on('pointerout', () => {
+            this.perfil4 = this.add.image(550, 400, 'bPerfil4');
+            this.perfil4.setScale(0.4);
+        });
+        
+        this.perfil4.on('pointerdown', () => {
+            registroActivado = 'true';
+        });
+
+		if(registroActivado === 'true'){
+			this.continuarSP = this.add.image(500, 500, 'bcont3').setInteractive();
+        	this.continuarSP.setScale(0.3);
+
+        	this.continuarSP.on('pointerover', () => {
+            	this.continuarSP = this.add.image(500, 500, 'bcont3Ativado');
+            	this.continuarSP.setScale(0.3);
+        	});
+        
+        	this.continuarSP.on('pointerout', () => {
+            	this.continuarSP = this.add.image(500, 500, 'bcont3');
+            	this.continuarSP.setScale(0.3);
+        	});
+        
+        	this.continuarSP.on('pointerdown', () => {
+     			this.scene.start('MenuPrincipal');
+        	});
+		}
+    }
+
+    update(){
+        
+        }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 
 //Variables Menú Principal
@@ -698,7 +949,7 @@ createProfile();
         
         this.atras8.on('pointerdown', () => {
 	$("#nombre").hide();
-            this.scene.start('Inicio');
+            this.scene.start('SelecTipoInicio');
         });
 
 
@@ -720,6 +971,10 @@ createProfile();
 var player_text;
 var titScore_text;
 var titPersonaje_text;
+
+/*chooseP1 = 'Chilli';
+var usosChilli_ = usosChilli_ + 1;*/
+
 class Datos extends Phaser.Scene{
     constructor(){
         //Regristo--> nombre que se le da a la escena
@@ -750,7 +1005,11 @@ class Datos extends Phaser.Scene{
         this.titPersonaje= this.add.image(400, 450, 'PerFavorito');
         this.titPersonaje.setScale(0.3);
 		titPersonaje_text=	this.add.text(this.titPersonaje.x, this.titPersonaje.y+20, 'Cargando', { font: '16px Courier', fill: '#ffffff' });
-
+		
+		/*usosC_text=	this.add.text(this.titPersonaje.x, this.titPersonaje.y+40, 'Cargando', { font: '16px Courier', fill: '#ffffff' });
+		usos_Chilli();*/
+		
+		
 		this.modificar=false;
 
         this.atras8 = this.add.image(75, 50, 'back').setInteractive();
@@ -1096,7 +1355,7 @@ class MenuPrincipal extends Phaser.Scene{
         });
         
         this.atras.on('pointerdown', () => {
-            this.scene.start('Registro');
+            this.scene.start('SelecTipoInicio');
             bg_music_selection_screen.setLoop(false);
             bg_music_selection_screen.stop();
         });
@@ -6378,6 +6637,104 @@ function getProfileName(){
 
             });
 }
+
+function usos_Chilli(){
+	if(chooseP1 ==='Chilli'){
+		
+		$(document).ready(function () {
+
+
+                var data = {
+
+                    usosChilli: 1 ,					
+                };
+                $.ajax({
+	
+                    type: "PUT",
+                    url: "http://localhost:8080/player/usoschilli/"+id,
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType:"json"
+
+
+                }).done(function (data) {
+	console.log("nombre devuelto del put "+data);
+		//player_text.setText(data);
+		//maxscorep1.setText(data);
+                }).fail(function(data, textStatus){
+					console.log(textStatus);
+				});
+            });
+	}
+}
+
+
+function usos_Bernie(){
+	if(chooseP1 ==='Bernie'){
+		
+		$(document).ready(function () {
+
+
+                var data = {
+
+                    usosBernie: usosBernie + 1 ,					
+                };
+                $.ajax({
+	
+                    type: "PUT",
+                    url: "http://localhost:8080/player/usosbernie/"+id,
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType:"json"
+
+
+                }).done(function (data) {
+	//console.log("nombre devuelto del put "+data);
+		//player_text.setText(data);
+		//maxscorep1.setText(data);
+                }).fail(function(data, textStatus){
+					console.log(textStatus);
+				});
+            });
+	}
+}
+
+
+function usos_Wasabi(){
+	if(chooseP1 ==='Wasabi'){
+		
+		$(document).ready(function () {
+
+
+                var data = {
+
+                    usosBernie: usosWasabi + 1 ,					
+                };
+                $.ajax({
+	
+                    type: "PUT",
+                    url: "http://localhost:8080/player/usoswasabi/"+id,
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    dataType:"json"
+
+
+                }).done(function (data) {
+	//console.log("nombre devuelto del put "+data);
+		//player_text.setText(data);
+		//maxscorep1.setText(data);
+                }).fail(function(data, textStatus){
+					console.log(textStatus);
+				});
+            });
+	}
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -6395,7 +6752,7 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, Registro, Datos, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, Pausa, PantallaResultados],
+    scene: [PantallaCarga, PantallaDeInicio, SelecTipoInicio, SelecPerfil, Registro, Datos, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, Pausa, PantallaResultados],
 	audio: {
         disableWebAudio: true
     }
