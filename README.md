@@ -223,26 +223,27 @@ wobbleboxx.com
  
 ### <h2>Instrucciones </h2>
   1.Instalar Eclipse IDE<br>
-  <br>
+  <br> ![Instruccion1!](/images/Ins1.png) <br>
   
   2.Seleccionar Eclipse IDE for Enterprise Java and Web Developments<br>
-  <br>
+  <br> ![Instruccion2!](/images/Inst2.png) <br>
   
   3.Abrir Eclipse en el caso de que no se haya abierto tras la instalación<br>
-  <br>
+  <br> ![Instruccion3!](/images/inst3.png) <br>
   
   4.Ir a File --> Import --> Existing Maven Projects<br>
-  <br>
+  <br> ![Instruccion4!](/images/inst4.png) <br>
+  <br> ![Instruccion5!](/images/inst5.png) <br>
   
   5.Poner la ruta donde esté guardada la carpeta descomprimida del juego (TinyTussel)<br>
-  <br>
+  <br> ![Instruccion6!](/images/inst6.png) <br>
   
   6.Abrir la carpeta del explorador de archivos y seleccionar TinyTusselApplication.java<br>
-  <br>
+  <br> ![Instruccion7!](/images/inst7.png) <br>
   
   7.Hacer click derecho sobre el código --> Run As --> Java Application<br>
-  <br>
+  <br> ![Instruccion8!](/images/inst8.png) <br>
   
   8.Una vez se haya ejecutado la parte del servidor, abrir el navegador Google Chrome y poner en la barra de búsqueda localhost:8080<br>
-  <br>
+  <br> ![Instruccion9!](/images/inst9.png) <br>
   
