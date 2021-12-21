@@ -152,7 +152,8 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('bControles', './asset/Controles.png');
         this.load.image('bCreditosActivado', './asset/CreditosActivado.png');
         this.load.image('bCreditos', './asset/Creditos.png');
-        this.load.image('bAjustes', './asset/Ajustes.png');
+        this.load.image('bVerDatos2', './asset/BotonVerDatos.png');
+        this.load.image('bVerDatosActivado2', './asset/BotonVerDatosActivado.png');
         this.load.image('backActivo', './asset/AtrasActivado.png');
         this.load.image('back', './asset/Atras.png');
         this.load.image('ayudaActivado', './asset/AyudaActivado.png');
@@ -282,10 +283,10 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('textoSelectE', './asset/ElegirMapa.png');
         this.load.image('Campo', './asset/MapaIlumen.png');
         this.load.image('CampoActivado', './asset/IlumenActivado.png');
-        this.load.image('Lava', './asset/MapaMolvatt.png');
-        this.load.image('LavaActivado', './asset/MolvattActivado.png');
-        this.load.image('Oriental', './asset/MapaZauz.png');
-        this.load.image('OrientalActivado', './asset/ZauzActivado.png');
+        this.load.image('Lava', './asset/MapaMolvattTachado.png');
+        //this.load.image('LavaActivado', './asset/MolvattActivado.png');
+        this.load.image('Oriental', './asset/MapaZauzTachado.png');
+        //this.load.image('OrientalActivado', './asset/ZauzActivado.png');
         this.load.image('BContinuar2', './asset/BotonContinuar_prueba.png');
 
         /////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -645,6 +646,8 @@ class PantallaDeInicio extends Phaser.Scene{
 
 //////////////////////////////////////Pantalla de SelecTipoInicio///////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var bg_music_selection_screen;
+
 
 class SelecTipoInicio extends Phaser.Scene{
     constructor(){
@@ -659,8 +662,12 @@ class SelecTipoInicio extends Phaser.Scene{
 
     create(){
 
-       
-        //Fondo de la pantalla de inicio
+       	//Musica
+        bg_music_selection_screen = this.sound.add('backgroundSelectionMusic');
+        bg_music_selection_screen.setLoop(true);
+        bg_music_selection_screen.play();
+
+        //Fondo de la pantalla 
         this.SelecIni= this.add.image(400, 300, 'fondoSelecIni');
         this.SelecIni.setScale(0.6);
 
@@ -736,7 +743,7 @@ class SelecTipoInicio extends Phaser.Scene{
 //////////////////////////////////////Pantalla de SelecPerfil///////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var registroActivado = 'null';
+var registroActivado;
 
 class SelecPerfil extends Phaser.Scene{
     constructor(){
@@ -752,84 +759,13 @@ class SelecPerfil extends Phaser.Scene{
     create(){
 
        
-        //Fondo de la pantalla de inicio
+        //Fondo de la pantalla 
         this.FondoSelecPerfil= this.add.image(400, 300, 'fondoSelecPerfil');
         this.FondoSelecPerfil.setScale(0.6);
 
+		registroActivado = 0;
 		
-		
-		this.perfil1 = this.add.image(250, 200, 'bPerfil1').setInteractive();
-        this.perfil1.setScale(0.4);
-
-		this.perfil1.on('pointerover', () => {
-            this.perfil1 = this.add.image(250, 200, 'bPerfil1Activado');
-            this.perfil1.setScale(0.4);
-        });
-        
-        this.perfil1.on('pointerout', () => {
-            this.perfil1 = this.add.image(250, 200, 'bPerfil1');
-            this.perfil1.setScale(0.4);
-        });
-        
-        this.perfil1.on('pointerdown', () => {
-            registroActivado = 'true';
-        });
-
-
-		this.perfil2 = this.add.image(550, 200, 'bPerfil2').setInteractive();
-        this.perfil2.setScale(0.4);
-
-		this.perfil2.on('pointerover', () => {
-            this.perfil2 = this.add.image(550, 200, 'bPerfil2Activado');
-            this.perfil2.setScale(0.4);
-        });
-        
-        this.perfil2.on('pointerout', () => {
-            this.perfil2 = this.add.image(550, 200, 'bPerfil2');
-            this.perfil2.setScale(0.4);
-        });
-        
-        this.perfil2.on('pointerdown', () => {
-            registroActivado = 'true';
-        });
-
-		
-		this.perfil3 = this.add.image(250, 400, 'bPerfil3').setInteractive();
-        this.perfil3.setScale(0.4);
-
-		this.perfil3.on('pointerover', () => {
-            this.perfil3 = this.add.image(250, 400, 'bPerfil3Activado');
-            this.perfil3.setScale(0.4);
-        });
-        
-        this.perfil3.on('pointerout', () => {
-            this.perfil3 = this.add.image(250, 400, 'bPerfil3');
-            this.perfil3.setScale(0.4);
-        });
-        
-        this.perfil3.on('pointerdown', () => {
-            registroActivado = 'true';
-        });
-
-		
-		this.perfil4 = this.add.image(550, 400, 'bPerfil4').setInteractive();
-        this.perfil4.setScale(0.4);
-
-		this.perfil4.on('pointerover', () => {
-            this.perfil4 = this.add.image(550, 400, 'bPerfil4Activado');
-            this.perfil4.setScale(0.4);
-        });
-        
-        this.perfil4.on('pointerout', () => {
-            this.perfil4 = this.add.image(550, 400, 'bPerfil4');
-            this.perfil4.setScale(0.4);
-        });
-        
-        this.perfil4.on('pointerdown', () => {
-            registroActivado = 'true';
-        });
-
-		if(registroActivado === 'true'){
+		if(registroActivado === 1){
 			this.continuarSP = this.add.image(500, 500, 'bcont3').setInteractive();
         	this.continuarSP.setScale(0.3);
 
@@ -847,6 +783,95 @@ class SelecPerfil extends Phaser.Scene{
      			this.scene.start('MenuPrincipal');
         	});
 		}
+		
+		this.perfil1 = this.add.image(250, 200, 'bPerfil1').setInteractive();
+        this.perfil1.setScale(0.4);
+
+		this.perfil1.on('pointerover', () => {
+            this.perfil1 = this.add.image(250, 200, 'bPerfil1Activado');
+            this.perfil1.setScale(0.4);
+        });
+        
+        this.perfil1.on('pointerout', () => {
+            this.perfil1 = this.add.image(250, 200, 'bPerfil1');
+            this.perfil1.setScale(0.4);
+        });
+        
+        this.perfil1.on('pointerdown', () => {
+            registroActivado = 1;
+        });
+
+
+		this.perfil2 = this.add.image(550, 200, 'bPerfil2').setInteractive();
+        this.perfil2.setScale(0.4);
+
+		this.perfil2.on('pointerover', () => {
+            this.perfil2 = this.add.image(550, 200, 'bPerfil2Activado');
+            this.perfil2.setScale(0.4);
+        });
+        
+        this.perfil2.on('pointerout', () => {
+            this.perfil2 = this.add.image(550, 200, 'bPerfil2');
+            this.perfil2.setScale(0.4);
+        });
+        
+        this.perfil2.on('pointerdown', () => {
+            registroActivado = 1;
+        });
+
+		
+		this.perfil3 = this.add.image(250, 400, 'bPerfil3').setInteractive();
+        this.perfil3.setScale(0.4);
+
+		this.perfil3.on('pointerover', () => {
+            this.perfil3 = this.add.image(250, 400, 'bPerfil3Activado');
+            this.perfil3.setScale(0.4);
+        });
+        
+        this.perfil3.on('pointerout', () => {
+            this.perfil3 = this.add.image(250, 400, 'bPerfil3');
+            this.perfil3.setScale(0.4);
+        });
+        
+        this.perfil3.on('pointerdown', () => {
+            registroActivado = 1;
+        });
+
+		
+		this.perfil4 = this.add.image(550, 400, 'bPerfil4').setInteractive();
+        this.perfil4.setScale(0.4);
+
+		this.perfil4.on('pointerover', () => {
+            this.perfil4 = this.add.image(550, 400, 'bPerfil4Activado');
+            this.perfil4.setScale(0.4);
+        });
+        
+        this.perfil4.on('pointerout', () => {
+            this.perfil4 = this.add.image(550, 400, 'bPerfil4');
+            this.perfil4.setScale(0.4);
+        });
+        
+        this.perfil4.on('pointerdown', () => {
+            registroActivado = 1;
+        });
+
+		this.atras3 = this.add.image(75, 50, 'back').setInteractive();
+        this.atras3.setScale(0.8);
+
+        this.atras3.on('pointerover', () => {
+            this.atras3 = this.add.image(75, 50, 'backActivo');
+            this.atras3.setScale(0.8);
+        });
+        
+        this.atras3.on('pointerout', () => {
+            this.atras3 = this.add.image(75, 50, 'back');
+            this.atras3.setScale(0.8);
+        });
+        
+        this.atras3.on('pointerdown', () => {
+            this.scene.start('SelecTipoInicio');
+        });
+
     }
 
     update(){
@@ -862,7 +887,6 @@ class SelecPerfil extends Phaser.Scene{
 
 
 //Variables Menú Principal
-var bg_music_selection_screen;
 var player_profile;
 
 
@@ -883,10 +907,6 @@ class Registro extends Phaser.Scene{
 
              $("#nombre").show();
 
-        //Musica
-        bg_music_selection_screen = this.sound.add('backgroundSelectionMusic');
-        bg_music_selection_screen.setLoop(true);
-        bg_music_selection_screen.play();
 
         //Fondo de la pantalla de registro
         this.fondoRegi= this.add.image(400, 300, 'fondoReg');
@@ -1318,8 +1338,22 @@ class MenuPrincipal extends Phaser.Scene{
             this.scene.start('Creditos');
         });
 
-        this.ajust = this.add.image(550, 450, 'bAjustes');
-        this.ajust.setScale(0.3);
+        this.datos2 = this.add.image(550, 450, 'bVerDatos2').setInteractive();
+        this.datos2.setScale(0.3);
+		
+		this.datos2.on('pointerover', () => {
+            this.datos2 = this.add.image(550, 450, 'bVerDatosActivado');
+            this.datos2.setScale(0.3);
+        });
+        
+        this.datos2.on('pointerout', () => {
+            this.datos2 = this.add.image(550, 450, 'bVerDatos2');
+            this.datos2.setScale(0.3);
+        });
+        
+        this.datos2.on('pointerdown', () => {
+            this.scene.start('Datos');
+        });
 
 
         this.ayud = this.add.image(750, 50, 'ayuda').setInteractive();
@@ -1356,8 +1390,6 @@ class MenuPrincipal extends Phaser.Scene{
         
         this.atras.on('pointerdown', () => {
             this.scene.start('SelecTipoInicio');
-            bg_music_selection_screen.setLoop(false);
-            bg_music_selection_screen.stop();
         });
 
     }
@@ -1915,7 +1947,7 @@ class MenuPersonajes extends Phaser.Scene{
 		chooseP2='null';
 		if(!bg_music_selection_screen.isPlaying){
 			bg_music_selection_screen.setLoop(true);
-        bg_music_selection_screen.play();
+        	bg_music_selection_screen.play();
 		}
 
         //Fondo de la pantalla de selección de personaje
@@ -2251,11 +2283,11 @@ class MenuEscenarios extends Phaser.Scene{
 
 
 
-        this.es2 = this.add.image(400, 300, 'Lava').setInteractive();
-        this.es2.setScale(0.5);
+        this.es2 = this.add.image(400, 300, 'Lava');
+        this.es2.setScale(0.33);
 
         
-        this.es2.on('pointerover', () => {
+        /*this.es2.on('pointerover', () => {
             this.es2 = this.add.image(400, 300, 'LavaActivado');
             this.es2.setScale(0.5);
         });
@@ -2269,14 +2301,14 @@ class MenuEscenarios extends Phaser.Scene{
             this.scene.start('Escenario2');
             bg_music_selection_screen.setLoop(false);
             bg_music_selection_screen.stop();
-        });
+        });*/
 
 
-        this.es3 = this.add.image(650, 300, 'Oriental').setInteractive();
-        this.es3.setScale(0.5);
+        this.es3 = this.add.image(650, 300, 'Oriental');
+        this.es3.setScale(0.33);
 
         
-        this.es3.on('pointerover', () => {
+        /*this.es3.on('pointerover', () => {
             this.es3 = this.add.image(650, 300, 'OrientalActivado');
             this.es3.setScale(0.5);
         });
@@ -2290,7 +2322,7 @@ class MenuEscenarios extends Phaser.Scene{
             this.scene.start('Escenario3');
             bg_music_selection_screen.setLoop(false);
             bg_music_selection_screen.stop();
-        });
+        });*/
 
 
     }
@@ -6334,7 +6366,6 @@ execute(scene, player2) {
 
 ////////////////////////////////////////PANTALLA DE RESULTADOS//////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 var text_p1_Results;
 var text_p2_Results;
 var bg_music_results_screen;
@@ -6415,19 +6446,19 @@ maxscorep1=this.add.text(400, 450, 'Cargando', { font: '16px Courier', fill: '#f
 
         } else if(player1.gemsOwned === player2.gemsOwned){
             if(chooseP2 ==='Chilli'){
-            this.winp2 = this.add.image(400, 145, 'selectChilli');
-            this.winp2.setScale(1.5);
+            this.winp2 = this.add.image(430, 145, 'selectChilli');
+            
             }
             else if(chooseP2 ==='Bernie'){
-            this.winp2 = this.add.image(400, 145, 'selectBernie');
+            this.winp2 = this.add.image(430, 145, 'selectBernie');
             }
             else{
-            this.winp2 = this.add.image(400, 145, 'selectWasabi');
+            this.winp2 = this.add.image(430, 145, 'selectWasabi');
             }
 
             if(chooseP1 ==='Chilli'){
             this.winp1 = this.add.image(370, 145, 'selectChilli');
-            this.winp1.setScale(1.5);
+            
             }
             else if(chooseP1 ==='Bernie'){
             this.winp1 = this.add.image(370, 145, 'selectBernie');
