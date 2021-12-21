@@ -47,7 +47,7 @@ public class MessageController {
 		try {
 			PrintStream flujo;
 			flujo = new PrintStream(new FileOutputStream("mensajes.txt", true));
-			String fullMessage="["+message.getSender()+"]-> "+message.getMsg();
+			String fullMessage="["+message.getSender()+"] "+message.getMsg();
 			flujo.println(fullMessage);
 			flujo.close();
 
