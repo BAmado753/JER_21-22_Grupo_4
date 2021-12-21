@@ -116,8 +116,18 @@ Todas las acciones que se pueden llevar a cabo se activan mediante el teclado ú
     Al iniciar el proyecto lo primero que aparece es esta pantalla que tras cargar todos los assets permite avanzar <br><br>
    ![Pantalla de inicio!](/images/pantalla_inicio.PNG) <br>
     Primera pantalla del juego como tal, que sirve de introducción de la estética del juego <br><br>
-   ![Pantalla de menú!](/images/pantalla_menu.PNG) <br>
-      Esta pantalla es el hub central que permite acceder a a la ruta de pantallas que llevan al juego y pantallas secundarias  <br><br>
+   ![Pantalla de seleccion de inicio!](/images/pantallaSeleccionInicio.png) <br>
+    En esta pantalla se puede elegir entre crear un perfil, seleccionar uno existente o empezar el juego sin uno <br><br>
+   ![Pantalla de creacion de perfil!](/images/pantallaCrearPerfil.png) <br>
+    Si se selecciona crear perfil, se accederá a esta pantalla desde donde se creará un perfil introduciendo un nombre. Posteriormente se pueden ver los datos o ir al menú     principal <br>
+  <br>
+   ![Pantalla de seleccion ver datos!](/images/pantallaVerDatos.png) <br>
+    Aquí se muestran los datos del perfil creado o seleccionado. También se puede modificar el nombre <br><br>
+   ![Pantalla de seleccion de perfil!](/images/pantallaElegirPerfil.png) <br>
+    En esta pantalla se puede seleccionar un perfil existente <br><br>
+   ![Pantalla de menú!](/images/pantallaMenuPrincipal.png) <br>
+      Esta pantalla es el hub central que permite acceder a a la ruta de pantallas que llevan al juego y pantallas secundarias. En esta dase se ha cambiado el botón de ajustes por el botón ver datos, que permite consultar los datos del perfil  <br>
+ <br>
    ![Pantalla de créditos!](/images/pantalla_creditos.PNG) <br>
      Aquí se acreditan todos los assets que se han utilizado en la creación del juego <br><br>
    ![Pantalla de controles!](/images/pantalla_controles.PNG) <br>
@@ -140,9 +150,12 @@ Todas las acciones que se pueden llevar a cabo se activan mediante el teclado ú
    ![Pantalla de escenario1!](/images/pantalla_escenarios.PNG) <br>
      Tras elegir a los personajes, se elige el escenario donde se va a desarrollar la partida <br><br>
 
-   ![Pantalla de escenario1!](/images/pantalla_escenario1.PNG) <br>
-     Esta imagen captura un instánte exacto de una partida. Dependiendo del escenario elegido el mapa mostrado en esta pantalla será uno u otro, y en el se desarrollará la partida <br><br>
-
+   ![Pantalla de escenario1!](/images/pantallaJuego.png) <br>
+     Esta imagen captura un instánte exacto de una partida. Dependiendo del escenario elegido el mapa mostrado en esta pantalla será uno u otro, y en el se desarrollará la partida. Esta pantalla ha sido modificada con respecto a la fase anterior para incluir un botón de pausa <br><br>
+  
+   ![Pantalla de pausa!](/images/pantallaPausa.png) <br>
+     Esta pantalla permite volver al menú principal o volver a la pantalal de juego<br><br>
+   
    ![Pantalla de resultados!](/images/pantalla_resultados.PNG) <br>
       Cuando se acaba el tiempo de juego, se muestra la pantalla de resultados que enseña un podio en el que los jugadores están colocados según la cantidad de gemas que posean. En esta pantalla permite una revancha que redirigiría a la pantalla de elección de personaje, o simplemente se puede salir del juego <br><br>
 
