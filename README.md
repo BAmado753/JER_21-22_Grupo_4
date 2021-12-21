@@ -109,6 +109,17 @@ Todas las acciones que se pueden llevar a cabo se activan mediante el teclado ú
   Este sería las pantallas por las que pasaría el jugador durante su experiencia con el juego.
   
   ![Diagrama de flujo!](/images/DiagramaDeFlujo.png)
+  
+  ### <h2>API REST</h2>
+  Esta sería la implementación del API REST.
+  
+  ![API REST!](/images/APIREST.png)
+  
+  ### <h2>Diagrama de clases</h2>
+  Este sería el diagrama de clases del juego.
+  
+  ![Diagrama de clases!](/images/DiagramaDeClases.png)
+  
 ### <h2>Pantallas</h2>
   En orden de aparición se comentan las pantalla del juego<br>
   <br>
