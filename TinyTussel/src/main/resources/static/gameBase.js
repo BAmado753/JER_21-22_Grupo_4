@@ -85,12 +85,12 @@ class PantallaCarga extends Phaser.Scene{
         //Carga de fondo, título e imagen
         this.load.image('fondoSelecIni', './asset/Fondo.png');
         this.load.image('titleSelIni', './asset/LogoTinyTussle.png');
-		this.load.image('bCrearPerfil', './asset/BotonCrearPerfil.png');
-		this.load.image('bCrearPerfilActivado', './asset/BotonCrearPerfilActivado.png');
-        this.load.image('bElegirPerfil', './asset/BotonElegirPerfil.png');
-		this.load.image('bElegirPerfilActivado', './asset/BotonElegirPerfilActivado.png');
-		this.load.image('bContinuarAnonimo', './asset/BotonContinuarSinPerfil.png');
-		this.load.image('bContinuarAnonimoActivado', './asset/BotonContinuarSinPerfilActivado.png');
+		this.load.image('bCrearPerfil', './asset/botones_api_rest/Crear_perfil.png');
+		this.load.image('bCrearPerfilActivado', './asset/botones_api_rest/Crear_perfil(Activado).png');
+        this.load.image('bElegirPerfil', './asset/botones_api_rest/Elegir_perfil.png');
+		this.load.image('bElegirPerfilActivado', './asset/botones_api_rest/Elegir_perfil(Activado).png');
+		this.load.image('bContinuarAnonimo', './asset/botones_api_rest/Cont_invitado.png');
+		this.load.image('bContinuarAnonimoActivado', './asset/botones_api_rest/Cont_invitado(Activado).png');
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -99,17 +99,18 @@ class PantallaCarga extends Phaser.Scene{
 
         //Carga de fondo, título e imagen
         this.load.image('fondoSelecPerfil', './asset/Fondo.png');
-		this.load.image('bPerfil1', './asset/RecuadroRegistro.png');
-		this.load.image('bPerfil1Activado', './asset/RecuadroRegistroActivado.png');
-        this.load.image('bPerfil2', './asset/RecuadroRegistro.png');
-		this.load.image('bPerfil2Activado', './asset/RecuadroRegistroActivado.png');
-		this.load.image('bPerfil3', './asset/RecuadroRegistro.png');
-		this.load.image('bPerfil3Activado', './asset/RecuadroRegistroActivado.png');
-		this.load.image('bPerfil4', './asset/RecuadroRegistro.png');
-		this.load.image('bPerfil4Activado', './asset/RecuadroRegistroActivado.png');
+		this.load.image('bPerfil1', './asset/botones_api_rest/Boton_vacio.png');
+		this.load.image('bPerfil1Activado', './asset/botones_api_rest/Boton_vacio(Activado).png');
+        this.load.image('bPerfil2', './asset/botones_api_rest/Boton_vacio.png');
+		this.load.image('bPerfil2Activado', './asset/botones_api_rest/Boton_vacio(Activado).png');
+		this.load.image('bPerfil3', './asset/botones_api_rest/Boton_vacio.png');
+		this.load.image('bPerfil3Activado', './asset/botones_api_rest/Boton_vacio(Activado).png');
+		this.load.image('bPerfil4', './asset/botones_api_rest/Boton_vacio.png');
+		this.load.image('bPerfil4Activado', './asset/botones_api_rest/Boton_vacio(Activado).png');
 		this.load.image('bcont3', './asset/bContinuar.png');
         this.load.image('bcont3Ativado', './asset/bContinuarActivado.png');
-
+		this.load.image('bBorrarPerfil', './asset/botones_api_rest/Borrar_perfil.png');
+        this.load.image('bBorrarPerfilActivado', './asset/botones_api_rest/Borrar_perfil(Activado).png');
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -118,8 +119,8 @@ class PantallaCarga extends Phaser.Scene{
 
         //Carga de fondo, título e imagen
         this.load.image('fondoReg', './asset/Fondo.png');
-        this.load.image('bcont2', './asset/bContinuar.png');
-        this.load.image('bcont2Ativado', './asset/bContinuarActivado.png');
+        this.load.image('bcont2', './asset/botones_api_rest/Guardar.png');
+        this.load.image('bcont2Ativado', './asset/botones_api_rest/Guardar(Activado).png');
         this.load.image('bVerDatos', './asset/BotonVerDatos.png');
         this.load.image('bVerDatosActivado', './asset/BotonVerDatosActivado.png');
 
@@ -131,9 +132,9 @@ class PantallaCarga extends Phaser.Scene{
 
         //Carga de fondo, título e imagen
         this.load.image('fondoDatos', './asset/Fondo.png');
-        this.load.image('nombre', './asset/Nombre.png');
-        this.load.image('score', './asset/Score.png');
-        this.load.image('PerFavorito', './asset/PersonajeFavorito.png');
+        this.load.image('nombre', './asset/botones_api_rest/Nickname.png');
+        this.load.image('score', './asset/botones_api_rest/Puntuacion_max.png');
+        this.load.image('PerFavorito', './asset/botones_api_rest/Personaje_usado.png');
         this.load.image('bModificar', './asset/BotonModificar.png');
         this.load.image('bModificarActivado', './asset/BotonModificarActivado.png');
 
@@ -152,8 +153,8 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('bControles', './asset/Controles.png');
         this.load.image('bCreditosActivado', './asset/CreditosActivado.png');
         this.load.image('bCreditos', './asset/Creditos.png');
-        this.load.image('bVerDatos2', './asset/BotonVerDatos.png');
-        this.load.image('bVerDatosActivado2', './asset/BotonVerDatosActivado.png');
+        this.load.image('bVerDatos2', './asset/botones_api_rest/Perfil.png');
+        this.load.image('bVerDatosActivado2', './asset/botones_api_rest/Perfi(Activado)l.png');
         this.load.image('backActivo', './asset/AtrasActivado.png');
         this.load.image('back', './asset/Atras.png');
         this.load.image('ayudaActivado', './asset/AyudaActivado.png');
@@ -876,7 +877,7 @@ getProfileName(3);
         	this.continuarSP.setScale(0.3);
 
         	this.continuarSP.on('pointerover', () => {
-            	this.continuarSP = this.add.image(500, 500, 'bcont3Ativado');
+            	this.continuarSP = this.add.image(500, 500, 'bcont3Activado');
             	this.continuarSP.setScale(0.3);
         	});
         
@@ -886,11 +887,28 @@ getProfileName(3);
         	});
         
         	this.continuarSP.on('pointerdown', () => {
-	$("#perfil0").hide();
+		$("#perfil0").hide();
 		$("#perfil1").hide();
 		$("#perfil2").hide();
 		$("#perfil3").hide();
      			this.scene.start('MenuPrincipal');
+        	});
+
+		this.borrarSP = this.add.image(300, 500, 'bBorrarPerfil').setInteractive();
+        	this.borrarSP.setScale(0.3);
+
+        	this.borrarSP.on('pointerover', () => {
+            	this.borrarSP = this.add.image(300, 500, 'bBorrarPerfilActivado');
+            	this.borrarSP.setScale(0.3);
+        	});
+        
+        	this.borrarSP.on('pointerout', () => {
+            	this.borrarSP = this.add.image(300, 500, 'bBorrarPerfil');
+            	this.borrarSP.setScale(0.3);
+        	});
+        
+        	this.borrarSP.on('pointerdown', () => {
+		borrarPerfil(id);
         	});
 		}
         }
@@ -1344,7 +1362,7 @@ class MenuPrincipal extends Phaser.Scene{
         this.datos2.setScale(0.3);
 		
 		this.datos2.on('pointerover', () => {
-            this.datos2 = this.add.image(550, 450, 'bVerDatosActivado');
+            this.datos2 = this.add.image(550, 450, 'bVerDatosActivado2');
             this.datos2.setScale(0.3);
         });
         
@@ -6820,6 +6838,36 @@ function usos_Wasabi(){
 				});
             });
 	}
+}
+function borrarPerfil(id_p){
+	$(document).ready(function () {
+
+                $.ajax({
+
+                    type: "DELETE",
+                    url: "http://"+url+":8080/player/"+id_p,
+                    dataType: "json"
+
+                }).fail(function () {
+			//console.log("error get lista jugadores");
+					console.log("No existe el perfil que quieres borrar")
+
+                    fallosServidor += 1;
+                    if (fallosServidor > 2) {
+
+                        errorServidor = "Servidor desconectado";
+
+					//console.log(errorServidor);
+
+                    }
+                }).done(function (data) {
+                    errorServidor = "Servidor conectado";
+                    fallosServidor = 0;
+console.log("perfil borrado correctamente");
+
+                })
+
+            });
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
