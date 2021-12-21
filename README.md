@@ -221,3 +221,28 @@ https://opengameart.org/content/8-bit-sound-effect-pack-vol-001
 Menos el efecto de sonido de la gema que es de Wobblebox<br>
 wobbleboxx.com
  
+### <h2>Instrucciones </h2>
+  1.Instalar Eclipse IDE<br>
+  <br>
+  
+  2.Seleccionar Eclipse IDE for Enterprise Java and Web Developments<br>
+  <br>
+  
+  3.Abrir Eclipse en el caso de que no se haya abierto tras la instalación<br>
+  <br>
+  
+  4.Ir a File --> Import --> Existing Maven Projects<br>
+  <br>
+  
+  5.Poner la ruta donde esté guardada la carpeta descomprimida del juego (TinyTussel)<br>
+  <br>
+  
+  6.Abrir la carpeta del explorador de archivos y seleccionar TinyTusselApplication.java<br>
+  <br>
+  
+  7.Hacer click derecho sobre el código --> Run As --> Java Application<br>
+  <br>
+  
+  8.Una vez se haya ejecutado la parte del servidor, abrir el navegador Google Chrome y poner en la barra de búsqueda localhost:8080<br>
+  <br>
+  
