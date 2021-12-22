@@ -40,10 +40,10 @@ public class PlayerController {
 	
 	@PostMapping("/player")
 	public int addPlayer(@RequestBody Player player) {
-		player.setId(id);
+		//player.setId(id);
 		//playerList.add(player);
-		id++;
-			ObjectMapper mapper= new ObjectMapper();
+		System.out.println("en add player: "+ player.getId());
+		ObjectMapper mapper= new ObjectMapper();
 			try {
 				mapper.writeValue(new File("player"+player.getId()+".json"), player);
 			} catch (StreamWriteException e) {

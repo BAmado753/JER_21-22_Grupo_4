@@ -1,5 +1,15 @@
 var url="localhost"
 
+
+
+
+
+///////////////////////////////////////////
+var player_profile;
+var profileExists0; 
+	var profileExists1;
+	var profileExists2; 
+	var profileExists3; 
 /////////////////////////////////////////Pantalla de Carga//////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PantallaCarga extends Phaser.Scene{
@@ -522,9 +532,18 @@ class PantallaCarga extends Phaser.Scene{
 
 
     create(){
-        
+        getProfileName(0);
+getProfileName(1);
+getProfileName(2);
+getProfileName(3); 
         this.scene.start('Inicio');
-        
+        $("#send").click(function () {
+	if(id!=null){
+			sendMessage();
+		}
+			
+
+        });
     }
 }
 
@@ -576,63 +595,7 @@ class PantallaDeInicio extends Phaser.Scene{
 
     update(){
         if(Phaser.Input.Keyboard.JustDown(enterKey)){
-	           /* $("#nombre").hide();
-
-			 $(document).ready(function () {
-
-
-                var data = {
-
-                    name: $("#nombre").val(),
-					id:0,
-					maxPuntuacion:0,
-					 favChara:"none",
-	  				usosChilli:0,
-	  				usosWasabi:0,
-	  				usosBernie:0,
-                };
-                $.ajax({
-                    type: "POST",
-                    url: "http://localhost:8080/player",
-                    data: JSON.stringify(data),
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    dataType:"json"
-
-
-                }).done(function (data) {
-                    id=data;
-                }).fail(function(data, textStatus){
-					console.log(textStatus);
-				});
-            });
-//Cambiar el nombre ded id 0
-	$(document).ready(function () {
-
-
-                var data = {
-
-                    name: $("#nombre").val(),
-					
-                };
-                $.ajax({
-	
-                    type: "PUT",
-                    url: "http://localhost:8080/player/name/"+0,
-                    data: JSON.stringify(data),
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    dataType:"text"
-
-
-                }).done(function (data) {
-	console.log("nuevo nombre de id0 es "+data);
-                }).fail(function(data, textStatus){
-					console.log(textStatus);
-				});
-            });*/
+	           
             this.scene.start('SelecTipoInicio');
             bg_music_initial_screen.setLoop(false);
             bg_music_initial_screen.stop();
@@ -737,8 +700,6 @@ class SelecTipoInicio extends Phaser.Scene{
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//Variables Menú Principal
-var player_profile;
 var id;
 var pj_fav_profile;
 var puntuacion_profile;
@@ -866,6 +827,10 @@ getProfileName(3);
         });
         
         this.atras3.on('pointerdown', () => {
+	$("#perfil0").hide();
+		$("#perfil1").hide();
+		$("#perfil2").hide();
+		$("#perfil3").hide();
             this.scene.start('SelecTipoInicio');
         });
 
@@ -909,6 +874,11 @@ getProfileName(3);
         
         	this.borrarSP.on('pointerdown', () => {
 		borrarPerfil(id);
+		getProfileName(0);
+getProfileName(1);
+getProfileName(2);
+getProfileName(3);    
+registroActivado=0;
         	});
 		}
         }
@@ -939,6 +909,7 @@ class Registro extends Phaser.Scene{
 
     create(){
 
+
              $("#nombre").show();
 
 
@@ -948,26 +919,52 @@ class Registro extends Phaser.Scene{
         
 
 
-        this.continuar = this.add.image(500, 500, 'bcont2').setInteractive();
+        this.continuar = this.add.image(400, 500, 'bcont2').setInteractive();
         this.continuar.setScale(0.3);
 
         this.continuar.on('pointerover', () => {
-            this.continuar = this.add.image(500, 500, 'bcont2Ativado');
+            this.continuar = this.add.image(400, 500, 'bcont2Ativado');
             this.continuar.setScale(0.3);
         });
         
         this.continuar.on('pointerout', () => {
-            this.continuar = this.add.image(500, 500, 'bcont2');
+            this.continuar = this.add.image(400, 500, 'bcont2');
             this.continuar.setScale(0.3);
         });
         
         this.continuar.on('pointerdown', () => {
 	$("#nombre").hide();
-	createProfile();
+	
+	if(profileExists0==false){
+			createProfile(0);
+			console.log("0json no existe");
+id=0;
+	}else if(profileExists1==false){
+				console.log("1json no existe");
+
+					createProfile(1);
+					id=1;
+
+	}else if(profileExists2==false){
+					console.log("2json no existe");
+
+					createProfile(2);
+					id=2;
+
+	}else if(profileExists3==false){
+					console.log("3json no existe");
+
+					createProfile(3);
+					id=3;
+
+	}else{
+		     this.scene.start('SelecPerfil');
+	}
+	   console.log(id);
      this.scene.start('MenuPrincipal');
         });
 
-
+/*
         this.datos = this.add.image(300, 500, 'bVerDatos').setInteractive();
         this.datos.setScale(0.3);
 
@@ -985,7 +982,7 @@ class Registro extends Phaser.Scene{
 	$("#nombre").hide();
 createProfile();
             this.scene.start('Datos');
-        });
+        });*/
 
 
         this.atras8 = this.add.image(75, 50, 'back').setInteractive();
@@ -1049,16 +1046,16 @@ class Datos extends Phaser.Scene{
 
         this.titNombre= this.add.image(400, 100, 'nombre');
         this.titNombre.setScale(0.3);
-		player_text=	this.add.text(this.titNombre.x, this.titNombre.y+20, 'Cargando', { font: '16px Courier', fill: '#ffffff' });
+		player_text=	this.add.text(300, this.titNombre.y+20, 'Cargando', { font: '32px Courier', fill: '#ffffff' });
 
         this.titScore= this.add.image(400, 250, 'score');
         this.titScore.setScale(0.3);
-		titScore_text=	this.add.text(this.titScore.x, this.titScore.y+20, 'Cargando', { font: '16px Courier', fill: '#ffffff' });
+		titScore_text=	this.add.text(400, this.titScore.y+20, 'Cargando', { font: '32px Courier', fill: '#ffffff' });
 
 
         this.titPersonaje= this.add.image(400, 450, 'PerFavorito');
         this.titPersonaje.setScale(0.3);
-		titPersonaje_text=	this.add.text(this.titPersonaje.x, this.titPersonaje.y+20, 'Cargando', { font: '16px Courier', fill: '#ffffff' });
+		titPersonaje_text=	this.add.text(350, this.titPersonaje.y+20, 'Cargando', { font: '32px Courier', fill: '#ffffff' });
 		
 		/*usosC_text=	this.add.text(this.titPersonaje.x, this.titPersonaje.y+40, 'Cargando', { font: '16px Courier', fill: '#ffffff' });
 		usos_Chilli();*/
@@ -1280,16 +1277,16 @@ class MenuPrincipal extends Phaser.Scene{
 
     create(){
 		//Chat
-		getProfileName(id);
+		if(id!=null){
+			getProfileName(id);
 		getPuntuacion(id);
+		}
+		
 		updateMessage();
 		$("#chat").show();
 		$("#message").show();
 		$("#send").show();
-		$("#send").click(function () {
-			sendMessage();
-
-        });
+		
 
         //Fondo del menú principal
         this.fondoMP= this.add.image(400, 300, 'fondoMenuPrincipal');
@@ -2606,7 +2603,7 @@ class PantallaEscenario1 extends Phaser.Scene{
     controlIimedItemRespawn=0;
 	controlIimedWeaponRespawn=0;
     text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(3000, onCountDownEvent, [], this); //75000 tiempoo oficial
+    timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this); //75000 tiempoo oficial
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
@@ -2836,7 +2833,7 @@ if(player_profile!==null){
 }
 	player1.life = 20;
 	player1.ammo = 10;
-	player1.gemsOwned = 3;
+	player1.gemsOwned = 0;
 	player1.direction='right';
 	player1.hitted=false;
 	player1.hasPistol=false;
@@ -2853,7 +2850,7 @@ if(player_profile!==null){
 	player1.LastTimeSpecial=0;
 	player1.canSpecial=true;
     player1.setCollideWorldBounds(true);
-player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px Courier', fill: '#ffffff' });
+player1_name=	this.add.text(player1.body.center.x, player1.y+20, player1.name, { font: '16px Courier', fill: '#ffffff' });
     //Player 2
 	respawn_P2.x=400;
 	respawn_P2.y=450;
@@ -2862,7 +2859,7 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
 	player2.tag=2;
 	player2.life = 20;
 	player2.ammo = 10;
-	player2.gemsOwned = 1;
+	player2.gemsOwned = 0;
 	player2.direction='right';
 	player2.hitted=false;
 	player2.hasPistol=false;
@@ -3412,60 +3409,7 @@ blueSpecialAttack_Explosion.anims.create({
     }//create
 
   update(){
-	//AJAX	
-	/*$(document).ready(function () {
-
-                $.ajax({
-
-                    type: "GET",
-                    url: "http://localhost:8080/player",
-                    dataType: "json"
-
-                }).fail(function () {
-			console.log("get lista jugadores");
-                    fallosServidor += 1;
-                    if (fallosServidor > 2) {
-
-                        errorServidor = "Servidor desconectado";
-					console.log(errorServidor);
-                    }
-                }).done(function (data) {
-
-                    errorServidor = " ";
-                    fallosServidor = 0;
-                    listaJugadores = JSON.stringify(data);
-                })
-
-            });*/
-		/*if(id!=null){
-
-            $(document).ready(function () {
-
-                $.ajax({
-
-                    type: "GET",
-                    url: "http://localhost:8080/player/name/"+id,
-                    dataType: "text"
-
-                }).fail(function () {
-			//console.log("error get lista jugadores");
-
-                    fallosServidor += 1;
-                    if (fallosServidor > 2) {
-
-                        errorServidor = "Servidor desconectado";
-					//console.log(errorServidor);
-
-                    }
-                }).done(function (data) {
-                    errorServidor = "Servidor conectado";
-                    fallosServidor = 0;
-                    player1.name =data;
-                })
-
-            });
-
-        }*/
+	
 	///////////
 	player1_name.x=player1.x-20;
 	player1_name.y=player1.y-30;
@@ -6554,7 +6498,7 @@ updatePuntuacion();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////FUNCIONES PARA API REST////////////////////////////////////////////
-function createProfile(){
+function createProfile(id_p_){
 	
 		$(document).ready(function () {
 
@@ -6562,7 +6506,7 @@ function createProfile(){
                 var data = {
 
                     name: $("#nombre").val(),
-					id:0,
+					id:id_p_,
 					maxPuntuacion:0,
 					 favChara:"none",
 	  				usosChilli:0,
@@ -6581,6 +6525,10 @@ function createProfile(){
 
                 }).done(function (data) {
                     id=data;
+					if(id_p===0){ profileExists0=true;}
+					if(id_p===1){profileExists1=true; }
+					if(id_p===2){ profileExists2=true;}
+					if(id_p===3){ profileExists3=true;}
                 }).fail(function(data, textStatus){
 					console.log(textStatus);
 				});
@@ -6721,19 +6669,24 @@ function getProfileName(id_p){
                 }).fail(function () {
 			//console.log("error get lista jugadores");
 					document.getElementById("perfil"+tt).innerHTML="Vacío";
-
+					if(id_p===0){ profileExists0=false;}
+					if(id_p===1){profileExists1=false; }
+					if(id_p===2){ profileExists2=false;}
+					if(id_p===3){ profileExists3=false;}					
                     fallosServidor += 1;
                     if (fallosServidor > 2) {
 
                         errorServidor = "Servidor desconectado";
-
 					//console.log(errorServidor);
 
                     }
                 }).done(function (data) {
                     errorServidor = "Servidor conectado";
                     fallosServidor = 0;
-
+					if(id_p===0){ profileExists0=true;}
+					if(id_p===1){profileExists1=true; }
+					if(id_p===2){ profileExists2=true;}
+					if(id_p===3){ profileExists3=true;}	
                     player_profile=data;
 					document.getElementById("perfil"+tt).innerHTML=data;
 
@@ -6755,7 +6708,7 @@ function usos_Chilli(){
                 $.ajax({
 	
                     type: "PUT",
-                    url: "http://localhost:8080/player/usoschilli/"+id,
+                    url: "http://"+url+":8080/player/usoschilli/"+id,
                     data: JSON.stringify(data),
                     headers: {
                         "Content-Type": "application/json"
@@ -6788,7 +6741,7 @@ function usos_Bernie(){
                 $.ajax({
 	
                     type: "PUT",
-                    url: "http://localhost:8080/player/usosbernie/"+id,
+                    url: "http://"+url+":8080/player/usosbernie/"+id,
                     data: JSON.stringify(data),
                     headers: {
                         "Content-Type": "application/json"
@@ -6821,7 +6774,7 @@ function usos_Wasabi(){
                 $.ajax({
 	
                     type: "PUT",
-                    url: "http://localhost:8080/player/usoswasabi/"+id,
+                    url: "http://"+url+":8080/player/usoswasabi/"+id,
                     data: JSON.stringify(data),
                     headers: {
                         "Content-Type": "application/json"
@@ -6863,11 +6816,26 @@ function borrarPerfil(id_p){
                 }).done(function (data) {
                     errorServidor = "Servidor conectado";
                     fallosServidor = 0;
+if(id_p===0){ profileExists0=false;}
+					if(id_p===1){profileExists1=false; }
+					if(id_p===2){ profileExists2=false;}
+					if(id_p===3){ profileExists3=false;}
 console.log("perfil borrado correctamente");
 
                 })
 
             });
+}
+function checkFileExist(urlToFile) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', urlToFile, false);
+    xhr.send();
+     
+    if (xhr.status == "404") {
+        return false;
+    } else {
+        return true;
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
