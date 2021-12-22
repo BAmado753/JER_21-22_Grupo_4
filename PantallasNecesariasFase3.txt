@@ -1,4 +1,0 @@
-Inicio-> Crear o elegir perfil o Continuar anónimo (si es crear perfil saldría registro, si es elegir seria otra pantalla (poner recuadros --> 4), y
- continuar ir al menú principal)
-
-Menú principal cambiar ajustes por ver datos (que vuelva a la pantalla de ver datos)
