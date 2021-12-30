@@ -1,15 +1,25 @@
-var url="localhost"
+var url="192.168.1.45"
 
 
 
 
 
 ///////////////////////////////////////////
+////Varibles de API REST
 var player_profile;
 var profileExists0; 
 	var profileExists1;
 	var profileExists2; 
 	var profileExists3; 
+	
+//Variables WebSockets
+var connection = new WebSocket('ws://'+url+':8080/online');
+
+//Variables que reciben llamadas de websocket
+var online=false;
+	
+
+	
 /////////////////////////////////////////Pantalla de Carga//////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PantallaCarga extends Phaser.Scene{
@@ -1817,8 +1827,16 @@ class PantallaModoJuego extends Phaser.Scene{
         this.texLinea = this.add.image(600, 400, 'textoLinea');
         this.texLinea.setScale(0.5);
 
-        this.botLinea = this.add.image(600, 500, 'bJugarLinea');
+        this.botLinea = this.add.image(600, 500, 'bJugarLinea').setInteractive();
         this.botLinea.setScale(0.3);
+ 		this.botLinea.on('pointerdown', () => {
+	  		connection.send(JSON.stringify("Estableciendo conexion"));
+        this.scene.start('NumeroJugadores');
+        });
+
+
+
+
 
         this.botLocal = this.add.image(200, 500, 'bJugarLocal').setInteractive();
         this.botLocal.setScale(0.3);
@@ -1840,7 +1858,7 @@ class PantallaModoJuego extends Phaser.Scene{
     }
 
     update(){
-
+		
     }
 }
 
@@ -1938,7 +1956,21 @@ class PantallaNumeroJugadores extends Phaser.Scene{
     }
 
     update(){
+connection.onmessage = function(msg) {
+	  online=true;
+//Imprime el mensaje entero largo
+console.log(msg);
+//imprime solo la data del mensaje que es el cuerpo del mensaje que se manda send
+console.log(JSON.parse(msg.data));
+	}
 
+	
+	connection.onerror = function(e) {
+	  console.log("WS error al establecer conexion online");
+}
+	connection.onclose = function() {
+	  console.log("WS Conexión cerrada");
+	}
     }
 }
 

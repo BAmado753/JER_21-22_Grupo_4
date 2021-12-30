@@ -3,10 +3,33 @@ package es.stormedia.TinyTussel;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 @SpringBootApplication
-public class TinyTusselApplication {
-
+@EnableWebSocket
+public class TinyTusselApplication implements WebSocketConfigurer {
+	
+	//WEBSOCKETS
+	@Override
+	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+		// TODO Auto-generated method stub
+		registry.addHandler(onlineStateHandler(), "/online")
+		.setAllowedOrigins("*");
+	}
+	
+	
+	@Bean
+	public OnlineStateHandler onlineStateHandler() {
+		return new OnlineStateHandler();
+	}
+	
+	
+	
+	
+	
+	//API REST
 	@Bean
 	public Player player() {
 		return new Player();
@@ -15,5 +38,7 @@ public class TinyTusselApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TinyTusselApplication.class, args);
 	}
+
+	
 
 }
