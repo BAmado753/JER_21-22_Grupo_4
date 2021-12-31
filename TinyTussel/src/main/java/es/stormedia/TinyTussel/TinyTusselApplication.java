@@ -17,6 +17,8 @@ public class TinyTusselApplication implements WebSocketConfigurer {
 		// TODO Auto-generated method stub
 		registry.addHandler(onlineStateHandler(), "/online")
 		.setAllowedOrigins("*");
+		registry.addHandler(selectPlayerHandler(), "/selectPlayer")
+		.setAllowedOrigins("*");
 	}
 	
 	
@@ -25,7 +27,10 @@ public class TinyTusselApplication implements WebSocketConfigurer {
 		return new OnlineStateHandler();
 	}
 	
-	
+	@Bean
+	public SelectPlayerHandler selectPlayerHandler() {
+		return new SelectPlayerHandler();
+	}
 	
 	
 	

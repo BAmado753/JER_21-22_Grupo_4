@@ -14,12 +14,28 @@ var profileExists0;
 	
 //Variables WebSockets
 var connection = new WebSocket('ws://'+url+':8080/online');
+var selectPlayer = new WebSocket('ws://'+url+':8080/selectPlayer');
 
 //Variables que reciben llamadas de websocket
 var online=false;
-	
+var pjPropioSelec=false;
+
+//Listeners globales de websokects
+connection.onmessage = function(msg) {
+	  online=true;
+//Imprime el mensaje entero largo
+console.log(msg);
+//imprime solo la data del mensaje que es el cuerpo del mensaje que se manda send
+console.log(JSON.parse(msg.data));
+	}
 
 	
+	connection.onerror = function(e) {
+	  console.log("WS error al establecer conexion online");
+}
+	connection.onclose = function() {
+	  console.log("WS Conexión cerrada");
+	}
 /////////////////////////////////////////Pantalla de Carga//////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PantallaCarga extends Phaser.Scene{
@@ -1956,21 +1972,7 @@ class PantallaNumeroJugadores extends Phaser.Scene{
     }
 
     update(){
-connection.onmessage = function(msg) {
-	  online=true;
-//Imprime el mensaje entero largo
-console.log(msg);
-//imprime solo la data del mensaje que es el cuerpo del mensaje que se manda send
-console.log(JSON.parse(msg.data));
-	}
 
-	
-	connection.onerror = function(e) {
-	  console.log("WS error al establecer conexion online");
-}
-	connection.onclose = function() {
-	  console.log("WS Conexión cerrada");
-	}
     }
 }
 
@@ -1982,7 +1984,7 @@ console.log(JSON.parse(msg.data));
 ////Variables Selección de personajes//////
 var chooseP1;
 var chooseP2;
-
+var scene4update;
 
 //////////////////////////////////////Pantalla de Selección de Personajes///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2000,7 +2002,7 @@ class MenuPersonajes extends Phaser.Scene{
 
 
     create(){
-
+scene4update=this;
        chooseP1='null';
 		chooseP2='null';
 		if(!bg_music_selection_screen.isPlaying){
@@ -2081,7 +2083,12 @@ class MenuPersonajes extends Phaser.Scene{
 
 
         this.per1.on('pointerdown', () => {
+	if(!pjPropioSelec){
             if(chooseP1==='null'&&chooseP2==='null'){
+				if(online){
+					selectPlayer.send(JSON.stringify("Chilli-P1"));
+					pjPropioSelec=true;
+				}
 				chooseP1='Chilli';
 				this.per1.destroy();
                 this.texPer1.destroy();
@@ -2089,8 +2096,14 @@ class MenuPersonajes extends Phaser.Scene{
                 this.jug1.setScale(0.4);
                 this.per1 = this.add.image(150, 400, 'selectChilli');
                 this.per1.setScale(1.6);
+				
 			}
 			if(chooseP2==='null'&&chooseP1!=='Chilli'){
+				if(online){
+					selectPlayer.send(JSON.stringify("Chilli-P2"));
+										pjPropioSelec=true;
+
+				}
 				chooseP2='Chilli';
                 this.per1.destroy();
                 this.texPer1.destroy();
@@ -2116,6 +2129,8 @@ class MenuPersonajes extends Phaser.Scene{
                 this.bcont1.on('pointerdown', () => {
                     this.scene.start('MenuEscenarios');
                 });
+			
+			}
 			}
         });
     
@@ -2149,7 +2164,13 @@ class MenuPersonajes extends Phaser.Scene{
         });
 
         this.per2.on('pointerdown', () => {
+	if(!pjPropioSelec){
             if(chooseP1==='null'&&chooseP2==='null'){
+				if(online){
+					selectPlayer.send(JSON.stringify("Bernie-P1"));
+					pjPropioSelec=true;
+
+				}
 				chooseP1='Bernie';
                 this.per2.destroy();
                 this.texPer2.destroy()
@@ -2158,8 +2179,14 @@ class MenuPersonajes extends Phaser.Scene{
                 this.per2 = this.add.image(400, 400, 'selectBernie');
                 this.per2.setScale(1.6);
 				
+				
 			}
 			if(chooseP2==='null'&&chooseP1!=='Bernie'){
+				if(online){
+					selectPlayer.send(JSON.stringify("Bernie-P2"));
+										pjPropioSelec=true;
+
+				}
 				chooseP2='Bernie';
                 this.per2.destroy();
                 this.texPer2.destroy();
@@ -2186,7 +2213,9 @@ class MenuPersonajes extends Phaser.Scene{
                 this.bcont1.on('pointerdown', () => {
                     this.scene.start('MenuEscenarios');
                 });
-		  	}
+		  		
+			}
+			}
          });
 
         //Wasabi
@@ -2216,7 +2245,13 @@ class MenuPersonajes extends Phaser.Scene{
         });
 
         this.per3.on('pointerdown', () => {
+	if(!pjPropioSelec){
             if(chooseP1==='null'&&chooseP2==='null'){
+				if(online){
+					selectPlayer.send(JSON.stringify("Wasabi-P1"));
+					pjPropioSelec=true;
+
+				}
 				chooseP1='Wasabi';
                 this.per3.destroy();
                 this.texPer3.destroy();
@@ -2225,8 +2260,14 @@ class MenuPersonajes extends Phaser.Scene{
                 this.per3 = this.add.image(650, 400, 'selectWasabi');
                 this.per3.setScale(1.6);
 				
+			
 			}
 			if(chooseP2==='null'&&chooseP1!=='Wasabi'){
+				if(online){
+					selectPlayer.send(JSON.stringify("Wasabi-P2"));
+										pjPropioSelec=true;
+
+				}
 				chooseP2='Wasabi';
                 this.per3.destroy();
                 this.texPer3.destroy();
@@ -2252,10 +2293,129 @@ class MenuPersonajes extends Phaser.Scene{
                 this.bcont1.on('pointerdown', () => {
                     this.scene.start('MenuEscenarios');
                 });
+			
+			}
 			}
         });
     }
+	update(){
+		selectPlayer.onmessage = function(msg) {
+			console.log(JSON.parse(msg.data));
+			if(JSON.parse(msg.data)==='Chilli-P1'){
+				chooseP1='Chilli';
+				scene4update.per1.destroy();
+               // scene4update.texPer1.destroy();
 
+                scene4update.jug1 = scene4update.add.image(150, 400, 'jugador1');
+                scene4update.jug1.setScale(0.4);
+                scene4update.per1 = scene4update.add.image(150, 400, 'selectChilli');
+                scene4update.per1.setScale(1.6);
+			}
+			if(JSON.parse(msg.data)==='Chilli-P2'){
+				chooseP2='Chilli';
+                scene4update.per1.destroy();
+               // scene4update.texPer1.destroy();
+                scene4update.jug2 = scene4update.add.image(150, 400, 'jugador2');
+                scene4update.jug2.setScale(0.4);
+                scene4update.per1 = scene4update.add.image(150, 400, 'selectChilli');
+                scene4update.per1.setScale(1.6);
+				
+                //Botón continuar
+                scene4update.bcont1=scene4update.add.image(400, 550, 'BContinuar1').setInteractive();
+                scene4update.bcont1.setScale(0.3);
+
+                scene4update.bcont1.on('pointerover', () => {
+                    scene4update.bcont1 = scene4update.add.image(400, 550, 'BContinuar1Activado');
+                    scene4update.bcont1.setScale(0.3);
+                });
+        
+                scene4update.bcont1.on('pointerout', () => {
+                    scene4update.bcont1 = scene4update.add.image(400, 550, 'BContinuar1');
+                    scene4update.bcont1.setScale(0.3);
+                });
+        
+                scene4update.bcont1.on('pointerdown', () => {
+                    scene4update.scene.start('MenuEscenarios');
+                });
+			}
+			if(JSON.parse(msg.data)==="Bernie-P1"){
+				chooseP1='Bernie';
+                scene4update.per2.destroy();
+                //scene4update.texPer2.destroy()
+                scene4update.jug1 = scene4update.add.image(400, 400, 'jugador1');
+                scene4update.jug1.setScale(0.4);
+                scene4update.per2 = scene4update.add.image(400, 400, 'selectBernie');
+                scene4update.per2.setScale(1.6);
+			}
+			if(JSON.parse(msg.data)==="Bernie-P2"){
+				chooseP2='Bernie';
+                scene4update.per2.destroy();
+               // scene4update.texPer2.destroy();
+                scene4update.jug2 = scene4update.add.image(400, 400, 'jugador2');
+                scene4update.jug2.setScale(0.4);
+                scene4update.per2 = scene4update.add.image(400, 400, 'selectBernie');
+                scene4update.per2.setScale(1.6);
+				
+
+                //Botón continuar
+                scene4update.bcont1=scene4update.add.image(400, 550, 'BContinuar1').setInteractive();
+                scene4update.bcont1.setScale(0.3);
+
+                scene4update.bcont1.on('pointerover', () => {
+                    scene4update.bcont1 = scene4update.add.image(400, 550, 'BContinuar1Activado');
+                    scene4update.bcont1.setScale(0.3);
+                });
+        
+                scene4update.bcont1.on('pointerout', () => {
+                    scene4update.bcont1 = scene4update.add.image(400, 550, 'BContinuar1');
+                    scene4update.bcont1.setScale(0.3);
+                });
+        
+                scene4update.bcont1.on('pointerdown', () => {
+                    scene4update.scene.start('MenuEscenarios');
+                });
+			}
+			if(JSON.parse(msg.data)==="Wasabi-P1"){
+				chooseP1='Wasabi';
+                scene4update.per3.destroy();
+               // scene4update.texPer3.destroy();
+                scene4update.jug1 = scene4update.add.image(650, 400, 'jugador1');
+                scene4update.jug1.setScale(0.4);
+                scene4update.per3 = scene4update.add.image(650, 400, 'selectWasabi');
+                scene4update.per3.setScale(1.6);
+			}
+			if(JSON.parse(msg.data)==="Wasabi-P2"){
+				chooseP2='Wasabi';
+                scene4update.per3.destroy();
+                //scene4update.texPer3.destroy();
+                scene4update.jug2 = scene4update.add.image(650, 400, 'jugador2');
+                scene4update.jug2.setScale(0.4);
+                scene4update.per3 = scene4update.add.image(650, 400, 'selectWasabi');
+                scene4update.per3.setScale(1.6);
+				
+                //Botón continuar
+                scene4update.bcont1=scene4update.add.image(400, 550, 'BContinuar1').setInteractive();
+                scene4update.bcont1.setScale(0.3);
+
+                scene4update.bcont1.on('pointerover', () => {
+                    scene4update.bcont1 = scene4update.add.image(400, 550, 'BContinuar1Activado');
+                    scene4update.bcont1.setScale(0.3);
+                });
+        
+                scene4update.bcont1.on('pointerout', () => {
+                    scene4update.bcont1 = scene4update.add.image(400, 550, 'BContinuar1');
+                    scene4update.bcont1.setScale(0.3);
+                });
+        
+                scene4update.bcont1.on('pointerdown', () => {
+                    scene4update.scene.start('MenuEscenarios');
+                });
+			}
+console.log("chooseP1: "+chooseP1);
+console.log("chooseP2: "+chooseP2);
+
+	}
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
