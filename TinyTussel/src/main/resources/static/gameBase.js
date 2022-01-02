@@ -15,10 +15,15 @@ var profileExists0;
 //Variables WebSockets
 var connection = new WebSocket('ws://'+url+':8080/online');
 var selectPlayer = new WebSocket('ws://'+url+':8080/selectPlayer');
+var movePlayer = new WebSocket('ws://'+url+':8080/movePlayer');
 
 //Variables que reciben llamadas de websocket
 var online=false;
 var pjPropioSelec=false;
+var inputLeft=false;
+var inputRight=false;
+var inputDown=false;
+var inputUp=false;
 
 //Listeners globales de websokects
 connection.onmessage = function(msg) {
@@ -3287,6 +3292,7 @@ player1_name=	this.add.text(player1.body.center.x, player1.y+20, player1.name, {
     		death: new DeathStateP2(),
     		invisible: new InvisibleStateP2(),
           }, [this, player2]);
+
     
 blueSpecialAttack_Explosion=this.add.sprite(0,0,'round_explosion_0');
 blueSpecialAttack_Explosion.DelayTimer=0;
@@ -3601,6 +3607,30 @@ blueSpecialAttack_Explosion.anims.create({
     }//create
 
   update(){
+	//Websockets
+	if(online){
+		movePlayer.onmessage = function(msg) {
+		console.log(JSON.parse(msg.data));
+		if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+		if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+		if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;}
+
+	console.log(inputLeft);
+
+	}
+	if(input_A.isDown){
+					movePlayer.send(JSON.stringify("left"));
+	}
+	if(input_D.isDown){
+				movePlayer.send(JSON.stringify("right"));
+	}
+	if(!(input_A.isDown || input_D.isDown)){
+					movePlayer.send(JSON.stringify("idle"));
+	}
+
+	
+	}
+	
 	
 	///////////
 	player1_name.x=player1.x-20;
@@ -3620,6 +3650,7 @@ blueSpecialAttack_Explosion.anims.create({
 	if(player1.direction!=='left') {  player1.flipX = false; }
 	if(player2.direction!=='right') {  player2.flipX = true;}
 	if(player2.direction!=='left') {  player2.flipX = false; }
+	
 	      this.stateMachine_player1.step();
 	      this.stateMachine_player2.step();
 
@@ -5886,7 +5917,6 @@ function respawnPlayer2(){
 }
 
 ///STATES P1//////////
-///STATES P1//////////
 class IdleStateP1 extends State {
   enter(scene, player1) {
     player1.setVelocityX(0);
@@ -5918,7 +5948,7 @@ class IdleStateP1 extends State {
       return;
     }
     // Transition to move if pressing a movement key
-    if ((input_A.isDown || input_D.isDown)&& !player1.invisible) {
+    if ((input_A.isDown || input_D.isDown || inputLeft || inputRight)&& !player1.invisible) {
       this.stateMachine.transition('move');
       return;
     }
@@ -5967,7 +5997,8 @@ class MoveStateP1 extends State {
       return;
     }
     // Transition to idle if not pressing movement keys
-    if (!(input_A.isDown || input_D.isDown)) {
+    if (!(input_A.isDown || input_D.isDown || inputLeft || inputRight)) {
+
       this.stateMachine.transition('idle');
       return;
     }
@@ -5982,12 +6013,12 @@ class MoveStateP1 extends State {
       return;
     }
     player1.setVelocityX(0);
-    if (input_A.isDown) {
+    if (input_A.isDown || inputLeft) {
       player1.setVelocityX(-100);
 	  if(player1.debuff){player1.setVelocityX(-50);}
 	  if(player1.speedBoost){player1.setVelocityX(-150);}
       player1.direction = 'left';
-    } else if (input_D.isDown) {
+    } else if (input_D.isDown || inputRight) {
       player1.setVelocityX(100);
 	  if(player1.debuff){player1.setVelocityX(50);}
 	  if(player1.speedBoost){player1.setVelocityX(150);}
