@@ -24,6 +24,9 @@ var inputLeft=false;
 var inputRight=false;
 var inputDown=false;
 var inputUp=false;
+var inputJump=false;
+var inputAttack=false;
+var inputSpecial=false;
 
 //Listeners globales de websokects
 connection.onmessage = function(msg) {
@@ -3610,13 +3613,15 @@ blueSpecialAttack_Explosion.anims.create({
 	//Websockets
 	if(online){
 		movePlayer.onmessage = function(msg) {
-		console.log(JSON.parse(msg.data));
 		if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
 		if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
-		if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;}
-
-	console.log(inputLeft);
-
+		if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+		if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+		if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+		if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+		if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+		if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputDown=false;inputUp=false;inputJump=false;}
+	console.log(inputUp);
 	}
 	if(input_A.isDown){
 					movePlayer.send(JSON.stringify("left"));
@@ -3624,9 +3629,27 @@ blueSpecialAttack_Explosion.anims.create({
 	if(input_D.isDown){
 				movePlayer.send(JSON.stringify("right"));
 	}
+	if(input_W.isDown){
+				movePlayer.send(JSON.stringify("up"));
+	}
+	if(input_S.isDown){
+				movePlayer.send(JSON.stringify("down"));
+	}
+	if(spaceBar.isDown){
+				movePlayer.send(JSON.stringify("jump"));
+	}
+	if(input_Q.isDown){
+				movePlayer.send(JSON.stringify("special"));
+	}
+	if(input_E.isDown){
+				movePlayer.send(JSON.stringify("attack"));
+	}
 	if(!(input_A.isDown || input_D.isDown)){
 					movePlayer.send(JSON.stringify("idle"));
 	}
+	/*if ((input_A.isDown || input_D.isDown || inputLeft || inputRight || !player1.onLadder)) {
+					movePlayer.send(JSON.stringify("idle"));
+	}*/
 
 	
 	}
@@ -5934,7 +5957,7 @@ class IdleStateP1 extends State {
    // const {input_A, input_D, spaceBar} = scene.keys;
     
     // Transition to jump if pressing space
-    if (spaceBar.isDown  && player1.body.touching.down) {
+    if ((spaceBar.isDown||inputJump)  && player1.body.touching.down) {
       this.stateMachine.transition('jump');
       return;
     }
@@ -5958,7 +5981,7 @@ class IdleStateP1 extends State {
       return;
     }
 	// Transition to climb if pressing W
-    if (input_W.isDown && player1.onLadder) {
+    if ((input_W.isDown || inputUp) && player1.onLadder) {
       this.stateMachine.transition('climb');
       return;
     }
@@ -5982,7 +6005,7 @@ class MoveStateP1 extends State {
 	}
   execute(scene, player1) {    
     // Transition to jump if pressing space
-    if (spaceBar.isDown && player1.body.touching.down) {
+    if ((spaceBar.isDown||inputJump) && player1.body.touching.down) {
       this.stateMachine.transition('jump');
       return;
     }
@@ -6003,7 +6026,7 @@ class MoveStateP1 extends State {
       return;
     }
 	// Transition to climb if pressing W
-    if (input_W.isDown && player1.onLadder) {
+    if ((input_W.isDown || inputUp) && player1.onLadder) {
       this.stateMachine.transition('climb');
       return;
     }
@@ -6042,7 +6065,7 @@ class InvisibleStateP1 extends State {
 	}
   execute(scene, player1) {    
     // Transition to jump if pressing space
-    if (spaceBar.isDown && player1.body.touching.down) {
+    if ((spaceBar.isDown||inputJump) && player1.body.touching.down) {
       this.stateMachine.transition('jump');
       return;
     }
@@ -6057,12 +6080,12 @@ class InvisibleStateP1 extends State {
       return;
     }
     // Transition to idle if not pressing movement keys
-    if ((!(input_A.isDown || input_D.isDown))&& !player1.invisible) {
+    if ((!(input_A.isDown || input_D.isDown || inputLeft || inputRight))&& !player1.invisible) {
       this.stateMachine.transition('idle');
       return;
     }
 	// Transition to climb if pressing W
-    if (input_W.isDown && player1.onLadder) {
+    if ((input_W.isDown || inputUp) && player1.onLadder) {
       this.stateMachine.transition('climb');
       return;
     }
@@ -6096,6 +6119,9 @@ class JumpStateP1 extends State {
 	    player1.anims.play('jump');
 		}
 		player1.once('animationcomplete', () => {
+			if(online){
+							inputJump=false;
+			}
 			this.stateMachine.transition('idle')
     	});
 
@@ -6191,7 +6217,7 @@ class DeathStateP1 extends State {
 class ClimbStateP1 extends State {
 execute(scene, player1) {    
     // Transition to jump if pressing space
-    if (spaceBar.isDown && player1.body.touching.down) {
+    if ((spaceBar.isDown||inputJump) && player1.body.touching.down) {
       this.stateMachine.transition('jump');
       return;
     }
@@ -6207,7 +6233,8 @@ execute(scene, player1) {
     }    
 
 //To idle
-	if ((input_A.isDown || input_D.isDown || !player1.onLadder)) {
+	if ((input_A.isDown || input_D.isDown || inputLeft || inputRight || !player1.onLadder)) {
+							movePlayer.send(JSON.stringify("idle"));
       this.stateMachine.transition('idle');
       return;
 
@@ -6215,7 +6242,7 @@ execute(scene, player1) {
 
 
     // Stop on ladder if not pressing movement keys
-    if (!(input_A.isDown || input_D.isDown || input_W.isDown || input_S.isDown)) {
+    if (!(input_A.isDown || input_D.isDown || inputLeft || inputRight || input_W.isDown || input_S.isDown || inputUp || inputDown)) {
       //this.stateMachine.transition('idle');
       //return;
 		player1.setVelocityY(0);
@@ -6231,9 +6258,9 @@ execute(scene, player1) {
 
 	//player1.x=ladder.body.center.x;
     player1.setVelocityX(0);
-	if(input_W.isDown){
+	if(input_W.isDown || inputUp){
 		player1.setVelocityY(-140);
-	}else if (input_S.isDown){
+	}else if (input_S.isDown || inputDown){
 			player1.setVelocityY(140);
 
 	}
