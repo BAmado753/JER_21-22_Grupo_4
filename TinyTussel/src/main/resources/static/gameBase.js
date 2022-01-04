@@ -1,4 +1,4 @@
-var url="192.168.1.45"
+var url="localhost"
 
 
 
@@ -3621,15 +3621,48 @@ blueSpecialAttack_Explosion.anims.create({
 		if(JSON.parse(msg.data)==='jump'){inputJump=true;}
 		if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
 		if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputDown=false;inputUp=false;inputJump=false;}
-	console.log(inputUp);
+	console.log("movePlayer.onmessage inputUp"+inputUp);
 	}
+	
+	if(Phaser.Input.Keyboard.JustDown(input_A)){
+				console.log("Se pulsa A");
+
+					movePlayer.send(JSON.stringify("left"));
+	}
+	if(Phaser.Input.Keyboard.JustDown(input_D)){
+				console.log("Se pulsa D");
+
+				movePlayer.send(JSON.stringify("right"));
+	}
+	if(Phaser.Input.Keyboard.JustDown(input_W)){
+		console.log("Se pulsa W");
+				movePlayer.send(JSON.stringify("up"));
+	}
+	if(Phaser.Input.Keyboard.JustDown(input_S)){
+				movePlayer.send(JSON.stringify("down"));
+	}
+	if(Phaser.Input.Keyboard.JustDown(spaceBar)){
+				movePlayer.send(JSON.stringify("jump"));
+	}
+	if(Phaser.Input.Keyboard.JustDown(input_Q)){
+				movePlayer.send(JSON.stringify("special"));
+	}
+	if(Phaser.Input.Keyboard.JustDown(input_E)){
+				movePlayer.send(JSON.stringify("attack"));
+	}/*
 	if(input_A.isDown){
+						console.log("Se mantiene A");
+
 					movePlayer.send(JSON.stringify("left"));
 	}
 	if(input_D.isDown){
+								console.log("Se mantiene D");
+
 				movePlayer.send(JSON.stringify("right"));
 	}
 	if(input_W.isDown){
+								console.log("Se mantiene W");
+
 				movePlayer.send(JSON.stringify("up"));
 	}
 	if(input_S.isDown){
@@ -3643,8 +3676,8 @@ blueSpecialAttack_Explosion.anims.create({
 	}
 	if(input_E.isDown){
 				movePlayer.send(JSON.stringify("attack"));
-	}
-	if(!(input_A.isDown || input_D.isDown)){
+	}*/
+	if(!(input_A.isDown || input_D.isDown || input_W.isDown || spaceBar.isDown)){
 					movePlayer.send(JSON.stringify("idle"));
 	}
 	/*if ((input_A.isDown || input_D.isDown || inputLeft || inputRight || !player1.onLadder)) {
@@ -6234,7 +6267,7 @@ execute(scene, player1) {
 
 //To idle
 	if ((input_A.isDown || input_D.isDown || inputLeft || inputRight || !player1.onLadder)) {
-							movePlayer.send(JSON.stringify("idle"));
+							//movePlayer.send(JSON.stringify("idle"));
       this.stateMachine.transition('idle');
       return;
 
