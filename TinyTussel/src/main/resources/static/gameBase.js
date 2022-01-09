@@ -16,7 +16,7 @@ var profileExists0;
 var connection = new WebSocket('ws://'+url+':8080/online');
 var selectPlayer = new WebSocket('ws://'+url+':8080/selectPlayer');
 var movePlayer = new WebSocket('ws://'+url+':8080/movePlayer');
-
+var respawnItemsHandler = new WebSocket('ws://'+url+':8080/itemsRespawn')
 //Variables que reciben llamadas de websocket
 var online=false;
 var pjPropioSelec=false;
@@ -28,6 +28,16 @@ var inputUp=false;
 var inputJump=false;
 var inputAttack=false;
 var inputSpecial=false;
+var rpwGem='null';
+var rpwStrawberry='null';
+var rpwLemon='null';
+var rpwGrape='null';
+var rpwShield='null';
+var rpwSpeed='null';
+var rpwPower='null';
+var rpwAmmo='null';
+var rpwPistol='null';
+var rpwKnife='null';
 
 //Listeners globales de websokects
 connection.onmessage = function(msg) {
@@ -3672,7 +3682,7 @@ blueSpecialAttack_Explosion.anims.create({
     }//create
 
   update(){
-	//Websockets
+	//PARTIDA ONLINE
 	if(online){
 		movePlayer.onmessage = function(msg) {
 		if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
@@ -3683,7 +3693,44 @@ blueSpecialAttack_Explosion.anims.create({
 		if(JSON.parse(msg.data)==='jump'){inputJump=true;}
 		if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
 		if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputDown=false;inputUp=false;inputJump=false;}
-	console.log("movePlayer.onmessage inputUp"+inputUp);
+	}
+	respawnItemsHandler.onmessage = function(msg) {
+		var obj=JSON.parse(msg.data);
+			console.log(JSON.parse(msg.data));
+			
+			if(obj.name==='gem'){
+						gems.create(obj.x,obj.y,'gem');  
+
+			}
+	/*
+			if(JSON.parse(msg.data).substring(0, 2)==='stb'){
+				rpwStrawberry=JSON.parse(msg.data);
+			}
+			if(JSON.parse(msg.data).substring(0, 2)==='lem'){
+				rpwLemon=JSON.parse(msg.data);
+			}
+			if(JSON.parse(msg.data).substring(0, 2)==='grp'){
+				rpwGrape=JSON.parse(msg.data);
+			}
+			if(JSON.parse(msg.data).substring(0, 2)==='shd'){
+				rpwShield=JSON.parse(msg.data);
+			}
+			if(JSON.parse(msg.data).substring(0, 2)==='spd'){
+				rpwSpeed=JSON.parse(msg.data);
+			}
+			if(JSON.parse(msg.data).substring(0, 2)==='pow'){
+				rpwPower=JSON.parse(msg.data);
+			}
+			if(JSON.parse(msg.data).substring(0, 2)==='amo'){
+				rpwAmmo=JSON.parse(msg.data);
+			}
+			if(JSON.parse(msg.data).substring(0, 2)==='ptl'){
+				rpwPistol=JSON.parse(msg.data);
+			}
+			if(JSON.parse(msg.data).substring(0, 2)==='knf'){
+				rpwKnife=JSON.parse(msg.data);
+			}*/
+
 	}
 	
 	if(Phaser.Input.Keyboard.JustDown(input_A)){
@@ -3711,41 +3758,15 @@ blueSpecialAttack_Explosion.anims.create({
 	}
 	if(Phaser.Input.Keyboard.JustDown(input_E)){
 				movePlayer.send(JSON.stringify("attack"));
-	}/*
-	if(input_A.isDown){
-						console.log("Se mantiene A");
-
-					movePlayer.send(JSON.stringify("left"));
 	}
-	if(input_D.isDown){
-								console.log("Se mantiene D");
-
-				movePlayer.send(JSON.stringify("right"));
-	}
-	if(input_W.isDown){
-								console.log("Se mantiene W");
-
-				movePlayer.send(JSON.stringify("up"));
-	}
-	if(input_S.isDown){
-				movePlayer.send(JSON.stringify("down"));
-	}
-	if(spaceBar.isDown){
-				movePlayer.send(JSON.stringify("jump"));
-	}
-	if(input_Q.isDown){
-				movePlayer.send(JSON.stringify("special"));
-	}
-	if(input_E.isDown){
-				movePlayer.send(JSON.stringify("attack"));
-	}*/
+	
 	if(!(input_A.isDown || input_D.isDown || input_W.isDown || spaceBar.isDown)){
 					movePlayer.send(JSON.stringify("idle"));
 	}
-	/*if ((input_A.isDown || input_D.isDown || inputLeft || inputRight || !player1.onLadder)) {
-					movePlayer.send(JSON.stringify("idle"));
-	}*/
-
+	if(cargoPj==='player1'){
+					onItemRespawnEvent(this);
+	}
+	
 	
 	}
 	
@@ -3756,7 +3777,9 @@ blueSpecialAttack_Explosion.anims.create({
 	if(player1_name.text != player1.name){
 		player1_name.text=player1.name;
 	}
-	onItemRespawnEvent(this);
+	if(!online){
+			onItemRespawnEvent(this);
+	}
 	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
 	checkNoLadder();
 	checkTimeSpecial(player1);
@@ -5595,38 +5618,61 @@ if(player.tag===2){
 }
 
 function getPistol_P1(player, pistol,scene){
-	if(Phaser.Input.Keyboard.JustDown(input_S)){
-	
-    sound_pickupWeapon.play();
-	pistol.disableBody(true, true);
-	player.hasPistol=true;
-	player.hasKnife=false;
+	if((online && inputDown && cargoPj !=='player1')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player1')){
+    	sound_pickupWeapon.play();
+		pistol.disableBody(true, true);
+		player.hasPistol=true;
+		player.hasKnife=false;
+	}else if(!online && Phaser.Input.Keyboard.JustDown(input_S)){
+		sound_pickupWeapon.play();
+		pistol.disableBody(true, true);
+		player.hasPistol=true;
+		player.hasKnife=false;
 	}
 }
 function getKnife_P1(player, knife,scene){
-    sound_pickupWeapon.play();
-	if(Phaser.Input.Keyboard.JustDown(input_S)){
+	if((online && inputDown && cargoPj !=='player1')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player1')){
+		sound_pickupWeapon.play();
+	knife.disableBody(true, true);
+	player.hasPistol=false;
+	player.hasKnife=true;
+	}
+	else if(!online && Phaser.Input.Keyboard.JustDown(input_S)){
+		    sound_pickupWeapon.play();
 	knife.disableBody(true, true);
 	player.hasPistol=false;
 	player.hasKnife=true;
 	}
 }
 function getPistol_P2(player, pistol,scene){
-	
-    sound_pickupWeapon.play();
-	if(Phaser.Input.Keyboard.JustDown(input_K)){
+	if((online && inputDown && cargoPj !=='player2')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player2')){
+		sound_pickupWeapon.play();
+	pistol.disableBody(true, true);
+	player.hasPistol=true;
+	player.hasKnife=false;
+	}
+	else if(!online && Phaser.Input.Keyboard.JustDown(input_K)){
+		    sound_pickupWeapon.play();
 	pistol.disableBody(true, true);
 	player.hasPistol=true;
 	player.hasKnife=false;
 	}
 }
 function getKnife_P2(player, knife,scene){
-    sound_pickupWeapon.play();
-	if(Phaser.Input.Keyboard.JustDown(input_K)){
+	if((online && inputDown && cargoPj !=='player2')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player2'))
+	{
+	sound_pickupWeapon.play();
 	knife.disableBody(true, true);
 	player.hasPistol=false;
 	player.hasKnife=true;
 	}
+    else if(!online && Phaser.Input.Keyboard.JustDown(input_K)){
+	sound_pickupWeapon.play();
+	knife.disableBody(true, true);
+	player.hasPistol=false;
+	player.hasKnife=true;
+	}
+	
 }
 function createPistol(){
 	
@@ -5645,6 +5691,11 @@ function createGem(){
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		gems.create(x,y,'gem');  
+		if(online){
+			var gemAux = { name: "gem", x: x, y: y };
+			var gemJSON = JSON.stringify(gemAux);
+			respawnItemsHandler.send(gemJSON);
+		}
 }
 function createShield(){
 	

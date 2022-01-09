@@ -21,6 +21,8 @@ public class TinyTusselApplication implements WebSocketConfigurer {
 		.setAllowedOrigins("*");
 		registry.addHandler(playerMovementHandler(), "/movePlayer")
 		.setAllowedOrigins("*");
+		registry.addHandler(itemsRespawnHandler(), "/itemsRespawn")
+		.setAllowedOrigins("*");
 		registry.addHandler(screensHandler(), "/screenPass")
 		.setAllowedOrigins("*");
 	}
@@ -38,6 +40,10 @@ public class TinyTusselApplication implements WebSocketConfigurer {
 	@Bean
 	public PlayerMovementHandler playerMovementHandler() {
 		return new PlayerMovementHandler();
+	}
+	@Bean
+	public ItemsRespawnHandler itemsRespawnHandler() {
+		return new ItemsRespawnHandler();
 	}
 	@Bean
 	public ScreensHandler screensHandler() {
