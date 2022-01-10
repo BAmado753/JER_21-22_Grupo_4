@@ -3010,9 +3010,16 @@ class PantallaEscenario1 extends Phaser.Scene{
     //item_knife=this.physics.add.sprite(300, 450, 'knife_item');
     //item_knife.setCollideWorldBounds(true);
 	items_pistol=this.physics.add.group();
-	createPistol();
 	items_knife=this.physics.add.group();
-	createKnife();
+	if (online && cargoPj==='player1'){
+		createPistol();
+		createKnife();
+	}
+	else if(!online){
+		createPistol();
+		createKnife();
+	}
+	
     items_power=this.physics.add.group();
     items_speed=this.physics.add.group();
     items_shield=this.physics.add.group();
@@ -3700,36 +3707,34 @@ blueSpecialAttack_Explosion.anims.create({
 			
 			if(obj.name==='gem'){
 						gems.create(obj.x,obj.y,'gem');  
-
 			}
-	/*
-			if(JSON.parse(msg.data).substring(0, 2)==='stb'){
-				rpwStrawberry=JSON.parse(msg.data);
+			if(obj.name==='stb'){
+						items_strawberry.create(obj.x,obj.y,'strawberry_item');  
 			}
-			if(JSON.parse(msg.data).substring(0, 2)==='lem'){
-				rpwLemon=JSON.parse(msg.data);
+			if(obj.name==='lem'){
+						items_lemon.create(obj.x,obj.y,'lemon_item');  
 			}
-			if(JSON.parse(msg.data).substring(0, 2)==='grp'){
-				rpwGrape=JSON.parse(msg.data);
+			if(obj.name==='grp'){
+						items_grape.create(obj.x,obj.y,'grape_item');  
 			}
-			if(JSON.parse(msg.data).substring(0, 2)==='shd'){
-				rpwShield=JSON.parse(msg.data);
+			if(obj.name==='shd'){
+						items_shield.create(obj.x,obj.y,'shield_item');  
 			}
-			if(JSON.parse(msg.data).substring(0, 2)==='spd'){
-				rpwSpeed=JSON.parse(msg.data);
+			if(obj.name==='spd'){
+						items_speed.create(obj.x,obj.y,'speed_item');  
 			}
-			if(JSON.parse(msg.data).substring(0, 2)==='pow'){
-				rpwPower=JSON.parse(msg.data);
+			if(obj.name==='pow'){
+						items_power.create(obj.x,obj.y,'power_item');  
 			}
-			if(JSON.parse(msg.data).substring(0, 2)==='amo'){
-				rpwAmmo=JSON.parse(msg.data);
+			if(obj.name==='amo'){
+						items_ammo.create(obj.x,obj.y,'ammo_item');  
 			}
-			if(JSON.parse(msg.data).substring(0, 2)==='ptl'){
-				rpwPistol=JSON.parse(msg.data);
+			if(obj.name==='ptl'){
+						items_pistol.create(obj.x,obj.y,'pistol_item');  
 			}
-			if(JSON.parse(msg.data).substring(0, 2)==='knf'){
-				rpwKnife=JSON.parse(msg.data);
-			}*/
+			if(obj.name==='knf'){
+						items_knife.create(obj.x,obj.y,'knife_item');  
+			}
 
 	}
 	
@@ -5679,12 +5684,22 @@ function createPistol(){
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_pistol.create(x,y,'pistol_item');  
+		if(online){
+			var aux = { name: "ptl", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}
 }
 function createKnife(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_knife.create(x,y,'knife_item');  
+		items_knife.create(x,y,'knife_item'); 
+		if(online){
+			var aux = { name: "knf", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		} 
 }
 function createGem(){
 	
@@ -5692,52 +5707,87 @@ function createGem(){
             let y = Phaser.Math.Between(0, 530);
 		gems.create(x,y,'gem');  
 		if(online){
-			var gemAux = { name: "gem", x: x, y: y };
-			var gemJSON = JSON.stringify(gemAux);
-			respawnItemsHandler.send(gemJSON);
+			var aux = { name: "gem", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
 		}
 }
 function createShield(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_shield.create(x,y,'shield_item');  
+		items_shield.create(x,y,'shield_item'); 
+	if(online){
+			var aux = { name: "shd", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	 
 }
 function createPower(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_power.create(x,y,'power_item');  
+		if(online){
+			var aux = { name: "pow", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	 
 }
 function createSpeed(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_speed.create(x,y,'speed_item');  
+		if(online){
+			var aux = { name: "spd", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	 
 }
 function createLemon(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_lemon.create(x,y,'lemon_item');  
+		if(online){
+			var aux = { name: "lem", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	 
 }
 function createGrape(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_grape.create(x,y,'grape_item');  
+		if(online){
+			var aux = { name: "grp", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	 
 }
 function createStrawberry(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_strawberry.create(x,y,'strawberry_item');  
+		items_strawberry.create(x,y,'strawberry_item'); 
+		if(online){
+			var aux = { name: "stb", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	  
 }
 function createAmmo(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_ammo.create(x,y,'ammo_item').setScale(0.3,0.3).refreshBody();  
+		items_ammo.create(x,y,'ammo_item').setScale(0.3,0.3).refreshBody(); 
+		if(online){
+			var aux = { name: "amo", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	  
 }
 
 function collectLemon(player, lemon,scene){
