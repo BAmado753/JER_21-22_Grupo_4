@@ -16,6 +16,7 @@ var profileExists0;
 var connection = new WebSocket('ws://'+url+':8080/online');
 var selectPlayer = new WebSocket('ws://'+url+':8080/selectPlayer');
 var movePlayer = new WebSocket('ws://'+url+':8080/movePlayer');
+var screen = new WebSocket('ws://'+url+'8080/screenPass');
 
 //Variables que reciben llamadas de websocket
 var online=false;
@@ -279,6 +280,24 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('textoLinea', './asset/TextoEnLinea.png');
         this.load.image('textoLocal', './asset/TextoLocal.png');
         
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+
+		 ////////////////////////Carga de assets de Pantalla Sala de Espera////////////////////////
+
+        //Carga de fondos y botones
+        this.load.image('fondoSalaEspera', './asset/Fondo.png');
+        this.load.image('textoSE', './asset/SeleccionaSalaEspera.png');
+        this.load.image('S1Activa', './asset/Sala1Activada.png');
+        this.load.image('S1', './asset/Sala1.png');
+		this.load.image('S2Activa', './asset/Sala2Activada.png');
+        this.load.image('S2', './asset/Sala2.png');
+		this.load.image('S3Activa', './asset/Sala3Activada.png');
+        this.load.image('S3', './asset/Sala3.png');
+		this.load.image('S4Activa', './asset/Sala4Activada.png');
+        this.load.image('S4', './asset/Sala4.png');
+
 
         /////////////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -1854,9 +1873,10 @@ class PantallaModoJuego extends Phaser.Scene{
 
         this.botLinea = this.add.image(600, 500, 'bJugarLinea').setInteractive();
         this.botLinea.setScale(0.3);
+
  		this.botLinea.on('pointerdown', () => {
 	  		connection.send(JSON.stringify("Estableciendo conexion"));
-        this.scene.start('NumeroJugadores');
+        	this.scene.start('SalaEspera');
         });
 
 
@@ -1884,6 +1904,148 @@ class PantallaModoJuego extends Phaser.Scene{
 
     update(){
 		
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////Pantalla Sala de Espera//////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class SalaEspera extends Phaser.Scene{
+    constructor(){
+        //SalaEspera--> nombre que se le da a la escena
+        super({ key: "SalaEspera"});
+    }
+
+    preload(){   
+    }
+
+    create(){
+        //Fondo de la pantalla 
+        this.fondoSEspera= this.add.image(400, 300, 'fondoSalaEspera');
+        this.fondoSEspera.setScale(0.6);
+
+        this.titleSalaEspera = this.add.image(400, 100, 'textoSE');
+        this.titleSalaEspera.setScale(0.8);
+
+
+        this.ayud3 = this.add.image(750, 50, 'ayuda').setInteractive();
+        this.ayud3.setScale(0.6);
+
+        this.ayud3.on('pointerover', () => {
+            this.ayud3 = this.add.image(750, 50, 'ayudaActivado');
+            this.ayud3.setScale(0.6);
+        });
+        
+        this.ayud3.on('pointerout', () => {
+            this.ayud3 = this.add.image(750, 50, 'ayuda');
+            this.ayud3.setScale(0.6);
+        });
+        
+        this.ayud3.on('pointerdown', () => {
+            this.scene.moveBelow('SalaEspera');
+            this.scene.launch('Ayuda'); 
+        });
+
+
+        this.atras3 = this.add.image(75, 50, 'back').setInteractive();
+        this.atras3.setScale(0.8);
+
+        this.atras3.on('pointerover', () => {
+            this.atras3 = this.add.image(75, 50, 'backActivo');
+            this.atras3.setScale(0.7);
+        });
+        
+        this.atras3.on('pointerout', () => {
+            this.atras3 = this.add.image(75, 50, 'back');
+            this.atras3.setScale(0.8);
+        });
+        
+        this.atras3.on('pointerdown', () => {
+            this.scene.start('ModoJuego');
+        });
+
+
+        this.Sala1= this.add.image(200, 200, 'S1').setInteractive();
+        this.Sala1.setScale(0.4);
+
+        this.Sala1.on('pointerover', () => {
+            this.Sala1 = this.add.image(200, 200, 'S1Activa');
+            this.Sala1.setScale(0.4);
+        });
+        
+        this.Sala1.on('pointerout', () => {
+            this.Sala1 = this.add.image(200, 200, 'S1');
+            this.Sala1.setScale(0.4);
+        });
+        
+        this.Sala1.on('pointerdown', () => {
+            this.scene.start('NumeroJugadores');
+        });
+
+        this.Sala2= this.add.image(600, 200, 'S2').setInteractive();
+        this.Sala2.setScale(0.4);
+
+		this.Sala2.on('pointerover', () => {
+            this.Sala2 = this.add.image(600, 200, 'S2Activa');
+            this.Sala2.setScale(0.4);
+        });
+        
+        this.Sala2.on('pointerout', () => {
+            this.Sala2 = this.add.image(600, 200, 'S2');
+            this.Sala2.setScale(0.4);
+        });
+        
+        this.Sala2.on('pointerdown', () => {
+            this.scene.start('NumeroJugadores');
+        });
+
+		
+		this.Sala3= this.add.image(200, 400, 'S3').setInteractive();
+        this.Sala3.setScale(0.4);
+
+		this.Sala3.on('pointerover', () => {
+            this.Sala3 = this.add.image(200, 400, 'S3Activa');
+            this.Sala3.setScale(0.4);
+        });
+        
+        this.Sala3.on('pointerout', () => {
+            this.Sala3 = this.add.image(200, 400, 'S3');
+            this.Sala3.setScale(0.4);
+        });
+        
+        this.Sala3.on('pointerdown', () => {
+            this.scene.start('NumeroJugadores');
+        });
+
+
+		this.Sala4= this.add.image(600, 400, 'S4').setInteractive();
+        this.Sala4.setScale(0.4);
+
+		this.Sala4.on('pointerover', () => {
+            this.Sala4 = this.add.image(600, 400, 'S4Activa');
+            this.Sala4.setScale(0.4);
+        });
+        
+        this.Sala4.on('pointerout', () => {
+            this.Sala4 = this.add.image(600, 400, 'S4');
+            this.Sala4.setScale(0.4);
+        });
+        
+        this.Sala4.on('pointerdown', () => {
+            this.scene.start('NumeroJugadores');
+        });
+
+
+
+    }
+
+    update(){
+
     }
 }
 
@@ -7523,7 +7685,7 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, SelecTipoInicio, SelecPerfil, Registro, Datos, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, Pausa, PantallaResultados],
+    scene: [PantallaCarga, PantallaDeInicio, SelecTipoInicio, SelecPerfil, Registro, Datos, MenuPrincipal, Controles, Creditos, PantallaModoJuego, SalaEspera, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, Pausa, PantallaResultados],
 	audio: {
         disableWebAudio: true
     }
