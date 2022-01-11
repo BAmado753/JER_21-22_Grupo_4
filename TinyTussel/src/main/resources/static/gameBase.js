@@ -1803,6 +1803,7 @@ class Pausa extends Phaser.Scene{
 /////////////////////////////////////////Pantalla de Modo de Juego//////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+var playOnline;
 
 class PantallaModoJuego extends Phaser.Scene{
     constructor(){
@@ -1875,6 +1876,7 @@ class PantallaModoJuego extends Phaser.Scene{
         this.botLinea.setScale(0.3);
 
  		this.botLinea.on('pointerdown', () => {
+			playOnline=true;
 	  		connection.send(JSON.stringify("Estableciendo conexion"));
         	this.scene.start('SalaEspera');
         });
@@ -1957,7 +1959,7 @@ class SalaEspera extends Phaser.Scene{
 
         this.atras3.on('pointerover', () => {
             this.atras3 = this.add.image(75, 50, 'backActivo');
-            this.atras3.setScale(0.7);
+            this.atras3.setScale(0.8);
         });
         
         this.atras3.on('pointerout', () => {
@@ -2109,7 +2111,11 @@ class PantallaNumeroJugadores extends Phaser.Scene{
         });
         
         this.atras3.on('pointerdown', () => {
-            this.scene.start('ModoJuego');
+			if(playOnline===true){
+				this.scene.start('SalaEspera');
+			}else{
+            	this.scene.start('ModoJuego');
+			}
         });
 
 
