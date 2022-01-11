@@ -3692,18 +3692,19 @@ blueSpecialAttack_Explosion.anims.create({
 	//PARTIDA ONLINE
 	if(online){
 		movePlayer.onmessage = function(msg) {
+			console.log(player1.hasPistol);
 		if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
 		if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
 		if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
-		if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+		if(JSON.parse(msg.data)==='down'){console.log("Input Down");inputDown=true;inputUp=false;}
 		if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
 		if(JSON.parse(msg.data)==='jump'){inputJump=true;}
 		if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
-		if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputDown=false;inputUp=false;inputJump=false;}
+		if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
 	}
 	respawnItemsHandler.onmessage = function(msg) {
 		var obj=JSON.parse(msg.data);
-			console.log(JSON.parse(msg.data));
+			//console.log(JSON.parse(msg.data));
 			
 			if(obj.name==='gem'){
 						gems.create(obj.x,obj.y,'gem');  
@@ -3739,20 +3740,16 @@ blueSpecialAttack_Explosion.anims.create({
 	}
 	
 	if(Phaser.Input.Keyboard.JustDown(input_A)){
-				console.log("Se pulsa A");
-
 					movePlayer.send(JSON.stringify("left"));
 	}
 	if(Phaser.Input.Keyboard.JustDown(input_D)){
-				console.log("Se pulsa D");
-
 				movePlayer.send(JSON.stringify("right"));
 	}
 	if(Phaser.Input.Keyboard.JustDown(input_W)){
-		console.log("Se pulsa W");
 				movePlayer.send(JSON.stringify("up"));
 	}
 	if(Phaser.Input.Keyboard.JustDown(input_S)){
+				console.log("Se pulsa S");
 				movePlayer.send(JSON.stringify("down"));
 	}
 	if(Phaser.Input.Keyboard.JustDown(spaceBar)){
@@ -5474,7 +5471,7 @@ function onItemRespawnEvent(scene){
 		}
 	}
 	
-	if(controlIimedWeaponRespawn>1500){
+	if(controlIimedWeaponRespawn>100){
 		controlIimedWeaponRespawn=0;
 		scene.time.addEvent(timedItemRespawn);
 		switch(Phaser.Math.Between(0, 1)){
@@ -5623,11 +5620,22 @@ if(player.tag===2){
 }
 
 function getPistol_P1(player, pistol,scene){
+	console.log("entra en getPistol_P1");
 	if((online && inputDown && cargoPj !=='player1')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player1')){
-    	sound_pickupWeapon.play();
+if(cargoPj==='player1'){
+	console.log("send Down");
+							movePlayer.send(JSON.stringify("down"));
+		}   
+if(cargoPj!=='player1'){
+	console.log("player1 online entra en getPistol");
+						
+		}  	
+		sound_pickupWeapon.play();
 		pistol.disableBody(true, true);
 		player.hasPistol=true;
+		console.log("player 1 pistol"+player1.hasPistol);
 		player.hasKnife=false;
+				if(inputDown && player.hasPistol && cargoPj !=='player1'){inputDown=false;}
 	}else if(!online && Phaser.Input.Keyboard.JustDown(input_S)){
 		sound_pickupWeapon.play();
 		pistol.disableBody(true, true);
@@ -5636,11 +5644,21 @@ function getPistol_P1(player, pistol,scene){
 	}
 }
 function getKnife_P1(player, knife,scene){
+	//	console.log("entra en getKnife_P1");
+		
 	if((online && inputDown && cargoPj !=='player1')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player1')){
+		if(cargoPj==='player1'){
+							movePlayer.send(JSON.stringify("down"));
+		}
+		if(cargoPj!=='player1'){
+	console.log("player1 online entra en getPistol");
+						
+		} 
 		sound_pickupWeapon.play();
 	knife.disableBody(true, true);
 	player.hasPistol=false;
 	player.hasKnife=true;
+		if(inputDown  && player.hasKnife && cargoPj !=='player1'){inputDown=false;}
 	}
 	else if(!online && Phaser.Input.Keyboard.JustDown(input_S)){
 		    sound_pickupWeapon.play();
@@ -5649,12 +5667,17 @@ function getKnife_P1(player, knife,scene){
 	player.hasKnife=true;
 	}
 }
+
 function getPistol_P2(player, pistol,scene){
 	if((online && inputDown && cargoPj !=='player2')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player2')){
-		sound_pickupWeapon.play();
+	if(cargoPj==='player2'){
+							movePlayer.send(JSON.stringify("down"));
+		}
+	sound_pickupWeapon.play();
 	pistol.disableBody(true, true);
 	player.hasPistol=true;
 	player.hasKnife=false;
+		if(inputDown && player.hasPistol && cargoPj !=='player2'){inputDown=false;}
 	}
 	else if(!online && Phaser.Input.Keyboard.JustDown(input_K)){
 		    sound_pickupWeapon.play();
@@ -5666,10 +5689,14 @@ function getPistol_P2(player, pistol,scene){
 function getKnife_P2(player, knife,scene){
 	if((online && inputDown && cargoPj !=='player2')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player2'))
 	{
+		if(cargoPj==='player2'){
+							movePlayer.send(JSON.stringify("down"));
+		}
 	sound_pickupWeapon.play();
 	knife.disableBody(true, true);
 	player.hasPistol=false;
 	player.hasKnife=true;
+	if(inputDown && player.hasKnife && cargoPj !=='player2'){inputDown=false;}
 	}
     else if(!online && Phaser.Input.Keyboard.JustDown(input_K)){
 	sound_pickupWeapon.play();
@@ -5679,6 +5706,8 @@ function getKnife_P2(player, knife,scene){
 	}
 	
 }
+
+
 function createPistol(){
 	
             let x = Phaser.Math.Between(150, 690);
@@ -6159,10 +6188,12 @@ class IdleStateP1 extends State {
     }
     // Transition to attack if pressing e
     if (input_E.isDown && player1.hasKnife===true) {
+			console.log("dentro de State para cuchillo");
       this.stateMachine.transition('attack_knife');
       return;
     }
 	if (Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true && player1.ammo>0) {
+		console.log("dentro de State para pistola");
       this.stateMachine.transition('attack_pistol');
       return;
     }
@@ -6212,7 +6243,8 @@ class MoveStateP1 extends State {
       return;
     }
     if (Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true && player1.ammo>0) {
-      this.stateMachine.transition('attack_pistol');
+		console.log("dentro de State para pistola"); 
+ this.stateMachine.transition('attack_pistol');
       return;
     }
     // Transition to idle if not pressing movement keys
@@ -6367,6 +6399,7 @@ execute(scene,player1){
 }
 class AttackPistolStateP1 extends State {
   enter(scene, player1) {
+	console.log("disparar");
     sound_shoot.play();
    	playerFire(player1, player1.direction, scene);
     player1.anims.play('attack_pistol');
@@ -6806,11 +6839,11 @@ class IdleStatePOnline extends State {
       return;
     }
     // Transition to attack if pressing e
-    if (input_E.isDown && player.hasKnife===true) {
+    if (inputAttack && player.hasKnife===true) {
       this.stateMachine.transition('attack_knife');
       return;
     }
-	if (Phaser.Input.Keyboard.JustDown(input_E) && player.hasPistol===true && player.ammo>0) {
+	if (inputAttack && player.hasPistol===true && player.ammo>0) {
       this.stateMachine.transition('attack_pistol');
       return;
     }
@@ -6855,11 +6888,11 @@ class MoveStatePOnline extends State {
     }
     
    // Transition to attack if pressing e
-    if (input_E.isDown && player.hasKnife===true) {
+    if (inputAttack && player.hasKnife===true) {
       this.stateMachine.transition('attack_knife');
       return;
     }
-    if (Phaser.Input.Keyboard.JustDown(input_E) && player.hasPistol===true && player.ammo>0) {
+    if (inputAttack && player.hasPistol===true && player.ammo>0) {
       this.stateMachine.transition('attack_pistol');
       return;
     }
@@ -6915,11 +6948,11 @@ class InvisibleStatePOnline extends State {
     }
     
    // Transition to attack if pressing e
-    if (input_E.isDown && player.hasKnife===true) {
+    if (inputAttack && player.hasKnife===true) {
       this.stateMachine.transition('attack_knife');
       return;
     }
-    if (Phaser.Input.Keyboard.JustDown(input_E) && player.hasPistol===true && player.ammo>0) {
+    if (inputAttack && player.hasPistol===true && player.ammo>0) {
       this.stateMachine.transition('attack_pistol');
       return;
     }
@@ -6986,6 +7019,7 @@ execute(scene, player){
 
 class AttackKnifeStatePOnline extends State {
   enter(scene, player) {
+	inputAttack=false;
     sound_knife.play();
 if(player.strengthBoost){knifeHitbox.damage=5;}else{knifeHitbox.damage=3;}
 	    player.anims.play('attack_knife');
@@ -7018,6 +7052,7 @@ execute(scene,player){
 }
 class AttackPistolStatePOnline extends State {
   enter(scene, player) {
+	inputAttack=false;
     sound_shoot.play();
    	playerFire(player, player.direction, scene);
     player.anims.play('attack_pistol');
