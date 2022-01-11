@@ -17,6 +17,7 @@ var connection = new WebSocket('ws://'+url+':8080/online');
 var selectPlayer = new WebSocket('ws://'+url+':8080/selectPlayer');
 var movePlayer = new WebSocket('ws://'+url+':8080/movePlayer');
 var screen = new WebSocket('ws://'+url+'8080/screenPass');
+var chooseRoom = new WebSocket('ws://'+url+'8080/selectRoom');
 
 //Variables que reciben llamadas de websocket
 var online=false;
