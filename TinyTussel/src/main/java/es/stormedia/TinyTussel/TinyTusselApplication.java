@@ -23,6 +23,8 @@ public class TinyTusselApplication implements WebSocketConfigurer {
 		.setAllowedOrigins("*");
 		registry.addHandler(screensHandler(), "/screenPass")
 		.setAllowedOrigins("*");
+		registry.addHandler(selectRoomHandler(), "/selectRoom")
+		.setAllowedOrigins("*");
 	}
 	
 	
@@ -42,6 +44,11 @@ public class TinyTusselApplication implements WebSocketConfigurer {
 	@Bean
 	public ScreensHandler screensHandler() {
 		return new ScreensHandler();
+	}
+	
+	@Bean
+	public SelectRoomHandler selectRoomHandler() {
+		return new SelectRoomHandler();
 	}
 	
 	
