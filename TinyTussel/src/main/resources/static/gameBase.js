@@ -3740,6 +3740,7 @@ blueSpecialAttack_Explosion.anims.create({
 
 	}
 	
+	//Controles websockets
 	if(Phaser.Input.Keyboard.JustDown(input_A)){
 					movePlayer.send(JSON.stringify("left"));
 	}
@@ -3757,9 +3758,10 @@ blueSpecialAttack_Explosion.anims.create({
 	if(Phaser.Input.Keyboard.JustDown(spaceBar)){
 				movePlayer.send(JSON.stringify("jump"));
 	}
-	if(Phaser.Input.Keyboard.JustDown(input_Q)){
+	/*if(Phaser.Input.Keyboard.JustDown(input_Q)){
+		//inputSpecial
 				movePlayer.send(JSON.stringify("special"));
-	}
+	}*/
 	/*if(Phaser.Input.Keyboard.JustDown(input_E)){
 				movePlayer.send(JSON.stringify("attack"));
 	}*/
@@ -3772,6 +3774,36 @@ blueSpecialAttack_Explosion.anims.create({
 	}
 	
 	
+	//Ataques especiales
+if	(Phaser.Input.Keyboard.JustDown(input_Q)){
+	movePlayer.send(JSON.stringify("special"));
+		if(cargoPj==='player1'){
+			if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
+    		if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
+    		if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
+		}
+    	
+    	if(cargoPj==='player2'){
+			if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
+    		if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
+    		if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
+		}
+    }
+if	(inputSpecial){
+	inputSpecial=false;
+		if(cargoPj==='player1'){
+			if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
+    		if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
+    		if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
+			
+		}
+    	
+    	if(cargoPj==='player2'){
+			if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
+    		if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
+    		if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
+		}
+    }
 	}
 	
 	
@@ -3780,9 +3812,6 @@ blueSpecialAttack_Explosion.anims.create({
 	player1_name.y=player1.y-30;
 	if(player1_name.text != player1.name){
 		player1_name.text=player1.name;
-	}
-	if(!online){
-			onItemRespawnEvent(this);
 	}
 	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
 	checkNoLadder();
@@ -3799,8 +3828,13 @@ blueSpecialAttack_Explosion.anims.create({
 	      this.stateMachine_player1.step();
 	      this.stateMachine_player2.step();
 
+    checkDebuffTime(player1, player2);
+    checkBoosts(player1, player2)
 
-    if	(Phaser.Input.Keyboard.JustDown(input_Q)){
+if(!online){
+				onItemRespawnEvent(this);
+
+	if	(Phaser.Input.Keyboard.JustDown(input_Q)){
     	if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
     	if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
     	if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
@@ -3813,10 +3847,8 @@ blueSpecialAttack_Explosion.anims.create({
     	if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
     
     }
-    
-    checkDebuffTime(player1, player2);
-    checkBoosts(player1, player2)
-	
+}
+    	
         }//update
         
     }
@@ -7054,23 +7086,55 @@ class AttackKnifeStatePOnline extends State {
   enter(scene, player) {
 	inputAttack=false;
     sound_knife.play();
-if(player.strengthBoost){knifeHitbox.damage=5;}else{knifeHitbox.damage=3;}
+if(player.strengthBoost){
+		if(cargoPj==='player2'){
+			knifeHitbox.damage=5;
+		}else{
+			knifeHitbox2.damage=5;
+		}
+	}else{
+		if(cargoPj==='player2'){
+			knifeHitbox.damage=3;
+		}else{
+			knifeHitbox2.damage=3;
+		}
+	}
 	    player.anims.play('attack_knife');
 
 
 		if(player.direction==='left'){
-	        knifeHitbox.x= player.x - player.width * 0.45;
-
+			if(cargoPj==='player2'){
+				knifeHitbox.x= player.x - player.width * 0.45;
+			}else{
+				knifeHitbox2.x= player.x - player.width * 0.45;
+			}
 		}else{
-        knifeHitbox.x= player.x + player.width * 0.45;
+			if(cargoPj==='player2'){
+        		knifeHitbox.x= player.x + player.width * 0.45;
+			}else{
+        		knifeHitbox2.x= player.x + player.width * 0.45;
+			}
 		}
-		knifeHitbox.y= player.y + player.height * 0.1;
-		knifeHitbox.body.enable=true;
-		scene.physics.world.add(knifeHitbox.body);
+			if(cargoPj==='player2'){
+				knifeHitbox.y= player.y + player.height * 0.1;
+				knifeHitbox.body.enable=true;
+				scene.physics.world.add(knifeHitbox.body);
+			}else{
+        		knifeHitbox2.y= player.y + player.height * 0.1;
+				knifeHitbox2.body.enable=true;
+				scene.physics.world.add(knifeHitbox2.body);
+			}
+		
 		player.once('animationcomplete', () => {
+			if(cargoPj==='player2'){
+				knifeHitbox.body.enable=false;
+				scene.physics.world.remove(knifeHitbox.body);
+			}else{
+				knifeHitbox2.body.enable=false;
+				scene.physics.world.remove(knifeHitbox2.body);
+			}
 			this.stateMachine.transition('idle');
-			knifeHitbox.body.enable=false;
-					scene.physics.world.remove(knifeHitbox.body);
+			
 
     	});
   }
