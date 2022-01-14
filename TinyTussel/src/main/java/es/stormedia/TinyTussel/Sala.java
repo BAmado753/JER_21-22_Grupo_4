@@ -1,26 +1,36 @@
 package es.stormedia.TinyTussel;
 
+import org.springframework.web.socket.WebSocketSession;
+
 public class Sala {
-private String sesion;
+private String sesionID;
 private String sala;
+private WebSocketSession sesion;
 	public Sala() {
 		
 	}
-	public Sala(String s, String sa){
-		this.sesion=s;
+	public Sala(String s, String sa, WebSocketSession ssn){
+		this.sesionID=s;
 		this.sala=sa;
+		this.sesion=ssn;
 	}
-	public String getSesion() {
-		return sesion;
+	public String getSesionID() {
+		return sesionID;
 	}
-	public void setSesion(String sesion) {
-		this.sesion = sesion;
+	public void setSesionID(String sesion) {
+		this.sesionID = sesion;
 	}
 	public String getSala() {
 		return sala;
 	}
 	public void setSala(String sala) {
 		this.sala = sala;
+	}
+	public WebSocketSession getSesion() {
+		return sesion;
+	}
+	public void setSesion(WebSocketSession sesion) {
+		this.sesion = sesion;
 	}
 	
 	

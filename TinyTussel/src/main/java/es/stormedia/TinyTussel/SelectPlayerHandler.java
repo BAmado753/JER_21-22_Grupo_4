@@ -19,7 +19,7 @@ private boolean S4=true;
 
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		sessionList.put(session.getId(), session);
-		jgSalaList.put(session.getId(), new Sala(session.getId(),"sala-X"));
+		jgSalaList.put(session.getId(), new Sala(session.getId(),"sala-X",session));
 
 	}
 	
@@ -38,37 +38,55 @@ private boolean S4=true;
 		if(msg.equals((char)34+"S1"+(char)34)) {
 			System.out.println("SPH: Entra al S1");
 			jgSalaList.get(session.getId()).setSala("sala-1");
-			//jgSalaList.put(session.getId(), new Sala(session.getId(),"sala-1"));
-		}
-		if(msg.equals((char)34+"S2"+(char)34)) {
+			//Comunica al remitente su propio mensaje
+			session.sendMessage(new TextMessage(msg));
+			//Comunica a las demás sesiones el mensaje
+			broadcastMessage(session, message.getPayload());		}
+		else if(msg.equals((char)34+"S2"+(char)34)) {
 			System.out.println("SPH: Entra al S2");
 			jgSalaList.get(session.getId()).setSala("sala-2");
+			//Comunica al remitente su propio mensaje
+			session.sendMessage(new TextMessage(msg));
+			//Comunica a las demás sesiones el mensaje
+			broadcastMessage(session, message.getPayload());
 		}
-		if(msg.equals((char)34+"S3"+(char)34)) {
+		else if(msg.equals((char)34+"S3"+(char)34)) {
 			jgSalaList.get(session.getId()).setSala("sala-3");
+			//Comunica al remitente su propio mensaje
+			session.sendMessage(new TextMessage(msg));
+			//Comunica a las demás sesiones el mensaje
+			broadcastMessage(session, message.getPayload());
 		}
-		if(msg.equals((char)34+"S4"+(char)34)){
+		else if(msg.equals((char)34+"S4"+(char)34)){
 			jgSalaList.get(session.getId()).setSala("sala-4");
+			//Comunica al remitente su propio mensaje
+			session.sendMessage(new TextMessage(msg));
+			//Comunica a las demás sesiones el mensaje
+			broadcastMessage(session, message.getPayload());
 		}
-		if(msg.equals((char)34+"check"+(char)34)) {
+		else if(msg.equals((char)34+"check"+(char)34)) {
 			System.out.println("SPH: juja size: "+jgSalaList.size());
 
 			if(jgSalaList.size()>0) {
 				System.out.println("SPH: Entra al for juga ");
 
 				for(Sala jugSala_aux : jgSalaList.values()) {
-					if(!jugSala_aux.getSesion().equals(session.getId())) {
+					if(!jugSala_aux.getSesionID().equals(session.getId())) {
 						session.sendMessage(new TextMessage(jugSala_aux.getSala()));
 					}
 				}
 			}
 			
 		}else {
-			//Comunica al remitente su propio mensaje
+			sendMessageInRoom(session, message.getPayload());	
+
+		}/*
+		else {
+			///Comunica al remitente su propio mensaje
 			session.sendMessage(new TextMessage(msg));
 			//Comunica a las demás sesiones el mensaje
 			broadcastMessage(session, message.getPayload());	
-		}
+		}*/
 	
 		
 	}
@@ -76,6 +94,19 @@ private boolean S4=true;
 		for(WebSocketSession session_aux : sessionList.values()) {
 			if(!session_aux.getId().equals(session.getId())) {
 				session_aux.sendMessage(new TextMessage(payload));
+			}
+		}
+	}
+	private void sendMessageInRoom(WebSocketSession session, String payload) throws IOException {
+		String sala="null";
+		for(Sala jugSala_aux : jgSalaList.values()) {
+			if(jugSala_aux.getSesionID().equals(session.getId())) {
+				sala=jugSala_aux.getSala();
+			}
+		}
+		for(Sala jugSala_aux : jgSalaList.values()) {
+			if(jugSala_aux.getSala().equals(sala)) {
+				jugSala_aux.getSesion().sendMessage(new TextMessage(payload));
 			}
 		}
 	}

@@ -2037,7 +2037,7 @@ class SalaEspera extends Phaser.Scene{
     }
 
     create(){
-	
+	scene4update=this;
 		//Texto
 		jugador1sala1=	this.add.text(200, 200, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
 		jugador2sala1=	this.add.text(200, 220, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
@@ -2115,7 +2115,34 @@ class SalaEspera extends Phaser.Scene{
 						isSalaSelected=true;
 					}
           //  this.scene.start('NumeroJugadores')
+				if(isSalaSelected){
+			console.log('entra en isSelected');
+			console.log(jugador1sala1.text);
+			console.log(jugador2sala1.text);
 
+            if(jugador1sala1.text!=='null'){
+				console.log('entra en donde la sala llena continuar');
+
+				                //Botón continuar
+                this.bcont_next=this.add.image(400, 550, 'BContinuar1').setInteractive();
+                this.bcont_next.setScale(0.3);
+
+                this.bcont_next.on('pointerover', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1Activado');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerout', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerdown', () => {
+								selectPlayer.send(JSON.stringify("NEXT"));
+                    //this.scene.start('MenuPersonajes');
+                });
+			}
+    	}
         });
 
         this.Sala2= this.add.image(600, 200, 'S2').setInteractive();
@@ -2137,7 +2164,32 @@ class SalaEspera extends Phaser.Scene{
 						selectPlayer.send(JSON.stringify("S2"));
 						isSalaSelected=true;
 					}        
-					});
+				if(isSalaSelected){
+			console.log('entra en isSelected');
+            if(jugador1sala2.text!=='null'){
+				console.log('entra en donde la sala llena continuar');
+
+				                //Botón continuar
+                this.bcont_next=this.add.image(400, 550, 'BContinuar1').setInteractive();
+                this.bcont_next.setScale(0.3);
+
+                this.bcont_next.on('pointerover', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1Activado');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerout', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerdown', () => {
+                   	selectPlayer.send(JSON.stringify("NEXT"));
+                   // this.scene.start('MenuPersonajes');
+                });
+			}
+    	}
+		});
 
 		
 		this.Sala3= this.add.image(200, 400, 'S3').setInteractive();
@@ -2159,6 +2211,31 @@ class SalaEspera extends Phaser.Scene{
 						selectPlayer.send(JSON.stringify("S3"));
 						isSalaSelected=true;
 					}          //  this.scene.start('NumeroJugadores');
+			if(isSalaSelected){
+			console.log('entra en isSelected');
+            if(jugador1sala3.text!=='null' ){
+				console.log('entra en donde la sala llena continuar');
+
+				                //Botón continuar
+                this.bcont_next=this.add.image(400, 550, 'BContinuar1').setInteractive();
+                this.bcont_next.setScale(0.3);
+
+                this.bcont_next.on('pointerover', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1Activado');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerout', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerdown', () => {
+                   	selectPlayer.send(JSON.stringify("NEXT"));
+                   // this.scene.start('MenuPersonajes');
+                });
+			}
+    	}
         });
 
 
@@ -2180,13 +2257,36 @@ class SalaEspera extends Phaser.Scene{
 					if(!isSalaSelected){
 						selectPlayer.send(JSON.stringify("S4"));
 						isSalaSelected=true;
-					}           // this.scene.start('NumeroJugadores');
+					}
+					if(isSalaSelected){
+			console.log('entra en isSelected');
+            if(jugador1sala4.text!=='null'){
+				console.log('entra en donde la sala llena continuar');
+
+				                //Botón continuar
+                this.bcont_next=this.add.image(400, 550, 'BContinuar1').setInteractive();
+                this.bcont_next.setScale(0.3);
+
+                this.bcont_next.on('pointerover', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1Activado');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerout', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerdown', () => {
+							selectPlayer.send(JSON.stringify("NEXT"));
+
+                    //this.scene.start('MenuPersonajes');
+                });
+			}
+    	}
         });
-
-
-
-    }
-
+		
+	}
     update(){
 		selectPlayer.onmessage = function(msg) {
 			//Cheackea si el msg es json para evitar errores de Undetected token	
@@ -2225,6 +2325,10 @@ class SalaEspera extends Phaser.Scene{
 						if(player_profile!==null){jugador1sala4.setText(player_profile);}else{jugador1sala4.setText('JugadorAnon');}
 					}
 				}
+				if(JSON.parse(msg.data)==='NEXT'){
+					                    scene4update.scene.start('MenuPersonajes');
+
+				}
 			}else{
 				if(msg.data==='sala-1'){
 					console.log('Entra sala-4');
@@ -2258,10 +2362,34 @@ class SalaEspera extends Phaser.Scene{
 						jugador1sala4.setText('JugadorAnon');
 					}
 				}
-			}
-			
-			
+			}	
 		}
+		if(!scene4update.bcont_next){
+			if((salaSelect==='S1'&& jugador1sala1.text!=='null' && jugador2sala1.text!=='null')||
+			(salaSelect==='S2'&& jugador1sala2.text!=='null' && jugador2sala2.text!=='null')||
+			(salaSelect==='S3'&& jugador1sala3.text!=='null' && jugador2sala3.text!=='null')||
+			(salaSelect==='S4'&& jugador1sala4.text!=='null' && jugador2sala4.text!=='null')){
+				                //Botón continuar
+                scene4update.bcont_next=scene4update.add.image(400, 550, 'BContinuar1').setInteractive();
+                scene4update.bcont_next.setScale(0.3);
+
+                scene4update.bcont_next.on('pointerover', () => {
+                    scene4update.bcont_next = scene4update.add.image(400, 550, 'BContinuar1Activado');
+                    scene4update.bcont_next.setScale(0.3);
+                });
+        
+                scene4update.bcont_next.on('pointerout', () => {
+                    scene4update.bcont_next = scene4update.add.image(400, 550, 'BContinuar1');
+                    scene4update.bcont_next.setScale(0.3);
+                });
+        
+                scene4update.bcont_next.on('pointerdown', () => {
+								selectPlayer.send(JSON.stringify("NEXT"));
+                    //scene4update.scene.start('MenuPersonajes');
+                });
+			}
+		}
+		
  	}
 }
 
