@@ -1,4 +1,4 @@
-var url="localhost"
+var url="192.168.1.46"
 
 
 
@@ -6,7 +6,7 @@ var url="localhost"
 
 ///////////////////////////////////////////
 ////Varibles de API REST
-var player_profile;
+var player_profile=null;
 var profileExists0; 
 	var profileExists1;
 	var profileExists2; 
@@ -289,6 +289,23 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('textoLinea', './asset/TextoEnLinea.png');
         this.load.image('textoLocal', './asset/TextoLocal.png');
         
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+		 ////////////////////////Carga de assets de Pantalla Sala de Espera////////////////////////
+
+        //Carga de fondos y botones
+        this.load.image('fondoSalaEspera', './asset/Fondo.png');
+        this.load.image('textoSE', './asset/SeleccionaSalaEspera.png');
+        this.load.image('S1Activa', './asset/Sala1Activada.png');
+        this.load.image('S1', './asset/Sala1.png');
+		this.load.image('S2Activa', './asset/Sala2Activada.png');
+        this.load.image('S2', './asset/Sala2.png');
+		this.load.image('S3Activa', './asset/Sala3Activada.png');
+        this.load.image('S3', './asset/Sala3.png');
+		this.load.image('S4Activa', './asset/Sala4Activada.png');
+        this.load.image('S4', './asset/Sala4.png');
+
 
         /////////////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -1900,8 +1917,6 @@ class PantallaModoJuego extends Phaser.Scene{
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
 /////////////////////////////////////////Pantalla Elección Número de Jugadores//////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1978,7 +1993,7 @@ class PantallaNumeroJugadores extends Phaser.Scene{
         });
         
         this.DosJugadores.on('pointerdown', () => {
-            this.scene.start('MenuPersonajes');
+            this.scene.start('SalaEspera');
         });
 
         this.TresJugadores= this.add.image(400, 450, '3J');
@@ -1997,7 +2012,261 @@ class PantallaNumeroJugadores extends Phaser.Scene{
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var jugador1sala1;
+var jugador2sala1;
+var jugador1sala2;
+var jugador2sala2;
+var jugador1sala3;
+var jugador2sala3;
+var jugador1sala4;
+var jugador2sala4;
 
+var salaSelect='null';
+var isSalaSelected=false;
+/////////////////////////////////////////Pantalla Sala de Espera//////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class SalaEspera extends Phaser.Scene{
+    constructor(){
+        //SalaEspera--> nombre que se le da a la escena
+        super({ key: "SalaEspera"});
+    }
+
+    preload(){   
+    }
+
+    create(){
+	
+		//Texto
+		jugador1sala1=	this.add.text(200, 200, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador2sala1=	this.add.text(200, 220, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador1sala2=	this.add.text(600, 200, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador2sala2=	this.add.text(600, 220, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador1sala3=	this.add.text(200, 400, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador2sala3=	this.add.text(200, 420, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador1sala4=	this.add.text(600, 400, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador2sala4=	this.add.text(600, 420, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+
+		selectPlayer.send(JSON.stringify("check"));
+
+        //Fondo de la pantalla 
+        this.fondoSEspera= this.add.image(400, 300, 'fondoSalaEspera');
+        this.fondoSEspera.setScale(0.6);
+
+        this.titleSalaEspera = this.add.image(400, 100, 'textoSE');
+        this.titleSalaEspera.setScale(0.8);
+
+
+        this.ayud3 = this.add.image(750, 50, 'ayuda').setInteractive();
+        this.ayud3.setScale(0.6);
+
+        this.ayud3.on('pointerover', () => {
+            this.ayud3 = this.add.image(750, 50, 'ayudaActivado');
+            this.ayud3.setScale(0.6);
+        });
+        
+        this.ayud3.on('pointerout', () => {
+            this.ayud3 = this.add.image(750, 50, 'ayuda');
+            this.ayud3.setScale(0.6);
+        });
+        
+        this.ayud3.on('pointerdown', () => {
+            this.scene.moveBelow('SalaEspera');
+            this.scene.launch('Ayuda'); 
+        });
+
+
+        this.atras3 = this.add.image(75, 50, 'back').setInteractive();
+        this.atras3.setScale(0.8);
+
+        this.atras3.on('pointerover', () => {
+            this.atras3 = this.add.image(75, 50, 'backActivo');
+            this.atras3.setScale(0.8);
+        });
+        
+        this.atras3.on('pointerout', () => {
+            this.atras3 = this.add.image(75, 50, 'back');
+            this.atras3.setScale(0.8);
+        });
+        
+        this.atras3.on('pointerdown', () => {
+            this.scene.start('ModoJuego');
+        });
+
+
+        this.Sala1= this.add.image(200, 200, 'S1').setInteractive();
+        this.Sala1.setScale(0.4);
+
+        this.Sala1.on('pointerover', () => {
+            this.Sala1 = this.add.image(200, 200, 'S1Activa');
+            this.Sala1.setScale(0.4);
+        });
+        
+        this.Sala1.on('pointerout', () => {
+            this.Sala1 = this.add.image(200, 200, 'S1');
+            this.Sala1.setScale(0.4);
+        });
+        
+        this.Sala1.on('pointerdown', () => {
+					salaSelect='S1';
+					if(!isSalaSelected){
+						selectPlayer.send(JSON.stringify("S1"));
+						isSalaSelected=true;
+					}
+          //  this.scene.start('NumeroJugadores')
+
+        });
+
+        this.Sala2= this.add.image(600, 200, 'S2').setInteractive();
+        this.Sala2.setScale(0.4);
+
+		this.Sala2.on('pointerover', () => {
+            this.Sala2 = this.add.image(600, 200, 'S2Activa');
+            this.Sala2.setScale(0.4);
+        });
+        
+        this.Sala2.on('pointerout', () => {
+            this.Sala2 = this.add.image(600, 200, 'S2');
+            this.Sala2.setScale(0.4);
+        });
+        
+        this.Sala2.on('pointerdown', () => {
+					salaSelect='S2';
+					if(!isSalaSelected){
+						selectPlayer.send(JSON.stringify("S2"));
+						isSalaSelected=true;
+					}        
+					});
+
+		
+		this.Sala3= this.add.image(200, 400, 'S3').setInteractive();
+        this.Sala3.setScale(0.4);
+
+		this.Sala3.on('pointerover', () => {
+            this.Sala3 = this.add.image(200, 400, 'S3Activa');
+            this.Sala3.setScale(0.4);
+        });
+        
+        this.Sala3.on('pointerout', () => {
+            this.Sala3 = this.add.image(200, 400, 'S3');
+            this.Sala3.setScale(0.4);
+        });
+        
+        this.Sala3.on('pointerdown', () => {
+					salaSelect='S3';
+			if(!isSalaSelected){
+						selectPlayer.send(JSON.stringify("S3"));
+						isSalaSelected=true;
+					}          //  this.scene.start('NumeroJugadores');
+        });
+
+
+		this.Sala4= this.add.image(600, 400, 'S4').setInteractive();
+        this.Sala4.setScale(0.4);
+
+		this.Sala4.on('pointerover', () => {
+            this.Sala4 = this.add.image(600, 400, 'S4Activa');
+            this.Sala4.setScale(0.4);
+        });
+        
+        this.Sala4.on('pointerout', () => {
+            this.Sala4 = this.add.image(600, 400, 'S4');
+            this.Sala4.setScale(0.4);
+        });
+        
+        this.Sala4.on('pointerdown', () => {
+				salaSelect='S4';
+					if(!isSalaSelected){
+						selectPlayer.send(JSON.stringify("S4"));
+						isSalaSelected=true;
+					}           // this.scene.start('NumeroJugadores');
+        });
+
+
+
+    }
+
+    update(){
+		selectPlayer.onmessage = function(msg) {
+			//Cheackea si el msg es json para evitar errores de Undetected token	
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='S1'){
+					if(jugador1sala1.text!=='null'){
+						if(player_profile!==null){jugador2sala1.setText(player_profile);}else{jugador2sala1.setText('JugadorAnon');}
+					}else{
+						if(player_profile!==null){jugador1sala1.setText(player_profile);}else{jugador1sala1.setText('JugadorAnon');}
+					}
+				}
+				if(JSON.parse(msg.data)==='S2'){
+					if(jugador1sala2.text!=='null'){
+						if(player_profile!==null){jugador2sala2.setText(player_profile);}else{jugador2sala2.setText('JugadorAnon');}
+					}else{
+						if(player_profile!==null){jugador1sala2.setText(player_profile);}else{jugador1sala2.setText('JugadorAnon');}
+					}
+				}
+				if(JSON.parse(msg.data)==='S3'){
+					if(jugador1sala3.text!=='null'){
+						if(player_profile!==null){jugador2sala3.setText(player_profile);}else{jugador2sala3.setText('JugadorAnon');}
+					}else{
+						if(player_profile!==null){jugador1sala3.setText(player_profile);}else{jugador1sala3.setText('JugadorAnon');}
+					}
+				}
+				if(JSON.parse(msg.data)==='S4'){
+					if(jugador1sala4.text!=='null'){
+						if(player_profile!==null){jugador2sala4.setText(player_profile);}else{jugador2sala4.setText('JugadorAnon');}
+					}else{
+						if(player_profile!==null){jugador1sala4.setText(player_profile);}else{jugador1sala4.setText('JugadorAnon');}
+					}
+				}
+			}else{
+				if(msg.data==='sala-1'){
+					console.log('Entra sala-4');
+					if(jugador1sala1.text!=='null'){
+						jugador2sala1.setText('JugadorAnon');
+					}else{
+						jugador1sala1.setText('JugadorAnon');
+					}
+				}
+				if(msg.data==='sala-2'){
+					console.log('Entra sala-4');
+					if(jugador1sala2.text!=='null'){
+						jugador2sala2.setText('JugadorAnon');
+					}else{
+						jugador1sala2.setText('JugadorAnon');
+					}
+				}
+				if(msg.data==='sala-3'){
+					console.log('Entra sala-4');
+					if(jugador1sala3.text!=='null'){
+						jugador2sala3.setText('JugadorAnon');
+					}else{
+						jugador1sala3.setText('JugadorAnon');
+					}
+				}
+				if(msg.data==='sala-4'){
+					console.log('Entra sala-4');
+					if(jugador1sala4.text!=='null'){
+						jugador2sala4.setText('JugadorAnon');
+					}else{
+						jugador1sala4.setText('JugadorAnon');
+					}
+				}
+			}
+			
+			
+		}
+ 	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 ////Variables Selección de personajes//////
@@ -2271,7 +2540,7 @@ scene4update=this;
 	if(!pjPropioSelec){
             if(chooseP1==='null'&&chooseP2==='null'){
 				if(online){
-					selectPlayer.send(JSON.stringify("Wasabi-P1"));
+					
 					pjPropioSelec=true;
 				cargoPj="player1";
 
@@ -7762,7 +8031,7 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, SelecTipoInicio, SelecPerfil, Registro, Datos, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, Pausa, PantallaResultados],
+    scene: [PantallaCarga, PantallaDeInicio, SelecTipoInicio, SelecPerfil, Registro, Datos, MenuPrincipal, Controles, Creditos, PantallaModoJuego, SalaEspera, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, Pausa, PantallaResultados],
 	audio: {
         disableWebAudio: true
     }
