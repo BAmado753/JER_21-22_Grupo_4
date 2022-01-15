@@ -19,7 +19,13 @@ public class TinyTusselApplication implements WebSocketConfigurer {
 		.setAllowedOrigins("*");
 		registry.addHandler(selectPlayerHandler(), "/selectPlayer")
 		.setAllowedOrigins("*");
-		registry.addHandler(playerMovementHandler(), "/movePlayer")
+		registry.addHandler(playerMovementHandler(), "/movePlayer1")
+		.setAllowedOrigins("*");
+		registry.addHandler(playerMovementHandler(), "/movePlayer2")
+		.setAllowedOrigins("*");
+		registry.addHandler(playerMovementHandler(), "/movePlayer3")
+		.setAllowedOrigins("*");
+		registry.addHandler(playerMovementHandler(), "/movePlayer4")
 		.setAllowedOrigins("*");
 		registry.addHandler(itemsRespawnHandler(), "/itemsRespawn")
 		.setAllowedOrigins("*");

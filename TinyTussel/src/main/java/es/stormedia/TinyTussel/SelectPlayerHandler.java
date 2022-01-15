@@ -12,10 +12,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class SelectPlayerHandler extends TextWebSocketHandler{
 private Map<String, WebSocketSession> sessionList = new ConcurrentHashMap<>();
 private Map<String, Sala> jgSalaList = new ConcurrentHashMap<>();
-private boolean S1=true;
-private boolean S2=true;
-private boolean S3=true;
-private boolean S4=true;
 
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		sessionList.put(session.getId(), session);
@@ -80,13 +76,7 @@ private boolean S4=true;
 		}else {
 			sendMessageInRoom(session, message.getPayload());	
 
-		}/*
-		else {
-			///Comunica al remitente su propio mensaje
-			session.sendMessage(new TextMessage(msg));
-			//Comunica a las demás sesiones el mensaje
-			broadcastMessage(session, message.getPayload());	
-		}*/
+		}
 	
 		
 	}

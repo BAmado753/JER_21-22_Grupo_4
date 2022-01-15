@@ -15,7 +15,11 @@ var profileExists0;
 //Variables WebSockets
 var connection = new WebSocket('ws://'+url+':8080/online');
 var selectPlayer = new WebSocket('ws://'+url+':8080/selectPlayer');
-var movePlayer = new WebSocket('ws://'+url+':8080/movePlayer');
+var movePlayer_S1; 
+var movePlayer_S2;
+var movePlayer_S3;
+var movePlayer_S4;
+
 var respawnItemsHandler = new WebSocket('ws://'+url+':8080/itemsRespawn')
 //Variables que reciben llamadas de websocket
 var online=false;
@@ -55,6 +59,7 @@ console.log(JSON.parse(msg.data));
 	connection.onclose = function() {
 	  console.log("WS Conexión cerrada");
 	}
+	
 /////////////////////////////////////////Pantalla de Carga//////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PantallaCarga extends Phaser.Scene{
@@ -2138,8 +2143,11 @@ class SalaEspera extends Phaser.Scene{
                 });
         
                 this.bcont_next.on('pointerdown', () => {
-								selectPlayer.send(JSON.stringify("NEXT"));
-                    //this.scene.start('MenuPersonajes');
+					if(online){
+						selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
+	                    this.scene.start('MenuPersonajes');
+					}
                 });
 			}
     	}
@@ -2184,8 +2192,11 @@ class SalaEspera extends Phaser.Scene{
                 });
         
                 this.bcont_next.on('pointerdown', () => {
-                   	selectPlayer.send(JSON.stringify("NEXT"));
-                   // this.scene.start('MenuPersonajes');
+                   	if(online){
+						selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
+	                    this.scene.start('MenuPersonajes');
+					}
                 });
 			}
     	}
@@ -2231,8 +2242,11 @@ class SalaEspera extends Phaser.Scene{
                 });
         
                 this.bcont_next.on('pointerdown', () => {
-                   	selectPlayer.send(JSON.stringify("NEXT"));
-                   // this.scene.start('MenuPersonajes');
+                   	if(online){
+						selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
+	                    this.scene.start('MenuPersonajes');
+					}
                 });
 			}
     	}
@@ -2278,8 +2292,11 @@ class SalaEspera extends Phaser.Scene{
                 });
         
                 this.bcont_next.on('pointerdown', () => {
-							selectPlayer.send(JSON.stringify("NEXT"));
-
+					if(online){
+						selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
+	                    this.scene.start('MenuPersonajes');
+					}
                     //this.scene.start('MenuPersonajes');
                 });
 			}
@@ -2364,7 +2381,8 @@ class SalaEspera extends Phaser.Scene{
 				}
 			}	
 		}
-		if(!scene4update.bcont_next){
+		if(online){
+			if(!scene4update.bcont_next){
 			if((salaSelect==='S1'&& jugador1sala1.text!=='null' && jugador2sala1.text!=='null')||
 			(salaSelect==='S2'&& jugador1sala2.text!=='null' && jugador2sala2.text!=='null')||
 			(salaSelect==='S3'&& jugador1sala3.text!=='null' && jugador2sala3.text!=='null')||
@@ -2384,11 +2402,12 @@ class SalaEspera extends Phaser.Scene{
                 });
         
                 scene4update.bcont_next.on('pointerdown', () => {
-								selectPlayer.send(JSON.stringify("NEXT"));
-                    //scene4update.scene.start('MenuPersonajes');
+						selectPlayer.send(JSON.stringify("NEXT"));
                 });
 			}
 		}
+		}
+		
 		
  	}
 }
@@ -2545,8 +2564,12 @@ scene4update=this;
                 });
         
                 this.bcont1.on('pointerdown', () => {
-                    this.scene.start('MenuEscenarios');
-                });
+					if(online){
+						selectPlayer.send(JSON.stringify('NEXT'));
+					}else{
+	                    this.scene.start('MenuEscenarios');
+					}                
+				});
 			
 			}
 			}
@@ -2631,8 +2654,12 @@ scene4update=this;
                 });
         
                 this.bcont1.on('pointerdown', () => {
-                    this.scene.start('MenuEscenarios');
-                });
+					if(online){
+						selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
+	                    this.scene.start('MenuEscenarios');
+					}                
+					});
 		  		
 			}
 			}
@@ -2713,8 +2740,12 @@ scene4update=this;
                 });
         
                 this.bcont1.on('pointerdown', () => {
-                    this.scene.start('MenuEscenarios');
-                });
+					if(online){
+						selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
+	                    this.scene.start('MenuEscenarios');
+					}                
+				});
 			
 			}
 			}
@@ -2758,7 +2789,8 @@ scene4update=this;
                 });
         
                 scene4update.bcont1.on('pointerdown', () => {
-                    scene4update.scene.start('MenuEscenarios');
+							selectPlayer.send(JSON.stringify("NEXT"));
+                    //scene4update.scene.start('MenuEscenarios');
                 });
 			}
 			if(JSON.parse(msg.data)==="Bernie-P1"){
@@ -2796,7 +2828,8 @@ scene4update=this;
                 });
         
                 scene4update.bcont1.on('pointerdown', () => {
-                    scene4update.scene.start('MenuEscenarios');
+                    //scene4update.scene.start('MenuEscenarios');
+                    						selectPlayer.send(JSON.stringify("NEXT"));
                 });
 			}
 			if(JSON.parse(msg.data)==="Wasabi-P1"){
@@ -2833,12 +2866,15 @@ scene4update=this;
                 });
         
                 scene4update.bcont1.on('pointerdown', () => {
-                    scene4update.scene.start('MenuEscenarios');
+                    						selectPlayer.send(JSON.stringify("NEXT"));
+                    //scene4update.scene.start('MenuEscenarios');
                 });
 			}
 console.log("chooseP1: "+chooseP1);
 console.log("chooseP2: "+chooseP2);
-
+				if(JSON.parse(msg.data)==='NEXT'){
+					 scene4update.scene.start('MenuEscenarios');
+				}
 	}
 		}
 		
@@ -2862,6 +2898,13 @@ class MenuEscenarios extends Phaser.Scene{
     }
 
     create(){
+	//Abremos la conexion para la siguiente pantalla
+	if(salaSelect==='S1'){movePlayer_S1 = new WebSocket('ws://'+url+':8080/movePlayer1');}
+	if(salaSelect==='S2'){movePlayer_S2 = new WebSocket('ws://'+url+':8080/movePlayer2');}
+	if(salaSelect==='S3'){ movePlayer_S3 = new WebSocket('ws://'+url+':8080/movePlayer3');}
+	if(salaSelect==='S4'){movePlayer_S4 = new WebSocket('ws://'+url+':8080/movePlayer4');}
+	//
+	scene4update=this;
         //Fondo de la pantalla de selección de escenario
         this.fondoME= this.add.image(400, 300, 'fondoMenu1');
         this.fondoME.setScale(1.6);
@@ -2921,7 +2964,11 @@ class MenuEscenarios extends Phaser.Scene{
         });
 
         this.es1.on('pointerdown', () => {
+	if(online){
+			selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
             this.scene.start('Escenario1');
+					} 
             bg_music_selection_screen.setLoop(false);
             bg_music_selection_screen.stop();
         });
@@ -2971,6 +3018,16 @@ class MenuEscenarios extends Phaser.Scene{
 
 
     }
+ update(){
+	if(online){
+		selectPlayer.onmessage = function(msg) {
+			if(JSON.parse(msg.data)==='NEXT'){
+            scene4update.scene.start('Escenario1');
+			}
+		}
+	}
+	
+}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3161,6 +3218,7 @@ var input_O;
 var input_U;
 
 var lastTimeConnected=new Date();
+var isIdle=false;
 var nJug="";
 //////////////////////////////////////////Pantalla del Escenario1///////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3173,10 +3231,23 @@ class PantallaEscenario1 extends Phaser.Scene{
     
 
     preload(){
+	 
     }
 
 
     create(){
+	
+
+ 
+
+ 
+	//Elecciones anteriores
+	if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("S1"));}
+	if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("S2"));}
+	if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("S3"));}
+	if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("S4"));}
+
+
 	//Background
     this.add.image(400,300, 'bg_arboles');
     this.add.image(400,400, 'bg_tierra');
@@ -4088,18 +4159,110 @@ blueSpecialAttack_Explosion.anims.create({
   update(){
 	//PARTIDA ONLINE
 	if(online){
-		movePlayer.onmessage = function(msg) {
-			//console.log("hay pistola"+player1.hasPistol);
-			//console.log("hay cuchillo"+player1.hasKnife);
-		if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
-		if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
-		if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
-		if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
-		if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
-		if(JSON.parse(msg.data)==='jump'){inputJump=true;}
-		if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
-		if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+		
+		if(salaSelect==='S1'){
+			movePlayer_S1.onopen = function() {
+	  			console.log("WS movePlayer_S1 Conexión abierta");
+			}
+			movePlayer_S1.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
 	}
+	if(salaSelect==='S2'){
+		movePlayer_S2.onopen = function() {
+	  			console.log("WS movePlayer_S2 Conexión abierta");
+			}
+			movePlayer_S2.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	if(salaSelect==='S3'){
+		movePlayer_S3.onopen = function() {
+	  			console.log("WS movePlayer_S3 Conexión abierta");
+			}
+			movePlayer_S3.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	if(salaSelect==='S4'){
+		movePlayer_S4.onopen = function() {
+	  			console.log("WS movePlayer_S4 Conexión abierta");
+			}
+			movePlayer_S4.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	/*movePlayer_S1.onclose = function() {
+	  console.log("WS movePlayer_S1 Conexión cerrada");
+	}*/
 	respawnItemsHandler.onmessage = function(msg) {
 		var obj=JSON.parse(msg.data);
 			//console.log(JSON.parse(msg.data));
@@ -4139,32 +4302,53 @@ blueSpecialAttack_Explosion.anims.create({
 	
 	//Controles websockets
 	if(Phaser.Input.Keyboard.JustDown(input_A)){
-					movePlayer.send(JSON.stringify("left"));
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("left"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("left"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("left"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("left"));}
 	}
 	if(Phaser.Input.Keyboard.JustDown(input_D)){
-				movePlayer.send(JSON.stringify("right"));
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("right"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("right"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("right"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("right"));}
 	}
 	if(Phaser.Input.Keyboard.JustDown(input_W)){
-				movePlayer.send(JSON.stringify("up"));
+		
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("up"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("up"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("up"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("up"));}
 	}
 	/*
 	if(Phaser.Input.Keyboard.JustDown(input_S)){
 				console.log("Se pulsa S");
-				movePlayer.send(JSON.stringify("down"));
+				movePlayer_S1.send(JSON.stringify("down"));
 	}*/
 	if(Phaser.Input.Keyboard.JustDown(spaceBar)){
-				movePlayer.send(JSON.stringify("jump"));
+			isIdle=false;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("jump"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("jump"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("jump"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("jump"));}
 	}
 	/*if(Phaser.Input.Keyboard.JustDown(input_Q)){
 		//inputSpecial
-				movePlayer.send(JSON.stringify("special"));
+				movePlayer_S1.send(JSON.stringify("special"));
 	}*/
 	/*if(Phaser.Input.Keyboard.JustDown(input_E)){
-				movePlayer.send(JSON.stringify("attack"));
+				movePlayer_S1.send(JSON.stringify("attack"));
 	}*/
 	
-	if(!(input_A.isDown || input_D.isDown || input_W.isDown || spaceBar.isDown)){
-					movePlayer.send(JSON.stringify("idle"));
+	if(!(input_A.isDown || input_D.isDown || input_W.isDown || spaceBar.isDown) && !isIdle){
+		isIdle=true;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("idle"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("idle"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("idle"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("idle"));}
+	}
+	if(input_A.isDown || input_D.isDown || input_W.isDown || spaceBar.isDown){
+			isIdle=false;
 	}
 	if(cargoPj==='player1'){
 					onItemRespawnEvent(this);
@@ -4173,7 +4357,11 @@ blueSpecialAttack_Explosion.anims.create({
 	
 	//Ataques especiales
 if	(Phaser.Input.Keyboard.JustDown(input_Q)){
-	movePlayer.send(JSON.stringify("special"));
+	isIdle=false;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("special"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("special"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("special"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("special"));}
 		if(cargoPj==='player1'){
 			if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
     		if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
@@ -6055,7 +6243,10 @@ function getPistol_P1(player, pistol,scene){
 	if((online && inputDown && cargoPj !=='player1')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player1')){
 if(cargoPj==='player1'){
 	//console.log("send Down");
-							movePlayer.send(JSON.stringify("down"));
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("down"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("down"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("down"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("down"));}
 		}   
 if(cargoPj!=='player1'){
 	//console.log("player1 online entra en getPistol");
@@ -6079,7 +6270,10 @@ function getKnife_P1(player, knife,scene){
 		
 	if((online && inputDown && cargoPj !=='player1')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player1')){
 		if(cargoPj==='player1'){
-							movePlayer.send(JSON.stringify("down"));
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("down"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("down"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("down"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("down"));}
 		}
 		if(cargoPj!=='player1'){
 	//console.log("player1 online entra en getKnife");
@@ -6103,7 +6297,10 @@ function getKnife_P1(player, knife,scene){
 function getPistol_P2(player, pistol,scene){
 	if((online && inputDown && cargoPj !=='player2')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player2')){
 	if(cargoPj==='player2'){
-							movePlayer.send(JSON.stringify("down"));
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("down"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("down"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("down"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("down"));}
 		}
 	sound_pickupWeapon.play();
 	pistol.disableBody(true, true);
@@ -6122,7 +6319,11 @@ function getKnife_P2(player, knife,scene){
 	if((online && inputDown && cargoPj !=='player2')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player2'))
 	{
 		if(cargoPj==='player2'){
-							movePlayer.send(JSON.stringify("down"));
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("down"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("down"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("down"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("down"));}
+							
 		}
 	sound_pickupWeapon.play();
 	knife.disableBody(true, true);
@@ -6621,7 +6822,10 @@ class IdleStateP1 extends State {
     // Transition to attack if pressing e
     if (input_E.isDown && player1.hasKnife===true) {
 	if(online){
-		movePlayer.send(JSON.stringify("attack"));
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
 	}
 			console.log("dentro de State para cuchillo");
       this.stateMachine.transition('attack_knife');
@@ -6629,7 +6833,11 @@ class IdleStateP1 extends State {
     }
 	if (Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true && player1.ammo>0) {
 	if(online){
-		movePlayer.send(JSON.stringify("attack"));
+					isIdle=false;
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
 	}		console.log("dentro de State para pistola");
       this.stateMachine.transition('attack_pistol');
       return;
@@ -6677,7 +6885,10 @@ class MoveStateP1 extends State {
    // Transition to attack if pressing e
     if (input_E.isDown && player1.hasKnife===true) {
 	if(online){
-		movePlayer.send(JSON.stringify("attack"));
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
 	}
 			console.log("dentro de State para cuchillo"); 
       this.stateMachine.transition('attack_knife');
@@ -6685,7 +6896,11 @@ class MoveStateP1 extends State {
     }
     if (Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true && player1.ammo>0) {
 	if(online){
-		movePlayer.send(JSON.stringify("attack"));
+					isIdle=false;
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
 	}
 		console.log("dentro de State para pistola"); 
  this.stateMachine.transition('attack_pistol');
@@ -6745,14 +6960,21 @@ class InvisibleStateP1 extends State {
    // Transition to attack if pressing e
     if (input_E.isDown && player1.hasKnife===true) {
 	if(online){
-		movePlayer.send(JSON.stringify("attack"));
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
 	}
       this.stateMachine.transition('attack_knife');
       return;
     }
     if (Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true && player1.ammo>0) {
 	if(online){
-		movePlayer.send(JSON.stringify("attack"));
+					isIdle=false;
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
 	}
       this.stateMachine.transition('attack_pistol');
       return;
@@ -6901,14 +7123,21 @@ execute(scene, player1) {
    // Transition to attack if pressing e
     if (input_E.isDown && player1.hasKnife===true) {
 	if(online){
-		movePlayer.send(JSON.stringify("attack"));
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
 	}
       this.stateMachine.transition('attack_knife');
       return;
     }
 	if (Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true && player1.ammo>0) {
 		if(online){
-		movePlayer.send(JSON.stringify("attack"));
+						isIdle=false;
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
 	}
       this.stateMachine.transition('attack_pistol');
       return;
@@ -7598,14 +7827,22 @@ execute(scene, player) {
    // Transition to attack if pressing e
     if (input_E.isDown && player.hasKnife===true) {
 	if(online){
-		movePlayer.send(JSON.stringify("attack"));
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
+
 	}
       this.stateMachine.transition('attack_knife');
       return;
     }
 	if (Phaser.Input.Keyboard.JustDown(input_E) && player.hasPistol===true && player.ammo>0) {
 		if(online){
-		movePlayer.send(JSON.stringify("attack"));
+						isIdle=false;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
 	}
       this.stateMachine.transition('attack_pistol');
       return;
@@ -7613,7 +7850,7 @@ execute(scene, player) {
 
 //To idle
 	if (( inputLeft || inputRight || !player.onLadder)) {
-							//movePlayer.send(JSON.stringify("idle"));
+							//movePlayer_S1.send(JSON.stringify("idle"));
       this.stateMachine.transition('idle');
       return;
 

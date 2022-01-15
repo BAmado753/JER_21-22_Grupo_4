@@ -15,18 +15,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class PlayerMovementHandler extends TextWebSocketHandler{
 
 private Map<String, WebSocketSession> sessionList = new ConcurrentHashMap<>();
-private String jugSala []=new String [7];
-	@SuppressWarnings("unchecked")
+private Map<String, Sala> jgSalaList = new ConcurrentHashMap<>();
+
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		sessionList.put(session.getId(), session);
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("ID", session.getId().toString());
-	      jsonObject.put("Sala", "null");
-	      int i=0;
-	      while(jugSala[i]=="null") {
-	    	  jugSala[0]=jsonObject.toString();
-	    	  i++;
-	      }
+		
 	}
 	
 	
@@ -35,23 +28,44 @@ private String jugSala []=new String [7];
 	}
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		//String msg = message.getPayload();
-		//session.sendMessage(new TextMessage(msg));
-		//ObjectMapper mapper = new ObjectMapper();
-		//JsonNode node = mapper.readTree(message.toString());
-		//String sala = node.get("sala").asText();
-		JSONObject jsonObject = new JSONObject();
-
-		broadcastMessage(session, message.getPayload());
-		
-
+		String msg = message.getPayload();
+		if(msg.equals((char)34+"S1"+(char)34)) {
+			jgSalaList.put(session.getId(), new Sala(session.getId(),"sala-1",session));
+			}
+		else if(msg.equals((char)34+"S2"+(char)34)) {
+			jgSalaList.put(session.getId(), new Sala(session.getId(),"sala-2",session));
+		}
+		else if(msg.equals((char)34+"S3"+(char)34)) {
+			jgSalaList.put(session.getId(), new Sala(session.getId(),"sala-3",session));
+		}
+		else if(msg.equals((char)34+"S4"+(char)34)){
+			jgSalaList.put(session.getId(), new Sala(session.getId(),"sala-4",session));
+		}
+		sendMessageInRoom(session, message.getPayload());
 		
 	}
+	private void sendMessageInRoom(WebSocketSession session, String payload) throws IOException {
+		System.out.println("Tamaño jugaSalList:"+jgSalaList.size());
+		String sala="null";
+		for(Sala jugSala_aux : jgSalaList.values()) {
+			if(jugSala_aux.getSesionID().equals(session.getId())) {
+				sala=jugSala_aux.getSala();
+			}
+		}
+		System.out.println("Sala:"+sala);
+		for(Sala jugSala_aux : jgSalaList.values()) {
+			if(jugSala_aux.getSala().equals(sala)&& !jugSala_aux.getSesionID().equals(session.getId())) {
+				//synchronized(jugSala_aux.getSesion()) {
+					jugSala_aux.getSesion().sendMessage(new TextMessage(payload));
+				//}
+			}
+		}
+	}
 	private void broadcastMessage(WebSocketSession session, String payload) throws IOException {
+		//System.out.println("entra al broadcast");
 		for(WebSocketSession session_aux : sessionList.values()) {
 			if(!session_aux.getId().equals(session.getId())) {
 				session_aux.sendMessage(new TextMessage(payload));
-				
 			}
 		}
 	}

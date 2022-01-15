@@ -85,10 +85,13 @@ public class PlayerController {
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
-		
-		return player_aux.getName();
+		try {
+			return player_aux.getName();
+		} catch(NullPointerException e) {
+			return null;
+		}
 	}
 	
 	@PutMapping("/player/name/{id}")
