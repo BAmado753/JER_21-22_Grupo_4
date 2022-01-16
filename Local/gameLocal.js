@@ -273,17 +273,17 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('speed_item',             'asset/feather.png');
         this.load.image('power_item',             'asset/strength.png');
         //Objetos
-        this.load.image('gem',             'asset/gem.png');
-        this.load.image('pistol_item',             'asset/pistol_icon.png');
-        this.load.image('knife_item',             'asset/knife.png');
-        this.load.image('shield_item',             'asset/escudo.png');
+        this.load.image('gem',             'asset/gem1.png');
+        this.load.image('pistol_item',             'asset/pistol_icon1.png');
+        this.load.image('knife_item',             'asset/knife1.png');
+        this.load.image('shield_item',             'asset/escudo1.png');
         this.load.image('shield_bubble',             'asset/bubble_shield.png');
-        this.load.image('speed_item',             'asset/feather.png');
+        this.load.image('speed_item',             'asset/feather1.png');
         this.load.image('power_item',             'asset/strength.png');
-        this.load.image('grape_item',             'asset/grape.png');
-        this.load.image('strawberry_item',             'asset/strawberry.png');
-        this.load.image('lemon_item',             'asset/lemon.png');
-        this.load.image('ammo_item',             'asset/ammo.png');
+        this.load.image('grape_item',             'asset/grape1.png');
+        this.load.image('strawberry_item',             'asset/strawberry1.png');
+        this.load.image('lemon_item',             'asset/lemon1.png');
+        this.load.image('ammo_item',             'asset/ammo1.png');
 
 
         //Escenario
@@ -2072,6 +2072,7 @@ class PantallaEscenario1 extends Phaser.Scene{
 
     //Gemas
     gems = this.physics.add.group();
+
     
     //Items
     //item_pistol=this.physics.add.sprite(200, 450, 'pistol_item');
@@ -2172,9 +2173,9 @@ class PantallaEscenario1 extends Phaser.Scene{
 	text_p1_UI.setDepth(2);
 	profile_p1_UI = this.add.image(40, 510, 'j1').setScale(0.3,0.3); 
 	profile_p1_UI.setDepth(1);
-	var gem_Icon= this.add.image(220, 586, 'gem').setScale(0.6,0.6); 
+	var gem_Icon= this.add.image(220, 586, 'gem').setScale(1.0,1.0); 
 	gem_Icon.setDepth(1);
-	var ammo_Icon= this.add.image(220, 569, 'ammo_item').setScale(0.4,0.3); 
+	var ammo_Icon= this.add.image(220, 569, 'ammo_item').setScale(1.0,0.9); 
 	ammo_Icon.setDepth(1);
 	spAtk_p1_UI=this.add.sprite(50, 530, 'special_attack_11').setScale(0.35,0.35);
 	spAtk_p1_UI.anims.create({
@@ -2243,9 +2244,9 @@ class PantallaEscenario1 extends Phaser.Scene{
 	text_p2_UI.setDepth(2);
 	profile_p2_UI = this.add.image(760, 510, 'j2').setScale(0.3,0.3); 
 	profile_p2_UI.setDepth(1);
-	var gem_Icon= this.add.image(580, 586, 'gem').setScale(0.6,0.6);
+	var gem_Icon= this.add.image(580, 586, 'gem').setScale(1.0,1.0);
 	gem_Icon.setDepth(1);
-	var ammo_Icon= this.add.image(580, 569, 'ammo_item').setScale(0.4,0.3); 
+	var ammo_Icon= this.add.image(580, 569, 'ammo_item').setScale(1.0,0.9); 
 	ammo_Icon.setDepth(1);
 	spAtk_p2_UI=this.add.sprite(750, 530, 'special_attack_11').setScale(0.35,0.35);
 	spAtk_p2_UI.anims.create({
@@ -4569,37 +4570,37 @@ function createPistol(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_pistol.create(x,y,'pistol_item');  
+		items_pistol.create(x,y,'pistol_item').setScale(1.3);  
 }
 function createKnife(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_knife.create(x,y,'knife_item');  
+		items_knife.create(x,y,'knife_item').setScale(0.9);  
 }
 function createGem(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		gems.create(x,y,'gem');  
+		gems.create(x,y,'gem').setScale(1.2);  
 }
 function createShield(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_shield.create(x,y,'shield_item');  
+		items_shield.create(x,y,'shield_item').setScale(1.2);  
 }
 function createPower(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_power.create(x,y,'power_item');  
+		items_power.create(x,y,'power_item').setScale(0.7);  
 }
 function createSpeed(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_speed.create(x,y,'speed_item');  
+		items_speed.create(x,y,'speed_item').setScale(0.7);  
 }
 function createLemon(){
 	
@@ -4611,7 +4612,7 @@ function createGrape(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_grape.create(x,y,'grape_item');  
+		items_grape.create(x,y,'grape_item').setScale(1.2);  
 }
 function createStrawberry(){
 	
