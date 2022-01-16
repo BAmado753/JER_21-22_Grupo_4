@@ -1,4 +1,4 @@
-var url="192.168.1.46"
+var url="localhost"
 
 
 
@@ -3156,6 +3156,32 @@ var Bullet = new Phaser.Class({
 
 });
 
+
+//Funciones tiempo restante
+function formatTime(seconds){
+    // Minutes
+    var minutes = Math.floor(seconds/60);
+    // Seconds
+    var partInSeconds = seconds%60;
+    // Adds left zeros to seconds
+    partInSeconds = partInSeconds.toString().padStart(2,'0');
+    // Returns formated time
+    return `${minutes}:${partInSeconds}`;
+}
+
+
+function onEvent ()
+{
+    this.initialTime -= 1; // One second
+    text.setText('Tiempo restante: ' + formatTime(this.initialTime));
+    if(this.initialTime===0){
+        bg_music_battleground_1.setLoop(false);
+        bg_music_battleground_1.stop();
+        this.scene.start('Resultados');
+    }
+}
+
+
 //objects
 var player1;
 var player1_name;
@@ -3228,6 +3254,12 @@ var input_K;
 var input_L;
 var input_O;
 var input_U;
+
+
+//Variables para el tiempo restante
+var text;
+var timedEvent;
+
 
 var lastTimeConnected=new Date();
 var isIdle=false;
@@ -3304,12 +3336,20 @@ class PantallaEscenario1 extends Phaser.Scene{
     controlIimedItemRespawn_Fruits=0;
     controlIimedItemRespawn=0;
 	controlIimedWeaponRespawn=0;
-    text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(30000, onCountDownEvent, [], this); //75000 tiempoo oficial
+    //text_time = this.add.text(32, 32);
+    //timedCountdown = this.time.delayedCall(30000, onCountDownEvent, [], this); //75000 tiempoo oficial
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
     
+
+    //Tiempo restante
+    this.initialTime = 90;//en segundos
+    text = this.add.text(32, 32, 'Tiempo restante: ' + formatTime(this.initialTime));
+    // Each 1000 ms call onEvent
+    timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
+
+
     //Plataformas
     platforms = this.physics.add.staticGroup();
 	
@@ -6050,14 +6090,14 @@ blueSpecialAttack_Explosion.anims.create({
 
 ////////FUNCIONES ///////////////////////////////////////////////////////
 ///Funciones de timer///
-function onCountDownEvent (){
+/*function onCountDownEvent (){
 
     bg_music_battleground_1.setLoop(false);
     bg_music_battleground_1.stop();
 		    scene4update.scene.start('Resultados');
 	
     
-}
+}*/
 function onItemRespawnEvent(scene){
 	 
 	var progress = timedItemRespawn.getProgress();
@@ -7950,7 +7990,6 @@ updatePuntuacion();
 
             if(chooseP2 ==='Chilli'){
             this.winp2 = this.add.image(290, 200, 'selectChilli');
-            this.winp2.setScale(1.5);
             }
             else if(chooseP2 ==='Bernie'){
             this.winp2 = this.add.image(290, 200, 'selectBernie');
@@ -7963,7 +8002,6 @@ updatePuntuacion();
         } else if(player1.gemsOwned < player2.gemsOwned){
             if(chooseP2 ==='Chilli'){
             this.winp2 = this.add.image(400, 145, 'selectChilli');
-            this.winp2.setScale(1.5);
             }
             else if(chooseP2 ==='Bernie'){
             this.winp2 = this.add.image(400, 145, 'selectBernie');
@@ -7975,7 +8013,6 @@ updatePuntuacion();
 
             if(chooseP1 ==='Chilli'){
             this.winp1 = this.add.image(430, 145, 'selectChilli');
-            this.winp1.setScale(1.5);
             }
             else if(chooseP1 ==='Bernie'){
             this.winp1 = this.add.image(430, 145, 'selectBernie');
