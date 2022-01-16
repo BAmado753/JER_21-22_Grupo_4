@@ -3,10 +3,61 @@ package es.stormedia.TinyTussel;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 @SpringBootApplication
-public class TinyTusselApplication {
-
+@EnableWebSocket
+public class TinyTusselApplication implements WebSocketConfigurer {
+	
+	//WEBSOCKETS
+	@Override
+	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+		// TODO Auto-generated method stub
+		registry.addHandler(onlineStateHandler(), "/online")
+		.setAllowedOrigins("*");
+		registry.addHandler(selectPlayerHandler(), "/selectPlayer")
+		.setAllowedOrigins("*");
+		registry.addHandler(playerMovementHandler(), "/movePlayer1")
+		.setAllowedOrigins("*");
+		registry.addHandler(playerMovementHandler(), "/movePlayer2")
+		.setAllowedOrigins("*");
+		registry.addHandler(playerMovementHandler(), "/movePlayer3")
+		.setAllowedOrigins("*");
+		registry.addHandler(playerMovementHandler(), "/movePlayer4")
+		.setAllowedOrigins("*");
+		registry.addHandler(itemsRespawnHandler(), "/itemsRespawn")
+		.setAllowedOrigins("*");
+		registry.addHandler(screensHandler(), "/screenPass")
+		.setAllowedOrigins("*");
+	}
+	
+	
+	@Bean
+	public OnlineStateHandler onlineStateHandler() {
+		return new OnlineStateHandler();
+	}
+	
+	@Bean
+	public SelectPlayerHandler selectPlayerHandler() {
+		return new SelectPlayerHandler();
+	}
+	@Bean
+	public PlayerMovementHandler playerMovementHandler() {
+		return new PlayerMovementHandler();
+	}
+	@Bean
+	public ItemsRespawnHandler itemsRespawnHandler() {
+		return new ItemsRespawnHandler();
+	}
+	@Bean
+	public ScreensHandler screensHandler() {
+		return new ScreensHandler();
+	}
+	
+	
+	//API REST
 	@Bean
 	public Player player() {
 		return new Player();
@@ -15,5 +66,7 @@ public class TinyTusselApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TinyTusselApplication.class, args);
 	}
+
+	
 
 }

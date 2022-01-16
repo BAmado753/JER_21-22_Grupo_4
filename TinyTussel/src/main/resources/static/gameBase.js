@@ -1,15 +1,65 @@
-var url="localhost"
+var url="192.168.1.46"
 
 
 
 
 
 ///////////////////////////////////////////
-var player_profile;
+////Varibles de API REST
+var player_profile=null;
 var profileExists0; 
 	var profileExists1;
 	var profileExists2; 
 	var profileExists3; 
+	
+//Variables WebSockets
+var connection = new WebSocket('ws://'+url+':8080/online');
+var selectPlayer = new WebSocket('ws://'+url+':8080/selectPlayer');
+var movePlayer_S1; 
+var movePlayer_S2;
+var movePlayer_S3;
+var movePlayer_S4;
+
+var respawnItemsHandler = new WebSocket('ws://'+url+':8080/itemsRespawn')
+//Variables que reciben llamadas de websocket
+var online=false;
+var pjPropioSelec=false;
+var cargoPj='null';
+var inputLeft=false;
+var inputRight=false;
+var inputDown=false;
+var inputUp=false;
+var inputJump=false;
+var inputAttack=false;
+var inputSpecial=false;
+var rpwGem='null';
+var rpwStrawberry='null';
+var rpwLemon='null';
+var rpwGrape='null';
+var rpwShield='null';
+var rpwSpeed='null';
+var rpwPower='null';
+var rpwAmmo='null';
+var rpwPistol='null';
+var rpwKnife='null';
+
+//Listeners globales de websokects
+connection.onmessage = function(msg) {
+	  online=true;
+//Imprime el mensaje entero largo
+console.log(msg);
+//imprime solo la data del mensaje que es el cuerpo del mensaje que se manda send
+//console.log(JSON.parse(msg.data));
+	}
+
+	
+	connection.onerror = function(e) {
+	  console.log("WS error al establecer conexion online");
+}
+	connection.onclose = function() {
+	  console.log("WS Conexión cerrada");
+	}
+	
 /////////////////////////////////////////Pantalla de Carga//////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PantallaCarga extends Phaser.Scene{
@@ -244,6 +294,23 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('textoLinea', './asset/TextoEnLinea.png');
         this.load.image('textoLocal', './asset/TextoLocal.png');
         
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+		 ////////////////////////Carga de assets de Pantalla Sala de Espera////////////////////////
+
+        //Carga de fondos y botones
+        this.load.image('fondoSalaEspera', './asset/Fondo.png');
+        this.load.image('textoSE', './asset/SeleccionaSalaEspera.png');
+        this.load.image('S1Activa', './asset/Sala1Activada.png');
+        this.load.image('S1', './asset/Sala1.png');
+		this.load.image('S2Activa', './asset/Sala2Activada.png');
+        this.load.image('S2', './asset/Sala2.png');
+		this.load.image('S3Activa', './asset/Sala3Activada.png');
+        this.load.image('S3', './asset/Sala3.png');
+		this.load.image('S4Activa', './asset/Sala4Activada.png');
+        this.load.image('S4', './asset/Sala4.png');
+
 
         /////////////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -525,6 +592,9 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('bRevanchaActivado', './asset/RevanchaActivado.png');
         this.load.image('bSalir', './asset/Salir.png');
         this.load.image('bSalirActivado', './asset/SalirActivado.png');
+        this.load.image('ventRevancha', './asset/revancha_bg_placeholder.png');
+        this.load.image('aceptRev', './asset/revancha_acept_placeholder.png');
+        this.load.image('rejectRev', './asset/revancha_reject_placeholder.png');
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -686,6 +756,7 @@ class SelecTipoInicio extends Phaser.Scene{
         });
         
         this.contA.on('pointerdown', () => {
+	player_profile=null;
             this.scene.start('MenuPrincipal');
         });
 
@@ -1745,7 +1816,7 @@ class Pausa extends Phaser.Scene{
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
+ 
 /////////////////////////////////////////Pantalla de Modo de Juego//////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1817,8 +1888,16 @@ class PantallaModoJuego extends Phaser.Scene{
         this.texLinea = this.add.image(600, 400, 'textoLinea');
         this.texLinea.setScale(0.5);
 
-        this.botLinea = this.add.image(600, 500, 'bJugarLinea');
+        this.botLinea = this.add.image(600, 500, 'bJugarLinea').setInteractive();
         this.botLinea.setScale(0.3);
+ 		this.botLinea.on('pointerdown', () => {
+	  		connection.send(JSON.stringify("Estableciendo conexion"));
+        this.scene.start('NumeroJugadores');
+        });
+
+
+
+
 
         this.botLocal = this.add.image(200, 500, 'bJugarLocal').setInteractive();
         this.botLocal.setScale(0.3);
@@ -1840,14 +1919,12 @@ class PantallaModoJuego extends Phaser.Scene{
     }
 
     update(){
-
+		
     }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 /////////////////////////////////////////Pantalla Elección Número de Jugadores//////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1925,7 +2002,11 @@ class PantallaNumeroJugadores extends Phaser.Scene{
         });
         
         this.DosJugadores.on('pointerdown', () => {
-            this.scene.start('MenuPersonajes');
+	if(online){
+            this.scene.start('SalaEspera');
+	}else{
+		this.scene.start('MenuPersonajes');
+	}
         });
 
         this.TresJugadores= this.add.image(400, 450, '3J');
@@ -1944,13 +2025,412 @@ class PantallaNumeroJugadores extends Phaser.Scene{
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var jugador1sala1;
+var jugador2sala1;
+var jugador1sala2;
+var jugador2sala2;
+var jugador1sala3;
+var jugador2sala3;
+var jugador1sala4;
+var jugador2sala4;
 
+var salaSelect='null';
+var isSalaSelected=false;
+/////////////////////////////////////////Pantalla Sala de Espera//////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class SalaEspera extends Phaser.Scene{
+    constructor(){
+        //SalaEspera--> nombre que se le da a la escena
+        super({ key: "SalaEspera"});
+    }
+
+    preload(){   
+    }
+
+    create(){
+	scene4update=this;
+		//Texto
+		jugador1sala1=	this.add.text(200, 200, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador2sala1=	this.add.text(200, 220, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador1sala2=	this.add.text(600, 200, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador2sala2=	this.add.text(600, 220, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador1sala3=	this.add.text(200, 400, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador2sala3=	this.add.text(200, 420, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador1sala4=	this.add.text(600, 400, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador2sala4=	this.add.text(600, 420, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+
+		selectPlayer.send(JSON.stringify("check"));
+
+        //Fondo de la pantalla 
+        this.fondoSEspera= this.add.image(400, 300, 'fondoSalaEspera');
+        this.fondoSEspera.setScale(0.6);
+
+        this.titleSalaEspera = this.add.image(400, 100, 'textoSE');
+        this.titleSalaEspera.setScale(0.8);
+
+
+        this.ayud3 = this.add.image(750, 50, 'ayuda').setInteractive();
+        this.ayud3.setScale(0.6);
+
+        this.ayud3.on('pointerover', () => {
+            this.ayud3 = this.add.image(750, 50, 'ayudaActivado');
+            this.ayud3.setScale(0.6);
+        });
+        
+        this.ayud3.on('pointerout', () => {
+            this.ayud3 = this.add.image(750, 50, 'ayuda');
+            this.ayud3.setScale(0.6);
+        });
+        
+        this.ayud3.on('pointerdown', () => {
+            this.scene.moveBelow('SalaEspera');
+            this.scene.launch('Ayuda'); 
+        });
+
+
+        this.atras3 = this.add.image(75, 50, 'back').setInteractive();
+        this.atras3.setScale(0.8);
+
+        this.atras3.on('pointerover', () => {
+            this.atras3 = this.add.image(75, 50, 'backActivo');
+            this.atras3.setScale(0.8);
+        });
+        
+        this.atras3.on('pointerout', () => {
+            this.atras3 = this.add.image(75, 50, 'back');
+            this.atras3.setScale(0.8);
+        });
+        
+        this.atras3.on('pointerdown', () => {
+            this.scene.start('ModoJuego');
+        });
+
+
+        this.Sala1= this.add.image(200, 200, 'S1').setInteractive();
+        this.Sala1.setScale(0.4);
+
+        this.Sala1.on('pointerover', () => {
+            this.Sala1 = this.add.image(200, 200, 'S1Activa');
+            this.Sala1.setScale(0.4);
+        });
+        
+        this.Sala1.on('pointerout', () => {
+            this.Sala1 = this.add.image(200, 200, 'S1');
+            this.Sala1.setScale(0.4);
+        });
+        
+        this.Sala1.on('pointerdown', () => {
+					salaSelect='S1';
+					if(!isSalaSelected){
+						selectPlayer.send(JSON.stringify("S1"));
+						isSalaSelected=true;
+					}
+          //  this.scene.start('NumeroJugadores')
+				if(isSalaSelected){
+			console.log('entra en isSelected');
+			console.log(jugador1sala1.text);
+			console.log(jugador2sala1.text);
+
+            if(jugador1sala1.text!=='null'){
+				console.log('entra en donde la sala llena continuar');
+
+				                //Botón continuar
+                this.bcont_next=this.add.image(400, 550, 'BContinuar1').setInteractive();
+                this.bcont_next.setScale(0.3);
+
+                this.bcont_next.on('pointerover', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1Activado');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerout', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerdown', () => {
+					if(online){
+						selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
+	                    this.scene.start('MenuPersonajes');
+					}
+                });
+			}
+    	}
+        });
+
+        this.Sala2= this.add.image(600, 200, 'S2').setInteractive();
+        this.Sala2.setScale(0.4);
+
+		this.Sala2.on('pointerover', () => {
+            this.Sala2 = this.add.image(600, 200, 'S2Activa');
+            this.Sala2.setScale(0.4);
+        });
+        
+        this.Sala2.on('pointerout', () => {
+            this.Sala2 = this.add.image(600, 200, 'S2');
+            this.Sala2.setScale(0.4);
+        });
+        
+        this.Sala2.on('pointerdown', () => {
+					salaSelect='S2';
+					if(!isSalaSelected){
+						selectPlayer.send(JSON.stringify("S2"));
+						isSalaSelected=true;
+					}        
+				if(isSalaSelected){
+			console.log('entra en isSelected');
+            if(jugador1sala2.text!=='null'){
+				console.log('entra en donde la sala llena continuar');
+
+				                //Botón continuar
+                this.bcont_next=this.add.image(400, 550, 'BContinuar1').setInteractive();
+                this.bcont_next.setScale(0.3);
+
+                this.bcont_next.on('pointerover', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1Activado');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerout', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerdown', () => {
+                   	if(online){
+						selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
+	                    this.scene.start('MenuPersonajes');
+					}
+                });
+			}
+    	}
+		});
+
+		
+		this.Sala3= this.add.image(200, 400, 'S3').setInteractive();
+        this.Sala3.setScale(0.4);
+
+		this.Sala3.on('pointerover', () => {
+            this.Sala3 = this.add.image(200, 400, 'S3Activa');
+            this.Sala3.setScale(0.4);
+        });
+        
+        this.Sala3.on('pointerout', () => {
+            this.Sala3 = this.add.image(200, 400, 'S3');
+            this.Sala3.setScale(0.4);
+        });
+        
+        this.Sala3.on('pointerdown', () => {
+					salaSelect='S3';
+			if(!isSalaSelected){
+						selectPlayer.send(JSON.stringify("S3"));
+						isSalaSelected=true;
+					}          //  this.scene.start('NumeroJugadores');
+			if(isSalaSelected){
+			console.log('entra en isSelected');
+            if(jugador1sala3.text!=='null' ){
+				console.log('entra en donde la sala llena continuar');
+
+				                //Botón continuar
+                this.bcont_next=this.add.image(400, 550, 'BContinuar1').setInteractive();
+                this.bcont_next.setScale(0.3);
+
+                this.bcont_next.on('pointerover', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1Activado');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerout', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerdown', () => {
+                   	if(online){
+						selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
+	                    this.scene.start('MenuPersonajes');
+					}
+                });
+			}
+    	}
+        });
+
+
+		this.Sala4= this.add.image(600, 400, 'S4').setInteractive();
+        this.Sala4.setScale(0.4);
+
+		this.Sala4.on('pointerover', () => {
+            this.Sala4 = this.add.image(600, 400, 'S4Activa');
+            this.Sala4.setScale(0.4);
+        });
+        
+        this.Sala4.on('pointerout', () => {
+            this.Sala4 = this.add.image(600, 400, 'S4');
+            this.Sala4.setScale(0.4);
+        });
+        
+        this.Sala4.on('pointerdown', () => {
+				salaSelect='S4';
+					if(!isSalaSelected){
+						selectPlayer.send(JSON.stringify("S4"));
+						isSalaSelected=true;
+					}
+					if(isSalaSelected){
+			console.log('entra en isSelected');
+            if(jugador1sala4.text!=='null'){
+				console.log('entra en donde la sala llena continuar');
+
+				                //Botón continuar
+                this.bcont_next=this.add.image(400, 550, 'BContinuar1').setInteractive();
+                this.bcont_next.setScale(0.3);
+
+                this.bcont_next.on('pointerover', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1Activado');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerout', () => {
+                    this.bcont_next = this.add.image(400, 550, 'BContinuar1');
+                    this.bcont_next.setScale(0.3);
+                });
+        
+                this.bcont_next.on('pointerdown', () => {
+					if(online){
+						selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
+	                    this.scene.start('MenuPersonajes');
+					}
+                    //this.scene.start('MenuPersonajes');
+                });
+			}
+    	}
+        });
+		
+	}
+    update(){
+	if(online){
+		selectPlayer.onmessage = function(msg) {
+			//Cheackea si el msg es json para evitar errores de Undetected token	
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				console.log(player_profile);
+				if(JSON.parse(msg.data)==='S1'){
+					if(jugador1sala1.text!=='null'){
+						if(player_profile!==null ){jugador2sala1.setText(player_profile);}else{jugador2sala1.setText('JugadorAnon');}
+					}else{
+						if(player_profile!==null){jugador1sala1.setText(player_profile);}else{jugador1sala1.setText('JugadorAnon');}
+					}
+				}
+				if(JSON.parse(msg.data)==='S2'){
+					if(jugador1sala2.text!=='null'){
+						if(player_profile!==null){jugador2sala2.setText(player_profile);}else{jugador2sala2.setText('JugadorAnon');}
+					}else{
+						if(player_profile!==null){jugador1sala2.setText(player_profile);}else{jugador1sala2.setText('JugadorAnon');}
+					}
+				}
+				if(JSON.parse(msg.data)==='S3'){
+					if(jugador1sala3.text!=='null'){
+						if(player_profile!==null){jugador2sala3.setText(player_profile);}else{jugador2sala3.setText('JugadorAnon');}
+					}else{
+						if(player_profile!==null){jugador1sala3.setText(player_profile);}else{jugador1sala3.setText('JugadorAnon');}
+					}
+				}
+				if(JSON.parse(msg.data)==='S4'){
+					if(jugador1sala4.text!=='null'){
+						if(player_profile!==null){jugador2sala4.setText(player_profile);}else{jugador2sala4.setText('JugadorAnon');}
+					}else{
+						if(player_profile!==null){jugador1sala4.setText(player_profile);}else{jugador1sala4.setText('JugadorAnon');}
+					}
+				}
+				if(JSON.parse(msg.data)==='NEXT'){
+					                    scene4update.scene.start('MenuPersonajes');
+
+				}
+			}else{
+				if(msg.data==='sala-1'){
+					console.log('Entra sala-4');
+					if(jugador1sala1.text!=='null'){
+						jugador2sala1.setText('JugadorAnon');
+					}else{
+						jugador1sala1.setText('JugadorAnon');
+					}
+				}
+				if(msg.data==='sala-2'){
+					console.log('Entra sala-4');
+					if(jugador1sala2.text!=='null'){
+						jugador2sala2.setText('JugadorAnon');
+					}else{
+						jugador1sala2.setText('JugadorAnon');
+					}
+				}
+				if(msg.data==='sala-3'){
+					console.log('Entra sala-4');
+					if(jugador1sala3.text!=='null'){
+						jugador2sala3.setText('JugadorAnon');
+					}else{
+						jugador1sala3.setText('JugadorAnon');
+					}
+				}
+				if(msg.data==='sala-4'){
+					console.log('Entra sala-4');
+					if(jugador1sala4.text!=='null'){
+						jugador2sala4.setText('JugadorAnon');
+					}else{
+						jugador1sala4.setText('JugadorAnon');
+					}
+				}
+			}	
+		}
+		}
+		if(online){
+			if(!scene4update.bcont_next){
+			if((salaSelect==='S1'&& jugador1sala1.text!=='null' && jugador2sala1.text!=='null')||
+			(salaSelect==='S2'&& jugador1sala2.text!=='null' && jugador2sala2.text!=='null')||
+			(salaSelect==='S3'&& jugador1sala3.text!=='null' && jugador2sala3.text!=='null')||
+			(salaSelect==='S4'&& jugador1sala4.text!=='null' && jugador2sala4.text!=='null')){
+				                //Botón continuar
+                scene4update.bcont_next=scene4update.add.image(400, 550, 'BContinuar1').setInteractive();
+                scene4update.bcont_next.setScale(0.3);
+
+                scene4update.bcont_next.on('pointerover', () => {
+                    scene4update.bcont_next = scene4update.add.image(400, 550, 'BContinuar1Activado');
+                    scene4update.bcont_next.setScale(0.3);
+                });
+        
+                scene4update.bcont_next.on('pointerout', () => {
+                    scene4update.bcont_next = scene4update.add.image(400, 550, 'BContinuar1');
+                    scene4update.bcont_next.setScale(0.3);
+                });
+        
+                scene4update.bcont_next.on('pointerdown', () => {
+						selectPlayer.send(JSON.stringify("NEXT"));
+                });
+			}
+		}
+		}
+		
+		
+ 	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 ////Variables Selección de personajes//////
 var chooseP1;
 var chooseP2;
-
+var scene4update;
 
 //////////////////////////////////////Pantalla de Selección de Personajes///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1968,7 +2448,13 @@ class MenuPersonajes extends Phaser.Scene{
 
 
     create(){
-
+	//Abremos la conexion para la de juego pantalla
+	if(salaSelect==='S1'){movePlayer_S1 = new WebSocket('ws://'+url+':8080/movePlayer1');}
+	if(salaSelect==='S2'){movePlayer_S2 = new WebSocket('ws://'+url+':8080/movePlayer2');}
+	if(salaSelect==='S3'){ movePlayer_S3 = new WebSocket('ws://'+url+':8080/movePlayer3');}
+	if(salaSelect==='S4'){movePlayer_S4 = new WebSocket('ws://'+url+':8080/movePlayer4');}
+	//
+scene4update=this;
        chooseP1='null';
 		chooseP2='null';
 		if(!bg_music_selection_screen.isPlaying){
@@ -2049,7 +2535,13 @@ class MenuPersonajes extends Phaser.Scene{
 
 
         this.per1.on('pointerdown', () => {
+	if(!pjPropioSelec){
             if(chooseP1==='null'&&chooseP2==='null'){
+				if(online){
+					selectPlayer.send(JSON.stringify("Chilli-P1"));
+					pjPropioSelec=true;
+									cargoPj="player1";
+				}
 				chooseP1='Chilli';
 				this.per1.destroy();
                 this.texPer1.destroy();
@@ -2057,8 +2549,15 @@ class MenuPersonajes extends Phaser.Scene{
                 this.jug1.setScale(0.4);
                 this.per1 = this.add.image(150, 400, 'selectChilli');
                 this.per1.setScale(1.6);
+				
 			}
 			if(chooseP2==='null'&&chooseP1!=='Chilli'){
+				if(online){
+					selectPlayer.send(JSON.stringify("Chilli-P2"));
+										pjPropioSelec=true;
+				cargoPj="player2";
+
+				}
 				chooseP2='Chilli';
                 this.per1.destroy();
                 this.texPer1.destroy();
@@ -2082,8 +2581,14 @@ class MenuPersonajes extends Phaser.Scene{
                 });
         
                 this.bcont1.on('pointerdown', () => {
-                    this.scene.start('MenuEscenarios');
-                });
+					if(online){
+						selectPlayer.send(JSON.stringify('NEXT'));
+					}else{
+	                    this.scene.start('MenuEscenarios');
+					}                
+				});
+			
+			}
 			}
         });
     
@@ -2117,7 +2622,14 @@ class MenuPersonajes extends Phaser.Scene{
         });
 
         this.per2.on('pointerdown', () => {
+	if(!pjPropioSelec){
             if(chooseP1==='null'&&chooseP2==='null'){
+				if(online){
+					selectPlayer.send(JSON.stringify("Bernie-P1"));
+					pjPropioSelec=true;
+				cargoPj="player1";
+
+				}
 				chooseP1='Bernie';
                 this.per2.destroy();
                 this.texPer2.destroy()
@@ -2126,8 +2638,15 @@ class MenuPersonajes extends Phaser.Scene{
                 this.per2 = this.add.image(400, 400, 'selectBernie');
                 this.per2.setScale(1.6);
 				
+				
 			}
 			if(chooseP2==='null'&&chooseP1!=='Bernie'){
+				if(online){
+					selectPlayer.send(JSON.stringify("Bernie-P2"));
+										pjPropioSelec=true;
+				cargoPj="player2";
+
+				}
 				chooseP2='Bernie';
                 this.per2.destroy();
                 this.texPer2.destroy();
@@ -2152,9 +2671,15 @@ class MenuPersonajes extends Phaser.Scene{
                 });
         
                 this.bcont1.on('pointerdown', () => {
-                    this.scene.start('MenuEscenarios');
-                });
-		  	}
+					if(online){
+						selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
+	                    this.scene.start('MenuEscenarios');
+					}                
+					});
+		  		
+			}
+			}
          });
 
         //Wasabi
@@ -2184,7 +2709,14 @@ class MenuPersonajes extends Phaser.Scene{
         });
 
         this.per3.on('pointerdown', () => {
+	if(!pjPropioSelec){
             if(chooseP1==='null'&&chooseP2==='null'){
+				if(online){
+					
+					pjPropioSelec=true;
+				cargoPj="player1";
+
+				}
 				chooseP1='Wasabi';
                 this.per3.destroy();
                 this.texPer3.destroy();
@@ -2193,8 +2725,15 @@ class MenuPersonajes extends Phaser.Scene{
                 this.per3 = this.add.image(650, 400, 'selectWasabi');
                 this.per3.setScale(1.6);
 				
+			
 			}
 			if(chooseP2==='null'&&chooseP1!=='Wasabi'){
+				if(online){
+					selectPlayer.send(JSON.stringify("Wasabi-P2"));
+										pjPropioSelec=true;
+				cargoPj="player2";
+
+				}
 				chooseP2='Wasabi';
                 this.per3.destroy();
                 this.texPer3.destroy();
@@ -2218,12 +2757,145 @@ class MenuPersonajes extends Phaser.Scene{
                 });
         
                 this.bcont1.on('pointerdown', () => {
-                    this.scene.start('MenuEscenarios');
-                });
+					if(online){
+						selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
+	                    this.scene.start('MenuEscenarios');
+					}                
+				});
+			
+			}
 			}
         });
     }
+	update(){
+		if(online){
+			selectPlayer.onmessage = function(msg) {
+			console.log(JSON.parse(msg.data));
+			if(JSON.parse(msg.data)==='Chilli-P1'){
+				chooseP1='Chilli';
+				scene4update.per1.destroy();
+               // scene4update.texPer1.destroy();
 
+                scene4update.jug1 = scene4update.add.image(150, 400, 'jugador1');
+                scene4update.jug1.setScale(0.4);
+                scene4update.per1 = scene4update.add.image(150, 400, 'selectChilli');
+                scene4update.per1.setScale(1.6);
+			}
+			if(JSON.parse(msg.data)==='Chilli-P2'){
+				chooseP2='Chilli';
+                scene4update.per1.destroy();
+               // scene4update.texPer1.destroy();
+                scene4update.jug2 = scene4update.add.image(150, 400, 'jugador2');
+                scene4update.jug2.setScale(0.4);
+                scene4update.per1 = scene4update.add.image(150, 400, 'selectChilli');
+                scene4update.per1.setScale(1.6);
+
+                //Botón continuar
+                scene4update.bcont1=scene4update.add.image(400, 550, 'BContinuar1').setInteractive();
+                scene4update.bcont1.setScale(0.3);
+
+                scene4update.bcont1.on('pointerover', () => {
+                    scene4update.bcont1 = scene4update.add.image(400, 550, 'BContinuar1Activado');
+                    scene4update.bcont1.setScale(0.3);
+                });
+        
+                scene4update.bcont1.on('pointerout', () => {
+                    scene4update.bcont1 = scene4update.add.image(400, 550, 'BContinuar1');
+                    scene4update.bcont1.setScale(0.3);
+                });
+        
+                scene4update.bcont1.on('pointerdown', () => {
+							selectPlayer.send(JSON.stringify("NEXT"));
+                    //scene4update.scene.start('MenuEscenarios');
+                });
+			}
+			if(JSON.parse(msg.data)==="Bernie-P1"){
+				chooseP1='Bernie';
+                scene4update.per2.destroy();
+                //scene4update.texPer2.destroy()
+                scene4update.jug1 = scene4update.add.image(400, 400, 'jugador1');
+                scene4update.jug1.setScale(0.4);
+                scene4update.per2 = scene4update.add.image(400, 400, 'selectBernie');
+                scene4update.per2.setScale(1.6);
+
+			}
+			if(JSON.parse(msg.data)==="Bernie-P2"){
+				chooseP2='Bernie';
+                scene4update.per2.destroy();
+               // scene4update.texPer2.destroy();
+                scene4update.jug2 = scene4update.add.image(400, 400, 'jugador2');
+                scene4update.jug2.setScale(0.4);
+                scene4update.per2 = scene4update.add.image(400, 400, 'selectBernie');
+                scene4update.per2.setScale(1.6);
+
+
+                //Botón continuar
+                scene4update.bcont1=scene4update.add.image(400, 550, 'BContinuar1').setInteractive();
+                scene4update.bcont1.setScale(0.3);
+
+                scene4update.bcont1.on('pointerover', () => {
+                    scene4update.bcont1 = scene4update.add.image(400, 550, 'BContinuar1Activado');
+                    scene4update.bcont1.setScale(0.3);
+                });
+        
+                scene4update.bcont1.on('pointerout', () => {
+                    scene4update.bcont1 = scene4update.add.image(400, 550, 'BContinuar1');
+                    scene4update.bcont1.setScale(0.3);
+                });
+        
+                scene4update.bcont1.on('pointerdown', () => {
+                    //scene4update.scene.start('MenuEscenarios');
+                    						selectPlayer.send(JSON.stringify("NEXT"));
+                });
+			}
+			if(JSON.parse(msg.data)==="Wasabi-P1"){
+				chooseP1='Wasabi';
+                scene4update.per3.destroy();
+               // scene4update.texPer3.destroy();
+                scene4update.jug1 = scene4update.add.image(650, 400, 'jugador1');
+                scene4update.jug1.setScale(0.4);
+                scene4update.per3 = scene4update.add.image(650, 400, 'selectWasabi');
+                scene4update.per3.setScale(1.6);
+
+			}
+			if(JSON.parse(msg.data)==="Wasabi-P2"){
+				chooseP2='Wasabi';
+                scene4update.per3.destroy();
+                //scene4update.texPer3.destroy();
+                scene4update.jug2 = scene4update.add.image(650, 400, 'jugador2');
+                scene4update.jug2.setScale(0.4);
+                scene4update.per3 = scene4update.add.image(650, 400, 'selectWasabi');
+                scene4update.per3.setScale(1.6);
+
+                //Botón continuar
+                scene4update.bcont1=scene4update.add.image(400, 550, 'BContinuar1').setInteractive();
+                scene4update.bcont1.setScale(0.3);
+
+                scene4update.bcont1.on('pointerover', () => {
+                    scene4update.bcont1 = scene4update.add.image(400, 550, 'BContinuar1Activado');
+                    scene4update.bcont1.setScale(0.3);
+                });
+        
+                scene4update.bcont1.on('pointerout', () => {
+                    scene4update.bcont1 = scene4update.add.image(400, 550, 'BContinuar1');
+                    scene4update.bcont1.setScale(0.3);
+                });
+        
+                scene4update.bcont1.on('pointerdown', () => {
+                    						selectPlayer.send(JSON.stringify("NEXT"));
+                    //scene4update.scene.start('MenuEscenarios');
+                });
+			}
+console.log("chooseP1: "+chooseP1);
+console.log("chooseP2: "+chooseP2);
+				if(JSON.parse(msg.data)==='NEXT'){
+					 scene4update.scene.start('MenuEscenarios');
+				}
+	}
+		}
+		
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2243,6 +2915,8 @@ class MenuEscenarios extends Phaser.Scene{
     }
 
     create(){
+	
+	scene4update=this;
         //Fondo de la pantalla de selección de escenario
         this.fondoME= this.add.image(400, 300, 'fondoMenu1');
         this.fondoME.setScale(1.6);
@@ -2302,7 +2976,11 @@ class MenuEscenarios extends Phaser.Scene{
         });
 
         this.es1.on('pointerdown', () => {
+	if(online){
+			selectPlayer.send(JSON.stringify("NEXT"));
+					}else{
             this.scene.start('Escenario1');
+					} 
             bg_music_selection_screen.setLoop(false);
             bg_music_selection_screen.stop();
         });
@@ -2352,6 +3030,16 @@ class MenuEscenarios extends Phaser.Scene{
 
 
     }
+ update(){
+	if(online){
+		selectPlayer.onmessage = function(msg) {
+			if(JSON.parse(msg.data)==='NEXT'){
+            scene4update.scene.start('Escenario1');
+			}
+		}
+	}
+	
+}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2542,6 +3230,7 @@ var input_O;
 var input_U;
 
 var lastTimeConnected=new Date();
+var isIdle=false;
 var nJug="";
 //////////////////////////////////////////Pantalla del Escenario1///////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2554,10 +3243,23 @@ class PantallaEscenario1 extends Phaser.Scene{
     
 
     preload(){
+	 
     }
 
 
     create(){
+	
+
+ scene4update=this;
+
+ 
+	//Elecciones anteriores
+	if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("S1"));}
+	if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("S2"));}
+	if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("S3"));}
+	if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("S4"));}
+
+
 	//Background
     this.add.image(400,300, 'bg_arboles');
     this.add.image(400,400, 'bg_tierra');
@@ -2603,7 +3305,7 @@ class PantallaEscenario1 extends Phaser.Scene{
     controlIimedItemRespawn=0;
 	controlIimedWeaponRespawn=0;
     text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this); //75000 tiempoo oficial
+    timedCountdown = this.time.delayedCall(30000, onCountDownEvent, [], this); //75000 tiempoo oficial
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
@@ -2788,9 +3490,16 @@ class PantallaEscenario1 extends Phaser.Scene{
     //item_knife=this.physics.add.sprite(300, 450, 'knife_item');
     //item_knife.setCollideWorldBounds(true);
 	items_pistol=this.physics.add.group();
-	createPistol();
 	items_knife=this.physics.add.group();
-	createKnife();
+	if (online && cargoPj==='player1'){
+		createPistol();
+		createKnife();
+	}
+	else if(!online){
+		createPistol();
+		createKnife();
+	}
+	
     items_power=this.physics.add.group();
     items_speed=this.physics.add.group();
     items_shield=this.physics.add.group();
@@ -3072,6 +3781,56 @@ player1_name=	this.add.text(player1.body.center.x, player1.y+20, player1.name, {
     pinkCopy.body.enable=false;
     pinkCopy.setVisible(false);
     //Create StateMachine
+if(online){
+	if(cargoPj==='player1'){
+		this.stateMachine_player1 = new StateMachine('idle', {
+            idle: new IdleStateP1(),
+            move: new MoveStateP1(),
+            jump: new JumpStateP1(),
+    		climb: new ClimbStateP1(),
+			attack_knife: new AttackKnifeStateP1(),
+            attack_pistol: new AttackPistolStateP1(),
+    		getHit: new GetHitStateP1(),
+    		death: new DeathStateP1(),
+    		invisible: new InvisibleStateP1(),
+         }, [this, player1]);
+ this.stateMachine_player2 = new StateMachine('idle', {
+            idle: new IdleStatePOnline(),
+            move: new MoveStatePOnline(),
+            jump: new JumpStatePOnline(),
+    		climb: new ClimbStatePOnline(),
+			attack_knife: new AttackKnifeStatePOnline(),
+            attack_pistol: new AttackPistolStatePOnline(),
+	   		getHit: new GetHitStatePOnline(),
+    		death: new DeathStatePOnline(),
+    		invisible: new InvisibleStatePOnline(),
+          }, [this, player2]);
+	}else{
+		this.stateMachine_player1 = new StateMachine('idle', {
+            idle: new IdleStateP1(),
+            move: new MoveStateP1(),
+            jump: new JumpStateP1(),
+    		climb: new ClimbStateP1(),
+			attack_knife: new AttackKnifeStateP1(),
+            attack_pistol: new AttackPistolStateP1(),
+    		getHit: new GetHitStateP1(),
+    		death: new DeathStateP1(),
+    		invisible: new InvisibleStateP1(),
+         }, [this, player2]);
+ this.stateMachine_player2 = new StateMachine('idle', {
+            idle: new IdleStatePOnline(),
+            move: new MoveStatePOnline(),
+            jump: new JumpStatePOnline(),
+    		climb: new ClimbStatePOnline(),
+			attack_knife: new AttackKnifeStatePOnline(),
+            attack_pistol: new AttackPistolStatePOnline(),
+	   		getHit: new GetHitStatePOnline(),
+    		death: new DeathStatePOnline(),
+    		invisible: new InvisibleStatePOnline(),
+          }, [this, player1]);
+	}
+			
+}else{
     this.stateMachine_player1 = new StateMachine('idle', {
             idle: new IdleStateP1(),
             move: new MoveStateP1(),
@@ -3095,7 +3854,8 @@ player1_name=	this.add.text(player1.body.center.x, player1.y+20, player1.name, {
     		death: new DeathStateP2(),
     		invisible: new InvisibleStateP2(),
           }, [this, player2]);
-    
+    }
+
 blueSpecialAttack_Explosion=this.add.sprite(0,0,'round_explosion_0');
 blueSpecialAttack_Explosion.DelayTimer=0;
 blueSpecialAttack_Explosion.exist=false;
@@ -3409,6 +4169,239 @@ blueSpecialAttack_Explosion.anims.create({
     }//create
 
   update(){
+	//PARTIDA ONLINE
+	if(online){
+		if(salaSelect==='S1'){
+			movePlayer_S1.onopen = function() {
+	  			console.log("WS movePlayer_S1 Conexión abierta");
+			}
+			movePlayer_S1.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	if(salaSelect==='S2'){
+		movePlayer_S2.onopen = function() {
+	  			console.log("WS movePlayer_S2 Conexión abierta");
+			}
+			movePlayer_S2.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	if(salaSelect==='S3'){
+		movePlayer_S3.onopen = function() {
+	  			console.log("WS movePlayer_S3 Conexión abierta");
+			}
+			movePlayer_S3.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	if(salaSelect==='S4'){
+		movePlayer_S4.onopen = function() {
+	  			console.log("WS movePlayer_S4 Conexión abierta");
+			}
+			movePlayer_S4.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	/*movePlayer_S1.onclose = function() {
+	  console.log("WS movePlayer_S1 Conexión cerrada");
+	}*/
+	respawnItemsHandler.onmessage = function(msg) {
+		var obj=JSON.parse(msg.data);
+			//console.log(JSON.parse(msg.data));
+			
+			if(obj.name==='gem'){
+						gems.create(obj.x,obj.y,'gem');  
+			}
+			if(obj.name==='stb'){
+						items_strawberry.create(obj.x,obj.y,'strawberry_item');  
+			}
+			if(obj.name==='lem'){
+						items_lemon.create(obj.x,obj.y,'lemon_item');  
+			}
+			if(obj.name==='grp'){
+						items_grape.create(obj.x,obj.y,'grape_item');  
+			}
+			if(obj.name==='shd'){
+						items_shield.create(obj.x,obj.y,'shield_item');  
+			}
+			if(obj.name==='spd'){
+						items_speed.create(obj.x,obj.y,'speed_item');  
+			}
+			if(obj.name==='pow'){
+						items_power.create(obj.x,obj.y,'power_item');  
+			}
+			if(obj.name==='amo'){
+						items_ammo.create(obj.x,obj.y,'ammo_item');  
+			}
+			if(obj.name==='ptl'){
+						items_pistol.create(obj.x,obj.y,'pistol_item');  
+			}
+			if(obj.name==='knf'){
+						items_knife.create(obj.x,obj.y,'knife_item');  
+			}
+
+	}
+	
+	//Controles websockets
+	if(Phaser.Input.Keyboard.JustDown(input_A)){
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("left"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("left"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("left"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("left"));}
+	}
+	if(Phaser.Input.Keyboard.JustDown(input_D)){
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("right"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("right"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("right"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("right"));}
+	}
+	if(Phaser.Input.Keyboard.JustDown(input_W)){
+		
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("up"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("up"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("up"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("up"));}
+	}
+	/*
+	if(Phaser.Input.Keyboard.JustDown(input_S)){
+				console.log("Se pulsa S");
+				movePlayer_S1.send(JSON.stringify("down"));
+	}*/
+	if(Phaser.Input.Keyboard.JustDown(spaceBar)){
+			isIdle=false;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("jump"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("jump"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("jump"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("jump"));}
+	}
+	/*if(Phaser.Input.Keyboard.JustDown(input_Q)){
+		//inputSpecial
+				movePlayer_S1.send(JSON.stringify("special"));
+	}*/
+	/*if(Phaser.Input.Keyboard.JustDown(input_E)){
+				movePlayer_S1.send(JSON.stringify("attack"));
+	}*/
+	
+	if(!(input_A.isDown || input_D.isDown || input_W.isDown || spaceBar.isDown) && !isIdle){
+		isIdle=true;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("idle"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("idle"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("idle"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("idle"));}
+	}
+	if(input_A.isDown || input_D.isDown || input_W.isDown || spaceBar.isDown){
+			isIdle=false;
+	}
+	if(cargoPj==='player1'){
+					onItemRespawnEvent(this);
+	}
+	
+	
+	//Ataques especiales
+if	(Phaser.Input.Keyboard.JustDown(input_Q)){
+	isIdle=false;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("special"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("special"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("special"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("special"));}
+		if(cargoPj==='player1'){
+			if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
+    		if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
+    		if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
+		}
+    	
+    	if(cargoPj==='player2'){
+			if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
+    		if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
+    		if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
+		}
+    }
+if	(inputSpecial){
+	inputSpecial=false;
+		if(cargoPj==='player1'){
+			if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
+    		if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
+    		if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
+			
+		}
+    	
+    	if(cargoPj==='player2'){
+			if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
+    		if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
+    		if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
+		}
+    }
+	}
+	
 	
 	///////////
 	player1_name.x=player1.x-20;
@@ -3416,7 +4409,6 @@ blueSpecialAttack_Explosion.anims.create({
 	if(player1_name.text != player1.name){
 		player1_name.text=player1.name;
 	}
-	onItemRespawnEvent(this);
 	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
 	checkNoLadder();
 	checkTimeSpecial(player1);
@@ -3428,11 +4420,17 @@ blueSpecialAttack_Explosion.anims.create({
 	if(player1.direction!=='left') {  player1.flipX = false; }
 	if(player2.direction!=='right') {  player2.flipX = true;}
 	if(player2.direction!=='left') {  player2.flipX = false; }
+	
 	      this.stateMachine_player1.step();
 	      this.stateMachine_player2.step();
 
+    checkDebuffTime(player1, player2);
+    checkBoosts(player1, player2)
 
-    if	(Phaser.Input.Keyboard.JustDown(input_Q)){
+if(!online){
+				onItemRespawnEvent(this);
+
+	if	(Phaser.Input.Keyboard.JustDown(input_Q)){
     	if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
     	if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
     	if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
@@ -3445,10 +4443,8 @@ blueSpecialAttack_Explosion.anims.create({
     	if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
     
     }
-    
-    checkDebuffTime(player1, player2);
-    checkBoosts(player1, player2)
-	
+}
+    	
         }//update
         
     }
@@ -5040,6 +6036,7 @@ blueSpecialAttack_Explosion.anims.create({
     checkBoosts(player1, player2)
 	
     */
+    
         }//update
 
 }
@@ -5057,7 +6054,8 @@ function onCountDownEvent (){
 
     bg_music_battleground_1.setLoop(false);
     bg_music_battleground_1.stop();
-    this.scene.start('Resultados');
+		    scene4update.scene.start('Resultados');
+	
     
 }
 function onItemRespawnEvent(scene){
@@ -5254,98 +6252,217 @@ if(player.tag===2){
 }
 
 function getPistol_P1(player, pistol,scene){
-	if(Phaser.Input.Keyboard.JustDown(input_S)){
-	
-    sound_pickupWeapon.play();
-	pistol.disableBody(true, true);
-	player.hasPistol=true;
-	player.hasKnife=false;
+	//console.log("entra en getPistol_P1");
+	if((online && inputDown && cargoPj !=='player1')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player1')){
+if(cargoPj==='player1'){
+	//console.log("send Down");
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("down"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("down"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("down"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("down"));}
+		}   
+if(cargoPj!=='player1'){
+	//console.log("player1 online entra en getPistol");
+						
+		}  	
+		sound_pickupWeapon.play();
+		pistol.disableBody(true, true);
+		player.hasPistol=true;
+	//	console.log("player 1 pistol"+player1.hasPistol);
+		player.hasKnife=false;
+				if(inputDown && player.hasPistol && cargoPj !=='player1'){inputDown=false;}
+	}else if(!online && Phaser.Input.Keyboard.JustDown(input_S)){
+		sound_pickupWeapon.play();
+		pistol.disableBody(true, true);
+		player.hasPistol=true;
+		player.hasKnife=false;
 	}
 }
 function getKnife_P1(player, knife,scene){
-    sound_pickupWeapon.play();
-	if(Phaser.Input.Keyboard.JustDown(input_S)){
+	//	console.log("entra en getKnife_P1");
+		
+	if((online && inputDown && cargoPj !=='player1')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player1')){
+		if(cargoPj==='player1'){
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("down"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("down"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("down"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("down"));}
+		}
+		if(cargoPj!=='player1'){
+	//console.log("player1 online entra en getKnife");
+						
+		} 
+		sound_pickupWeapon.play();
+	knife.disableBody(true, true);
+	player.hasPistol=false;
+	player.hasKnife=true;
+			//console.log("player 1 knife"+player1.hasKnife);
+		if(inputDown  && player.hasKnife && cargoPj !=='player1'){inputDown=false;}
+	}
+	else if(!online && Phaser.Input.Keyboard.JustDown(input_S)){
+		    sound_pickupWeapon.play();
 	knife.disableBody(true, true);
 	player.hasPistol=false;
 	player.hasKnife=true;
 	}
 }
+
 function getPistol_P2(player, pistol,scene){
-	
-    sound_pickupWeapon.play();
-	if(Phaser.Input.Keyboard.JustDown(input_K)){
+	if((online && inputDown && cargoPj !=='player2')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player2')){
+	if(cargoPj==='player2'){
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("down"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("down"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("down"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("down"));}
+		}
+	sound_pickupWeapon.play();
+	pistol.disableBody(true, true);
+	player.hasPistol=true;
+	player.hasKnife=false;
+		if(inputDown && player.hasPistol && cargoPj !=='player2'){inputDown=false;}
+	}
+	else if(!online && Phaser.Input.Keyboard.JustDown(input_K)){
+		    sound_pickupWeapon.play();
 	pistol.disableBody(true, true);
 	player.hasPistol=true;
 	player.hasKnife=false;
 	}
 }
 function getKnife_P2(player, knife,scene){
-    sound_pickupWeapon.play();
-	if(Phaser.Input.Keyboard.JustDown(input_K)){
+	if((online && inputDown && cargoPj !=='player2')||(online && Phaser.Input.Keyboard.JustDown(input_S)&&cargoPj ==='player2'))
+	{
+		if(cargoPj==='player2'){
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("down"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("down"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("down"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("down"));}
+							
+		}
+	sound_pickupWeapon.play();
+	knife.disableBody(true, true);
+	player.hasPistol=false;
+	player.hasKnife=true;
+	if(inputDown && player.hasKnife && cargoPj !=='player2'){inputDown=false;}
+	}
+    else if(!online && Phaser.Input.Keyboard.JustDown(input_K)){
+	sound_pickupWeapon.play();
 	knife.disableBody(true, true);
 	player.hasPistol=false;
 	player.hasKnife=true;
 	}
+	
 }
+
+
 function createPistol(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_pistol.create(x,y,'pistol_item');  
+		if(online){
+			var aux = { name: "ptl", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}
 }
 function createKnife(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_knife.create(x,y,'knife_item');  
+		items_knife.create(x,y,'knife_item'); 
+		if(online){
+			var aux = { name: "knf", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		} 
 }
 function createGem(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		gems.create(x,y,'gem');  
+		if(online){
+			var aux = { name: "gem", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}
 }
 function createShield(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_shield.create(x,y,'shield_item');  
+		items_shield.create(x,y,'shield_item'); 
+	if(online){
+			var aux = { name: "shd", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	 
 }
 function createPower(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_power.create(x,y,'power_item');  
+		if(online){
+			var aux = { name: "pow", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	 
 }
 function createSpeed(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_speed.create(x,y,'speed_item');  
+		if(online){
+			var aux = { name: "spd", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	 
 }
 function createLemon(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_lemon.create(x,y,'lemon_item');  
+		if(online){
+			var aux = { name: "lem", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	 
 }
 function createGrape(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
 		items_grape.create(x,y,'grape_item');  
+		if(online){
+			var aux = { name: "grp", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	 
 }
 function createStrawberry(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_strawberry.create(x,y,'strawberry_item');  
+		items_strawberry.create(x,y,'strawberry_item'); 
+		if(online){
+			var aux = { name: "stb", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	  
 }
 function createAmmo(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_ammo.create(x,y,'ammo_item').setScale(0.3,0.3).refreshBody();  
+		items_ammo.create(x,y,'ammo_item').setScale(0.3,0.3).refreshBody(); 
+		if(online){
+			var aux = { name: "amo", x: x, y: y };
+			var auxJSON = JSON.stringify(aux);
+			respawnItemsHandler.send(auxJSON);
+		}	  
 }
 
 function collectLemon(player, lemon,scene){
@@ -5694,7 +6811,6 @@ function respawnPlayer2(){
 }
 
 ///STATES P1//////////
-///STATES P1//////////
 class IdleStateP1 extends State {
   enter(scene, player1) {
     player1.setVelocityX(0);
@@ -5712,21 +6828,35 @@ class IdleStateP1 extends State {
    // const {input_A, input_D, spaceBar} = scene.keys;
     
     // Transition to jump if pressing space
-    if (spaceBar.isDown  && player1.body.touching.down) {
+    if ((spaceBar.isDown)  && player1.body.touching.down) {
       this.stateMachine.transition('jump');
       return;
     }
     // Transition to attack if pressing e
     if (input_E.isDown && player1.hasKnife===true) {
+	if(online){
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
+	}
+			console.log("dentro de State para cuchillo");
       this.stateMachine.transition('attack_knife');
       return;
     }
 	if (Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true && player1.ammo>0) {
+	if(online){
+					isIdle=false;
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
+	}		console.log("dentro de State para pistola");
       this.stateMachine.transition('attack_pistol');
       return;
     }
     // Transition to move if pressing a movement key
-    if ((input_A.isDown || input_D.isDown)&& !player1.invisible) {
+    if ((input_A.isDown || input_D.isDown )&& !player1.invisible) {
       this.stateMachine.transition('move');
       return;
     }
@@ -5736,7 +6866,7 @@ class IdleStateP1 extends State {
       return;
     }
 	// Transition to climb if pressing W
-    if (input_W.isDown && player1.onLadder) {
+    if ((input_W.isDown ) && player1.onLadder) {
       this.stateMachine.transition('climb');
       return;
     }
@@ -5760,27 +6890,43 @@ class MoveStateP1 extends State {
 	}
   execute(scene, player1) {    
     // Transition to jump if pressing space
-    if (spaceBar.isDown && player1.body.touching.down) {
+    if ((spaceBar.isDown) && player1.body.touching.down) {
       this.stateMachine.transition('jump');
       return;
     }
     
    // Transition to attack if pressing e
     if (input_E.isDown && player1.hasKnife===true) {
+	if(online){
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
+	}
+			console.log("dentro de State para cuchillo"); 
       this.stateMachine.transition('attack_knife');
       return;
     }
     if (Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true && player1.ammo>0) {
-      this.stateMachine.transition('attack_pistol');
+	if(online){
+					isIdle=false;
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
+	}
+		console.log("dentro de State para pistola"); 
+ this.stateMachine.transition('attack_pistol');
       return;
     }
     // Transition to idle if not pressing movement keys
-    if (!(input_A.isDown || input_D.isDown)) {
+    if (!(input_A.isDown || input_D.isDown )) {
+
       this.stateMachine.transition('idle');
       return;
     }
 	// Transition to climb if pressing W
-    if (input_W.isDown && player1.onLadder) {
+    if ((input_W.isDown ) && player1.onLadder) {
       this.stateMachine.transition('climb');
       return;
     }
@@ -5790,12 +6936,12 @@ class MoveStateP1 extends State {
       return;
     }
     player1.setVelocityX(0);
-    if (input_A.isDown) {
+    if (input_A.isDown ) {
       player1.setVelocityX(-100);
 	  if(player1.debuff){player1.setVelocityX(-50);}
 	  if(player1.speedBoost){player1.setVelocityX(-150);}
       player1.direction = 'left';
-    } else if (input_D.isDown) {
+    } else if (input_D.isDown ) {
       player1.setVelocityX(100);
 	  if(player1.debuff){player1.setVelocityX(50);}
 	  if(player1.speedBoost){player1.setVelocityX(150);}
@@ -5819,27 +6965,40 @@ class InvisibleStateP1 extends State {
 	}
   execute(scene, player1) {    
     // Transition to jump if pressing space
-    if (spaceBar.isDown && player1.body.touching.down) {
+    if ((spaceBar.isDown||inputJump) && player1.body.touching.down) {
       this.stateMachine.transition('jump');
       return;
     }
     
    // Transition to attack if pressing e
     if (input_E.isDown && player1.hasKnife===true) {
+	if(online){
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
+	}
       this.stateMachine.transition('attack_knife');
       return;
     }
     if (Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true && player1.ammo>0) {
+	if(online){
+					isIdle=false;
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
+	}
       this.stateMachine.transition('attack_pistol');
       return;
     }
     // Transition to idle if not pressing movement keys
-    if ((!(input_A.isDown || input_D.isDown))&& !player1.invisible) {
+    if ((!(input_A.isDown || input_D.isDown ))&& !player1.invisible) {
       this.stateMachine.transition('idle');
       return;
     }
 	// Transition to climb if pressing W
-    if (input_W.isDown && player1.onLadder) {
+    if ((input_W.isDown) && player1.onLadder) {
       this.stateMachine.transition('climb');
       return;
     }
@@ -5925,6 +7084,7 @@ execute(scene,player1){
 }
 class AttackPistolStateP1 extends State {
   enter(scene, player1) {
+	console.log("disparar");
     sound_shoot.play();
    	playerFire(player1, player1.direction, scene);
     player1.anims.play('attack_pistol');
@@ -5968,17 +7128,30 @@ class DeathStateP1 extends State {
 class ClimbStateP1 extends State {
 execute(scene, player1) {    
     // Transition to jump if pressing space
-    if (spaceBar.isDown && player1.body.touching.down) {
+    if ((spaceBar.isDown) && player1.body.touching.down) {
       this.stateMachine.transition('jump');
       return;
     }
     
    // Transition to attack if pressing e
     if (input_E.isDown && player1.hasKnife===true) {
+	if(online){
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
+	}
       this.stateMachine.transition('attack_knife');
       return;
     }
 	if (Phaser.Input.Keyboard.JustDown(input_E) && player1.hasPistol===true && player1.ammo>0) {
+		if(online){
+						isIdle=false;
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
+	}
       this.stateMachine.transition('attack_pistol');
       return;
     }    
@@ -5992,7 +7165,7 @@ execute(scene, player1) {
 
 
     // Stop on ladder if not pressing movement keys
-    if (!(input_A.isDown || input_D.isDown || input_W.isDown || input_S.isDown)) {
+    if (!(input_A.isDown || input_D.isDown || input_W.isDown || input_S.isDown )) {
       //this.stateMachine.transition('idle');
       //return;
 		player1.setVelocityY(0);
@@ -6008,9 +7181,9 @@ execute(scene, player1) {
 
 	//player1.x=ladder.body.center.x;
     player1.setVelocityX(0);
-	if(input_W.isDown){
+	if(input_W.isDown ){
 		player1.setVelocityY(-140);
-	}else if (input_S.isDown){
+	}else if (input_S.isDown ){
 			player1.setVelocityY(140);
 
 	}
@@ -6341,7 +7514,393 @@ execute(scene, player2) {
     
   }
 }
+//STATES P Online
+class IdleStatePOnline extends State {
+  enter(scene, player) {
+    player.setVelocityX(0);
+	player.onLadder=false;
+	if(player.invisible){
+			player.anims.play('invisible',true);
 
+	}else{
+			player.anims.play('idle',true);
+
+	}
+  }
+  
+  execute(scene, player) {
+   // const {input_A, input_D, spaceBar} = scene.keys;
+    
+    // Transition to jump if pressing space
+    if ((inputJump)  && player.body.touching.down) {
+      this.stateMachine.transition('jump');
+      return;
+    }
+    // Transition to attack if pressing e
+    if (inputAttack && player.hasKnife===true) {
+			console.log("dentro de State para cuchillo");
+
+      this.stateMachine.transition('attack_knife');
+      return;
+    }
+	if (inputAttack && player.hasPistol===true && player.ammo>0) {
+     		console.log("dentro de State para pistola");
+
+ this.stateMachine.transition('attack_pistol');
+      return;
+    }
+    // Transition to move if pressing a movement key
+    if (( inputLeft || inputRight)&& !player.invisible) {
+      this.stateMachine.transition('move');
+      return;
+    }
+	// Transition to invisible if pressing a movement key
+    if ((inputLeft || inputRight)&& player.invisible) {
+      this.stateMachine.transition('invisible');
+      return;
+    }
+	// Transition to climb if pressing W
+    if (( inputUp) && player.onLadder) {
+      this.stateMachine.transition('climb');
+      return;
+    }
+	// Transition to hurt if getting hit
+	if (player.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+	// Transition to death if no life
+	if(player.life<=0){
+	  this.stateMachine.transition('death');
+      return;
+    }
+  }
+}
+
+class MoveStatePOnline extends State {
+	enter(scene, player){
+			player.onLadder=false;
+
+	}
+  execute(scene, player) {    
+    // Transition to jump if pressing space
+    if ((inputJump) && player.body.touching.down) {
+      this.stateMachine.transition('jump');
+      return;
+    }
+    
+   // Transition to attack if pressing e
+    if (inputAttack && player.hasKnife===true) {
+			console.log("dentro de State para cuchillo");
+      this.stateMachine.transition('attack_knife');
+      return;
+    }
+    if (inputAttack && player.hasPistol===true && player.ammo>0) {
+		console.log("dentro de State para pistola");      
+this.stateMachine.transition('attack_pistol');
+      return;
+    }
+    // Transition to idle if not pressing movement keys
+    if (!( inputLeft || inputRight)) {
+
+      this.stateMachine.transition('idle');
+      return;
+    }
+	// Transition to climb if pressing W
+    if (( inputUp) && player.onLadder) {
+      this.stateMachine.transition('climb');
+      return;
+    }
+    // Transition to hurt if getting hit
+	if (player.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+    player.setVelocityX(0);
+    if ( inputLeft) {
+      player.setVelocityX(-100);
+	  if(player.debuff){player.setVelocityX(-50);}
+	  if(player.speedBoost){player.setVelocityX(-150);}
+      player.direction = 'left';
+    } else if (inputRight) {
+      player.setVelocityX(100);
+	  if(player.debuff){player.setVelocityX(50);}
+	  if(player.speedBoost){player.setVelocityX(150);}
+      player.direction = 'right';
+    }
+if(player.hasKnife){
+	    player.anims.play('run_knife', true);
+
+}else if(player.hasPistol){
+	    player.anims.play('run_pistol', true);
+}else{
+	    player.anims.play('run', true);
+}
+    
+  }
+}
+class InvisibleStatePOnline extends State {
+	enter(scene, player){
+			//player.onLadder=false;
+
+	}
+  execute(scene, player) {    
+    // Transition to jump if pressing space
+    if ((inputJump) && player.body.touching.down) {
+      this.stateMachine.transition('jump');
+      return;
+    }
+    
+   // Transition to attack if pressing e
+    if (inputAttack && player.hasKnife===true) {
+      this.stateMachine.transition('attack_knife');
+      return;
+    }
+    if (inputAttack && player.hasPistol===true && player.ammo>0) {
+      this.stateMachine.transition('attack_pistol');
+      return;
+    }
+    // Transition to idle if not pressing movement keys
+    if ((!( inputLeft || inputRight))&& !player.invisible) {
+      this.stateMachine.transition('idle');
+      return;
+    }
+	// Transition to climb if pressing W
+    if ((inputUp) && player.onLadder) {
+      this.stateMachine.transition('climb');
+      return;
+    }
+    // Transition to hurt if getting hit
+	if (player.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+    player.setVelocityX(0);
+    if (inputLeft) {
+      player.setVelocityX(-100);
+	  if(player.debuff){player.setVelocityX(-50);}
+	  if(player.speedBoost){player.setVelocityX(-150);}
+      player.direction = 'left';
+    } else if (inputRight) {
+      player.setVelocityX(100);
+	  if(player.debuff){player.setVelocityX(50);}
+	  if(player.speedBoost){player.setVelocityX(150);}
+      player.direction = 'right';
+    }
+
+    player.anims.play('invisible', true);
+    
+  }
+}
+class JumpStatePOnline extends State {
+  enter(scene, player) {
+		    player.setVelocityY(-150);
+		if( player.invisible){player.anims.play('invisible');}
+		else{
+	    player.anims.play('jump');
+		}
+		player.once('animationcomplete', () => {
+			if(online){
+							inputJump=false;
+			}
+			this.stateMachine.transition('idle')
+    	});
+
+    
+  }
+execute(scene, player){
+	if(player.body.touching.down){
+		this.stateMachine.transition('idle');
+		return;
+	}
+	// Transition to hurt if getting hit
+	if (player.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+}
+}
+
+class AttackKnifeStatePOnline extends State {
+  enter(scene, player) {
+	inputAttack=false;
+    sound_knife.play();
+if(player.strengthBoost){
+		if(cargoPj==='player2'){
+			knifeHitbox.damage=5;
+		}else{
+			knifeHitbox2.damage=5;
+		}
+	}else{
+		if(cargoPj==='player2'){
+			knifeHitbox.damage=3;
+		}else{
+			knifeHitbox2.damage=3;
+		}
+	}
+	    player.anims.play('attack_knife');
+
+
+		if(player.direction==='left'){
+			if(cargoPj==='player2'){
+				knifeHitbox.x= player.x - player.width * 0.45;
+			}else{
+				knifeHitbox2.x= player.x - player.width * 0.45;
+			}
+		}else{
+			if(cargoPj==='player2'){
+        		knifeHitbox.x= player.x + player.width * 0.45;
+			}else{
+        		knifeHitbox2.x= player.x + player.width * 0.45;
+			}
+		}
+			if(cargoPj==='player2'){
+				knifeHitbox.y= player.y + player.height * 0.1;
+				knifeHitbox.body.enable=true;
+				scene.physics.world.add(knifeHitbox.body);
+			}else{
+        		knifeHitbox2.y= player.y + player.height * 0.1;
+				knifeHitbox2.body.enable=true;
+				scene.physics.world.add(knifeHitbox2.body);
+			}
+		
+		player.once('animationcomplete', () => {
+			if(cargoPj==='player2'){
+				knifeHitbox.body.enable=false;
+				scene.physics.world.remove(knifeHitbox.body);
+			}else{
+				knifeHitbox2.body.enable=false;
+				scene.physics.world.remove(knifeHitbox2.body);
+			}
+			this.stateMachine.transition('idle');
+			
+
+    	});
+  }
+execute(scene,player){
+	// Transition to getHit if getting hit
+	if (player.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+}
+
+}
+class AttackPistolStatePOnline extends State {
+  enter(scene, player) {
+	inputAttack=false;
+    sound_shoot.play();
+   	playerFire(player, player.direction, scene);
+    player.anims.play('attack_pistol');
+		player.once('animationcomplete', () => {
+			this.stateMachine.transition('idle');
+
+    	});
+  }
+execute(scene,player){
+	// Transition to getHit if getting hit
+	if (player.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+}
+
+}
+
+class GetHitStatePOnline extends State {
+  enter(scene, player) {
+    player.setVelocityX(0);
+	player.anims.play('hurt');
+			player.once('animationcomplete', () => {
+				player.hitted=false;
+				this.stateMachine.transition('idle');
+    	});
+  }
+}
+class DeathStatePOnline extends State {
+  enter(scene, player) {
+	PlayerLoseGems(player, scene);
+    player.setVelocityX(0);
+	player.anims.play('death');
+			player.once('animationcomplete', () => {
+			player.setVisible(false);
+			if(cargoPj==='player2'){
+				respawnPlayer1();
+			}else{
+				respawnPlayer2();
+			}
+			this.stateMachine.transition('idle');
+    	});
+  }
+}
+class ClimbStatePOnline extends State {
+execute(scene, player) {    
+    // Transition to jump if pressing space
+    if ((inputJump) && player.body.touching.down) {
+      this.stateMachine.transition('jump');
+      return;
+    }
+    
+   // Transition to attack if pressing e
+    if (input_E.isDown && player.hasKnife===true) {
+	if(online){
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
+
+	}
+      this.stateMachine.transition('attack_knife');
+      return;
+    }
+	if (Phaser.Input.Keyboard.JustDown(input_E) && player.hasPistol===true && player.ammo>0) {
+		if(online){
+						isIdle=false;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("attack"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("attack"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("attack"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("attack"));}
+	}
+      this.stateMachine.transition('attack_pistol');
+      return;
+    }    
+
+//To idle
+	if (( inputLeft || inputRight || !player.onLadder)) {
+							//movePlayer_S1.send(JSON.stringify("idle"));
+      this.stateMachine.transition('idle');
+      return;
+
+    }
+
+
+    // Stop on ladder if not pressing movement keys
+    if (!( inputLeft || inputRight || input_S.isDown || inputUp || inputDown)) {
+      //this.stateMachine.transition('idle');
+      //return;
+		player.setVelocityY(0);
+		player.anims.stop();
+
+    }
+	
+    // Transition to hurt if getting hit
+	if (player.hitted) {
+      this.stateMachine.transition('getHit');
+      return;
+    }
+
+	//player.x=ladder.body.center.x;
+    player.setVelocityX(0);
+	if(inputUp){
+		player.setVelocityY(-140);
+	}else if (inputDown){
+			player.setVelocityY(140);
+
+	}
+	if( player.invisible){player.anims.play('invisible');}
+		else{player.anims.play('climb',true);}
+  }
+}
 
 ////////////////////////////////////////PANTALLA DE RESULTADOS//////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -6363,10 +7922,14 @@ class PantallaResultados extends Phaser.Scene{
 
     create(){
 updatePuntuacion();
+		scene4update=this;
         //Music
         bg_music_results_screen = this.sound.add('backgroundResultsMusic');
         bg_music_results_screen.setLoop(true);
         bg_music_results_screen.play();
+
+       
+
         this.fondoRan= this.add.image(400, 300, 'fondoRanking');
         this.fondoRan.setScale(0.6);
 
@@ -6464,7 +8027,12 @@ updatePuntuacion();
         this.rev.on('pointerdown', () => {
 	bg_music_results_screen.setLoop(false);
         bg_music_results_screen.stop();
-            this.scene.start('MenuPrincipal');
+         if(online){
+				selectPlayer.send(JSON.stringify("REVANCHA"));
+		}else{
+		    this.scene.start('MenuPersonajes');
+		}
+           // this.scene.start('MenuPrincipal');
 		
 
         });
@@ -6488,10 +8056,60 @@ updatePuntuacion();
             //Para cerrar la ventana del navegador
             //window.close();
         });
+         this.ventanaRev= this.add.image(400, 300, 'ventRevancha').setVisible(false);
+        this.aceptRev= this.add.image(360, 320, 'aceptRev').setInteractive();
+                this.aceptRev.on('pointerover', () => {
+           // this.aceptRev = this.add.image(550, 500, 'bSalirActivado');
+			//this.aceptRev.setScale(0.4);
+        });
+        
+        this.aceptRev.on('pointerout', () => {
+           // this.aceptRev = this.add.image(550, 500, 'bSalir');
+            //this.aceptRev.setScale(0.4);
+        });
+        
+        this.aceptRev.on('pointerdown', () => {
+	            if(online){
+				selectPlayer.send(JSON.stringify("NEXT"));
+				}
+        });
+        this.aceptRev.setVisible(false);
+        this.rejectRev= this.add.image(440, 330, 'rejectRev').setInteractive();
+                this.rejectRev.on('pointerover', () => {
+           // this.aceptRev = this.add.image(550, 500, 'bSalirActivado');
+			//this.aceptRev.setScale(0.4);
+        });
+        
+        this.rejectRev.on('pointerout', () => {
+           // this.aceptRev = this.add.image(550, 500, 'bSalir');
+            //this.aceptRev.setScale(0.4);
+        });
+        
+        this.rejectRev.on('pointerdown', () => {
+	            if(online){
+				selectPlayer.send(JSON.stringify("NEXT"));
+				}
+        });
+        this.rejectRev.setVisible(false);
 
     }
 
     update(){
+	if(online){
+		selectPlayer.onmessage= function(mssg){
+		if(JSON.parse(mssg.data)==='REVANCHA'){
+		scene4update.ventanaRev.setVisible(true);
+        scene4update.aceptRev.setVisible(true);
+        scene4update.rejectRev.setVisible(true);
+		}
+		if(JSON.parse(mssg.data)==='NEXT'){
+		scene4update.scene.start('MenuPersonajes');
+
+		}
+	}	
+	
+	}
+	
     }
 
 }
@@ -6854,7 +8472,7 @@ var config = {
             debug: false
         }
     },
-    scene: [PantallaCarga, PantallaDeInicio, SelecTipoInicio, SelecPerfil, Registro, Datos, MenuPrincipal, Controles, Creditos, PantallaModoJuego, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, Pausa, PantallaResultados],
+    scene: [PantallaCarga, PantallaDeInicio, SelecTipoInicio, SelecPerfil, Registro, Datos, MenuPrincipal, Controles, Creditos, PantallaModoJuego, SalaEspera, PantallaNumeroJugadores, MenuPersonajes, MenuEscenarios, Ayuda, PantallaEscenario1, PantallaEscenario2, PantallaEscenario3, Pausa, PantallaResultados],
 	audio: {
         disableWebAudio: true
     }

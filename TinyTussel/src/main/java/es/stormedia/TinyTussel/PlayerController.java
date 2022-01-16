@@ -85,9 +85,13 @@ public class PlayerController {
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
-		return player_aux.getName();
+		try {
+			return player_aux.getName();
+		} catch(NullPointerException e) {
+			return null;
+		}
 	}
 	
 	@PutMapping("/player/name/{id}")
@@ -104,30 +108,30 @@ public class PlayerController {
 				inputStream.close();
 			} catch (StreamReadException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 			player_aux.setName(newName);
 			try {
 				mapper.writeValue(new File("player"+id+".json"), player_aux);
 			} catch (StreamWriteException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 					return player_aux.getName();		
@@ -148,17 +152,17 @@ public class PlayerController {
 				inputStream.close();
 			} catch (StreamReadException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		return player_aux.getMaxPuntuacion();
 
@@ -180,30 +184,30 @@ public class PlayerController {
 				inputStream.close();
 			} catch (StreamReadException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 			player_aux.setMaxPuntuacion(Integer.parseInt(newScore));
 			try {
 				mapper.writeValue(new File("player"+id+".json"), player_aux);
 			} catch (StreamWriteException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 					return player_aux.getMaxPuntuacion();		
@@ -224,17 +228,17 @@ public class PlayerController {
 				inputStream.close();
 			} catch (StreamReadException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		return player_aux.getFavChara();
 	}
@@ -253,30 +257,30 @@ public class PlayerController {
 				inputStream.close();
 			} catch (StreamReadException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			}
 			player_aux.setFavChara(newPjFav);
 			try {
 				mapper.writeValue(new File("player"+id+".json"), player_aux);
 			} catch (StreamWriteException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		
 					return player_aux.getFavChara();		
@@ -297,17 +301,17 @@ public class PlayerController {
 				inputStream.close();
 			} catch (StreamReadException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		return player_aux.getUsosChilli();
 	}
@@ -326,10 +330,10 @@ public class PlayerController {
 				inputStream.close();
 			} catch (StreamReadException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			////	e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -339,17 +343,17 @@ public class PlayerController {
 				mapper.writeValue(new File("player"+id+".json"), player_aux);
 			} catch (StreamWriteException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			////	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		
 					return player_aux.getUsosChilli();		
@@ -369,17 +373,17 @@ public class PlayerController {
 				inputStream.close();
 			} catch (StreamReadException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			////	e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		return player_aux.getUsosChilli();
 	}
@@ -398,30 +402,30 @@ public class PlayerController {
 				inputStream.close();
 			} catch (StreamReadException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			}
 			player_aux.setUsosWasabi(Integer.parseInt(newUsos));
 			try {
 				mapper.writeValue(new File("player"+id+".json"), player_aux);
 			} catch (StreamWriteException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		
 					return player_aux.getUsosWasabi();		
@@ -441,17 +445,17 @@ public class PlayerController {
 				inputStream.close();
 			} catch (StreamReadException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			///	e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return player_aux.getUsosBernie();
 	}
@@ -470,30 +474,30 @@ public class PlayerController {
 				inputStream.close();
 			} catch (StreamReadException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			}
 			player_aux.setUsosChilli(Integer.parseInt(newUsos));
 			try {
 				mapper.writeValue(new File("player"+id+".json"), player_aux);
 			} catch (StreamWriteException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (DatabindException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			//	e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		
 					return player_aux.getUsosChilli();		

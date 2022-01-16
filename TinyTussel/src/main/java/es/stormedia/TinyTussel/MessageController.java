@@ -52,7 +52,7 @@ public class MessageController {
 			flujo.close();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		
 
