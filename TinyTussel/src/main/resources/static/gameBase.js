@@ -49,7 +49,7 @@ connection.onmessage = function(msg) {
 //Imprime el mensaje entero largo
 console.log(msg);
 //imprime solo la data del mensaje que es el cuerpo del mensaje que se manda send
-console.log(JSON.parse(msg.data));
+//console.log(JSON.parse(msg.data));
 	}
 
 	
@@ -592,6 +592,9 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('bRevanchaActivado', './asset/RevanchaActivado.png');
         this.load.image('bSalir', './asset/Salir.png');
         this.load.image('bSalirActivado', './asset/SalirActivado.png');
+        this.load.image('ventRevancha', './asset/revancha_bg_placeholder.png');
+        this.load.image('aceptRev', './asset/revancha_acept_placeholder.png');
+        this.load.image('rejectRev', './asset/revancha_reject_placeholder.png');
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -1812,7 +1815,7 @@ class Pausa extends Phaser.Scene{
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
+ 
 /////////////////////////////////////////Pantalla de Modo de Juego//////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1998,7 +2001,11 @@ class PantallaNumeroJugadores extends Phaser.Scene{
         });
         
         this.DosJugadores.on('pointerdown', () => {
+	if(online){
             this.scene.start('SalaEspera');
+	}else{
+		this.scene.start('MenuPersonajes');
+	}
         });
 
         this.TresJugadores= this.add.image(400, 450, '3J');
@@ -2305,6 +2312,7 @@ class SalaEspera extends Phaser.Scene{
 		
 	}
     update(){
+	if(online){
 		selectPlayer.onmessage = function(msg) {
 			//Cheackea si el msg es json para evitar errores de Undetected token	
 			var isMsgJSON=true;
@@ -2381,6 +2389,7 @@ class SalaEspera extends Phaser.Scene{
 				}
 			}	
 		}
+		}
 		if(online){
 			if(!scene4update.bcont_next){
 			if((salaSelect==='S1'&& jugador1sala1.text!=='null' && jugador2sala1.text!=='null')||
@@ -2437,6 +2446,12 @@ class MenuPersonajes extends Phaser.Scene{
 
 
     create(){
+	//Abremos la conexion para la de juego pantalla
+	if(salaSelect==='S1'){movePlayer_S1 = new WebSocket('ws://'+url+':8080/movePlayer1');}
+	if(salaSelect==='S2'){movePlayer_S2 = new WebSocket('ws://'+url+':8080/movePlayer2');}
+	if(salaSelect==='S3'){ movePlayer_S3 = new WebSocket('ws://'+url+':8080/movePlayer3');}
+	if(salaSelect==='S4'){movePlayer_S4 = new WebSocket('ws://'+url+':8080/movePlayer4');}
+	//
 scene4update=this;
        chooseP1='null';
 		chooseP2='null';
@@ -2898,12 +2913,7 @@ class MenuEscenarios extends Phaser.Scene{
     }
 
     create(){
-	//Abremos la conexion para la siguiente pantalla
-	if(salaSelect==='S1'){movePlayer_S1 = new WebSocket('ws://'+url+':8080/movePlayer1');}
-	if(salaSelect==='S2'){movePlayer_S2 = new WebSocket('ws://'+url+':8080/movePlayer2');}
-	if(salaSelect==='S3'){ movePlayer_S3 = new WebSocket('ws://'+url+':8080/movePlayer3');}
-	if(salaSelect==='S4'){movePlayer_S4 = new WebSocket('ws://'+url+':8080/movePlayer4');}
-	//
+	
 	scene4update=this;
         //Fondo de la pantalla de selección de escenario
         this.fondoME= this.add.image(400, 300, 'fondoMenu1');
@@ -3238,7 +3248,7 @@ class PantallaEscenario1 extends Phaser.Scene{
     create(){
 	
 
- 
+ scene4update=this;
 
  
 	//Elecciones anteriores
@@ -3293,7 +3303,7 @@ class PantallaEscenario1 extends Phaser.Scene{
     controlIimedItemRespawn=0;
 	controlIimedWeaponRespawn=0;
     text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this); //75000 tiempoo oficial
+    timedCountdown = this.time.delayedCall(7500, onCountDownEvent, [], this); //75000 tiempoo oficial
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
@@ -4159,7 +4169,6 @@ blueSpecialAttack_Explosion.anims.create({
   update(){
 	//PARTIDA ONLINE
 	if(online){
-		
 		if(salaSelect==='S1'){
 			movePlayer_S1.onopen = function() {
 	  			console.log("WS movePlayer_S1 Conexión abierta");
@@ -6025,6 +6034,7 @@ blueSpecialAttack_Explosion.anims.create({
     checkBoosts(player1, player2)
 	
     */
+    
         }//update
 
 }
@@ -6042,7 +6052,8 @@ function onCountDownEvent (){
 
     bg_music_battleground_1.setLoop(false);
     bg_music_battleground_1.stop();
-    this.scene.start('Resultados');
+		    scene4update.scene.start('Resultados');
+	
     
 }
 function onItemRespawnEvent(scene){
@@ -6090,7 +6101,7 @@ function onItemRespawnEvent(scene){
 		}
 	}
 	
-	if(controlIimedWeaponRespawn>100){
+	if(controlIimedWeaponRespawn>1500){
 		controlIimedWeaponRespawn=0;
 		scene.time.addEvent(timedItemRespawn);
 		switch(Phaser.Math.Between(0, 1)){
@@ -7811,7 +7822,11 @@ class DeathStatePOnline extends State {
 	player.anims.play('death');
 			player.once('animationcomplete', () => {
 			player.setVisible(false);
-			respawnPlayer1();
+			if(cargoPj==='player2'){
+				respawnPlayer1();
+			}else{
+				respawnPlayer2();
+			}
 			this.stateMachine.transition('idle');
     	});
   }
@@ -7905,10 +7920,14 @@ class PantallaResultados extends Phaser.Scene{
 
     create(){
 updatePuntuacion();
+		scene4update=this;
         //Music
         bg_music_results_screen = this.sound.add('backgroundResultsMusic');
         bg_music_results_screen.setLoop(true);
         bg_music_results_screen.play();
+
+       
+
         this.fondoRan= this.add.image(400, 300, 'fondoRanking');
         this.fondoRan.setScale(0.6);
 
@@ -8006,7 +8025,12 @@ updatePuntuacion();
         this.rev.on('pointerdown', () => {
 	bg_music_results_screen.setLoop(false);
         bg_music_results_screen.stop();
-            this.scene.start('MenuPrincipal');
+         if(online){
+				selectPlayer.send(JSON.stringify("REVANCHA"));
+		}else{
+		    this.scene.start('MenuPersonajes');
+		}
+           // this.scene.start('MenuPrincipal');
 		
 
         });
@@ -8030,10 +8054,60 @@ updatePuntuacion();
             //Para cerrar la ventana del navegador
             //window.close();
         });
+         this.ventanaRev= this.add.image(400, 300, 'ventRevancha').setVisible(false);
+        this.aceptRev= this.add.image(360, 320, 'aceptRev').setInteractive();
+                this.aceptRev.on('pointerover', () => {
+           // this.aceptRev = this.add.image(550, 500, 'bSalirActivado');
+			//this.aceptRev.setScale(0.4);
+        });
+        
+        this.aceptRev.on('pointerout', () => {
+           // this.aceptRev = this.add.image(550, 500, 'bSalir');
+            //this.aceptRev.setScale(0.4);
+        });
+        
+        this.aceptRev.on('pointerdown', () => {
+	            if(online){
+				selectPlayer.send(JSON.stringify("NEXT"));
+				}
+        });
+        this.aceptRev.setVisible(false);
+        this.rejectRev= this.add.image(440, 330, 'rejectRev').setInteractive();
+                this.rejectRev.on('pointerover', () => {
+           // this.aceptRev = this.add.image(550, 500, 'bSalirActivado');
+			//this.aceptRev.setScale(0.4);
+        });
+        
+        this.rejectRev.on('pointerout', () => {
+           // this.aceptRev = this.add.image(550, 500, 'bSalir');
+            //this.aceptRev.setScale(0.4);
+        });
+        
+        this.rejectRev.on('pointerdown', () => {
+	            if(online){
+				selectPlayer.send(JSON.stringify("NEXT"));
+				}
+        });
+        this.rejectRev.setVisible(false);
 
     }
 
     update(){
+	if(online){
+		selectPlayer.onmessage= function(mssg){
+		if(JSON.parse(mssg.data)==='REVANCHA'){
+		scene4update.ventanaRev.setVisible(true);
+        scene4update.aceptRev.setVisible(true);
+        scene4update.rejectRev.setVisible(true);
+		}
+		if(JSON.parse(mssg.data)==='NEXT'){
+		scene4update.scene.start('MenuPersonajes');
+
+		}
+	}	
+	
+	}
+	
     }
 
 }

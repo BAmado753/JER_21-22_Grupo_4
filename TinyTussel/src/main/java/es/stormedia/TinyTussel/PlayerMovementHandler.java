@@ -25,6 +25,7 @@ private Map<String, Sala> jgSalaList = new ConcurrentHashMap<>();
 	
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		sessionList.remove(session.getId());
+		jgSalaList.remove(session.getId());
 	}
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
