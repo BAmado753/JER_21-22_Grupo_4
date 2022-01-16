@@ -1722,6 +1722,32 @@ var Bullet = new Phaser.Class({
 
 });
 
+//Funciones tiempo restante
+function formatTime(seconds){
+    // Minutes
+    var minutes = Math.floor(seconds/60);
+    // Seconds
+    var partInSeconds = seconds%60;
+    // Adds left zeros to seconds
+    partInSeconds = partInSeconds.toString().padStart(2,'0');
+    // Returns formated time
+    return `${minutes}:${partInSeconds}`;
+}
+
+
+function onEvent ()
+{
+    this.initialTime -= 1; // One second
+    text.setText('Tiempo restante: ' + formatTime(this.initialTime));
+    if(this.initialTime===0){
+        bg_music_battleground_1.setLoop(false);
+        bg_music_battleground_1.stop();
+        this.scene.start('Resultados');
+    }
+}
+
+
+
 //objects
 var player1;
 var player1_name;
@@ -1795,6 +1821,9 @@ var input_L;
 var input_O;
 var input_U;
 
+//Variables para el tiempo restante
+var text;
+var timedEvent;
 
 //////////////////////////////////////////Pantalla del Escenario1///////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1856,12 +1885,20 @@ class PantallaEscenario1 extends Phaser.Scene{
     controlIimedItemRespawn_Fruits=0;
     controlIimedItemRespawn=0;
 	controlIimedWeaponRespawn=0;
-    text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this); //75000 tiempoo oficial
+
+    //text_time = this.add.text(32, 32);
+    //timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this); //75000 tiempoo oficial
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
-    
+
+    //Tiempo restante
+    this.initialTime = 90;//en segundos
+    text = this.add.text(32, 32, 'Tiempo restante: ' + formatTime(this.initialTime));
+    // Each 1000 ms call onEvent
+    timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
+
+
     //Plataformas
     platforms = this.physics.add.staticGroup();
 	
@@ -4294,13 +4331,13 @@ blueSpecialAttack_Explosion.anims.create({
 
 ////////FUNCIONES ///////////////////////////////////////////////////////
 ///Funciones de timer///
-function onCountDownEvent (){
+/*function onCountDownEvent (){
 
     bg_music_battleground_1.setLoop(false);
     bg_music_battleground_1.stop();
     this.scene.start('Resultados');
     
-}
+}*/
 function onItemRespawnEvent(scene){
 	 
 	var progress = timedItemRespawn.getProgress();
