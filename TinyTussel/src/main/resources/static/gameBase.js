@@ -756,6 +756,7 @@ class SelecTipoInicio extends Phaser.Scene{
         });
         
         this.contA.on('pointerdown', () => {
+	player_profile=null;
             this.scene.start('MenuPrincipal');
         });
 
@@ -2322,9 +2323,10 @@ class SalaEspera extends Phaser.Scene{
 				isMsgJSON=false;
 			}
 			if(isMsgJSON){
+				console.log(player_profile);
 				if(JSON.parse(msg.data)==='S1'){
 					if(jugador1sala1.text!=='null'){
-						if(player_profile!==null){jugador2sala1.setText(player_profile);}else{jugador2sala1.setText('JugadorAnon');}
+						if(player_profile!==null ){jugador2sala1.setText(player_profile);}else{jugador2sala1.setText('JugadorAnon');}
 					}else{
 						if(player_profile!==null){jugador1sala1.setText(player_profile);}else{jugador1sala1.setText('JugadorAnon');}
 					}
@@ -3303,7 +3305,7 @@ class PantallaEscenario1 extends Phaser.Scene{
     controlIimedItemRespawn=0;
 	controlIimedWeaponRespawn=0;
     text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(7500, onCountDownEvent, [], this); //75000 tiempoo oficial
+    timedCountdown = this.time.delayedCall(30000, onCountDownEvent, [], this); //75000 tiempoo oficial
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
