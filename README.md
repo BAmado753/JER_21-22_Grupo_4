@@ -158,7 +158,7 @@ Todas las acciones que se pueden llevar a cabo se activan mediante el teclado ú
    ![Pantalla de personajes elegidos!](/images/pantalla_personajes_elegidos.png) <br>
       Esta sería la misma pantalla que la anterior, pero así se ve cuando ambos jugadores han elegido a su personaje. <br><br>
 
-   ![Pantalla de escenario1!](/images/PANTALLA_ESCENARIOS.png) <br>
+   ![Pantalla de escenario1!](/images/PANTALLA_ESCENARIO.png) <br>
      Tras elegir a los personajes, se elige el escenario donde se va a desarrollar la partida <br><br>
 
    ![Pantalla de escenario1!](/images/pantallaJuego.png) <br>
