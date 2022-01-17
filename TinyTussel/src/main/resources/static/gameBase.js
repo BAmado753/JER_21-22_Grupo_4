@@ -66,7 +66,7 @@ console.log(msg);
 class PantallaCarga extends Phaser.Scene{
     constructor(){
         //Loading--> nombre que se le da a la escena
-        super({ key: "Loading"});
+        super({ key: "Cargando el juego"});
     }
 
     preload(){
@@ -216,8 +216,8 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('bCreditos', './asset/Creditos.png');
         this.load.image('bVerDatos2', './asset/botones_api_rest/Perfil.png');
         this.load.image('bVerDatosActivado2', './asset/botones_api_rest/Perfi(Activado)l.png');
-        this.load.image('backActivo', './asset/AtrasActivado.png');
-        this.load.image('back', './asset/Atras.png');
+        this.load.image('backActivo', './asset/Atras_nuevo_activado.png');
+        this.load.image('back', './asset/Atras_nuevo.png');
         this.load.image('ayudaActivado', './asset/AyudaActivado.png');
         this.load.image('ayuda', './asset/Ayuda.png');
 
@@ -289,7 +289,8 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('titleMJ', './asset/LogoTinyTussle.png');
         this.load.image('iconoLocal', './asset/IconoJugarLocal.png');
         this.load.image('iconoRed', './asset/IconoJugarRed.png');
-        this.load.image('bJugarLinea', './asset/JugarEnLinea.png');
+        this.load.image('bJugarLinea', './asset/Jugar en linea.png');
+        this.load.image('bJugarLineaActivado', './asset/Jugar en linea_activado.png');
         this.load.image('bJugarLocal', './asset/JugarEnLocal.png');
         this.load.image('bJugarLocalActivado', './asset/JugarEnLocalActivado.png');
         this.load.image('textoLinea', './asset/TextoEnLinea.png');
@@ -361,12 +362,15 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('fondoMenu1', './asset/Fondo.png');
         this.load.image('textoSelectE', './asset/ElegirMapa.png');
         this.load.image('Campo', './asset/MapaIlumen.png');
-        this.load.image('CampoActivado', './asset/IlumenActivado.png');
+        this.load.image('CampoActivado', './asset/MapaIlumen_activado.png');
         this.load.image('Lava', './asset/MapaMolvattTachado.png');
         //this.load.image('LavaActivado', './asset/MolvattActivado.png');
-        this.load.image('Oriental', './asset/MapaZauzTachado.png');
+        //this.load.image('Oriental', './asset/MapaZauzTachado.png');
         //this.load.image('OrientalActivado', './asset/ZauzActivado.png');
+        this.load.image('Halloween', './asset/MapaHalloween.png');
+        this.load.image('HalloweenActivado', './asset/MapaHalloween_Activado.png');
         this.load.image('BContinuar2', './asset/BotonContinuar_prueba.png');
+
 
         /////////////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -434,6 +438,43 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('tierra_suelo_inf',         'asset/escenario1/Tierra_suelo_inf.png');
         this.load.image('tierra_suelo_sup',         'asset/escenario1/Tierra_suelo_sup(new).png');
 
+        //Escenario Halloween
+        this.load.image('HalloweenEs', 'asset/MapaHalloween/Capas_mapa/Fondo_Halloween.png');
+        this.load.image('Decoracion_Halloween', 'asset/MapaHalloween/Capas_mapa/Decoracion_Halloween.png');
+        this.load.image('Suelo', './asset/MapaHalloween/sueloH.png');
+        this.load.image('PlataformaGrande', './asset/MapaHalloween/plataformaGrandeH.png');
+
+        this.load.image('SueloCentro', './asset/MapaHalloween/SueloCentro.png');
+        this.load.image('SueloDer_Centro', './asset/MapaHalloween/SueloDer_Centro.png');
+        this.load.image('SueloDer1', './asset/MapaHalloween/SueloDer1.png');
+        this.load.image('SueloDer2', './asset/MapaHalloween/SueloDer2.png');
+        this.load.image('SueloCentro', './asset/MapaHalloween/SueloCentro.png');
+        this.load.image('SueloIzq', './asset/MapaHalloween/SueloIzq.png');
+        this.load.image('SueloIzq_Centro', './asset/MapaHalloween/SueloIzq_Centro.png');
+        this.load.image('SueloIzqSuperior', './asset/MapaHalloween/SueloIzqSuperior.png');
+
+        this.load.image('plataformaGrandeH', './asset/MapaHalloween/plataformaGrandeH.png');
+        this.load.image('Plat1Izq', './asset/MapaHalloween/Plat1Izq.png');
+        this.load.image('Plat1Der', './asset/MapaHalloween/Plat1Der.png');
+        this.load.image('Tierra_15', './asset/MapaHalloween/Tierra_15.png');
+        this.load.image('Plat2Izq', './asset/MapaHalloween/Plat2Izq.png');
+        this.load.image('Plat2Der', './asset/MapaHalloween/Plat2Der.png');
+        this.load.image('Plat3Izq', './asset/MapaHalloween/Plat3Izq.png');
+        this.load.image('Plat3Der', './asset/MapaHalloween/Plat3Der.png');
+        this.load.image('Plat4Izq', './asset/MapaHalloween/Plat4Izq.png');
+        this.load.image('Plat4Der', './asset/MapaHalloween/Plat4Der.png');
+        this.load.image('Plat5Izq', './asset/MapaHalloween/Plat5Izq.png');
+        this.load.image('Plat5Der', './asset/MapaHalloween/Plat5Der.png');
+        this.load.image('Plat6Izq', './asset/MapaHalloween/Plat6Izq.png');
+
+        this.load.image('Escalera1', './asset/MapaHalloween/Escalera1.png');
+        this.load.image('Escalera2', './asset/MapaHalloween/Escalera2.png');
+        this.load.image('Escalera3', './asset/MapaHalloween/Escalera3.png');
+        this.load.image('Escalera4', './asset/MapaHalloween/Escalera4.png');
+        this.load.image('Escalera5', './asset/MapaHalloween/Escalera5.png');
+        this.load.image('Escalera6', './asset/MapaHalloween/Escalera6.png');
+
+        this.load.image('Escaleras_Halloween', 'asset/MapaHalloween/Capas_mapa/Escaleras_Halloween.png');
 
         //Chilli
         this.load.image('Chilli_profile', 'asset/Pink_Monster_closeUp.png');
@@ -573,12 +614,15 @@ class PantallaCarga extends Phaser.Scene{
 
         ////////////////////////////////////////Carga de assets de Pausa////////////////////////////////////////////
          //Carga de fondo, título e imagen
-        this.load.image('fondoPausa', './asset/Fondo.png');
-        this.load.image('bResume', './asset/BotonResume.png');
+        this.load.image('fondoPausa', './asset/Pantalla_Pausa.png');
+        this.load.image('bRestart', './asset/Salir.png');
+        this.load.image('bRestartActivado', './asset/SalirActivado.png');
+        this.load.image('tituloPausa', './asset/LogoTinyTusslePausa.png');
+        /*this.load.image('bResume', './asset/BotonResume.png');
         this.load.image('bResumeActivado', './asset/BotonResumeActivado.png');
         this.load.image('bRestart', './asset/BotonRestart.png');
         this.load.image('bRestartActivado', './asset/BotonRestartActivado.png');
-        this.load.image('tituloPausa', './asset/LogoTinyTusslePausa.png');
+        this.load.image('tituloPausa', './asset/LogoTinyTusslePausa.png');*/
         
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -593,10 +637,10 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('bRevanchaActivado', './asset/RevanchaActivado.png');
         this.load.image('bSalir', './asset/Salir.png');
         this.load.image('bSalirActivado', './asset/SalirActivado.png');
-        this.load.image('ventRevancha', './asset/revancha_bg_placeholder.png');
-        this.load.image('ventEsperarRevancha', './asset/revancha_bg_placeholder.png');
-        this.load.image('aceptRev', './asset/revancha_acept_placeholder.png');
-        this.load.image('rejectRev', './asset/revancha_reject_placeholder.png');
+        this.load.image('ventRevancha', './asset/Jugador_quiere_revancha.png');
+        this.load.image('ventEsperarRevancha', './asset/Esperando_respuesta.png');
+        this.load.image('aceptRev', './asset/Aceptar.png');
+        this.load.image('rejectRev', './asset/Denegar.png');
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -655,8 +699,10 @@ class PantallaDeInicio extends Phaser.Scene{
         this.tit=this.add.image(400, 250, 'title');
         this.tit.setScale(0.6);
 
-        this.texCont = this.add.image(400, 500, 'start');
+        this.texCont = this.add.image(400, 460, 'start');
         this.texCont.setScale(0.6);
+        
+       
 
 		//Inputs
                // $("#nombre").show();
@@ -1752,28 +1798,23 @@ class Pausa extends Phaser.Scene{
 
 
         this.fondoP = this.add.image(400, 300, 'fondoPausa');
-        this.fondoP.setScale(0.6);
-
-        this.titP = this.add.image(400, 200, 'tituloPausa');
-        this.titP.setScale(0.55);
+        
 
         //Continuar partida
-        this.contp = this.add.image(250, 450, 'bResume').setInteractive();
-        this.contp.setScale(0.35);
+        this.atras8 = this.add.image(50, 50, 'back').setInteractive();
+        this.atras8.setScale(1.1);
 
-        
-        this.contp.on('pointerover', () => {
-            this.contp = this.add.image(250, 450, 'bResumeActivado');
-            this.contp.setScale(0.35);
+        this.atras8.on('pointerover', () => {
+            this.atras8 = this.add.image(50, 50, 'backActivo');
+            this.atras8.setScale(1.1);
         });
-
-        this.contp.on('pointerout', () => {
-            this.contp = this.add.image(250, 450, 'bResume');
-            this.contp.setScale(0.35);
-        });
-
-        this.contp.on('pointerdown', () => {
         
+        this.atras8.on('pointerout', () => {
+            this.atras8 = this.add.image(50, 50, 'back');
+            this.atras8.setScale(1.1);
+        });
+        
+        this.atras8.on('pointerdown', () => {
             if(sleepE1 === 'true'){
                 this.scene.moveAbove('Escenario1');
                 this.scene.wake('Escenario1');
@@ -1789,27 +1830,27 @@ class Pausa extends Phaser.Scene{
                 this.scene.wake('Escenario3');
                 this.scene.stop('Pausa');
             }
-            
-            
         });
         
 
         //Volver a empezar
-        this.restart = this.add.image(550, 450, 'bRestart').setInteractive();
-        this.restart.setScale(0.35);
+        this.restart = this.add.image(400, 450, 'bRestart').setInteractive();
+        this.restart.setScale(0.4);
 
         
         this.restart.on('pointerover', () => {
-            this.restart = this.add.image(550, 450, 'bRestartActivado');
-            this.restart.setScale(0.35);
+            this.restart = this.add.image(400, 450, 'bRestartActivado');
+            this.restart.setScale(0.4);
         });
 
         this.restart.on('pointerout', () => {
-            this.restart = this.add.image(550, 450, 'bRestart');
-            this.restart.setScale(0.35);
+            this.restart = this.add.image(400, 450, 'bRestart');
+            this.restart.setScale(0.4);
         });
 
         this.restart.on('pointerdown', () => {
+	 bg_music_battleground_1.setLoop(false);
+    bg_music_battleground_1.stop();
             this.scene.start('MenuPrincipal');
             
             
@@ -1900,6 +1941,15 @@ class PantallaModoJuego extends Phaser.Scene{
 
         this.botLinea = this.add.image(600, 500, 'bJugarLinea').setInteractive();
         this.botLinea.setScale(0.3);
+        this.botLinea.on('pointerover', () => {
+            this.botLinea = this.add.image(600, 500, 'bJugarLineaActivado');
+            this.botLinea.setScale(0.3);
+        });
+        
+        this.botLinea.on('pointerout', () => {
+            this.botLinea = this.add.image(600, 500, 'bJugarLinea');
+            this.botLinea.setScale(0.3);
+        });
  		this.botLinea.on('pointerdown', () => {
 	  		connection.send(JSON.stringify("Estableciendo conexion"));
         this.scene.start('NumeroJugadores');
@@ -1917,7 +1967,7 @@ class PantallaModoJuego extends Phaser.Scene{
             this.botLocal.setScale(0.3);
         });
         
-        this.botLocal.on('pointerout', () => {s
+        this.botLocal.on('pointerout', () => {
             this.botLocal = this.add.image(200, 500, 'bJugarLocal');
             this.botLocal.setScale(0.3);
         });
@@ -2061,16 +2111,18 @@ class SalaEspera extends Phaser.Scene{
     }
 
     create(){
+	salaSelect='null';
+	 isSalaSelected=false;
 	scene4update=this;
 		//Texto
-		jugador1sala1=	this.add.text(200, 200, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador2sala1=	this.add.text(200, 220, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador1sala2=	this.add.text(600, 200, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador2sala2=	this.add.text(600, 220, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador1sala3=	this.add.text(200, 400, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador2sala3=	this.add.text(200, 420, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador1sala4=	this.add.text(600, 400, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador2sala4=	this.add.text(600, 420, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador1sala1=	this.add.text(150, 150, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador2sala1=	this.add.text(150, 200, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador1sala2=	this.add.text(500, 150, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador2sala2=	this.add.text(500, 200, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador1sala3=	this.add.text(150, 400, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador2sala3=	this.add.text(150, 450, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador1sala4=	this.add.text(500, 400, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador2sala4=	this.add.text(500, 450, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
 
 		selectPlayer.send(JSON.stringify("check"));
 
@@ -2119,10 +2171,10 @@ class SalaEspera extends Phaser.Scene{
         });
 
 
-        this.Sala1= this.add.image(200, 200, 'S1').setInteractive();
-        this.Sala1.setScale(0.4);
+        this.Sala1= this.add.image(220, 230, 'S1').setInteractive();
+        this.Sala1.setScale(0.55);
 
-        this.Sala1.on('pointerover', () => {
+       /* this.Sala1.on('pointerover', () => {
             this.Sala1 = this.add.image(200, 200, 'S1Activa');
             this.Sala1.setScale(0.4);
         });
@@ -2130,7 +2182,7 @@ class SalaEspera extends Phaser.Scene{
         this.Sala1.on('pointerout', () => {
             this.Sala1 = this.add.image(200, 200, 'S1');
             this.Sala1.setScale(0.4);
-        });
+        });*/
         
         this.Sala1.on('pointerdown', () => {
 					if(!isSalaSelected){
@@ -2148,7 +2200,7 @@ class SalaEspera extends Phaser.Scene{
 			console.log(jugador1sala1.text);
 			console.log(jugador2sala1.text);
 
-            if(jugador1sala1.text!=='null'){
+            if(jugador1sala1.text!==' '){
 				console.log('entra en donde la sala llena continuar');
 
 				                //Botón continuar
@@ -2176,10 +2228,10 @@ class SalaEspera extends Phaser.Scene{
     	}
         });
 
-        this.Sala2= this.add.image(600, 200, 'S2').setInteractive();
-        this.Sala2.setScale(0.4);
+        this.Sala2= this.add.image(580, 230, 'S2').setInteractive();
+        this.Sala2.setScale(0.55);
 
-		this.Sala2.on('pointerover', () => {
+		/*this.Sala2.on('pointerover', () => {
             this.Sala2 = this.add.image(600, 200, 'S2Activa');
             this.Sala2.setScale(0.4);
         });
@@ -2187,7 +2239,7 @@ class SalaEspera extends Phaser.Scene{
         this.Sala2.on('pointerout', () => {
             this.Sala2 = this.add.image(600, 200, 'S2');
             this.Sala2.setScale(0.4);
-        });
+        });*/
         
         this.Sala2.on('pointerdown', () => {
 					if(!isSalaSelected){
@@ -2201,7 +2253,7 @@ class SalaEspera extends Phaser.Scene{
 					}        
 				if(isSalaSelected){
 			console.log('entra en isSelected');
-            if(jugador1sala2.text!=='null'){
+            if(jugador1sala2.text!==' '){
 				console.log('entra en donde la sala llena continuar');
 
 				                //Botón continuar
@@ -2230,10 +2282,10 @@ class SalaEspera extends Phaser.Scene{
 		});
 
 		
-		this.Sala3= this.add.image(200, 400, 'S3').setInteractive();
-        this.Sala3.setScale(0.4);
+		this.Sala3= this.add.image(220, 470, 'S3').setInteractive();
+        this.Sala3.setScale(0.55);
 
-		this.Sala3.on('pointerover', () => {
+		/*this.Sala3.on('pointerover', () => {
             this.Sala3 = this.add.image(200, 400, 'S3Activa');
             this.Sala3.setScale(0.4);
         });
@@ -2241,7 +2293,7 @@ class SalaEspera extends Phaser.Scene{
         this.Sala3.on('pointerout', () => {
             this.Sala3 = this.add.image(200, 400, 'S3');
             this.Sala3.setScale(0.4);
-        });
+        });*/
         
         this.Sala3.on('pointerdown', () => {
 			if(!isSalaSelected){
@@ -2255,7 +2307,7 @@ class SalaEspera extends Phaser.Scene{
 					}          //  this.scene.start('NumeroJugadores');
 			if(isSalaSelected){
 			console.log('entra en isSelected');
-            if(jugador1sala3.text!=='null' ){
+            if(jugador1sala3.text!==' ' ){
 				console.log('entra en donde la sala llena continuar');
 
 				                //Botón continuar
@@ -2284,10 +2336,10 @@ class SalaEspera extends Phaser.Scene{
         });
 
 
-		this.Sala4= this.add.image(600, 400, 'S4').setInteractive();
-        this.Sala4.setScale(0.4);
+		this.Sala4= this.add.image(580, 470, 'S4').setInteractive();
+        this.Sala4.setScale(0.55);
 
-		this.Sala4.on('pointerover', () => {
+		/*this.Sala4.on('pointerover', () => {
             this.Sala4 = this.add.image(600, 400, 'S4Activa');
             this.Sala4.setScale(0.4);
         });
@@ -2295,12 +2347,11 @@ class SalaEspera extends Phaser.Scene{
         this.Sala4.on('pointerout', () => {
             this.Sala4 = this.add.image(600, 400, 'S4');
             this.Sala4.setScale(0.4);
-        });
+        });*/
         
         this.Sala4.on('pointerdown', () => {
-				salaSelect='S4';
 					if(!isSalaSelected){
-						selectPlayer.send(JSON.stringify("S4"));
+						salaSelect='S4';
 						isSalaSelected=true;
 						if(player_profile!==null){
 							selectPlayer.send(JSON.stringify("S4-"+player_profile));
@@ -2310,7 +2361,7 @@ class SalaEspera extends Phaser.Scene{
 					}
 					if(isSalaSelected){
 			console.log('entra en isSelected');
-            if(jugador1sala4.text!=='null'){
+            if(jugador1sala4.text!==' '){
 				console.log('entra en donde la sala llena continuar');
 
 				                //Botón continuar
@@ -2355,28 +2406,28 @@ class SalaEspera extends Phaser.Scene{
 				let strAux= new String(JSON.parse(msg.data));
 				console.log(strAux.substring(0, 2));
 				if(strAux.substring(0, 2) ==='S1'){
-					if(jugador1sala1.text!=='null'){
+					if(jugador1sala1.text!==' '){
 						if(strAux.length>2){jugador2sala1.setText(strAux.substring(3));}else{jugador2sala1.setText('Anónimo');}
 					}else{
 						if(strAux.length>2){jugador1sala1.setText(strAux.substring(3));}else{jugador1sala1.setText('Anónimo');}
 					}
 				}
 				if(strAux.substring(0, 2)==='S2'){
-					if(jugador1sala2.text!=='null'){
+					if(jugador1sala2.text!==' '){
 						if(strAux.length>2){jugador2sala2.setText(strAux.substring(3));}else{jugador2sala2.setText('Anónimo');}
 					}else{
 						if(strAux.length>2){jugador1sala2.setText(strAux.substring(3));}else{jugador1sala2.setText('Anónimo');}
 					}
 				}
 				if(strAux.substring(0, 2)==='S3'){
-					if(jugador1sala3.text!=='null'){
+					if(jugador1sala3.text!==' '){
 						if(strAux.length>2){jugador2sala3.setText(strAux.substring(3));}else{jugador2sala3.setText('Anónimo');}
 					}else{
 						if(strAux.length>2){jugador1sala3.setText(strAux.substring(3));}else{jugador1sala3.setText('Anónimo');}
 					}
 				}
 				if(strAux.substring(0, 2)==='S4'){
-					if(jugador1sala4.text!=='null'){
+					if(jugador1sala4.text!==' '){
 						if(strAux.length>2){jugador2sala4.setText(strAux.substring(3));}else{jugador2sala4.setText('Anónimo');}
 					}else{
 						if(strAux.length>2){jugador1sala4.setText(strAux.substring(3));}else{jugador1sala4.setText('Anónimo');}
@@ -2389,7 +2440,7 @@ class SalaEspera extends Phaser.Scene{
 			}else{
 				if(msg.data==='sala-1'){
 					console.log('Entra sala-4');
-					if(jugador1sala1.text!=='null'){
+					if(jugador1sala1.text!==' '){
 						jugador2sala1.setText('Jugador');
 					}else{
 						jugador1sala1.setText('Jugador');
@@ -2397,7 +2448,7 @@ class SalaEspera extends Phaser.Scene{
 				}
 				if(msg.data==='sala-2'){
 					console.log('Entra sala-4');
-					if(jugador1sala2.text!=='null'){
+					if(jugador1sala2.text!==' '){
 						jugador2sala2.setText('Jugador');
 					}else{
 						jugador1sala2.setText('Jugador');
@@ -2405,7 +2456,7 @@ class SalaEspera extends Phaser.Scene{
 				}
 				if(msg.data==='sala-3'){
 					console.log('Entra sala-4');
-					if(jugador1sala3.text!=='null'){
+					if(jugador1sala3.text!==' '){
 						jugador2sala3.setText('Jugador');
 					}else{
 						jugador1sala3.setText('Jugador');
@@ -2413,10 +2464,10 @@ class SalaEspera extends Phaser.Scene{
 				}
 				if(msg.data==='sala-4'){
 					console.log('Entra sala-4');
-					if(jugador1sala4.text!=='null'){
-						jugador2sala4.setText('Jugador Listo');
+					if(jugador1sala4.text!==' '){
+						jugador2sala4.setText('Jugador');
 					}else{
-						jugador1sala4.setText('Jugador Listo');
+						jugador1sala4.setText('Jugador');
 					}
 				}
 			}	
@@ -2424,10 +2475,10 @@ class SalaEspera extends Phaser.Scene{
 		}
 		if(online){
 			if(!scene4update.bcont_next){
-			if((salaSelect==='S1'&& jugador1sala1.text!=='null' && jugador2sala1.text!=='null')||
-			(salaSelect==='S2'&& jugador1sala2.text!=='null' && jugador2sala2.text!=='null')||
-			(salaSelect==='S3'&& jugador1sala3.text!=='null' && jugador2sala3.text!=='null')||
-			(salaSelect==='S4'&& jugador1sala4.text!=='null' && jugador2sala4.text!=='null')){
+			if((salaSelect==='S1'&& jugador1sala1.text!==' ' && jugador2sala1.text!==' ')||
+			(salaSelect==='S2'&& jugador1sala2.text!==' ' && jugador2sala2.text!==' ')||
+			(salaSelect==='S3'&& jugador1sala3.text!==' ' && jugador2sala3.text!==' ')||
+			(salaSelect==='S4'&& jugador1sala4.text!==' ' && jugador2sala4.text!==' ')){
 				                //Botón continuar
                 scene4update.bcont_next=scene4update.add.image(400, 550, 'BContinuar1').setInteractive();
                 scene4update.bcont_next.setScale(0.3);
@@ -3024,7 +3075,7 @@ class MenuEscenarios extends Phaser.Scene{
 
         this.es1.on('pointerdown', () => {
 	if(online){
-			selectPlayer.send(JSON.stringify("NEXT"));
+			selectPlayer.send(JSON.stringify("NEXT1"));
 					}else{
             this.scene.start('Escenario1');
 					} 
@@ -3034,8 +3085,8 @@ class MenuEscenarios extends Phaser.Scene{
 
 
 
-        this.es2 = this.add.image(400, 300, 'Lava');
-        this.es2.setScale(0.33);
+          this.es3 = this.add.image(650, 300, 'Lava');
+        this.es3.setScale(0.33);
 
         
         /*this.es2.on('pointerover', () => {
@@ -3059,29 +3110,40 @@ class MenuEscenarios extends Phaser.Scene{
         this.es3.setScale(0.33);
 
         
-        /*this.es3.on('pointerover', () => {
-            this.es3 = this.add.image(650, 300, 'OrientalActivado');
-            this.es3.setScale(0.5);
+        this.es2 = this.add.image(400, 300, 'Halloween').setInteractive();
+        this.es2.setScale(0.5);
+
+        
+        this.es2.on('pointerover', () => {
+            this.es2 = this.add.image(400, 300, 'HalloweenActivado');
+            this.es2.setScale(0.5);
         });
 
-        this.es3.on('pointerout', () => {
-            this.es3 = this.add.image(650, 300, 'Oriental');
-            this.es3.setScale(0.5);
+        this.es2.on('pointerout', () => {
+            this.es2 = this.add.image(400, 300, 'Halloween');
+            this.es2.setScale(0.5);
         });
 
-        this.es3.on('pointerdown', () => {
-            this.scene.start('Escenario3');
+        this.es2.on('pointerdown', () => {
+	if(online){
+			selectPlayer.send(JSON.stringify("NEXT2"));
+					}else{
+            this.scene.start('Escenario2');
+					} 
             bg_music_selection_screen.setLoop(false);
             bg_music_selection_screen.stop();
-        });*/
+        });
 
 
     }
  update(){
 	if(online){
 		selectPlayer.onmessage = function(msg) {
-			if(JSON.parse(msg.data)==='NEXT'){
+			if(JSON.parse(msg.data)==='NEXT1'){
             scene4update.scene.start('Escenario1');
+			}
+			if(JSON.parse(msg.data)==='NEXT2'){
+            scene4update.scene.start('Escenario2');
 			}
 		}
 	}
@@ -3338,18 +3400,20 @@ class PantallaEscenario1 extends Phaser.Scene{
 
  
 	//Elecciones anteriores
+		if(online){
 	if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("S1"));}
 	if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("S2"));}
 	if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("S3"));}
 	if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("S4"));}
-
+}
 
 	//Background
     this.add.image(400,300, 'bg_arboles');
     this.add.image(400,400, 'bg_tierra');
 
     //Pausa
-    this.paus1 = this.add.image(750, 50, 'bPausa').setInteractive();
+    if(!online){
+	this.paus1 = this.add.image(750, 50, 'bPausa').setInteractive();
         this.paus1.setScale(0.5);
 
         
@@ -3369,6 +3433,8 @@ class PantallaEscenario1 extends Phaser.Scene{
             this.scene.launch('Pausa');
             this.scene.moveAbove('Pausa');
         });
+}
+    
 
 
     //Musica
@@ -4574,44 +4640,59 @@ class PantallaEscenario2 extends Phaser.Scene{
         //Escenario2--> nombre que se le da a la escena
         super({ key: "Escenario2"});
     }
-
-    
-
+   
     preload(){
+	
     }
 
 
    create(){
-    
+	
+
+ scene4update=this;
+
+ 
+	//Elecciones anteriores
+	if(online){
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("S1"));}
+		if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("S2"));}
+		if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("S3"));}
+		if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("S4"));}
+	}
+	
+
 	//Background
-    this.add.image(400,300, 'bg_arboles');
-    this.add.image(400,400, 'bg_tierra');
+        this.add.image(400,300, 'HalloweenEs');
+
 
     //Pausa
-    this.paus2 = this.add.image(750, 50, 'bPausa').setInteractive();
-        this.paus2.setScale(0.5);
+    if(!online){
+	this.paus1 = this.add.image(750, 50, 'bPausa').setInteractive();
+        this.paus1.setScale(0.5);
 
         
-        this.paus2.on('pointerover', () => {
-            this.paus2 = this.add.image(750, 50, 'bPausaActivado');
-            this.paus2.setScale(0.5);
+        this.paus1.on('pointerover', () => {
+            this.paus1 = this.add.image(750, 50, 'bPausaActivado');
+            this.paus1.setScale(0.5);
         });
 
-        this.paus2.on('pointerout', () => {
-            this.paus2 = this.add.image(750, 50, 'bPausa');
-            this.paus2.setScale(0.5);
+        this.paus1.on('pointerout', () => {
+            this.paus1 = this.add.image(750, 50, 'bPausa');
+            this.paus1.setScale(0.5);
         });
 
-        this.paus2.on('pointerdown', () => {
-            sleepE2 = 'true';
-            this.scene.sleep('Escenario2');
+        this.paus1.on('pointerdown', () => {
+            sleepE1 = 'true';
+            this.scene.sleep('Escenario1');
             this.scene.launch('Pausa');
             this.scene.moveAbove('Pausa');
         });
+}
+    
 
-    /*
+
     //Musica
-    bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
+    bg_music_battleground_1 = this.sound.add('backgroundBattleMusic3');
     bg_music_battleground_1.setLoop(true);
     bg_music_battleground_1.play();
 	sound_knife= this.sound.add('hit');
@@ -4627,26 +4708,60 @@ class PantallaEscenario2 extends Phaser.Scene{
     controlIimedItemRespawn_Fruits=0;
     controlIimedItemRespawn=0;
 	controlIimedWeaponRespawn=0;
-    text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this);
+    //text_time = this.add.text(32, 32);
+    //timedCountdown = this.time.delayedCall(30000, onCountDownEvent, [], this); //75000 tiempoo oficial
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
     
+
+    //Tiempo restante
+    this.initialTime = 90;//en segundos
+    text = this.add.text(32, 32, 'Tiempo restante: ' + formatTime(this.initialTime));
+    // Each 1000 ms call onEvent
+    timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
+
+
     //Plataformas
     platforms = this.physics.add.staticGroup();
 	
-	//Aquí van las plataformas/////////////////////////////////////////////////
-	//Ejemplo-> platforms.create(720,424,'tierra_esq_sup_izq');
-
+	platforms.create(30,535,'SueloIzq');
+    platforms.create(62,427,'SueloIzqSuperior');
+    platforms.create(220,567,'SueloIzq_Centro');
+    platforms.create(767,548,'SueloDer2');
+    platforms.create(702,559,'SueloDer1');
+    platforms.create(607,567,'SueloDer_Centro');
+    platforms.create(463,535,'SueloCentro');
+    platforms.create(62,233,'plataformaGrandeH');
+    platforms.create(210,400,'Plat1Izq');
+    platforms.create(273,403,'Tierra_15');
+    platforms.create(305,400,'Plat1Der');
+    platforms.create(243,198,'Plat2Izq');
+    platforms.create(323,200,'Tierra_15');
+    platforms.create(370,199,'Plat2Der');
+    platforms.create(509,306,'Plat3Izq');
+    platforms.create(477,309,'Tierra_15');
+    platforms.create(371,306,'Plat3Der');
+    platforms.create(473,371,'Plat4Izq');
+    platforms.create(505,375,'Tierra_15');
+    platforms.create(570,371,'Plat4Der');
+    platforms.create(556,162,'Plat5Izq');
+    platforms.create(715,167,'Tierra_15');
+    platforms.create(748,163,'Plat5Der');
+    platforms.create(721,307,'Plat6Izq');
+    platforms.create(783,311,'Tierra_15');
     
+        this.add.image(400,300, 'Decoracion_Halloween');
+
     //Escaleras
     
     ladder = this.physics.add.group();
-
-	//Aquí van las escaleras/////////////////////////////////////////////////
-	//Ejemplo-> ladder.create(80,264,'escalera');
-	
+	ladder.create(273,462,'Escalera1');
+    ladder.create(323,240,'Escalera2');
+    ladder.create(477,326,'Escalera3');
+    ladder.create(505,417,'Escalera4');
+    ladder.create(715,223,'Escalera5');
+    ladder.create(783,397,'Escalera6');
      ladder.children.iterate(function (child) {
         //  Give each ladder no gravity
     child.body.setAllowGravity(false);
@@ -4662,9 +4777,16 @@ class PantallaEscenario2 extends Phaser.Scene{
     //item_knife=this.physics.add.sprite(300, 450, 'knife_item');
     //item_knife.setCollideWorldBounds(true);
 	items_pistol=this.physics.add.group();
-	createPistol();
 	items_knife=this.physics.add.group();
-	createKnife();
+	if (online && cargoPj==='player1'){
+		createPistol();
+		createKnife();
+	}
+	else if(!online){
+		createPistol();
+		createKnife();
+	}
+	
     items_power=this.physics.add.group();
     items_speed=this.physics.add.group();
     items_shield=this.physics.add.group();
@@ -4698,7 +4820,11 @@ class PantallaEscenario2 extends Phaser.Scene{
     player1 = this.physics.add.sprite(respawn_P1.x, respawn_P1.y, chooseP1+'_idl');
 	player1.setBodySize(player1.width *0.5,player1.height *1);
 	player1.tag=1;
-	player1.name="default";
+if(player_profile!==null && cargoPj==='player1'){
+	player1.name =player_profile;
+}else{
+		player1.name=chooseP1;
+}
 	player1.life = 20;
 	player1.ammo = 10;
 	player1.gemsOwned = 0;
@@ -4718,13 +4844,18 @@ class PantallaEscenario2 extends Phaser.Scene{
 	player1.LastTimeSpecial=0;
 	player1.canSpecial=true;
     player1.setCollideWorldBounds(true);
-player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px Courier', fill: '#ffffff' });
+player1_name=	this.add.text(player1.body.center.x, player1.y+20, player1.name, { font: '16px Courier', fill: '#ffffff' });
     //Player 2
 	respawn_P2.x=400;
 	respawn_P2.y=450;
   	player2 = this.physics.add.sprite(respawn_P2.x, respawn_P2.y, chooseP2+'_idl');
 	player2.setBodySize(player2.width *0.5,player2.height *1);
 	player2.tag=2;
+	if(player_profile!==null && cargoPj==='player2'){
+	player2.name =player_profile;
+}else{
+		player2.name=chooseP2;
+}
 	player2.life = 20;
 	player2.ammo = 10;
 	player2.gemsOwned = 0;
@@ -4744,19 +4875,28 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
 	player2.LastTimeSpecial=0;
 	player2.canSpecial=true;
 	player2.setCollideWorldBounds(true);
-	
+	player2_name=	this.add.text(player2.body.center.x, player2.y+20, player2.name, { font: '16px Courier', fill: '#ffffff' });
+
+	if(o_player_profile!==null && cargoPj==='player1'){
+	player2.name=o_player_profile;
+	}
+	if(o_player_profile!==null && cargoPj==='player2'){
+	player1.name=o_player_profile;
+	}
 	
 	player_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
 	
-	
+	console.log("cargoPj:"+cargoPj);
+	console.log("player1:"+player1.name);
+	console.log("player2"+player2.name);
 	
 	text_p1_UI = this.add.text(230, 562, '', { font: '16px Courier', fill: '#ffffff' });
 	text_p1_UI.setDepth(2);
 	profile_p1_UI = this.add.image(40, 510, 'j1').setScale(0.3,0.3); 
 	profile_p1_UI.setDepth(1);
-	var gem_Icon= this.add.image(220, 586, 'gem').setScale(0.6,0.6); 
+	var gem_Icon= this.add.image(220, 586, 'gem').setScale(1.0,1.0); 
 	gem_Icon.setDepth(1);
-	var ammo_Icon= this.add.image(220, 569, 'ammo_item').setScale(0.4,0.3); 
+	var ammo_Icon= this.add.image(220, 569, 'ammo_item').setScale(1.0,0.9); 
 	ammo_Icon.setDepth(1);
 	spAtk_p1_UI=this.add.sprite(50, 530, 'special_attack_11').setScale(0.35,0.35);
 	spAtk_p1_UI.anims.create({
@@ -4825,9 +4965,9 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
 	text_p2_UI.setDepth(2);
 	profile_p2_UI = this.add.image(760, 510, 'j2').setScale(0.3,0.3); 
 	profile_p2_UI.setDepth(1);
-	var gem_Icon= this.add.image(580, 586, 'gem').setScale(0.6,0.6);
+	var gem_Icon= this.add.image(580, 586, 'gem').setScale(1.0,1.0);
 	gem_Icon.setDepth(1);
-	var ammo_Icon= this.add.image(580, 569, 'ammo_item').setScale(0.4,0.3); 
+	var ammo_Icon= this.add.image(580, 569, 'ammo_item').setScale(1.0,0.9); 
 	ammo_Icon.setDepth(1);
 	spAtk_p2_UI=this.add.sprite(750, 530, 'special_attack_11').setScale(0.35,0.35);
 	spAtk_p2_UI.anims.create({
@@ -4940,6 +5080,56 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
     pinkCopy.body.enable=false;
     pinkCopy.setVisible(false);
     //Create StateMachine
+if(online){
+	if(cargoPj==='player1'){
+		this.stateMachine_player1 = new StateMachine('idle', {
+            idle: new IdleStateP1(),
+            move: new MoveStateP1(),
+            jump: new JumpStateP1(),
+    		climb: new ClimbStateP1(),
+			attack_knife: new AttackKnifeStateP1(),
+            attack_pistol: new AttackPistolStateP1(),
+    		getHit: new GetHitStateP1(),
+    		death: new DeathStateP1(),
+    		invisible: new InvisibleStateP1(),
+         }, [this, player1]);
+ this.stateMachine_player2 = new StateMachine('idle', {
+            idle: new IdleStatePOnline(),
+            move: new MoveStatePOnline(),
+            jump: new JumpStatePOnline(),
+    		climb: new ClimbStatePOnline(),
+			attack_knife: new AttackKnifeStatePOnline(),
+            attack_pistol: new AttackPistolStatePOnline(),
+	   		getHit: new GetHitStatePOnline(),
+    		death: new DeathStatePOnline(),
+    		invisible: new InvisibleStatePOnline(),
+          }, [this, player2]);
+	}else{
+		this.stateMachine_player1 = new StateMachine('idle', {
+            idle: new IdleStateP1(),
+            move: new MoveStateP1(),
+            jump: new JumpStateP1(),
+    		climb: new ClimbStateP1(),
+			attack_knife: new AttackKnifeStateP1(),
+            attack_pistol: new AttackPistolStateP1(),
+    		getHit: new GetHitStateP1(),
+    		death: new DeathStateP1(),
+    		invisible: new InvisibleStateP1(),
+         }, [this, player2]);
+ this.stateMachine_player2 = new StateMachine('idle', {
+            idle: new IdleStatePOnline(),
+            move: new MoveStatePOnline(),
+            jump: new JumpStatePOnline(),
+    		climb: new ClimbStatePOnline(),
+			attack_knife: new AttackKnifeStatePOnline(),
+            attack_pistol: new AttackPistolStatePOnline(),
+	   		getHit: new GetHitStatePOnline(),
+    		death: new DeathStatePOnline(),
+    		invisible: new InvisibleStatePOnline(),
+          }, [this, player1]);
+	}
+			
+}else{
     this.stateMachine_player1 = new StateMachine('idle', {
             idle: new IdleStateP1(),
             move: new MoveStateP1(),
@@ -4963,17 +5153,18 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
     		death: new DeathStateP2(),
     		invisible: new InvisibleStateP2(),
           }, [this, player2]);
-    
+    }
+
 blueSpecialAttack_Explosion=this.add.sprite(0,0,'round_explosion_0');
 blueSpecialAttack_Explosion.DelayTimer=0;
 blueSpecialAttack_Explosion.exist=false;
 blueSpecialAttack_Explosion.setVisible(false);
-blueSpecialAttack_Explosion.anims.create({
+/*blueSpecialAttack_Explosion.anims.create({
 	key: 'explosion',
         frames: this.anims.generateFrameNumbers('round_explosion', { start: 0, end: 71 }),
         frameRate: 20,
         repeat: 0
-});
+});*/
 blueSpecialAttack_Explosion.anims.create({
             
 	key: 'explosion',
@@ -5274,51 +5465,257 @@ blueSpecialAttack_Explosion.anims.create({
 	this.listaJugadores;
         this.mensajeError ;
         this.nJugadores;
-
-    */
     }//create
 
   update(){
-    /*
-	//AJAX	
 	
-		if(id!=null){
-			console.log("entra al if del null");
+	//PARTIDA ONLINE
+	if(online){
+		if(salaSelect==='S1'){
+			movePlayer_S1.onopen = function() {
+	  			console.log("WS movePlayer_S1 Conexión abierta");
+			}
+			movePlayer_S1.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	if(salaSelect==='S2'){
+		movePlayer_S2.onopen = function() {
+	  			console.log("WS movePlayer_S2 Conexión abierta");
+			}
+			movePlayer_S2.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	if(salaSelect==='S3'){
+		movePlayer_S3.onopen = function() {
+	  			console.log("WS movePlayer_S3 Conexión abierta");
+			}
+			movePlayer_S3.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	if(salaSelect==='S4'){
+		movePlayer_S4.onopen = function() {
+	  			console.log("WS movePlayer_S4 Conexión abierta");
+			}
+			movePlayer_S4.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	/*movePlayer_S1.onclose = function() {
+	  console.log("WS movePlayer_S1 Conexión cerrada");
+	}*/
+	respawnItemsHandler.onmessage = function(msg) {
+		var obj=JSON.parse(msg.data);
+			//console.log(JSON.parse(msg.data));
+			
+			if(obj.name==='gem'){
+						gems.create(obj.x,obj.y,'gem');  
+			}
+			if(obj.name==='stb'){
+						items_strawberry.create(obj.x,obj.y,'strawberry_item');  
+			}
+			if(obj.name==='lem'){
+						items_lemon.create(obj.x,obj.y,'lemon_item');  
+			}
+			if(obj.name==='grp'){
+						items_grape.create(obj.x,obj.y,'grape_item');  
+			}
+			if(obj.name==='shd'){
+						items_shield.create(obj.x,obj.y,'shield_item');  
+			}
+			if(obj.name==='spd'){
+						items_speed.create(obj.x,obj.y,'speed_item');  
+			}
+			if(obj.name==='pow'){
+						items_power.create(obj.x,obj.y,'power_item');  
+			}
+			if(obj.name==='amo'){
+						items_ammo.create(obj.x,obj.y,'ammo_item');  
+			}
+			if(obj.name==='ptl'){
+				console.log("j1 Gemas:"+player1.gemsOwned);
+		console.log("j2 Gemas:"+player2.gemsOwned);
+						items_pistol.create(obj.x,obj.y,'pistol_item');  
+			}
+			if(obj.name==='knf'){
+						items_knife.create(obj.x,obj.y,'knife_item');  
+			}
 
-            $(document).ready(function () {
-
-                $.ajax({
-
-                    type: "GET",
-                    url: "http://localhost:8080/player/name/"+id,
-                    dataType: "text"
-
-                }).fail(function () {
-			//console.log("error get lista jugadores");
-
-                    fallosServidor += 1;
-                    if (fallosServidor > 2) {
-
-                        errorServidor = "Servidor desconectado";
-					//console.log(errorServidor);
-
-                    }
-                }).done(function (data) {
-                    errorServidor = "Servidor conectado";
-                    fallosServidor = 0;
-                    player1.name =data;
-                })
-
-            });
-
-        }
+	}
+	
+	//Controles websockets
+	if(Phaser.Input.Keyboard.JustDown(input_A)){
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("left"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("left"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("left"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("left"));}
+	}
+	if(Phaser.Input.Keyboard.JustDown(input_D)){
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("right"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("right"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("right"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("right"));}
+	}
+	if(Phaser.Input.Keyboard.JustDown(input_W)){
+		
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("up"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("up"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("up"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("up"));}
+	}
+	/*
+	if(Phaser.Input.Keyboard.JustDown(input_S)){
+				console.log("Se pulsa S");
+				movePlayer_S1.send(JSON.stringify("down"));
+	}*/
+	if(Phaser.Input.Keyboard.JustDown(spaceBar)){
+			isIdle=false;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("jump"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("jump"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("jump"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("jump"));}
+	}
+	/*if(Phaser.Input.Keyboard.JustDown(input_Q)){
+		//inputSpecial
+				movePlayer_S1.send(JSON.stringify("special"));
+	}*/
+	/*if(Phaser.Input.Keyboard.JustDown(input_E)){
+				movePlayer_S1.send(JSON.stringify("attack"));
+	}*/
+	
+	if(!(input_A.isDown || input_D.isDown || input_W.isDown || spaceBar.isDown) && !isIdle){
+		isIdle=true;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("idle"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("idle"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("idle"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("idle"));}
+	}
+	if(input_A.isDown || input_D.isDown || input_W.isDown || spaceBar.isDown){
+			isIdle=false;
+	}
+	if(cargoPj==='player1'){
+					onItemRespawnEvent(this);
+	}
+	
+	
+	//Ataques especiales
+if	(Phaser.Input.Keyboard.JustDown(input_Q)){
+	isIdle=false;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("special"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("special"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("special"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("special"));}
+		if(cargoPj==='player1'){
+			if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
+    		if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
+    		if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
+		}
+    	
+    	if(cargoPj==='player2'){
+			if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
+    		if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
+    		if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
+		}
+    }
+if	(inputSpecial){
+	inputSpecial=false;
+		if(cargoPj==='player1'){
+			if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
+    		if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
+    		if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
+			
+		}
+    	
+    	if(cargoPj==='player2'){
+			if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
+    		if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
+    		if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
+		}
+    }
+	}//End online
+	
+	
 	///////////
 	player1_name.x=player1.x-20;
 	player1_name.y=player1.y-30;
 	if(player1_name.text != player1.name){
 		player1_name.text=player1.name;
 	}
-	onItemRespawnEvent(this);
+	player2_name.x=player2.x-20;
+	player2_name.y=player2.y-30;
+	if(player2_name.text != player2.name){
+		player2_name.text=player2.name;
+	}
 	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
 	checkNoLadder();
 	checkTimeSpecial(player1);
@@ -5330,11 +5727,17 @@ blueSpecialAttack_Explosion.anims.create({
 	if(player1.direction!=='left') {  player1.flipX = false; }
 	if(player2.direction!=='right') {  player2.flipX = true;}
 	if(player2.direction!=='left') {  player2.flipX = false; }
+	
 	      this.stateMachine_player1.step();
 	      this.stateMachine_player2.step();
 
+    checkDebuffTime(player1, player2);
+    checkBoosts(player1, player2)
 
-    if	(Phaser.Input.Keyboard.JustDown(input_Q)){
+if(!online){
+				onItemRespawnEvent(this);
+
+	if	(Phaser.Input.Keyboard.JustDown(input_Q)){
     	if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
     	if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
     	if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
@@ -5347,11 +5750,8 @@ blueSpecialAttack_Explosion.anims.create({
     	if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
     
     }
-    
-    checkDebuffTime(player1, player2);
-    checkBoosts(player1, player2)
-	
-    */
+}
+    	
         }//update
         
 
@@ -6569,7 +6969,7 @@ function createAmmo(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_ammo.create(x,y,'ammo_item').setScale(0.3,0.3).refreshBody(); 
+		items_ammo.create(x,y,'ammo_item').refreshBody(); 
 		if(online){
 			var aux = { name: "amo", x: x, y: y };
 			var auxJSON = JSON.stringify(aux);
@@ -8228,8 +8628,11 @@ console.log(player2.gemsOwned);
         
         
          this.ventanaRev= this.add.image(400, 300, 'ventRevancha').setVisible(false);
-        this.ventanaEsperarRev= this.add.image(200, 300, 'ventEsperarRevancha').setVisible(false);
-        this.aceptRev= this.add.image(360, 320, 'aceptRev').setInteractive();
+         this.ventanaRev.setDepth(2);
+        this.ventanaEsperarRev= this.add.image(400, 300, 'ventEsperarRevancha').setVisible(false);
+        this.ventanaEsperarRev.setDepth(2);
+        this.aceptRev= this.add.image(300, 380, 'aceptRev').setInteractive();
+        this.aceptRev.setDepth(2);
                 this.aceptRev.on('pointerover', () => {
            // this.aceptRev = this.add.image(550, 500, 'bSalirActivado');
 			//this.aceptRev.setScale(0.4);
@@ -8246,7 +8649,8 @@ console.log(player2.gemsOwned);
 				}
         });
         this.aceptRev.setVisible(false);
-        this.rejectRev= this.add.image(440, 330, 'rejectRev').setInteractive();
+        this.rejectRev= this.add.image(500, 380, 'rejectRev').setInteractive();
+        this.rejectRev.setDepth(2);
                 this.rejectRev.on('pointerover', () => {
            // this.aceptRev = this.add.image(550, 500, 'bSalirActivado');
 			//this.aceptRev.setScale(0.4);
