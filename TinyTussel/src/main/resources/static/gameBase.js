@@ -1119,16 +1119,16 @@ class Datos extends Phaser.Scene{
 
         this.titNombre= this.add.image(400, 100, 'nombre');
         this.titNombre.setScale(0.3);
-		player_text=	this.add.text(300, this.titNombre.y+20, 'Cargando', { font: '32px Courier', fill: '#ffffff' });
+		player_text=	this.add.text(300, this.titNombre.y+20, 'Desconectado', { font: '32px Courier', fill: '#ffffff' });
 
         this.titScore= this.add.image(400, 250, 'score');
         this.titScore.setScale(0.3);
-		titScore_text=	this.add.text(400, this.titScore.y+20, 'Cargando', { font: '32px Courier', fill: '#ffffff' });
+		titScore_text=	this.add.text(400, this.titScore.y+20, 'Desconectado', { font: '32px Courier', fill: '#ffffff' });
 
 
         this.titPersonaje= this.add.image(400, 450, 'PerFavorito');
         this.titPersonaje.setScale(0.3);
-		titPersonaje_text=	this.add.text(350, this.titPersonaje.y+20, 'Cargando', { font: '32px Courier', fill: '#ffffff' });
+		titPersonaje_text=	this.add.text(350, this.titPersonaje.y+20, 'Desconectado', { font: '32px Courier', fill: '#ffffff' });
 		
 		/*usosC_text=	this.add.text(this.titPersonaje.x, this.titPersonaje.y+40, 'Cargando', { font: '16px Courier', fill: '#ffffff' });
 		usos_Chilli();*/
@@ -1181,7 +1181,7 @@ class Datos extends Phaser.Scene{
     }
 
     update(){
-if(player_text.text==='Cargando'){
+if(player_text.text==='Desconectado'){
 	$(document).ready(function () {
 
                 $.ajax({
@@ -1209,7 +1209,7 @@ if(player_text.text==='Cargando'){
 
             });
 }
-if(titScore_text.text==='Cargando'){
+if(titScore_text.text==='Desconectado'){
 	$(document).ready(function () {
 
                 $.ajax({
@@ -1238,7 +1238,7 @@ if(titScore_text.text==='Cargando'){
 
             });
 }
-if(titPersonaje_text.text==='Cargando'){
+if(titPersonaje_text.text==='Desconectado'){
 	$(document).ready(function () {
 
                 $.ajax({
@@ -1432,20 +1432,28 @@ class MenuPrincipal extends Phaser.Scene{
         this.datos2.setScale(0.3);
 		
 		this.datos2.on('pointerover', () => {
-            this.datos2 = this.add.image(550, 450, 'bVerDatosActivado2');
+			if(player_profile!==null){
+				 this.datos2 = this.add.image(550, 450, 'bVerDatosActivado2');
             this.datos2.setScale(0.3);
+			}
+           
         });
         
         this.datos2.on('pointerout', () => {
-            this.datos2 = this.add.image(550, 450, 'bVerDatos2');
+	if(player_profile!==null){
+		this.datos2 = this.add.image(550, 450, 'bVerDatos2');
             this.datos2.setScale(0.3);
+		}
+            
         });
         
         this.datos2.on('pointerdown', () => {
+	if(player_profile!==null){
 		$("#chat").hide();
 		$("#message").hide();
 		$("#send").hide();
             this.scene.start('Datos');
+            }
         });
 
 
@@ -1909,12 +1917,13 @@ class PantallaModoJuego extends Phaser.Scene{
             this.botLocal.setScale(0.3);
         });
         
-        this.botLocal.on('pointerout', () => {
+        this.botLocal.on('pointerout', () => {s
             this.botLocal = this.add.image(200, 500, 'bJugarLocal');
             this.botLocal.setScale(0.3);
         });
         
         this.botLocal.on('pointerdown', () => {
+	online=false;
             this.scene.start('NumeroJugadores');
         });
 
@@ -8300,7 +8309,7 @@ function createProfile(id_p_){
                     name: $("#nombre").val(),
 					id:id_p_,
 					maxPuntuacion:0,
-					 favChara:"none",
+					 favChara:"Ninguno",
 	  				usosChilli:0,
 	  				usosWasabi:0,
 	  				usosBernie:0,
