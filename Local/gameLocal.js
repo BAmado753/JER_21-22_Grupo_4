@@ -23,7 +23,7 @@ class PantallaCarga extends Phaser.Scene{
         var loadingText = this.make.text({
             x: width / 2,
             y: height / 2 - 50,
-            text: 'Loading game...',
+            text: 'Cargando juego...',
             style: {
                 font: '20px monospace',
                 fill: '#ffffff'
@@ -93,8 +93,8 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('bCreditosActivado', './asset/CreditosActivado.png');
         this.load.image('bCreditos', './asset/Creditos.png');
         this.load.image('bVerDatos2', './asset/Ajustes.png');
-        this.load.image('backActivo', './asset/AtrasActivado.png');
-        this.load.image('back', './asset/Atras.png');
+        this.load.image('backActivo', './asset/Atras_nuevo_activado.png');
+        this.load.image('back', './asset/Atras_nuevo.png');
         this.load.image('ayudaActivado', './asset/AyudaActivado.png');
         this.load.image('ayuda', './asset/Ayuda.png');
 
@@ -176,23 +176,7 @@ class PantallaCarga extends Phaser.Scene{
         /////////////////////////////////////////////////////////////////////////////////////////////////// 
 
 
-		 ////////////////////////Carga de assets de Pantalla Sala de Espera////////////////////////
-
-        //Carga de fondos y botones
-        this.load.image('fondoSalaEspera', './asset/Fondo.png');
-        this.load.image('textoSE', './asset/SeleccionaSalaEspera.png');
-        this.load.image('S1Activa', './asset/Sala1Activada.png');
-        this.load.image('S1', './asset/Sala1.png');
-		this.load.image('S2Activa', './asset/Sala2Activada.png');
-        this.load.image('S2', './asset/Sala2.png');
-		this.load.image('S3Activa', './asset/Sala3Activada.png');
-        this.load.image('S3', './asset/Sala3.png');
-		this.load.image('S4Activa', './asset/Sala4Activada.png');
-        this.load.image('S4', './asset/Sala4.png');
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////// 
-
+		 
 
         ////////////////////////Carga de assets de Pantalla de Número de Jugadores////////////////////////
 
@@ -253,8 +237,8 @@ class PantallaCarga extends Phaser.Scene{
         ///////////////////////////Carga de assets del Juego///////////////////////////////////////////////
 
         //Pausa
-        this.load.image('bPausa', './asset/BotonPausa.png');
-        this.load.image('bPausaActivado', './asset/BotonPausaActivado.png');
+        this.load.image('bPausa', './asset/Pausa.png');
+        this.load.image('bPausaActivado', './asset/Pausa_activado.png');
 
 		//Interfaz de la partida
 		this.load.image('j1',             'asset/J1.png');
@@ -491,11 +475,9 @@ class PantallaCarga extends Phaser.Scene{
 
         ////////////////////////////////////////Carga de assets de Pausa////////////////////////////////////////////
          //Carga de fondo, título e imagen
-        this.load.image('fondoPausa', './asset/Fondo.png');
-        this.load.image('bResume', './asset/BotonResume.png');
-        this.load.image('bResumeActivado', './asset/BotonResumeActivado.png');
-        this.load.image('bRestart', './asset/BotonRestart.png');
-        this.load.image('bRestartActivado', './asset/BotonRestartActivado.png');
+        this.load.image('fondoPausa', './asset/Pantalla_Pausa.png');
+        this.load.image('bRestart', './asset/Salir.png');
+        this.load.image('bRestartActivado', './asset/SalirActivado.png');
         this.load.image('tituloPausa', './asset/LogoTinyTusslePausa.png');
         
 
@@ -685,17 +667,17 @@ class MenuPrincipal extends Phaser.Scene{
         });
 
 
-        this.atras = this.add.image(75, 50, 'back').setInteractive();
-        this.atras.setScale(0.8);
+        this.atras = this.add.image(50, 50, 'back').setInteractive();
+        this.atras.setScale(1.1);
 
         this.atras.on('pointerover', () => {
-            this.atras = this.add.image(75, 50, 'backActivo');
-            this.atras.setScale(0.8);
+            this.atras = this.add.image(50, 50, 'backActivo');
+            this.atras.setScale(1.1);
         });
         
         this.atras.on('pointerout', () => {
-            this.atras = this.add.image(75, 50, 'back');
-            this.atras.setScale(0.8);
+            this.atras = this.add.image(50, 50, 'back');
+            this.atras.setScale(1.1);
         });
         
         this.atras.on('pointerdown', () => {
@@ -772,17 +754,17 @@ class Controles extends Phaser.Scene{
 
 
 
-        this.atras6 = this.add.image(75, 50, 'back').setInteractive();
-        this.atras6.setScale(0.8);
+        this.atras6 = this.add.image(50, 50, 'back').setInteractive();
+        this.atras6.setScale(1.1);
 
         this.atras6.on('pointerover', () => {
-            this.atras6 = this.add.image(75, 50, 'backActivo');
-            this.atras6.setScale(0.8);
+            this.atras6 = this.add.image(50, 50, 'backActivo');
+            this.atras6.setScale(1.1);
         });
         
         this.atras6.on('pointerout', () => {
-            this.atras6 = this.add.image(75, 50, 'back');
-            this.atras6.setScale(0.8);
+            this.atras6 = this.add.image(50, 50, 'back');
+            this.atras6.setScale(1.1);
         });
         
         this.atras6.on('pointerdown', () => {
@@ -818,17 +800,17 @@ class Creditos extends Phaser.Scene{
         this.fondoCred= this.add.image(400, 300, 'fondoCreditos');
         this.fondoCred.setScale(0.6);
 
-        this.atras7 = this.add.image(75, 50, 'back').setInteractive();
-        this.atras7.setScale(0.8);
+        this.atras7 = this.add.image(50, 50, 'back').setInteractive();
+        this.atras7.setScale(1.1);
 
         this.atras7.on('pointerover', () => {
-            this.atras7 = this.add.image(75, 50, 'backActivo');
-            this.atras7.setScale(0.8);
+            this.atras7 = this.add.image(50, 50, 'backActivo');
+            this.atras7.setScale(1.1);
         });
         
         this.atras7.on('pointerout', () => {
-            this.atras7 = this.add.image(75, 50, 'back');
-            this.atras7.setScale(0.8);
+            this.atras7 = this.add.image(50, 50, 'back');
+            this.atras7.setScale(1.1);
         });
         
         this.atras7.on('pointerdown', () => {
@@ -893,17 +875,17 @@ class Ayuda extends Phaser.Scene{
         this.titleAyud = this.add.image(400, 100, 'titAyuda');
         this.titleAyud.setScale(0.6);
 
-        this.atras7 = this.add.image(75, 50, 'back').setInteractive();
-        this.atras7.setScale(0.8);
+        this.atras7 = this.add.image(50, 50, 'back').setInteractive();
+        this.atras7.setScale(1.1);
 
         this.atras7.on('pointerover', () => {
-            this.atras7 = this.add.image(75, 50, 'backActivo');
-            this.atras7.setScale(0.8);
+            this.atras7 = this.add.image(50, 50, 'backActivo');
+            this.atras7.setScale(1.1);
         });
         
         this.atras7.on('pointerout', () => {
-            this.atras7 = this.add.image(75, 50, 'back');
-            this.atras7.setScale(0.8);
+            this.atras7 = this.add.image(50, 50, 'back');
+            this.atras7.setScale(1.1);
         });
         
         this.atras7.on('pointerdown', () => {
@@ -951,28 +933,23 @@ class Pausa extends Phaser.Scene{
 
 
         this.fondoP = this.add.image(400, 300, 'fondoPausa');
-        this.fondoP.setScale(0.6);
-
-        this.titP = this.add.image(400, 200, 'tituloPausa');
-        this.titP.setScale(0.55);
+        
 
         //Continuar partida
-        this.contp = this.add.image(250, 450, 'bResume').setInteractive();
-        this.contp.setScale(0.35);
+        this.atras8 = this.add.image(50, 50, 'back').setInteractive();
+        this.atras8.setScale(1.1);
 
-        
-        this.contp.on('pointerover', () => {
-            this.contp = this.add.image(250, 450, 'bResumeActivado');
-            this.contp.setScale(0.35);
+        this.atras8.on('pointerover', () => {
+            this.atras8 = this.add.image(50, 50, 'backActivo');
+            this.atras8.setScale(1.1);
         });
-
-        this.contp.on('pointerout', () => {
-            this.contp = this.add.image(250, 450, 'bResume');
-            this.contp.setScale(0.35);
-        });
-
-        this.contp.on('pointerdown', () => {
         
+        this.atras8.on('pointerout', () => {
+            this.atras8 = this.add.image(50, 50, 'back');
+            this.atras8.setScale(1.1);
+        });
+        
+        this.atras8.on('pointerdown', () => {
             if(sleepE1 === 'true'){
                 this.scene.moveAbove('Escenario1');
                 this.scene.wake('Escenario1');
@@ -988,24 +965,22 @@ class Pausa extends Phaser.Scene{
                 this.scene.wake('Escenario3');
                 this.scene.stop('Pausa');
             }
-            
-            
         });
         
 
         //Volver a empezar
-        this.restart = this.add.image(550, 450, 'bRestart').setInteractive();
-        this.restart.setScale(0.35);
+        this.restart = this.add.image(400, 450, 'bRestart').setInteractive();
+        this.restart.setScale(0.4);
 
         
         this.restart.on('pointerover', () => {
-            this.restart = this.add.image(550, 450, 'bRestartActivado');
-            this.restart.setScale(0.35);
+            this.restart = this.add.image(400, 450, 'bRestartActivado');
+            this.restart.setScale(0.4);
         });
 
         this.restart.on('pointerout', () => {
-            this.restart = this.add.image(550, 450, 'bRestart');
-            this.restart.setScale(0.35);
+            this.restart = this.add.image(400, 450, 'bRestart');
+            this.restart.setScale(0.4);
         });
 
         this.restart.on('pointerdown', () => {
@@ -1068,17 +1043,17 @@ class PantallaModoJuego extends Phaser.Scene{
         });
 
 
-        this.atras2 = this.add.image(75, 50, 'back').setInteractive();
-        this.atras2.setScale(0.8);
+        this.atras2 = this.add.image(50, 50, 'back').setInteractive();
+        this.atras2.setScale(1.1);
 
         this.atras2.on('pointerover', () => {
-            this.atras2 = this.add.image(75, 50, 'backActivo');
-            this.atras2.setScale(0.8);
+            this.atras2 = this.add.image(50, 50, 'backActivo');
+            this.atras2.setScale(1.1);
         });
         
         this.atras2.on('pointerout', () => {
-            this.atras2 = this.add.image(75, 50, 'back');
-            this.atras2.setScale(0.8);
+            this.atras2 = this.add.image(50, 50, 'back');
+            this.atras2.setScale(1.1);
         });
         
         this.atras2.on('pointerdown', () => {
@@ -1172,17 +1147,17 @@ class PantallaNumeroJugadores extends Phaser.Scene{
         });
 
 
-        this.atras3 = this.add.image(75, 50, 'back').setInteractive();
-        this.atras3.setScale(0.8);
+        this.atras3 = this.add.image(50, 50, 'back').setInteractive();
+        this.atras3.setScale(1.1);
 
         this.atras3.on('pointerover', () => {
-            this.atras3 = this.add.image(75, 50, 'backActivo');
-            this.atras3.setScale(0.8);
+            this.atras3 = this.add.image(50, 50, 'backActivo');
+            this.atras3.setScale(1.1);
         });
         
         this.atras3.on('pointerout', () => {
-            this.atras3 = this.add.image(75, 50, 'back');
-            this.atras3.setScale(0.8);
+            this.atras3 = this.add.image(50, 50, 'back');
+            this.atras3.setScale(1.1);
         });
         
         this.atras3.on('pointerdown', () => {
@@ -1285,17 +1260,17 @@ class MenuPersonajes extends Phaser.Scene{
         });
 
 
-        this.atras4 = this.add.image(75, 50, 'back').setInteractive();
-        this.atras4.setScale(0.8);
+        this.atras4 = this.add.image(50, 50, 'back').setInteractive();
+        this.atras4.setScale(1.1);
 
         this.atras4.on('pointerover', () => {
-            this.atras4 = this.add.image(75, 50, 'backActivo');
-            this.atras4.setScale(0.8);
+            this.atras4 = this.add.image(50, 50, 'backActivo');
+            this.atras4.setScale(1.1);
         });
         
         this.atras4.on('pointerout', () => {
-            this.atras4 = this.add.image(75, 50, 'back');
-            this.atras4.setScale(0.8);
+            this.atras4 = this.add.image(50, 50, 'back');
+            this.atras4.setScale(1.1);
         });
         
         this.atras4.on('pointerdown', () => {
@@ -1564,17 +1539,17 @@ class MenuEscenarios extends Phaser.Scene{
         });
 
 
-        this.atras5 = this.add.image(75, 50, 'back').setInteractive();
-        this.atras5.setScale(0.8);
+        this.atras5 = this.add.image(50, 50, 'back').setInteractive();
+        this.atras5.setScale(1.1);
 
         this.atras5.on('pointerover', () => {
-            this.atras5 = this.add.image(75, 50, 'backActivo');
-            this.atras5.setScale(0.8);
+            this.atras5 = this.add.image(50, 50, 'backActivo');
+            this.atras5.setScale(1.1);
         });
         
         this.atras5.on('pointerout', () => {
-            this.atras5 = this.add.image(75, 50, 'back');
-            this.atras5.setScale(0.8);
+            this.atras5 = this.add.image(50, 50, 'back');
+            this.atras5.setScale(1.1);
         });
         
         this.atras5.on('pointerdown', () => {
@@ -1887,17 +1862,14 @@ class PantallaEscenario1 extends Phaser.Scene{
 
     //Pausa
     this.paus1 = this.add.image(750, 50, 'bPausa').setInteractive();
-        this.paus1.setScale(0.5);
 
         
         this.paus1.on('pointerover', () => {
             this.paus1 = this.add.image(750, 50, 'bPausaActivado');
-            this.paus1.setScale(0.5);
         });
 
         this.paus1.on('pointerout', () => {
             this.paus1 = this.add.image(750, 50, 'bPausa');
-            this.paus1.setScale(0.5);
         });
 
         this.paus1.on('pointerdown', () => {
@@ -2802,17 +2774,17 @@ class PantallaEscenario2 extends Phaser.Scene{
 
     //Pausa
     this.paus2 = this.add.image(750, 50, 'bPausa').setInteractive();
-        this.paus2.setScale(0.5);
+
 
         
         this.paus2.on('pointerover', () => {
             this.paus2 = this.add.image(750, 50, 'bPausaActivado');
-            this.paus2.setScale(0.5);
+
         });
 
         this.paus2.on('pointerout', () => {
             this.paus2 = this.add.image(750, 50, 'bPausa');
-            this.paus2.setScale(0.5);
+
         });
 
         this.paus2.on('pointerdown', () => {
