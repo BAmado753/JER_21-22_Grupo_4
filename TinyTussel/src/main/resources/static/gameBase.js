@@ -2744,7 +2744,7 @@ scene4update=this;
 	if(!pjPropioSelec){
             if(chooseP1==='null'&&chooseP2==='null'){
 				if(online){
-					
+										selectPlayer.send(JSON.stringify("Wasabi-P1"));
 					pjPropioSelec=true;
 				cargoPj="player1";
 
@@ -3682,7 +3682,9 @@ player1_name=	this.add.text(player1.body.center.x, player1.y+20, player1.name, {
 	
 	player_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
 	
-	
+	console.log("cargoPj:"+cargoPj);
+	console.log("player1:"+player1.name);
+	console.log("player2"+player2.name);
 	
 	text_p1_UI = this.add.text(230, 562, '', { font: '16px Courier', fill: '#ffffff' });
 	text_p1_UI.setDepth(2);
@@ -7154,7 +7156,9 @@ execute(scene, player1){
 class AttackKnifeStateP1 extends State {
   enter(scene, player1) {
     sound_knife.play();
-if(player1.strengthBoost){knifeHitbox.damage=5;}else{knifeHitbox.damage=3;}
+    if(online){
+	if(player1.tag===1){
+		if(player1.strengthBoost){knifeHitbox.damage=5;}else{knifeHitbox.damage=3;}
 	    player1.anims.play('attack_knife');
 
 
@@ -7173,6 +7177,50 @@ if(player1.strengthBoost){knifeHitbox.damage=5;}else{knifeHitbox.damage=3;}
 					scene.physics.world.remove(knifeHitbox.body);
 
     	});
+	}else{
+		if(player1.strengthBoost){knifeHitbox2.damage=5;}else{knifeHitbox2.damage=3;}
+	    player1.anims.play('attack_knife');
+
+
+		if(player1.direction==='left'){
+	        knifeHitbox2.x= player1.x - player1.width * 0.45;
+
+		}else{
+        knifeHitbox2.x= player1.x + player1.width * 0.45;
+		}
+		knifeHitbox2.y= player1.y + player1.height * 0.1;
+		knifeHitbox2.body.enable=true;
+		scene.physics.world.add(knifeHitbox2.body);
+		player1.once('animationcomplete', () => {
+			this.stateMachine.transition('idle');
+			knifeHitbox2.body.enable=false;
+					scene.physics.world.remove(knifeHitbox2.body);
+
+    	});
+	}
+	
+}else{
+	if(player1.strengthBoost){knifeHitbox.damage=5;}else{knifeHitbox.damage=3;}
+	    player1.anims.play('attack_knife');
+
+
+		if(player1.direction==='left'){
+	        knifeHitbox.x= player1.x - player1.width * 0.45;
+
+		}else{
+        knifeHitbox.x= player1.x + player1.width * 0.45;
+		}
+		knifeHitbox.y= player1.y + player1.height * 0.1;
+		knifeHitbox.body.enable=true;
+		scene.physics.world.add(knifeHitbox.body);
+		player1.once('animationcomplete', () => {
+			this.stateMachine.transition('idle');
+			knifeHitbox.body.enable=false;
+					scene.physics.world.remove(knifeHitbox.body);
+
+    	});
+}
+
   }
 execute(scene,player1){
 	// Transition to getHit if getting hit
@@ -7221,7 +7269,16 @@ class DeathStateP1 extends State {
 	player1.anims.play('death');
 			player1.once('animationcomplete', () => {
 			player1.setVisible(false);
-			respawnPlayer1();
+			if(online){
+				if(cargoPj==='player1'){
+				respawnPlayer1();
+			}else{
+				respawnPlayer2();
+				}
+			}else{
+								respawnPlayer1();
+			}
+				
 			this.stateMachine.transition('idle');
     	});
   }
@@ -7824,16 +7881,17 @@ execute(scene, player){
 
 class AttackKnifeStatePOnline extends State {
   enter(scene, player) {
+	console.log('player tag: '+player.tag)
 	inputAttack=false;
     sound_knife.play();
 if(player.strengthBoost){
-		if(cargoPj==='player2'){
+		if(player.tag===1){
 			knifeHitbox.damage=5;
 		}else{
 			knifeHitbox2.damage=5;
 		}
 	}else{
-		if(cargoPj==='player2'){
+		if(player.tag===1){
 			knifeHitbox.damage=3;
 		}else{
 			knifeHitbox2.damage=3;
@@ -7843,19 +7901,19 @@ if(player.strengthBoost){
 
 
 		if(player.direction==='left'){
-			if(cargoPj==='player2'){
+			if(player.tag===1){
 				knifeHitbox.x= player.x - player.width * 0.45;
 			}else{
 				knifeHitbox2.x= player.x - player.width * 0.45;
 			}
 		}else{
-			if(cargoPj==='player2'){
+			if(player.tag===1){
         		knifeHitbox.x= player.x + player.width * 0.45;
 			}else{
         		knifeHitbox2.x= player.x + player.width * 0.45;
 			}
 		}
-			if(cargoPj==='player2'){
+			if(player.tag===1){
 				knifeHitbox.y= player.y + player.height * 0.1;
 				knifeHitbox.body.enable=true;
 				scene.physics.world.add(knifeHitbox.body);
@@ -7866,7 +7924,7 @@ if(player.strengthBoost){
 			}
 		
 		player.once('animationcomplete', () => {
-			if(cargoPj==='player2'){
+			if(player.tag===1){
 				knifeHitbox.body.enable=false;
 				scene.physics.world.remove(knifeHitbox.body);
 			}else{

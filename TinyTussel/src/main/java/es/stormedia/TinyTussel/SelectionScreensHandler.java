@@ -29,8 +29,8 @@ private Map<String, Sala> jgSalaList = new ConcurrentHashMap<>();
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String msg = message.getPayload();
-		System.out.println("SPH MESSAGE: "+msg);
-		System.out.println("SPH MESSAGE: "+msg.substring(1, 3));
+		//System.out.println("SPH MESSAGE: "+msg);
+		//System.out.println("SPH MESSAGE: "+msg.substring(1, 3));
 		//System.out.println("SPH MESSAGE: "+"S1");
 
 		if(msg.substring(1, 3).equals("S1")) {

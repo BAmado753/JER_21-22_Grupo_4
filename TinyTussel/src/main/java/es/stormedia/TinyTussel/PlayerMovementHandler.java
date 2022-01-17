@@ -46,14 +46,14 @@ private Map<String, Sala> jgSalaList = new ConcurrentHashMap<>();
 		
 	}
 	private void sendMessageInRoom(WebSocketSession session, String payload) throws IOException {
-		System.out.println("Tamaño jugaSalList:"+jgSalaList.size());
+		//System.out.println("Tamaño jugaSalList:"+jgSalaList.size());
 		String sala="null";
 		for(Sala jugSala_aux : jgSalaList.values()) {
 			if(jugSala_aux.getSesionID().equals(session.getId())) {
 				sala=jugSala_aux.getSala();
 			}
 		}
-		System.out.println("Sala:"+sala);
+		//System.out.println("Sala:"+sala);
 		for(Sala jugSala_aux : jgSalaList.values()) {
 			if(jugSala_aux.getSala().equals(sala)&& !jugSala_aux.getSesionID().equals(session.getId())) {
 				//synchronized(jugSala_aux.getSesion()) {
