@@ -16,7 +16,7 @@ Tiny Tussle es un juego de disparos en el que los jugadores deberán recolectar 
 ### <h3>Mission Statement</h3>
 Tiny Tussle es un shooter 2D plataformero de hasta 2 jugadores pensado para jugarse en navegador y pasar un buen rato con los amigos.
 
-### <h3>Target Audience</h3>
+### <h3>Público objetivo</h3>
 PEGI 12, para adolescentes y jóvenes. Un juego apto para jugadores casuales con mecánicas sencillas fáciles de comprender cuyo objetivo es la diversión de competir entre ellos.
 
 ### <h3>Estilo Visual</h3>
@@ -56,7 +56,7 @@ Antes de comenzar el juego se podrá elegir el modo de juego que se desea jugar,
 ### <h2>Mecánicas</h2>
 
 #### <h3>Reglas</h3>
-Al comienzo de la partida cada jugador tendrá que elegir un personaje del repertorio. Después podrán elegir en cuál de los 3 escenarios quieren jugar (actualmente sólo se encuentra disponible 1 escenario, Ilumen).
+Al comienzo de la partida cada jugador tendrá que elegir un personaje del repertorio. Después podrán elegir en cuál de los 3 escenarios quieren jugar.
 Cada jugador empieza en un punto del mapa diferente y ambos deberán intentar alcanzar las gemas lo antes posible, las cuales indican la puntuación de cada jugador.
 Poco después de empezar, aparecerán aleatoriamente armas de distinto tipo en lugares diferentes del mapa, las cuales se utilizarán para atacar al resto pudiendo así adquirir gran parte de las gemas recolectadas.
 Si un jugador se queda sin vida, perderá el 3 gemas de las que tenga y las podrá recoger el contrincante.
