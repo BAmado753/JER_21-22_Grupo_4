@@ -42,7 +42,7 @@ El juego tiene lugar en el planeta de los personajes, Nulia. Por otro lado, el t
 | Niveles | Descripción |
 |------------|-------------|
 | ![Escenario 1!](/images/captura_escenario1.PNG) | Fondo con plataformas cuya temática es el bosque, con un ambiente diurno | 
-| ![Escenario 2!](/images/escenario2.png) | Fondo con plataformas que incluye una estructura china, con un ambiente nocturno [Sin implementar] | 
+| ![Escenario 2!](/images/escenario2.png) | Fondo con plataformas con temática de halloween, con un ambiente nocturno| 
 | ![Escenario 3!](/images/escenario3.png) | Fondo con plataformas ambientado en una cueva con lava [Sin implementar]| 
 
 ### <h2>Gameplay</h2>
