@@ -681,6 +681,8 @@ class MenuPrincipal extends Phaser.Scene{
         });
         
         this.atras.on('pointerdown', () => {
+            bg_music_selection_screen.setLoop(false);
+            bg_music_selection_screen.stop();
             this.scene.start('Inicio');
         });
 
@@ -954,11 +956,19 @@ class Pausa extends Phaser.Scene{
                 this.scene.moveAbove('Escenario1');
                 this.scene.wake('Escenario1');
                 this.scene.stop('Pausa');
+                //Musica
+                bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
+                bg_music_battleground_1.setLoop(true);
+                bg_music_battleground_1.play();
 
             } else if(sleepE2 === 'true'){
                 this.scene.moveAbove('Escenario2');
                 this.scene.wake('Escenario2');
                 this.scene.stop('Pausa');
+                //Musica
+                bg_music_battleground_1 = this.sound.add('backgroundBattleMusic3');
+                bg_music_battleground_1.setLoop(true);
+                bg_music_battleground_1.play();
 
             } else if(sleepE3 === 'true'){
                 this.scene.moveAbove('Escenario3');
@@ -984,6 +994,8 @@ class Pausa extends Phaser.Scene{
         });
 
         this.restart.on('pointerdown', () => {
+            bg_music_battleground_1.setLoop(false);
+            bg_music_battleground_1.stop();
             this.scene.start('MenuPrincipal');
             
             
@@ -1877,6 +1889,8 @@ class PantallaEscenario1 extends Phaser.Scene{
 			this.scene.sleep('Escenario1');
             this.scene.launch('Pausa');
             this.scene.moveAbove('Pausa');
+            bg_music_battleground_1.setLoop(false);
+            bg_music_battleground_1.stop();
 			
         });
 			
@@ -2792,11 +2806,13 @@ class PantallaEscenario2 extends Phaser.Scene{
             this.scene.sleep('Escenario2');
             this.scene.launch('Pausa');
             this.scene.moveAbove('Pausa');
+            bg_music_battleground_1.setLoop(false);
+            bg_music_battleground_1.stop();
         });
 
     
     //Musica
-    bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
+    bg_music_battleground_1 = this.sound.add('backgroundBattleMusic3');
     bg_music_battleground_1.setLoop(true);
     bg_music_battleground_1.play();
 	sound_knife= this.sound.add('hit');
@@ -4652,7 +4668,7 @@ function createAmmo(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_ammo.create(x,y,'ammo_item').setScale(0.3,0.3).refreshBody();  
+		items_ammo.create(x,y,'ammo_item').refreshBody();  
 }
 
 function collectLemon(player, lemon,scene){
@@ -5764,9 +5780,9 @@ class PantallaResultados extends Phaser.Scene{
         });
         
         this.rev.on('pointerdown', () => {
-	bg_music_results_screen.setLoop(false);
-        bg_music_results_screen.stop();
-            this.scene.start('MenuPrincipal');
+	       bg_music_results_screen.setLoop(false);
+            bg_music_results_screen.stop();
+            this.scene.start('MenuPersonajes');
 		
 
         });
@@ -5785,6 +5801,8 @@ class PantallaResultados extends Phaser.Scene{
         });
         
         this.sal.on('pointerdown', () => {
+                bg_music_results_screen.setLoop(false);
+                bg_music_results_screen.stop();
 	            this.scene.start('MenuPrincipal');
 
             //Para cerrar la ventana del navegador
