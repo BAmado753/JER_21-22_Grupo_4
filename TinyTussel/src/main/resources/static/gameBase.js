@@ -1851,6 +1851,9 @@ class Pausa extends Phaser.Scene{
         this.restart.on('pointerdown', () => {
 	 bg_music_battleground_1.setLoop(false);
     bg_music_battleground_1.stop();
+    bg_music_selection_screen = this.sound.add('backgroundSelectionMusic');
+        bg_music_selection_screen.setLoop(true);
+        bg_music_selection_screen.play();
             this.scene.start('MenuPrincipal');
             
             
@@ -4682,8 +4685,8 @@ class PantallaEscenario2 extends Phaser.Scene{
         });
 
         this.paus1.on('pointerdown', () => {
-            sleepE1 = 'true';
-            this.scene.sleep('Escenario1');
+            sleepE2 = 'true';
+            this.scene.sleep('Escenario2');
             this.scene.launch('Pausa');
             this.scene.moveAbove('Pausa');
         });
