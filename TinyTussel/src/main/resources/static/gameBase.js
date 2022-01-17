@@ -216,8 +216,8 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('bCreditos', './asset/Creditos.png');
         this.load.image('bVerDatos2', './asset/botones_api_rest/Perfil.png');
         this.load.image('bVerDatosActivado2', './asset/botones_api_rest/Perfi(Activado)l.png');
-        this.load.image('backActivo', './asset/AtrasActivado.png');
-        this.load.image('back', './asset/Atras.png');
+        this.load.image('backActivo', './asset/Atras_nuevo_activado.png');
+        this.load.image('back', './asset/Atras_nuevo.png');
         this.load.image('ayudaActivado', './asset/AyudaActivado.png');
         this.load.image('ayuda', './asset/Ayuda.png');
 
@@ -289,7 +289,8 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('titleMJ', './asset/LogoTinyTussle.png');
         this.load.image('iconoLocal', './asset/IconoJugarLocal.png');
         this.load.image('iconoRed', './asset/IconoJugarRed.png');
-        this.load.image('bJugarLinea', './asset/JugarEnLinea.png');
+        this.load.image('bJugarLinea', './asset/Jugar en linea.png');
+        this.load.image('bJugarLineaActivado', './asset/Jugar en linea_activado.png');
         this.load.image('bJugarLocal', './asset/JugarEnLocal.png');
         this.load.image('bJugarLocalActivado', './asset/JugarEnLocalActivado.png');
         this.load.image('textoLinea', './asset/TextoEnLinea.png');
@@ -361,12 +362,15 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('fondoMenu1', './asset/Fondo.png');
         this.load.image('textoSelectE', './asset/ElegirMapa.png');
         this.load.image('Campo', './asset/MapaIlumen.png');
-        this.load.image('CampoActivado', './asset/IlumenActivado.png');
+        this.load.image('CampoActivado', './asset/MapaIlumen_activado.png');
         this.load.image('Lava', './asset/MapaMolvattTachado.png');
         //this.load.image('LavaActivado', './asset/MolvattActivado.png');
-        this.load.image('Oriental', './asset/MapaZauzTachado.png');
+        //this.load.image('Oriental', './asset/MapaZauzTachado.png');
         //this.load.image('OrientalActivado', './asset/ZauzActivado.png');
+        this.load.image('Halloween', './asset/MapaHalloween.png');
+        this.load.image('HalloweenActivado', './asset/MapaHalloween_Activado.png');
         this.load.image('BContinuar2', './asset/BotonContinuar_prueba.png');
+
 
         /////////////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -573,12 +577,15 @@ class PantallaCarga extends Phaser.Scene{
 
         ////////////////////////////////////////Carga de assets de Pausa////////////////////////////////////////////
          //Carga de fondo, título e imagen
-        this.load.image('fondoPausa', './asset/Fondo.png');
-        this.load.image('bResume', './asset/BotonResume.png');
+        this.load.image('fondoPausa', './asset/Pantalla_Pausa.png');
+        this.load.image('bRestart', './asset/Salir.png');
+        this.load.image('bRestartActivado', './asset/SalirActivado.png');
+        this.load.image('tituloPausa', './asset/LogoTinyTusslePausa.png');
+        /*this.load.image('bResume', './asset/BotonResume.png');
         this.load.image('bResumeActivado', './asset/BotonResumeActivado.png');
         this.load.image('bRestart', './asset/BotonRestart.png');
         this.load.image('bRestartActivado', './asset/BotonRestartActivado.png');
-        this.load.image('tituloPausa', './asset/LogoTinyTusslePausa.png');
+        this.load.image('tituloPausa', './asset/LogoTinyTusslePausa.png');*/
         
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -593,10 +600,10 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('bRevanchaActivado', './asset/RevanchaActivado.png');
         this.load.image('bSalir', './asset/Salir.png');
         this.load.image('bSalirActivado', './asset/SalirActivado.png');
-        this.load.image('ventRevancha', './asset/revancha_bg_placeholder.png');
-        this.load.image('ventEsperarRevancha', './asset/revancha_bg_placeholder.png');
-        this.load.image('aceptRev', './asset/revancha_acept_placeholder.png');
-        this.load.image('rejectRev', './asset/revancha_reject_placeholder.png');
+        this.load.image('ventRevancha', './asset/Jugador_quiere_revancha.png');
+        this.load.image('ventEsperarRevancha', './asset/Esperando_respuesta.png');
+        this.load.image('aceptRev', './asset/Aceptar.png');
+        this.load.image('rejectRev', './asset/Denegar.png');
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -655,8 +662,10 @@ class PantallaDeInicio extends Phaser.Scene{
         this.tit=this.add.image(400, 250, 'title');
         this.tit.setScale(0.6);
 
-        this.texCont = this.add.image(400, 500, 'start');
+        this.texCont = this.add.image(400, 460, 'start');
         this.texCont.setScale(0.6);
+        
+       
 
 		//Inputs
                // $("#nombre").show();
@@ -1752,28 +1761,23 @@ class Pausa extends Phaser.Scene{
 
 
         this.fondoP = this.add.image(400, 300, 'fondoPausa');
-        this.fondoP.setScale(0.6);
-
-        this.titP = this.add.image(400, 200, 'tituloPausa');
-        this.titP.setScale(0.55);
+        
 
         //Continuar partida
-        this.contp = this.add.image(250, 450, 'bResume').setInteractive();
-        this.contp.setScale(0.35);
+        this.atras8 = this.add.image(50, 50, 'back').setInteractive();
+        this.atras8.setScale(1.1);
 
-        
-        this.contp.on('pointerover', () => {
-            this.contp = this.add.image(250, 450, 'bResumeActivado');
-            this.contp.setScale(0.35);
+        this.atras8.on('pointerover', () => {
+            this.atras8 = this.add.image(50, 50, 'backActivo');
+            this.atras8.setScale(1.1);
         });
-
-        this.contp.on('pointerout', () => {
-            this.contp = this.add.image(250, 450, 'bResume');
-            this.contp.setScale(0.35);
-        });
-
-        this.contp.on('pointerdown', () => {
         
+        this.atras8.on('pointerout', () => {
+            this.atras8 = this.add.image(50, 50, 'back');
+            this.atras8.setScale(1.1);
+        });
+        
+        this.atras8.on('pointerdown', () => {
             if(sleepE1 === 'true'){
                 this.scene.moveAbove('Escenario1');
                 this.scene.wake('Escenario1');
@@ -1789,27 +1793,27 @@ class Pausa extends Phaser.Scene{
                 this.scene.wake('Escenario3');
                 this.scene.stop('Pausa');
             }
-            
-            
         });
         
 
         //Volver a empezar
-        this.restart = this.add.image(550, 450, 'bRestart').setInteractive();
-        this.restart.setScale(0.35);
+        this.restart = this.add.image(400, 450, 'bRestart').setInteractive();
+        this.restart.setScale(0.4);
 
         
         this.restart.on('pointerover', () => {
-            this.restart = this.add.image(550, 450, 'bRestartActivado');
-            this.restart.setScale(0.35);
+            this.restart = this.add.image(400, 450, 'bRestartActivado');
+            this.restart.setScale(0.4);
         });
 
         this.restart.on('pointerout', () => {
-            this.restart = this.add.image(550, 450, 'bRestart');
-            this.restart.setScale(0.35);
+            this.restart = this.add.image(400, 450, 'bRestart');
+            this.restart.setScale(0.4);
         });
 
         this.restart.on('pointerdown', () => {
+	 bg_music_battleground_1.setLoop(false);
+    bg_music_battleground_1.stop();
             this.scene.start('MenuPrincipal');
             
             
@@ -1900,6 +1904,15 @@ class PantallaModoJuego extends Phaser.Scene{
 
         this.botLinea = this.add.image(600, 500, 'bJugarLinea').setInteractive();
         this.botLinea.setScale(0.3);
+        this.botLinea.on('pointerover', () => {
+            this.botLinea = this.add.image(600, 500, 'bJugarLineaActivado');
+            this.botLinea.setScale(0.3);
+        });
+        
+        this.botLinea.on('pointerout', () => {
+            this.botLinea = this.add.image(600, 500, 'bJugarLinea');
+            this.botLinea.setScale(0.3);
+        });
  		this.botLinea.on('pointerdown', () => {
 	  		connection.send(JSON.stringify("Estableciendo conexion"));
         this.scene.start('NumeroJugadores');
@@ -1917,7 +1930,7 @@ class PantallaModoJuego extends Phaser.Scene{
             this.botLocal.setScale(0.3);
         });
         
-        this.botLocal.on('pointerout', () => {s
+        this.botLocal.on('pointerout', () => {
             this.botLocal = this.add.image(200, 500, 'bJugarLocal');
             this.botLocal.setScale(0.3);
         });
@@ -2061,16 +2074,18 @@ class SalaEspera extends Phaser.Scene{
     }
 
     create(){
+	salaSelect='null';
+	 isSalaSelected=false;
 	scene4update=this;
 		//Texto
-		jugador1sala1=	this.add.text(200, 200, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador2sala1=	this.add.text(200, 220, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador1sala2=	this.add.text(600, 200, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador2sala2=	this.add.text(600, 220, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador1sala3=	this.add.text(200, 400, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador2sala3=	this.add.text(200, 420, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador1sala4=	this.add.text(600, 400, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
-		jugador2sala4=	this.add.text(600, 420, 'null', { font: '32px Courier', fill: '#ffffff' }).setDepth(2);
+		jugador1sala1=	this.add.text(150, 150, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador2sala1=	this.add.text(150, 200, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador1sala2=	this.add.text(500, 150, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador2sala2=	this.add.text(500, 200, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador1sala3=	this.add.text(150, 400, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador2sala3=	this.add.text(150, 450, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador1sala4=	this.add.text(500, 400, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
+		jugador2sala4=	this.add.text(500, 450, ' ', { font: '32px Courier', fill: '#270240' }).setDepth(2);
 
 		selectPlayer.send(JSON.stringify("check"));
 
@@ -2119,10 +2134,10 @@ class SalaEspera extends Phaser.Scene{
         });
 
 
-        this.Sala1= this.add.image(200, 200, 'S1').setInteractive();
-        this.Sala1.setScale(0.4);
+        this.Sala1= this.add.image(220, 230, 'S1').setInteractive();
+        this.Sala1.setScale(0.55);
 
-        this.Sala1.on('pointerover', () => {
+       /* this.Sala1.on('pointerover', () => {
             this.Sala1 = this.add.image(200, 200, 'S1Activa');
             this.Sala1.setScale(0.4);
         });
@@ -2130,7 +2145,7 @@ class SalaEspera extends Phaser.Scene{
         this.Sala1.on('pointerout', () => {
             this.Sala1 = this.add.image(200, 200, 'S1');
             this.Sala1.setScale(0.4);
-        });
+        });*/
         
         this.Sala1.on('pointerdown', () => {
 					if(!isSalaSelected){
@@ -2148,7 +2163,7 @@ class SalaEspera extends Phaser.Scene{
 			console.log(jugador1sala1.text);
 			console.log(jugador2sala1.text);
 
-            if(jugador1sala1.text!=='null'){
+            if(jugador1sala1.text!==' '){
 				console.log('entra en donde la sala llena continuar');
 
 				                //Botón continuar
@@ -2176,10 +2191,10 @@ class SalaEspera extends Phaser.Scene{
     	}
         });
 
-        this.Sala2= this.add.image(600, 200, 'S2').setInteractive();
-        this.Sala2.setScale(0.4);
+        this.Sala2= this.add.image(580, 230, 'S2').setInteractive();
+        this.Sala2.setScale(0.55);
 
-		this.Sala2.on('pointerover', () => {
+		/*this.Sala2.on('pointerover', () => {
             this.Sala2 = this.add.image(600, 200, 'S2Activa');
             this.Sala2.setScale(0.4);
         });
@@ -2187,7 +2202,7 @@ class SalaEspera extends Phaser.Scene{
         this.Sala2.on('pointerout', () => {
             this.Sala2 = this.add.image(600, 200, 'S2');
             this.Sala2.setScale(0.4);
-        });
+        });*/
         
         this.Sala2.on('pointerdown', () => {
 					if(!isSalaSelected){
@@ -2201,7 +2216,7 @@ class SalaEspera extends Phaser.Scene{
 					}        
 				if(isSalaSelected){
 			console.log('entra en isSelected');
-            if(jugador1sala2.text!=='null'){
+            if(jugador1sala2.text!==' '){
 				console.log('entra en donde la sala llena continuar');
 
 				                //Botón continuar
@@ -2230,10 +2245,10 @@ class SalaEspera extends Phaser.Scene{
 		});
 
 		
-		this.Sala3= this.add.image(200, 400, 'S3').setInteractive();
-        this.Sala3.setScale(0.4);
+		this.Sala3= this.add.image(220, 470, 'S3').setInteractive();
+        this.Sala3.setScale(0.55);
 
-		this.Sala3.on('pointerover', () => {
+		/*this.Sala3.on('pointerover', () => {
             this.Sala3 = this.add.image(200, 400, 'S3Activa');
             this.Sala3.setScale(0.4);
         });
@@ -2241,7 +2256,7 @@ class SalaEspera extends Phaser.Scene{
         this.Sala3.on('pointerout', () => {
             this.Sala3 = this.add.image(200, 400, 'S3');
             this.Sala3.setScale(0.4);
-        });
+        });*/
         
         this.Sala3.on('pointerdown', () => {
 			if(!isSalaSelected){
@@ -2255,7 +2270,7 @@ class SalaEspera extends Phaser.Scene{
 					}          //  this.scene.start('NumeroJugadores');
 			if(isSalaSelected){
 			console.log('entra en isSelected');
-            if(jugador1sala3.text!=='null' ){
+            if(jugador1sala3.text!==' ' ){
 				console.log('entra en donde la sala llena continuar');
 
 				                //Botón continuar
@@ -2284,10 +2299,10 @@ class SalaEspera extends Phaser.Scene{
         });
 
 
-		this.Sala4= this.add.image(600, 400, 'S4').setInteractive();
-        this.Sala4.setScale(0.4);
+		this.Sala4= this.add.image(580, 470, 'S4').setInteractive();
+        this.Sala4.setScale(0.55);
 
-		this.Sala4.on('pointerover', () => {
+		/*this.Sala4.on('pointerover', () => {
             this.Sala4 = this.add.image(600, 400, 'S4Activa');
             this.Sala4.setScale(0.4);
         });
@@ -2295,12 +2310,11 @@ class SalaEspera extends Phaser.Scene{
         this.Sala4.on('pointerout', () => {
             this.Sala4 = this.add.image(600, 400, 'S4');
             this.Sala4.setScale(0.4);
-        });
+        });*/
         
         this.Sala4.on('pointerdown', () => {
-				salaSelect='S4';
 					if(!isSalaSelected){
-						selectPlayer.send(JSON.stringify("S4"));
+						salaSelect='S4';
 						isSalaSelected=true;
 						if(player_profile!==null){
 							selectPlayer.send(JSON.stringify("S4-"+player_profile));
@@ -2310,7 +2324,7 @@ class SalaEspera extends Phaser.Scene{
 					}
 					if(isSalaSelected){
 			console.log('entra en isSelected');
-            if(jugador1sala4.text!=='null'){
+            if(jugador1sala4.text!==' '){
 				console.log('entra en donde la sala llena continuar');
 
 				                //Botón continuar
@@ -2355,28 +2369,28 @@ class SalaEspera extends Phaser.Scene{
 				let strAux= new String(JSON.parse(msg.data));
 				console.log(strAux.substring(0, 2));
 				if(strAux.substring(0, 2) ==='S1'){
-					if(jugador1sala1.text!=='null'){
+					if(jugador1sala1.text!==' '){
 						if(strAux.length>2){jugador2sala1.setText(strAux.substring(3));}else{jugador2sala1.setText('Anónimo');}
 					}else{
 						if(strAux.length>2){jugador1sala1.setText(strAux.substring(3));}else{jugador1sala1.setText('Anónimo');}
 					}
 				}
 				if(strAux.substring(0, 2)==='S2'){
-					if(jugador1sala2.text!=='null'){
+					if(jugador1sala2.text!==' '){
 						if(strAux.length>2){jugador2sala2.setText(strAux.substring(3));}else{jugador2sala2.setText('Anónimo');}
 					}else{
 						if(strAux.length>2){jugador1sala2.setText(strAux.substring(3));}else{jugador1sala2.setText('Anónimo');}
 					}
 				}
 				if(strAux.substring(0, 2)==='S3'){
-					if(jugador1sala3.text!=='null'){
+					if(jugador1sala3.text!==' '){
 						if(strAux.length>2){jugador2sala3.setText(strAux.substring(3));}else{jugador2sala3.setText('Anónimo');}
 					}else{
 						if(strAux.length>2){jugador1sala3.setText(strAux.substring(3));}else{jugador1sala3.setText('Anónimo');}
 					}
 				}
 				if(strAux.substring(0, 2)==='S4'){
-					if(jugador1sala4.text!=='null'){
+					if(jugador1sala4.text!==' '){
 						if(strAux.length>2){jugador2sala4.setText(strAux.substring(3));}else{jugador2sala4.setText('Anónimo');}
 					}else{
 						if(strAux.length>2){jugador1sala4.setText(strAux.substring(3));}else{jugador1sala4.setText('Anónimo');}
@@ -2389,7 +2403,7 @@ class SalaEspera extends Phaser.Scene{
 			}else{
 				if(msg.data==='sala-1'){
 					console.log('Entra sala-4');
-					if(jugador1sala1.text!=='null'){
+					if(jugador1sala1.text!==' '){
 						jugador2sala1.setText('Jugador');
 					}else{
 						jugador1sala1.setText('Jugador');
@@ -2397,7 +2411,7 @@ class SalaEspera extends Phaser.Scene{
 				}
 				if(msg.data==='sala-2'){
 					console.log('Entra sala-4');
-					if(jugador1sala2.text!=='null'){
+					if(jugador1sala2.text!==' '){
 						jugador2sala2.setText('Jugador');
 					}else{
 						jugador1sala2.setText('Jugador');
@@ -2405,7 +2419,7 @@ class SalaEspera extends Phaser.Scene{
 				}
 				if(msg.data==='sala-3'){
 					console.log('Entra sala-4');
-					if(jugador1sala3.text!=='null'){
+					if(jugador1sala3.text!==' '){
 						jugador2sala3.setText('Jugador');
 					}else{
 						jugador1sala3.setText('Jugador');
@@ -2413,10 +2427,10 @@ class SalaEspera extends Phaser.Scene{
 				}
 				if(msg.data==='sala-4'){
 					console.log('Entra sala-4');
-					if(jugador1sala4.text!=='null'){
-						jugador2sala4.setText('Jugador Listo');
+					if(jugador1sala4.text!==' '){
+						jugador2sala4.setText('Jugador');
 					}else{
-						jugador1sala4.setText('Jugador Listo');
+						jugador1sala4.setText('Jugador');
 					}
 				}
 			}	
@@ -2424,10 +2438,10 @@ class SalaEspera extends Phaser.Scene{
 		}
 		if(online){
 			if(!scene4update.bcont_next){
-			if((salaSelect==='S1'&& jugador1sala1.text!=='null' && jugador2sala1.text!=='null')||
-			(salaSelect==='S2'&& jugador1sala2.text!=='null' && jugador2sala2.text!=='null')||
-			(salaSelect==='S3'&& jugador1sala3.text!=='null' && jugador2sala3.text!=='null')||
-			(salaSelect==='S4'&& jugador1sala4.text!=='null' && jugador2sala4.text!=='null')){
+			if((salaSelect==='S1'&& jugador1sala1.text!==' ' && jugador2sala1.text!==' ')||
+			(salaSelect==='S2'&& jugador1sala2.text!==' ' && jugador2sala2.text!==' ')||
+			(salaSelect==='S3'&& jugador1sala3.text!==' ' && jugador2sala3.text!==' ')||
+			(salaSelect==='S4'&& jugador1sala4.text!==' ' && jugador2sala4.text!==' ')){
 				                //Botón continuar
                 scene4update.bcont_next=scene4update.add.image(400, 550, 'BContinuar1').setInteractive();
                 scene4update.bcont_next.setScale(0.3);
@@ -3349,7 +3363,8 @@ class PantallaEscenario1 extends Phaser.Scene{
     this.add.image(400,400, 'bg_tierra');
 
     //Pausa
-    this.paus1 = this.add.image(750, 50, 'bPausa').setInteractive();
+    if(!online){
+	this.paus1 = this.add.image(750, 50, 'bPausa').setInteractive();
         this.paus1.setScale(0.5);
 
         
@@ -3369,6 +3384,8 @@ class PantallaEscenario1 extends Phaser.Scene{
             this.scene.launch('Pausa');
             this.scene.moveAbove('Pausa');
         });
+}
+    
 
 
     //Musica
