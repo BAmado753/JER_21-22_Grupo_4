@@ -66,7 +66,7 @@ console.log(msg);
 class PantallaCarga extends Phaser.Scene{
     constructor(){
         //Loading--> nombre que se le da a la escena
-        super({ key: "Loading"});
+        super({ key: "Cargando el juego"});
     }
 
     preload(){
@@ -5468,7 +5468,290 @@ blueSpecialAttack_Explosion.anims.create({
     }//create
 
   update(){
+	
+	//PARTIDA ONLINE
+	if(online){
+		if(salaSelect==='S1'){
+			movePlayer_S1.onopen = function() {
+	  			console.log("WS movePlayer_S1 Conexión abierta");
+			}
+			movePlayer_S1.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	if(salaSelect==='S2'){
+		movePlayer_S2.onopen = function() {
+	  			console.log("WS movePlayer_S2 Conexión abierta");
+			}
+			movePlayer_S2.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	if(salaSelect==='S3'){
+		movePlayer_S3.onopen = function() {
+	  			console.log("WS movePlayer_S3 Conexión abierta");
+			}
+			movePlayer_S3.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	if(salaSelect==='S4'){
+		movePlayer_S4.onopen = function() {
+	  			console.log("WS movePlayer_S4 Conexión abierta");
+			}
+			movePlayer_S4.onmessage = function(msg) {
+			var isMsgJSON=true;
+			try{
+				JSON.parse(msg.data);
+			}catch(error){
+				isMsgJSON=false;
+			}
+			if(isMsgJSON){
+				if(JSON.parse(msg.data)==='left'){inputLeft=true;inputRight=false;}
+				if(JSON.parse(msg.data)==='right'){inputRight=true;inputLeft=false;}
+				if(JSON.parse(msg.data)==='up'){inputUp=true;inputDown=false;}
+				if(JSON.parse(msg.data)==='down'){inputDown=true;inputUp=false;}
+				if(JSON.parse(msg.data)==='attack'){inputAttack=true;}
+				if(JSON.parse(msg.data)==='jump'){inputJump=true;}
+				if(JSON.parse(msg.data)==='special'){inputSpecial=true;}
+				if(JSON.parse(msg.data)==='idle'){inputRight=false;inputLeft=false;inputUp=false;inputJump=false;}
+				//if(JSON.parse(msg.data)==='NEXT'){scene4update.scene.start('MenuPersonajes');}
+			}
+		
+		}
+	}
+	/*movePlayer_S1.onclose = function() {
+	  console.log("WS movePlayer_S1 Conexión cerrada");
+	}*/
+	respawnItemsHandler.onmessage = function(msg) {
+		var obj=JSON.parse(msg.data);
+			//console.log(JSON.parse(msg.data));
+			
+			if(obj.name==='gem'){
+						gems.create(obj.x,obj.y,'gem');  
+			}
+			if(obj.name==='stb'){
+						items_strawberry.create(obj.x,obj.y,'strawberry_item');  
+			}
+			if(obj.name==='lem'){
+						items_lemon.create(obj.x,obj.y,'lemon_item');  
+			}
+			if(obj.name==='grp'){
+						items_grape.create(obj.x,obj.y,'grape_item');  
+			}
+			if(obj.name==='shd'){
+						items_shield.create(obj.x,obj.y,'shield_item');  
+			}
+			if(obj.name==='spd'){
+						items_speed.create(obj.x,obj.y,'speed_item');  
+			}
+			if(obj.name==='pow'){
+						items_power.create(obj.x,obj.y,'power_item');  
+			}
+			if(obj.name==='amo'){
+						items_ammo.create(obj.x,obj.y,'ammo_item');  
+			}
+			if(obj.name==='ptl'){
+				console.log("j1 Gemas:"+player1.gemsOwned);
+		console.log("j2 Gemas:"+player2.gemsOwned);
+						items_pistol.create(obj.x,obj.y,'pistol_item');  
+			}
+			if(obj.name==='knf'){
+						items_knife.create(obj.x,obj.y,'knife_item');  
+			}
+
+	}
+	
+	//Controles websockets
+	if(Phaser.Input.Keyboard.JustDown(input_A)){
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("left"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("left"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("left"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("left"));}
+	}
+	if(Phaser.Input.Keyboard.JustDown(input_D)){
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("right"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("right"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("right"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("right"));}
+	}
+	if(Phaser.Input.Keyboard.JustDown(input_W)){
+		
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("up"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("up"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("up"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("up"));}
+	}
+	/*
+	if(Phaser.Input.Keyboard.JustDown(input_S)){
+				console.log("Se pulsa S");
+				movePlayer_S1.send(JSON.stringify("down"));
+	}*/
+	if(Phaser.Input.Keyboard.JustDown(spaceBar)){
+			isIdle=false;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("jump"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("jump"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("jump"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("jump"));}
+	}
+	/*if(Phaser.Input.Keyboard.JustDown(input_Q)){
+		//inputSpecial
+				movePlayer_S1.send(JSON.stringify("special"));
+	}*/
+	/*if(Phaser.Input.Keyboard.JustDown(input_E)){
+				movePlayer_S1.send(JSON.stringify("attack"));
+	}*/
+	
+	if(!(input_A.isDown || input_D.isDown || input_W.isDown || spaceBar.isDown) && !isIdle){
+		isIdle=true;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("idle"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("idle"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("idle"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("idle"));}
+	}
+	if(input_A.isDown || input_D.isDown || input_W.isDown || spaceBar.isDown){
+			isIdle=false;
+	}
+	if(cargoPj==='player1'){
+					onItemRespawnEvent(this);
+	}
+	
+	
+	//Ataques especiales
+if	(Phaser.Input.Keyboard.JustDown(input_Q)){
+	isIdle=false;
+			if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("special"));}
+			if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("special"));}
+			if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("special"));}
+			if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("special"));}
+		if(cargoPj==='player1'){
+			if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
+    		if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
+    		if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
+		}
+    	
+    	if(cargoPj==='player2'){
+			if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
+    		if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
+    		if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
+		}
+    }
+if	(inputSpecial){
+	inputSpecial=false;
+		if(cargoPj==='player1'){
+			if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
+    		if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
+    		if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
+			
+		}
+    	
+    	if(cargoPj==='player2'){
+			if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
+    		if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
+    		if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
+		}
+    }
+	}//End online
+	
+	
+	///////////
+	player1_name.x=player1.x-20;
+	player1_name.y=player1.y-30;
+	if(player1_name.text != player1.name){
+		player1_name.text=player1.name;
+	}
+	player2_name.x=player2.x-20;
+	player2_name.y=player2.y-30;
+	if(player2_name.text != player2.name){
+		player2_name.text=player2.name;
+	}
+	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
+	checkNoLadder();
+	checkTimeSpecial(player1);
+    checkTimeSpecial(player2)
+	checkExplosion();
+	if(chooseP1==='Wasabi'){checkDelayExplosion(player1,this)}
+	if(chooseP2==='Wasabi'){checkDelayExplosion(player2,this)}
+	if(player1.direction!=='right') {  player1.flipX = true; }
+	if(player1.direction!=='left') {  player1.flipX = false; }
+	if(player2.direction!=='right') {  player2.flipX = true;}
+	if(player2.direction!=='left') {  player2.flipX = false; }
+	
+	      this.stateMachine_player1.step();
+	      this.stateMachine_player2.step();
+
+    checkDebuffTime(player1, player2);
+    checkBoosts(player1, player2)
+
+if(!online){
+				onItemRespawnEvent(this);
+
+	if	(Phaser.Input.Keyboard.JustDown(input_Q)){
+    	if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
+    	if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
+    	if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
     
+    }
+    
+    if	(Phaser.Input.Keyboard.JustDown(input_U)){
+    	if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
+    	if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
+    	if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
+    
+    }
+}
+    	
         }//update
         
 
