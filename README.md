@@ -278,3 +278,5 @@ wobbleboxx.com
   ### <h2>Plataformas a las que se ha subido el juego </h2>
   Itchi.o<br>
   https://stormedia.itch.io/tiny-tussle
+  <br>Gamejolt<br>
+  https://gamejolt.net/?token=P93LZNNY3pW3ja5xVGaEgDZYnnRLQn
