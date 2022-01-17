@@ -239,11 +239,13 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('fondoMenu1', './asset/Fondo.png');
         this.load.image('textoSelectE', './asset/ElegirMapa.png');
         this.load.image('Campo', './asset/MapaIlumen.png');
-        this.load.image('CampoActivado', './asset/IlumenActivado.png');
+        this.load.image('CampoActivado', './asset/MapaIlumen_activado.png');
         this.load.image('Lava', './asset/MapaMolvattTachado.png');
         //this.load.image('LavaActivado', './asset/MolvattActivado.png');
-        this.load.image('Oriental', './asset/MapaZauzTachado.png');
+        //this.load.image('Oriental', './asset/MapaZauzTachado.png');
         //this.load.image('OrientalActivado', './asset/ZauzActivado.png');
+        this.load.image('Halloween', './asset/MapaHalloween.png');
+        this.load.image('HalloweenActivado', './asset/MapaHalloween_Activado.png');
         this.load.image('BContinuar2', './asset/BotonContinuar_prueba.png');
 
         /////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -312,6 +314,44 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('tierra_suelo_inf',         'asset/escenario1/Tierra_suelo_inf.png');
         this.load.image('tierra_suelo_sup',         'asset/escenario1/Tierra_suelo_sup(new).png');
 
+
+        //Escenario Halloween
+        this.load.image('HalloweenEs', 'asset/MapaHalloween/Capas_mapa/Fondo_Halloween.png');
+        this.load.image('Decoracion_Halloween', 'asset/MapaHalloween/Capas_mapa/Decoracion_Halloween.png');
+        this.load.image('Suelo', './asset/MapaHalloween/sueloH.png');
+        this.load.image('PlataformaGrande', './asset/MapaHalloween/plataformaGrandeH.png');
+
+        this.load.image('SueloCentro', './asset/MapaHalloween/SueloCentro.png');
+        this.load.image('SueloDer_Centro', './asset/MapaHalloween/SueloDer_Centro.png');
+        this.load.image('SueloDer1', './asset/MapaHalloween/SueloDer1.png');
+        this.load.image('SueloDer2', './asset/MapaHalloween/SueloDer2.png');
+        this.load.image('SueloCentro', './asset/MapaHalloween/SueloCentro.png');
+        this.load.image('SueloIzq', './asset/MapaHalloween/SueloIzq.png');
+        this.load.image('SueloIzq_Centro', './asset/MapaHalloween/SueloIzq_Centro.png');
+        this.load.image('SueloIzqSuperior', './asset/MapaHalloween/SueloIzqSuperior.png');
+
+        this.load.image('plataformaGrandeH', './asset/MapaHalloween/plataformaGrandeH.png');
+        this.load.image('Plat1Izq', './asset/MapaHalloween/Plat1Izq.png');
+        this.load.image('Plat1Der', './asset/MapaHalloween/Plat1Der.png');
+        this.load.image('Tierra_15', './asset/MapaHalloween/Tierra_15.png');
+        this.load.image('Plat2Izq', './asset/MapaHalloween/Plat2Izq.png');
+        this.load.image('Plat2Der', './asset/MapaHalloween/Plat2Der.png');
+        this.load.image('Plat3Izq', './asset/MapaHalloween/Plat3Izq.png');
+        this.load.image('Plat3Der', './asset/MapaHalloween/Plat3Der.png');
+        this.load.image('Plat4Izq', './asset/MapaHalloween/Plat4Izq.png');
+        this.load.image('Plat4Der', './asset/MapaHalloween/Plat4Der.png');
+        this.load.image('Plat5Izq', './asset/MapaHalloween/Plat5Izq.png');
+        this.load.image('Plat5Der', './asset/MapaHalloween/Plat5Der.png');
+        this.load.image('Plat6Izq', './asset/MapaHalloween/Plat6Izq.png');
+
+        this.load.image('Escalera1', './asset/MapaHalloween/Escalera1.png');
+        this.load.image('Escalera2', './asset/MapaHalloween/Escalera2.png');
+        this.load.image('Escalera3', './asset/MapaHalloween/Escalera3.png');
+        this.load.image('Escalera4', './asset/MapaHalloween/Escalera4.png');
+        this.load.image('Escalera5', './asset/MapaHalloween/Escalera5.png');
+        this.load.image('Escalera6', './asset/MapaHalloween/Escalera6.png');
+
+        this.load.image('Escaleras_Halloween', 'asset/MapaHalloween/Capas_mapa/Escaleras_Halloween.png');
 
         //Chilli
         this.load.image('Chilli_profile', 'asset/Pink_Monster_closeUp.png');
@@ -1563,8 +1603,8 @@ class MenuEscenarios extends Phaser.Scene{
 
 
 
-        this.es2 = this.add.image(400, 300, 'Lava');
-        this.es2.setScale(0.33);
+        this.es3 = this.add.image(650, 300, 'Lava');
+        this.es3.setScale(0.33);
 
         
         /*this.es2.on('pointerover', () => {
@@ -1584,25 +1624,25 @@ class MenuEscenarios extends Phaser.Scene{
         });*/
 
 
-        this.es3 = this.add.image(650, 300, 'Oriental');
-        this.es3.setScale(0.33);
+        this.es2 = this.add.image(400, 300, 'Halloween').setInteractive();
+        this.es2.setScale(0.5);
 
         
-        /*this.es3.on('pointerover', () => {
-            this.es3 = this.add.image(650, 300, 'OrientalActivado');
-            this.es3.setScale(0.5);
+        this.es2.on('pointerover', () => {
+            this.es2 = this.add.image(400, 300, 'HalloweenActivado');
+            this.es2.setScale(0.5);
         });
 
-        this.es3.on('pointerout', () => {
-            this.es3 = this.add.image(650, 300, 'Oriental');
-            this.es3.setScale(0.5);
+        this.es2.on('pointerout', () => {
+            this.es2 = this.add.image(400, 300, 'Halloween');
+            this.es2.setScale(0.5);
         });
 
-        this.es3.on('pointerdown', () => {
-            this.scene.start('Escenario3');
+        this.es2.on('pointerdown', () => {
+            this.scene.start('Escenario2');
             bg_music_selection_screen.setLoop(false);
             bg_music_selection_screen.stop();
-        });*/
+        });
 
 
     }
@@ -1784,6 +1824,7 @@ var shield1;
 var shield2;
 var pinkCopy;
 var platforms;
+
 
 var text_time;
 var timedCountdown;
@@ -2755,8 +2796,9 @@ class PantallaEscenario2 extends Phaser.Scene{
    create(){
     
 	//Background
-    this.add.image(400,300, 'bg_arboles');
-    this.add.image(400,400, 'bg_tierra');
+    this.add.image(400,300, 'HalloweenEs');
+
+    
 
     //Pausa
     this.paus2 = this.add.image(750, 50, 'bPausa').setInteractive();
@@ -2780,7 +2822,7 @@ class PantallaEscenario2 extends Phaser.Scene{
             this.scene.moveAbove('Pausa');
         });
 
-    /*
+    
     //Musica
     bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
     bg_music_battleground_1.setLoop(true);
@@ -2797,34 +2839,91 @@ class PantallaEscenario2 extends Phaser.Scene{
     controlIimedItemRespawn_Gems=0;
     controlIimedItemRespawn_Fruits=0;
     controlIimedItemRespawn=0;
-	controlIimedWeaponRespawn=0;
-    text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this);
+    controlIimedWeaponRespawn=0;
+
+    //text_time = this.add.text(32, 32);
+    //timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this); //75000 tiempoo oficial
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
-    
+
+    //Tiempo restante
+    this.initialTime = 90;//en segundos
+    text = this.add.text(32, 32, 'Tiempo restante: ' + formatTime(this.initialTime));
+    // Each 1000 ms call onEvent
+    timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
+
+
     //Plataformas
     platforms = this.physics.add.staticGroup();
-	
-	//Aquí van las plataformas/////////////////////////////////////////////////
-	//Ejemplo-> platforms.create(720,424,'tierra_esq_sup_izq');
+    
+    platforms.create(30,535,'SueloIzq');
+    platforms.create(62,427,'SueloIzqSuperior');
+    platforms.create(220,567,'SueloIzq_Centro');
+    platforms.create(767,548,'SueloDer2');
+    platforms.create(702,559,'SueloDer1');
+    platforms.create(607,567,'SueloDer_Centro');
+    platforms.create(463,535,'SueloCentro');
+    platforms.create(62,233,'plataformaGrandeH');
+    platforms.create(210,400,'Plat1Izq');
+    platforms.create(273,403,'Tierra_15');
+    platforms.create(305,400,'Plat1Der');
+    platforms.create(243,198,'Plat2Izq');
+    platforms.create(323,200,'Tierra_15');
+    platforms.create(370,199,'Plat2Der');
+    platforms.create(509,306,'Plat3Izq');
+    platforms.create(477,309,'Tierra_15');
+    platforms.create(371,306,'Plat3Der');
+    platforms.create(473,371,'Plat4Izq');
+    platforms.create(505,375,'Tierra_15');
+    platforms.create(570,371,'Plat4Der');
+    platforms.create(556,162,'Plat5Izq');
+    platforms.create(715,167,'Tierra_15');
+    platforms.create(748,163,'Plat5Der');
+    platforms.create(721,307,'Plat6Izq');
+    platforms.create(783,311,'Tierra_15');
+
+
+
+
+
+    this.add.image(400,300, 'Decoracion_Halloween');
+    //this.add.image(400,300, 'Escaleras_Halloween');
+
 
     
     //Escaleras
     
     ladder = this.physics.add.group();
-
-	//Aquí van las escaleras/////////////////////////////////////////////////
-	//Ejemplo-> ladder.create(80,264,'escalera');
-	
+    
+    ladder.create(273,462,'Escalera1');
+    ladder.create(323,240,'Escalera2');
+    ladder.create(477,326,'Escalera3');
+    ladder.create(505,417,'Escalera4');
+    ladder.create(715,223,'Escalera5');
+    ladder.create(783,397,'Escalera6');
+    /*ladder.create(80,200,'escalera');
+    ladder.create(240,328,'escalera');
+    ladder.create(240,360,'escalera');
+    ladder.create(240,392,'escalera');
+    ladder.create(496,456,'escalera');
+    ladder.create(496,488,'escalera');
+    ladder.create(496,520,'escalera');
+    ladder.create(624,392,'escalera');
+    ladder.create(624,360,'escalera');
+    ladder.create(624,328,'escalera');
+    ladder.create(624,296,'escalera');
+    ladder.create(624,264,'escalera');
+    ladder.create(624,232,'escalera');*/
      ladder.children.iterate(function (child) {
         //  Give each ladder no gravity
     child.body.setAllowGravity(false);
 
     });
+
     //Gemas
     gems = this.physics.add.group();
+
     
     //Items
     //item_pistol=this.physics.add.sprite(200, 450, 'pistol_item');
@@ -2832,10 +2931,10 @@ class PantallaEscenario2 extends Phaser.Scene{
     
     //item_knife=this.physics.add.sprite(300, 450, 'knife_item');
     //item_knife.setCollideWorldBounds(true);
-	items_pistol=this.physics.add.group();
-	createPistol();
-	items_knife=this.physics.add.group();
-	createKnife();
+    items_pistol=this.physics.add.group();
+    createPistol();
+    items_knife=this.physics.add.group();
+    createKnife();
     items_power=this.physics.add.group();
     items_speed=this.physics.add.group();
     items_shield=this.physics.add.group();
@@ -2864,73 +2963,73 @@ class PantallaEscenario2 extends Phaser.Scene{
 
 
     //Player 1
-	respawn_P1.x=300;
-	respawn_P1.y=450;
+    respawn_P1.x=300;
+    respawn_P1.y=450;
     player1 = this.physics.add.sprite(respawn_P1.x, respawn_P1.y, chooseP1+'_idl');
-	player1.setBodySize(player1.width *0.5,player1.height *1);
-	player1.tag=1;
-	player1.name="default";
-	player1.life = 20;
-	player1.ammo = 10;
-	player1.gemsOwned = 0;
-	player1.direction='right';
-	player1.hitted=false;
-	player1.hasPistol=false;
-	player1.hasKnife=false;
-	player1.debuff=false;
-	player1.strengthBoost=false;
-	player1.speedBoost=false;
-	player1.shieldBoost=false;
-	player1.LastStrengthBoost=0;
-	player1.LastSpeedBoost=0;
-	player1.LastShieldBoost=0;
-	player1.onLadder=false;
-	player1.invisible=false;
-	player1.LastTimeSpecial=0;
-	player1.canSpecial=true;
+    player1.setBodySize(player1.width *0.5,player1.height *1);
+    player1.tag=1;
+
+    player1.life = 20;
+    player1.ammo = 10;
+    player1.gemsOwned = 0;
+    player1.direction='right';
+    player1.hitted=false;
+    player1.hasPistol=false;
+    player1.hasKnife=false;
+    player1.debuff=false;
+    player1.strengthBoost=false;
+    player1.speedBoost=false;
+    player1.shieldBoost=false;
+    player1.LastStrengthBoost=0;
+    player1.LastSpeedBoost=0;
+    player1.LastShieldBoost=0;
+    player1.onLadder=false;
+    player1.invisible=false;
+    player1.LastTimeSpecial=0;
+    player1.canSpecial=true;
     player1.setCollideWorldBounds(true);
-player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px Courier', fill: '#ffffff' });
+
     //Player 2
-	respawn_P2.x=400;
-	respawn_P2.y=450;
-  	player2 = this.physics.add.sprite(respawn_P2.x, respawn_P2.y, chooseP2+'_idl');
-	player2.setBodySize(player2.width *0.5,player2.height *1);
-	player2.tag=2;
-	player2.life = 20;
-	player2.ammo = 10;
-	player2.gemsOwned = 0;
-	player2.direction='right';
-	player2.hitted=false;
-	player2.hasPistol=false;
-	player2.hasKnife=false;
-	player2.debuff=false;
-	player2.strengthBoost=false;
-	player2.speedBoost=false;
-	player2.shieldBoost=false;
-	player2.LastStrengthBoost=0;
-	player2.LastSpeedBoost=0;
-	player2.LastShieldBoost=0;
-	player2.onLadder=false;
-	player2.invisible=false;
-	player2.LastTimeSpecial=0;
-	player2.canSpecial=true;
-	player2.setCollideWorldBounds(true);
-	
-	
-	player_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
-	
-	
-	
-	text_p1_UI = this.add.text(230, 562, '', { font: '16px Courier', fill: '#ffffff' });
-	text_p1_UI.setDepth(2);
-	profile_p1_UI = this.add.image(40, 510, 'j1').setScale(0.3,0.3); 
-	profile_p1_UI.setDepth(1);
-	var gem_Icon= this.add.image(220, 586, 'gem').setScale(0.6,0.6); 
-	gem_Icon.setDepth(1);
-	var ammo_Icon= this.add.image(220, 569, 'ammo_item').setScale(0.4,0.3); 
-	ammo_Icon.setDepth(1);
-	spAtk_p1_UI=this.add.sprite(50, 530, 'special_attack_11').setScale(0.35,0.35);
-	spAtk_p1_UI.anims.create({
+    respawn_P2.x=400;
+    respawn_P2.y=450;
+    player2 = this.physics.add.sprite(respawn_P2.x, respawn_P2.y, chooseP2+'_idl');
+    player2.setBodySize(player2.width *0.5,player2.height *1);
+    player2.tag=2;
+    player2.life = 20;
+    player2.ammo = 10;
+    player2.gemsOwned = 0;
+    player2.direction='right';
+    player2.hitted=false;
+    player2.hasPistol=false;
+    player2.hasKnife=false;
+    player2.debuff=false;
+    player2.strengthBoost=false;
+    player2.speedBoost=false;
+    player2.shieldBoost=false;
+    player2.LastStrengthBoost=0;
+    player2.LastSpeedBoost=0;
+    player2.LastShieldBoost=0;
+    player2.onLadder=false;
+    player2.invisible=false;
+    player2.LastTimeSpecial=0;
+    player2.canSpecial=true;
+    player2.setCollideWorldBounds(true);
+    
+    
+    player_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
+    
+    
+    
+    text_p1_UI = this.add.text(230, 562, '', { font: '16px Courier', fill: '#ffffff' });
+    text_p1_UI.setDepth(2);
+    profile_p1_UI = this.add.image(40, 510, 'j1').setScale(0.3,0.3); 
+    profile_p1_UI.setDepth(1);
+    var gem_Icon= this.add.image(220, 586, 'gem').setScale(1.0,1.0); 
+    gem_Icon.setDepth(1);
+    var ammo_Icon= this.add.image(220, 569, 'ammo_item').setScale(1.0,0.9); 
+    ammo_Icon.setDepth(1);
+    spAtk_p1_UI=this.add.sprite(50, 530, 'special_attack_11').setScale(0.35,0.35);
+    spAtk_p1_UI.anims.create({
             key: 'charge',
             frames: [
                 { key: 'special_attack_1' , duration: 1500},
@@ -2948,25 +3047,25 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
             frameRate: 10,
             repeat: 0
         });
-	spAtk_p1_UI.setDepth(1);
-	var heartsF1_p1_UI=this.add.group({key: 'life_heart',
+    spAtk_p1_UI.setDepth(1);
+    var heartsF1_p1_UI=this.add.group({key: 'life_heart',
         repeat: 9,
         setXY: { x: 20, y:570 , stepX: 20 },
-		setScale: { x: 0.5, y:0.5 }
-	});
-	heartsF1_p1_UI.setDepth(1);
-	lives_p1_UI=heartsF1_p1_UI.getChildren();
-	var heartsF2_p1_UI=this.add.group({key: 'life_heart',
+        setScale: { x: 0.5, y:0.5 }
+    });
+    heartsF1_p1_UI.setDepth(1);
+    lives_p1_UI=heartsF1_p1_UI.getChildren();
+    var heartsF2_p1_UI=this.add.group({key: 'life_heart',
         repeat: 9,
         setXY: { x: 20, y:585 , stepX: 20 },
-		setScale: { x: 0.5, y:0.5 }
+        setScale: { x: 0.5, y:0.5 }
 
-	});
-	heartsF2_p1_UI.setDepth(1);
-	var auxArray=heartsF2_p1_UI.getChildren();
-	for( var i=0 ; i<10;i++){
-		lives_p1_UI.push(auxArray[i]);
-	}
+    });
+    heartsF2_p1_UI.setDepth(1);
+    var auxArray=heartsF2_p1_UI.getChildren();
+    for( var i=0 ; i<10;i++){
+        lives_p1_UI.push(auxArray[i]);
+    }
         //  Store some data about this profile:
         profile_p1_UI.setDataEnabled();
 
@@ -2978,30 +3077,30 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
             profile_p1_UI.data.get('ammo'),
             profile_p1_UI.data.get('gems') 
         ]);
-		profile_p1_UI.on('changedata-gems', function (gameObject, value) {
+        profile_p1_UI.on('changedata-gems', function (gameObject, value) {
                 text_p1_UI.setText([
                    
             profile_p1_UI.data.get('ammo'),
            profile_p1_UI.data.get('gems') 
                 ]);
         });
-		profile_p1_UI.on('changedata-ammo', function (gameObject, value) {
+        profile_p1_UI.on('changedata-ammo', function (gameObject, value) {
                 text_p1_UI.setText([
             profile_p1_UI.data.get('ammo'),
             profile_p1_UI.data.get('gems') 
                 ]);
         });
-	
+    
     text_p2_UI = this.add.text(550, 562, '', { font: '16px Courier', fill: '#ffffff' });
-	text_p2_UI.setDepth(2);
-	profile_p2_UI = this.add.image(760, 510, 'j2').setScale(0.3,0.3); 
-	profile_p2_UI.setDepth(1);
-	var gem_Icon= this.add.image(580, 586, 'gem').setScale(0.6,0.6);
-	gem_Icon.setDepth(1);
-	var ammo_Icon= this.add.image(580, 569, 'ammo_item').setScale(0.4,0.3); 
-	ammo_Icon.setDepth(1);
-	spAtk_p2_UI=this.add.sprite(750, 530, 'special_attack_11').setScale(0.35,0.35);
-	spAtk_p2_UI.anims.create({
+    text_p2_UI.setDepth(2);
+    profile_p2_UI = this.add.image(760, 510, 'j2').setScale(0.3,0.3); 
+    profile_p2_UI.setDepth(1);
+    var gem_Icon= this.add.image(580, 586, 'gem').setScale(1.0,1.0);
+    gem_Icon.setDepth(1);
+    var ammo_Icon= this.add.image(580, 569, 'ammo_item').setScale(1.0,0.9); 
+    ammo_Icon.setDepth(1);
+    spAtk_p2_UI=this.add.sprite(750, 530, 'special_attack_11').setScale(0.35,0.35);
+    spAtk_p2_UI.anims.create({
             key: 'charge',
             frames: [
                 { key: 'special_attack_1' , duration: 1500},
@@ -3019,27 +3118,27 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
             frameRate: 10,
             repeat: 0
         });
-	spAtk_p2_UI.setFlipX(true);
-	spAtk_p2_UI.setDepth(1);
-	var heartsF1_p2_UI=this.add.group({key: 'life_heart',
+    spAtk_p2_UI.setFlipX(true);
+    spAtk_p2_UI.setDepth(1);
+    var heartsF1_p2_UI=this.add.group({key: 'life_heart',
         repeat: 9,
         setXY: { x: 600, y:570 , stepX: 20 },
-		setScale: { x: 0.5, y:0.5 }
-	});
-	heartsF1_p2_UI.setDepth(1);
-		lives_p2_UI= heartsF1_p2_UI.getChildren();
+        setScale: { x: 0.5, y:0.5 }
+    });
+    heartsF1_p2_UI.setDepth(1);
+        lives_p2_UI= heartsF1_p2_UI.getChildren();
 
-	var heartsF2_p2_UI=this.add.group({key: 'life_heart',
+    var heartsF2_p2_UI=this.add.group({key: 'life_heart',
         repeat: 9,
         setXY: { x: 600, y:585 , stepX: 20 },
-		setScale: { x: 0.5, y:0.5 }
+        setScale: { x: 0.5, y:0.5 }
 
-	});
-	heartsF2_p2_UI.setDepth(1);
-	var auxAr=heartsF2_p2_UI.getChildren();
-	for( var i=0 ; i<10;i++){
-		lives_p2_UI.push(auxAr[i]);
-	}
+    });
+    heartsF2_p2_UI.setDepth(1);
+    var auxAr=heartsF2_p2_UI.getChildren();
+    for( var i=0 ; i<10;i++){
+        lives_p2_UI.push(auxAr[i]);
+    }
 
 
         //  Store some data about this profile:
@@ -3054,15 +3153,15 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
             profile_p2_UI.data.get('ammo'),
             profile_p2_UI.data.get('gems') 
         ]);
-		profile_p2_UI.on('changedata-gems', function (gameObject, value) {
+        profile_p2_UI.on('changedata-gems', function (gameObject, value) {
                 text_p2_UI.setText([
-	
+    
              profile_p2_UI.data.get('ammo'),
              profile_p2_UI.data.get('gems') 
                 ]);
         });
-		
-		profile_p2_UI.on('changedata-ammo', function (gameObject, value) {
+        
+        profile_p2_UI.on('changedata-ammo', function (gameObject, value) {
                 text_p2_UI.setText([
                     
              profile_p2_UI.data.get('ammo'),
@@ -3101,53 +3200,55 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
     shield2.body.setAllowGravity(false);
     //Copia de Chilli
     if(chooseP1==='Chilli'){
-    	pinkCopy= this.physics.add.sprite(0,0, chooseP1+'_idl');
-    	pinkCopy.tag=1;
-    	}
+        pinkCopy= this.physics.add.sprite(0,0, chooseP1+'_idl');
+        pinkCopy.tag=1;
+        }
     else {
-    	pinkCopy= this.physics.add.sprite(0,0, chooseP2+'_idl');
-    	pinkCopy.tag=2;
-    	}
+        pinkCopy= this.physics.add.sprite(0,0, chooseP2+'_idl');
+        pinkCopy.tag=2;
+        }
     pinkCopy.body.enable=false;
     pinkCopy.setVisible(false);
     //Create StateMachine
+
     this.stateMachine_player1 = new StateMachine('idle', {
             idle: new IdleStateP1(),
             move: new MoveStateP1(),
             jump: new JumpStateP1(),
-    		climb: new ClimbStateP1(),
-			attack_knife: new AttackKnifeStateP1(),
+            climb: new ClimbStateP1(),
+            attack_knife: new AttackKnifeStateP1(),
             attack_pistol: new AttackPistolStateP1(),
-    		getHit: new GetHitStateP1(),
-    		death: new DeathStateP1(),
-    		invisible: new InvisibleStateP1(),
+            getHit: new GetHitStateP1(),
+            death: new DeathStateP1(),
+            invisible: new InvisibleStateP1(),
          }, [this, player1]);
 
     this.stateMachine_player2 = new StateMachine('idle', {
             idle: new IdleStateP2(),
             move: new MoveStateP2(),
             jump: new JumpStateP2(),
-    		climb: new ClimbStateP2(),
-			attack_knife: new AttackKnifeStateP2(),
+            climb: new ClimbStateP2(),
+            attack_knife: new AttackKnifeStateP2(),
             attack_pistol: new AttackPistolStateP2(),
-	   		getHit: new GetHitStateP2(),
-    		death: new DeathStateP2(),
-    		invisible: new InvisibleStateP2(),
+            getHit: new GetHitStateP2(),
+            death: new DeathStateP2(),
+            invisible: new InvisibleStateP2(),
           }, [this, player2]);
     
+
 blueSpecialAttack_Explosion=this.add.sprite(0,0,'round_explosion_0');
 blueSpecialAttack_Explosion.DelayTimer=0;
 blueSpecialAttack_Explosion.exist=false;
 blueSpecialAttack_Explosion.setVisible(false);
-blueSpecialAttack_Explosion.anims.create({
-	key: 'explosion',
+/*blueSpecialAttack_Explosion.anims.create({
+    key: 'explosion',
         frames: this.anims.generateFrameNumbers('round_explosion', { start: 0, end: 71 }),
         frameRate: 20,
         repeat: 0
-});
+});*/
 blueSpecialAttack_Explosion.anims.create({
             
-	key: 'explosion',
+    key: 'explosion',
             frames: [
                 { key:'round_explosion_0', duration: 1500},
         { key:'round_explosion_1', duration: 50},
@@ -3225,8 +3326,8 @@ blueSpecialAttack_Explosion.anims.create({
             repeat: 0
         });
     //Animaciones player1
-	//Idle
-	
+    //Idle
+    
 
     player1.anims.create({
         key: 'idle',
@@ -3234,8 +3335,8 @@ blueSpecialAttack_Explosion.anims.create({
         frameRate: 10,
         repeat: -1
     });
-	//Run
-	
+    //Run
+    
 
     player1.anims.create({
         key: 'run',
@@ -3243,69 +3344,69 @@ blueSpecialAttack_Explosion.anims.create({
         frameRate: 10,
         repeat: -1
     });
-	player1.anims.create({
+    player1.anims.create({
         key: 'run_knife',
         frames: this.anims.generateFrameNumbers(chooseP1+'_run_knife', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
-	player1.anims.create({
+    player1.anims.create({
         key: 'run_pistol',
         frames: this.anims.generateFrameNumbers(chooseP1+'_run_pistol', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
-	//Jump
-	
+    //Jump
+    
 
     player1.anims.create({
         key: 'jump',
         frames: this.anims.generateFrameNumbers(chooseP1+'_jump', { start: 3, end: 7 }),
         frameRate: 10,
-		repeat:0
+        repeat:0
     });
 
-	//Attack
+    //Attack
 
    player1.anims.create({
         key: 'attack_knife',
         frames: this.anims.generateFrameNumbers(chooseP1+'_attack_knife', { start: 2, end: 3 }),
         frameRate: 10,
-		repeat:0
+        repeat:0
     });
-	player1.anims.create({
+    player1.anims.create({
         key: 'attack_pistol',
         frames: this.anims.generateFrameNumbers(chooseP1+'_attack_pistol', { start: 2, end: 3 }),
         frameRate: 10,
-		repeat:0
+        repeat:0
     });
-	 player1.anims.create({
+     player1.anims.create({
         key: 'hurt',
         frames: this.anims.generateFrameNumbers(chooseP1+'_hurt', { start: 0, end: 3 }),
         frameRate: 10,
-		repeat:0
+        repeat:0
     });
-	player1.anims.create({
+    player1.anims.create({
         key: 'death',
         frames: this.anims.generateFrameNumbers(chooseP1+'_death', { start: 0, end: 7 }),
         frameRate: 10,
-		repeat:0
+        repeat:0
     });
-	player1.anims.create({
+    player1.anims.create({
         key: 'climb',
         frames: this.anims.generateFrameNumbers(chooseP1+'_climb', { start: 0, end: 3 }),
         frameRate: 10,
-		repeat:-1
+        repeat:-1
     });
-	player1.anims.create({
+    player1.anims.create({
         key: 'invisible',
         frames: this.anims.generateFrameNumbers('Chilli_run_dust', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
     //Animaciones player2
-	//Idle
-	
+    //Idle
+    
 
     player2.anims.create({
         key: 'idle',
@@ -3313,65 +3414,65 @@ blueSpecialAttack_Explosion.anims.create({
         frameRate: 8,
         repeat: -1
     });
-	//Run
+    //Run
     player2.anims.create({
         key: 'run',
         frames: this.anims.generateFrameNumbers(chooseP2+'_run', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
-	player2.anims.create({
+    player2.anims.create({
         key: 'run_knife',
         frames: this.anims.generateFrameNumbers(chooseP2+'_run_knife', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
-	player2.anims.create({
+    player2.anims.create({
         key: 'run_pistol',
         frames: this.anims.generateFrameNumbers(chooseP2+'_run_pistol', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 
-	//Jump	
+    //Jump  
     player2.anims.create({
         key: 'jump',
         frames: this.anims.generateFrameNumbers(chooseP2+'_jump', { start: 3, end: 7 }),
         frameRate: 10,
-		repeat:0
+        repeat:0
     });
 
-	//Attack
+    //Attack
 
     player2.anims.create({
         key: 'attack_knife',
         frames: this.anims.generateFrameNumbers(chooseP2+'_attack_knife', { start: 2, end: 3 }),
         frameRate: 10,
-		repeat:0
+        repeat:0
     });
-	player2.anims.create({
+    player2.anims.create({
         key: 'attack_pistol',
         frames: this.anims.generateFrameNumbers(chooseP2+'_attack_pistol', { start: 2, end: 3 }),
         frameRate: 10,
-		repeat:0
+        repeat:0
     });
-	 player2.anims.create({
+     player2.anims.create({
         key: 'hurt',
         frames: this.anims.generateFrameNumbers(chooseP2+'_hurt', { start: 0, end: 3 }),
         frameRate: 10,
-		repeat:0
+        repeat:0
     });
-	player2.anims.create({
+    player2.anims.create({
         key: 'death',
         frames: this.anims.generateFrameNumbers(chooseP2+'_death', { start: 0, end: 7 }),
         frameRate: 10,
-		repeat:0
+        repeat:0
     });
-	player2.anims.create({
+    player2.anims.create({
         key: 'climb',
         frames: this.anims.generateFrameNumbers(chooseP2+'_climb', { start: 0, end: 3 }),
         frameRate: 10,
-		repeat:-1
+        repeat:-1
     });
     player2.anims.create({
         key: 'invisible',
@@ -3385,16 +3486,16 @@ blueSpecialAttack_Explosion.anims.create({
         key: 'idle',
         frames: this.anims.generateFrameNumbers(chooseP1+'_idl', { start: 0, end: 3 }),
         frameRate: 10,
-		repeat:-1
+        repeat:-1
     });
     }else{
-	pinkCopy.anims.create({
+    pinkCopy.anims.create({
         key: 'idle',
         frames: this.anims.generateFrameNumbers(chooseP2+'_idl', { start: 0, end: 3 }),
         frameRate: 10,
-		repeat:-1
+        repeat:-1
     });
-}
+    }
     //Physics
     this.physics.add.collider(player1, platforms, null, checkUp);
     this.physics.add.collider(player2, platforms, null, checkUp);
@@ -3414,115 +3515,70 @@ blueSpecialAttack_Explosion.anims.create({
     this.physics.add.overlap(player1, knifeHitbox2, PlayerKnifeHitted,null, this);
     this.physics.add.overlap(pinkCopy, knifeHitbox, CopyHitted,null, this);
     this.physics.add.overlap(pinkCopy, knifeHitbox2, CopyHitted,null, this);
-	if(chooseP1==='Wasabi'){   this.physics.add.overlap(player2, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);}
-	else {    this.physics.add.overlap(player1, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);}
+    if(chooseP1==='Wasabi'){   this.physics.add.overlap(player2, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);}
+    else {    this.physics.add.overlap(player1, blueSpecialAttack_Area, PlayerExplosionHitted,null, this);}
     this.physics.add.overlap(player1, items_pistol, getPistol_P1, null, this);
     this.physics.add.overlap(player2, items_pistol, getPistol_P2, null, this);
     this.physics.add.overlap(player1, items_knife, getKnife_P1, null, this);
     this.physics.add.overlap(player2, items_knife, getKnife_P2, null, this);
-	this.physics.add.overlap(player1, ladder, checkLadder, null, this);
-	this.physics.add.overlap(player2, ladder, checkLadder, null, this);
-	
-	//objetos
+    this.physics.add.overlap(player1, ladder, checkLadder, null, this);
+    this.physics.add.overlap(player2, ladder, checkLadder, null, this);
+    
+    //objetos
     this.physics.add.overlap(player1, gems, collectGem, null, this);
     this.physics.add.overlap(player2, gems, collectGem, null, this);
-	this.physics.add.overlap(player1, items_shield, collectShield, null, this);
+    this.physics.add.overlap(player1, items_shield, collectShield, null, this);
     this.physics.add.overlap(player2, items_shield, collectShield, null, this);
-	this.physics.add.overlap(player1, items_power, collectPower, null, this);
+    this.physics.add.overlap(player1, items_power, collectPower, null, this);
     this.physics.add.overlap(player2, items_power, collectPower, null, this);
-	this.physics.add.overlap(player1, items_speed, collectSpeed, null, this);
+    this.physics.add.overlap(player1, items_speed, collectSpeed, null, this);
     this.physics.add.overlap(player2, items_speed, collectSpeed, null, this);
-	this.physics.add.overlap(player1, items_lemon, collectLemon, null, this);
+    this.physics.add.overlap(player1, items_lemon, collectLemon, null, this);
     this.physics.add.overlap(player2, items_lemon, collectLemon, null, this);
-	this.physics.add.overlap(player1, items_grape, collectGrape, null, this);
+    this.physics.add.overlap(player1, items_grape, collectGrape, null, this);
     this.physics.add.overlap(player2, items_grape, collectGrape, null, this);
-	this.physics.add.overlap(player1, items_strawberry, collectStrawberry, null, this);
+    this.physics.add.overlap(player1, items_strawberry, collectStrawberry, null, this);
     this.physics.add.overlap(player2, items_strawberry, collectStrawberry, null, this);
-	this.physics.add.overlap(player1, items_ammo, collectAmmo, null, this);
+    this.physics.add.overlap(player1, items_ammo, collectAmmo, null, this);
     this.physics.add.overlap(player2, items_ammo, collectAmmo, null, this);
-	
-	//ajax vars
-	this.listaJugadores;
-        this.mensajeError ;
-        this.nJugadores;
-
-    */
+    
     }//create
 
   update(){
-    /*
-	//AJAX	
-	
-		if(id!=null){
-			console.log("entra al if del null");
-
-            $(document).ready(function () {
-
-                $.ajax({
-
-                    type: "GET",
-                    url: "http://localhost:8080/player/name/"+id,
-                    dataType: "text"
-
-                }).fail(function () {
-			//console.log("error get lista jugadores");
-
-                    fallosServidor += 1;
-                    if (fallosServidor > 2) {
-
-                        errorServidor = "Servidor desconectado";
-					//console.log(errorServidor);
-
-                    }
-                }).done(function (data) {
-                    errorServidor = "Servidor conectado";
-                    fallosServidor = 0;
-                    player1.name =data;
-                })
-
-            });
-
-        }
-	///////////
-	player1_name.x=player1.x-20;
-	player1_name.y=player1.y-30;
-	if(player1_name.text != player1.name){
-		player1_name.text=player1.name;
-	}
-	onItemRespawnEvent(this);
-	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
-	checkNoLadder();
-	checkTimeSpecial(player1);
+    onItemRespawnEvent(this);
+    //text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
+    checkNoLadder();
+    checkTimeSpecial(player1);
     checkTimeSpecial(player2)
-	checkExplosion();
-	if(chooseP1==='Wasabi'){checkDelayExplosion(player1,this)}
-	if(chooseP2==='Wasabi'){checkDelayExplosion(player2,this)}
-	if(player1.direction!=='right') {  player1.flipX = true; }
-	if(player1.direction!=='left') {  player1.flipX = false; }
-	if(player2.direction!=='right') {  player2.flipX = true;}
-	if(player2.direction!=='left') {  player2.flipX = false; }
-	      this.stateMachine_player1.step();
-	      this.stateMachine_player2.step();
+    checkExplosion();
+    if(chooseP1==='Wasabi'){checkDelayExplosion(player1,this)}
+    if(chooseP2==='Wasabi'){checkDelayExplosion(player2,this)}
+    if(player1.direction!=='right') {  player1.flipX = true; }
+    if(player1.direction!=='left') {  player1.flipX = false; }
+    if(player2.direction!=='right') {  player2.flipX = true;}
+    if(player2.direction!=='left') {  player2.flipX = false; }
+    
+          this.stateMachine_player1.step();
+          this.stateMachine_player2.step();
 
 
-    if	(Phaser.Input.Keyboard.JustDown(input_Q)){
-    	if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
-    	if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
-    	if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
+    if  (Phaser.Input.Keyboard.JustDown(input_Q)){
+        if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);    }
+        if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);    }
+        if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);    }
     
     }
     
-    if	(Phaser.Input.Keyboard.JustDown(input_U)){
-    	if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
-    	if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
-    	if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
+    if  (Phaser.Input.Keyboard.JustDown(input_U)){
+        if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);    }
+        if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);    }
+        if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);    }
     
     }
     
     checkDebuffTime(player1, player2);
     checkBoosts(player1, player2)
-	
-    */
+    
         }//update
         
 
