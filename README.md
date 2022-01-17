@@ -164,6 +164,9 @@ Todas las acciones que se pueden llevar a cabo se activan mediante el teclado ú
    ![Pantalla de escenario1!](/images/pantallaJuego.png) <br>
      Esta imagen captura un instánte exacto de una partida. Dependiendo del escenario elegido el mapa mostrado en esta pantalla será uno u otro, y en el se desarrollará la partida. Esta pantalla ha sido modificada con respecto a la fase anterior para incluir un botón de pausa <br><br>
   
+  ![Pantalla pausa!](/images/PANTALLA_PAUSA.png)<br>
+    Esta es la pantalla de pausa<br><br>
+  
    ![Pantalla de pausa!](/images/pantallaPausa.png) <br>
      Esta pantalla permite volver al menú principal o volver a la pantalal de juego<br><br>
    
