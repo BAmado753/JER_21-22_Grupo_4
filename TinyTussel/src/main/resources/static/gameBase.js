@@ -438,6 +438,43 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('tierra_suelo_inf',         'asset/escenario1/Tierra_suelo_inf.png');
         this.load.image('tierra_suelo_sup',         'asset/escenario1/Tierra_suelo_sup(new).png');
 
+        //Escenario Halloween
+        this.load.image('HalloweenEs', 'asset/MapaHalloween/Capas_mapa/Fondo_Halloween.png');
+        this.load.image('Decoracion_Halloween', 'asset/MapaHalloween/Capas_mapa/Decoracion_Halloween.png');
+        this.load.image('Suelo', './asset/MapaHalloween/sueloH.png');
+        this.load.image('PlataformaGrande', './asset/MapaHalloween/plataformaGrandeH.png');
+
+        this.load.image('SueloCentro', './asset/MapaHalloween/SueloCentro.png');
+        this.load.image('SueloDer_Centro', './asset/MapaHalloween/SueloDer_Centro.png');
+        this.load.image('SueloDer1', './asset/MapaHalloween/SueloDer1.png');
+        this.load.image('SueloDer2', './asset/MapaHalloween/SueloDer2.png');
+        this.load.image('SueloCentro', './asset/MapaHalloween/SueloCentro.png');
+        this.load.image('SueloIzq', './asset/MapaHalloween/SueloIzq.png');
+        this.load.image('SueloIzq_Centro', './asset/MapaHalloween/SueloIzq_Centro.png');
+        this.load.image('SueloIzqSuperior', './asset/MapaHalloween/SueloIzqSuperior.png');
+
+        this.load.image('plataformaGrandeH', './asset/MapaHalloween/plataformaGrandeH.png');
+        this.load.image('Plat1Izq', './asset/MapaHalloween/Plat1Izq.png');
+        this.load.image('Plat1Der', './asset/MapaHalloween/Plat1Der.png');
+        this.load.image('Tierra_15', './asset/MapaHalloween/Tierra_15.png');
+        this.load.image('Plat2Izq', './asset/MapaHalloween/Plat2Izq.png');
+        this.load.image('Plat2Der', './asset/MapaHalloween/Plat2Der.png');
+        this.load.image('Plat3Izq', './asset/MapaHalloween/Plat3Izq.png');
+        this.load.image('Plat3Der', './asset/MapaHalloween/Plat3Der.png');
+        this.load.image('Plat4Izq', './asset/MapaHalloween/Plat4Izq.png');
+        this.load.image('Plat4Der', './asset/MapaHalloween/Plat4Der.png');
+        this.load.image('Plat5Izq', './asset/MapaHalloween/Plat5Izq.png');
+        this.load.image('Plat5Der', './asset/MapaHalloween/Plat5Der.png');
+        this.load.image('Plat6Izq', './asset/MapaHalloween/Plat6Izq.png');
+
+        this.load.image('Escalera1', './asset/MapaHalloween/Escalera1.png');
+        this.load.image('Escalera2', './asset/MapaHalloween/Escalera2.png');
+        this.load.image('Escalera3', './asset/MapaHalloween/Escalera3.png');
+        this.load.image('Escalera4', './asset/MapaHalloween/Escalera4.png');
+        this.load.image('Escalera5', './asset/MapaHalloween/Escalera5.png');
+        this.load.image('Escalera6', './asset/MapaHalloween/Escalera6.png');
+
+        this.load.image('Escaleras_Halloween', 'asset/MapaHalloween/Capas_mapa/Escaleras_Halloween.png');
 
         //Chilli
         this.load.image('Chilli_profile', 'asset/Pink_Monster_closeUp.png');
@@ -3038,7 +3075,7 @@ class MenuEscenarios extends Phaser.Scene{
 
         this.es1.on('pointerdown', () => {
 	if(online){
-			selectPlayer.send(JSON.stringify("NEXT"));
+			selectPlayer.send(JSON.stringify("NEXT1"));
 					}else{
             this.scene.start('Escenario1');
 					} 
@@ -3048,8 +3085,8 @@ class MenuEscenarios extends Phaser.Scene{
 
 
 
-        this.es2 = this.add.image(400, 300, 'Lava');
-        this.es2.setScale(0.33);
+          this.es3 = this.add.image(650, 300, 'Lava');
+        this.es3.setScale(0.33);
 
         
         /*this.es2.on('pointerover', () => {
@@ -3073,29 +3110,40 @@ class MenuEscenarios extends Phaser.Scene{
         this.es3.setScale(0.33);
 
         
-        /*this.es3.on('pointerover', () => {
-            this.es3 = this.add.image(650, 300, 'OrientalActivado');
-            this.es3.setScale(0.5);
+        this.es2 = this.add.image(400, 300, 'Halloween').setInteractive();
+        this.es2.setScale(0.5);
+
+        
+        this.es2.on('pointerover', () => {
+            this.es2 = this.add.image(400, 300, 'HalloweenActivado');
+            this.es2.setScale(0.5);
         });
 
-        this.es3.on('pointerout', () => {
-            this.es3 = this.add.image(650, 300, 'Oriental');
-            this.es3.setScale(0.5);
+        this.es2.on('pointerout', () => {
+            this.es2 = this.add.image(400, 300, 'Halloween');
+            this.es2.setScale(0.5);
         });
 
-        this.es3.on('pointerdown', () => {
-            this.scene.start('Escenario3');
+        this.es2.on('pointerdown', () => {
+	if(online){
+			selectPlayer.send(JSON.stringify("NEXT2"));
+					}else{
+            this.scene.start('Escenario2');
+					} 
             bg_music_selection_screen.setLoop(false);
             bg_music_selection_screen.stop();
-        });*/
+        });
 
 
     }
  update(){
 	if(online){
 		selectPlayer.onmessage = function(msg) {
-			if(JSON.parse(msg.data)==='NEXT'){
+			if(JSON.parse(msg.data)==='NEXT1'){
             scene4update.scene.start('Escenario1');
+			}
+			if(JSON.parse(msg.data)==='NEXT2'){
+            scene4update.scene.start('Escenario2');
 			}
 		}
 	}
@@ -3352,11 +3400,12 @@ class PantallaEscenario1 extends Phaser.Scene{
 
  
 	//Elecciones anteriores
+		if(online){
 	if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("S1"));}
 	if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("S2"));}
 	if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("S3"));}
 	if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("S4"));}
-
+}
 
 	//Background
     this.add.image(400,300, 'bg_arboles');
@@ -4591,44 +4640,59 @@ class PantallaEscenario2 extends Phaser.Scene{
         //Escenario2--> nombre que se le da a la escena
         super({ key: "Escenario2"});
     }
-
-    
-
+   
     preload(){
+	
     }
 
 
    create(){
-    
+	
+
+ scene4update=this;
+
+ 
+	//Elecciones anteriores
+	if(online){
+		if(salaSelect==='S1'){movePlayer_S1.send(JSON.stringify("S1"));}
+		if(salaSelect==='S2'){movePlayer_S2.send(JSON.stringify("S2"));}
+		if(salaSelect==='S3'){movePlayer_S3.send(JSON.stringify("S3"));}
+		if(salaSelect==='S4'){movePlayer_S4.send(JSON.stringify("S4"));}
+	}
+	
+
 	//Background
-    this.add.image(400,300, 'bg_arboles');
-    this.add.image(400,400, 'bg_tierra');
+        this.add.image(400,300, 'HalloweenEs');
+
 
     //Pausa
-    this.paus2 = this.add.image(750, 50, 'bPausa').setInteractive();
-        this.paus2.setScale(0.5);
+    if(!online){
+	this.paus1 = this.add.image(750, 50, 'bPausa').setInteractive();
+        this.paus1.setScale(0.5);
 
         
-        this.paus2.on('pointerover', () => {
-            this.paus2 = this.add.image(750, 50, 'bPausaActivado');
-            this.paus2.setScale(0.5);
+        this.paus1.on('pointerover', () => {
+            this.paus1 = this.add.image(750, 50, 'bPausaActivado');
+            this.paus1.setScale(0.5);
         });
 
-        this.paus2.on('pointerout', () => {
-            this.paus2 = this.add.image(750, 50, 'bPausa');
-            this.paus2.setScale(0.5);
+        this.paus1.on('pointerout', () => {
+            this.paus1 = this.add.image(750, 50, 'bPausa');
+            this.paus1.setScale(0.5);
         });
 
-        this.paus2.on('pointerdown', () => {
-            sleepE2 = 'true';
-            this.scene.sleep('Escenario2');
+        this.paus1.on('pointerdown', () => {
+            sleepE1 = 'true';
+            this.scene.sleep('Escenario1');
             this.scene.launch('Pausa');
             this.scene.moveAbove('Pausa');
         });
+}
+    
 
-    /*
+
     //Musica
-    bg_music_battleground_1 = this.sound.add('backgroundBattleMusic1');
+    bg_music_battleground_1 = this.sound.add('backgroundBattleMusic3');
     bg_music_battleground_1.setLoop(true);
     bg_music_battleground_1.play();
 	sound_knife= this.sound.add('hit');
@@ -4644,26 +4708,60 @@ class PantallaEscenario2 extends Phaser.Scene{
     controlIimedItemRespawn_Fruits=0;
     controlIimedItemRespawn=0;
 	controlIimedWeaponRespawn=0;
-    text_time = this.add.text(32, 32);
-    timedCountdown = this.time.delayedCall(75000, onCountDownEvent, [], this);
+    //text_time = this.add.text(32, 32);
+    //timedCountdown = this.time.delayedCall(30000, onCountDownEvent, [], this); //75000 tiempoo oficial
 
     timedItemRespawn = new Phaser.Time.TimerEvent({ delay: 4000 });
     this.time.addEvent(timedItemRespawn)
     
+
+    //Tiempo restante
+    this.initialTime = 90;//en segundos
+    text = this.add.text(32, 32, 'Tiempo restante: ' + formatTime(this.initialTime));
+    // Each 1000 ms call onEvent
+    timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
+
+
     //Plataformas
     platforms = this.physics.add.staticGroup();
 	
-	//Aquí van las plataformas/////////////////////////////////////////////////
-	//Ejemplo-> platforms.create(720,424,'tierra_esq_sup_izq');
-
+	platforms.create(30,535,'SueloIzq');
+    platforms.create(62,427,'SueloIzqSuperior');
+    platforms.create(220,567,'SueloIzq_Centro');
+    platforms.create(767,548,'SueloDer2');
+    platforms.create(702,559,'SueloDer1');
+    platforms.create(607,567,'SueloDer_Centro');
+    platforms.create(463,535,'SueloCentro');
+    platforms.create(62,233,'plataformaGrandeH');
+    platforms.create(210,400,'Plat1Izq');
+    platforms.create(273,403,'Tierra_15');
+    platforms.create(305,400,'Plat1Der');
+    platforms.create(243,198,'Plat2Izq');
+    platforms.create(323,200,'Tierra_15');
+    platforms.create(370,199,'Plat2Der');
+    platforms.create(509,306,'Plat3Izq');
+    platforms.create(477,309,'Tierra_15');
+    platforms.create(371,306,'Plat3Der');
+    platforms.create(473,371,'Plat4Izq');
+    platforms.create(505,375,'Tierra_15');
+    platforms.create(570,371,'Plat4Der');
+    platforms.create(556,162,'Plat5Izq');
+    platforms.create(715,167,'Tierra_15');
+    platforms.create(748,163,'Plat5Der');
+    platforms.create(721,307,'Plat6Izq');
+    platforms.create(783,311,'Tierra_15');
     
+        this.add.image(400,300, 'Decoracion_Halloween');
+
     //Escaleras
     
     ladder = this.physics.add.group();
-
-	//Aquí van las escaleras/////////////////////////////////////////////////
-	//Ejemplo-> ladder.create(80,264,'escalera');
-	
+	ladder.create(273,462,'Escalera1');
+    ladder.create(323,240,'Escalera2');
+    ladder.create(477,326,'Escalera3');
+    ladder.create(505,417,'Escalera4');
+    ladder.create(715,223,'Escalera5');
+    ladder.create(783,397,'Escalera6');
      ladder.children.iterate(function (child) {
         //  Give each ladder no gravity
     child.body.setAllowGravity(false);
@@ -4679,9 +4777,16 @@ class PantallaEscenario2 extends Phaser.Scene{
     //item_knife=this.physics.add.sprite(300, 450, 'knife_item');
     //item_knife.setCollideWorldBounds(true);
 	items_pistol=this.physics.add.group();
-	createPistol();
 	items_knife=this.physics.add.group();
-	createKnife();
+	if (online && cargoPj==='player1'){
+		createPistol();
+		createKnife();
+	}
+	else if(!online){
+		createPistol();
+		createKnife();
+	}
+	
     items_power=this.physics.add.group();
     items_speed=this.physics.add.group();
     items_shield=this.physics.add.group();
@@ -4715,7 +4820,11 @@ class PantallaEscenario2 extends Phaser.Scene{
     player1 = this.physics.add.sprite(respawn_P1.x, respawn_P1.y, chooseP1+'_idl');
 	player1.setBodySize(player1.width *0.5,player1.height *1);
 	player1.tag=1;
-	player1.name="default";
+if(player_profile!==null && cargoPj==='player1'){
+	player1.name =player_profile;
+}else{
+		player1.name=chooseP1;
+}
 	player1.life = 20;
 	player1.ammo = 10;
 	player1.gemsOwned = 0;
@@ -4735,13 +4844,18 @@ class PantallaEscenario2 extends Phaser.Scene{
 	player1.LastTimeSpecial=0;
 	player1.canSpecial=true;
     player1.setCollideWorldBounds(true);
-player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px Courier', fill: '#ffffff' });
+player1_name=	this.add.text(player1.body.center.x, player1.y+20, player1.name, { font: '16px Courier', fill: '#ffffff' });
     //Player 2
 	respawn_P2.x=400;
 	respawn_P2.y=450;
   	player2 = this.physics.add.sprite(respawn_P2.x, respawn_P2.y, chooseP2+'_idl');
 	player2.setBodySize(player2.width *0.5,player2.height *1);
 	player2.tag=2;
+	if(player_profile!==null && cargoPj==='player2'){
+	player2.name =player_profile;
+}else{
+		player2.name=chooseP2;
+}
 	player2.life = 20;
 	player2.ammo = 10;
 	player2.gemsOwned = 0;
@@ -4761,19 +4875,28 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
 	player2.LastTimeSpecial=0;
 	player2.canSpecial=true;
 	player2.setCollideWorldBounds(true);
-	
+	player2_name=	this.add.text(player2.body.center.x, player2.y+20, player2.name, { font: '16px Courier', fill: '#ffffff' });
+
+	if(o_player_profile!==null && cargoPj==='player1'){
+	player2.name=o_player_profile;
+	}
+	if(o_player_profile!==null && cargoPj==='player2'){
+	player1.name=o_player_profile;
+	}
 	
 	player_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
 	
-	
+	console.log("cargoPj:"+cargoPj);
+	console.log("player1:"+player1.name);
+	console.log("player2"+player2.name);
 	
 	text_p1_UI = this.add.text(230, 562, '', { font: '16px Courier', fill: '#ffffff' });
 	text_p1_UI.setDepth(2);
 	profile_p1_UI = this.add.image(40, 510, 'j1').setScale(0.3,0.3); 
 	profile_p1_UI.setDepth(1);
-	var gem_Icon= this.add.image(220, 586, 'gem').setScale(0.6,0.6); 
+	var gem_Icon= this.add.image(220, 586, 'gem').setScale(1.0,1.0); 
 	gem_Icon.setDepth(1);
-	var ammo_Icon= this.add.image(220, 569, 'ammo_item').setScale(0.4,0.3); 
+	var ammo_Icon= this.add.image(220, 569, 'ammo_item').setScale(1.0,0.9); 
 	ammo_Icon.setDepth(1);
 	spAtk_p1_UI=this.add.sprite(50, 530, 'special_attack_11').setScale(0.35,0.35);
 	spAtk_p1_UI.anims.create({
@@ -4842,9 +4965,9 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
 	text_p2_UI.setDepth(2);
 	profile_p2_UI = this.add.image(760, 510, 'j2').setScale(0.3,0.3); 
 	profile_p2_UI.setDepth(1);
-	var gem_Icon= this.add.image(580, 586, 'gem').setScale(0.6,0.6);
+	var gem_Icon= this.add.image(580, 586, 'gem').setScale(1.0,1.0);
 	gem_Icon.setDepth(1);
-	var ammo_Icon= this.add.image(580, 569, 'ammo_item').setScale(0.4,0.3); 
+	var ammo_Icon= this.add.image(580, 569, 'ammo_item').setScale(1.0,0.9); 
 	ammo_Icon.setDepth(1);
 	spAtk_p2_UI=this.add.sprite(750, 530, 'special_attack_11').setScale(0.35,0.35);
 	spAtk_p2_UI.anims.create({
@@ -4957,6 +5080,56 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
     pinkCopy.body.enable=false;
     pinkCopy.setVisible(false);
     //Create StateMachine
+if(online){
+	if(cargoPj==='player1'){
+		this.stateMachine_player1 = new StateMachine('idle', {
+            idle: new IdleStateP1(),
+            move: new MoveStateP1(),
+            jump: new JumpStateP1(),
+    		climb: new ClimbStateP1(),
+			attack_knife: new AttackKnifeStateP1(),
+            attack_pistol: new AttackPistolStateP1(),
+    		getHit: new GetHitStateP1(),
+    		death: new DeathStateP1(),
+    		invisible: new InvisibleStateP1(),
+         }, [this, player1]);
+ this.stateMachine_player2 = new StateMachine('idle', {
+            idle: new IdleStatePOnline(),
+            move: new MoveStatePOnline(),
+            jump: new JumpStatePOnline(),
+    		climb: new ClimbStatePOnline(),
+			attack_knife: new AttackKnifeStatePOnline(),
+            attack_pistol: new AttackPistolStatePOnline(),
+	   		getHit: new GetHitStatePOnline(),
+    		death: new DeathStatePOnline(),
+    		invisible: new InvisibleStatePOnline(),
+          }, [this, player2]);
+	}else{
+		this.stateMachine_player1 = new StateMachine('idle', {
+            idle: new IdleStateP1(),
+            move: new MoveStateP1(),
+            jump: new JumpStateP1(),
+    		climb: new ClimbStateP1(),
+			attack_knife: new AttackKnifeStateP1(),
+            attack_pistol: new AttackPistolStateP1(),
+    		getHit: new GetHitStateP1(),
+    		death: new DeathStateP1(),
+    		invisible: new InvisibleStateP1(),
+         }, [this, player2]);
+ this.stateMachine_player2 = new StateMachine('idle', {
+            idle: new IdleStatePOnline(),
+            move: new MoveStatePOnline(),
+            jump: new JumpStatePOnline(),
+    		climb: new ClimbStatePOnline(),
+			attack_knife: new AttackKnifeStatePOnline(),
+            attack_pistol: new AttackPistolStatePOnline(),
+	   		getHit: new GetHitStatePOnline(),
+    		death: new DeathStatePOnline(),
+    		invisible: new InvisibleStatePOnline(),
+          }, [this, player1]);
+	}
+			
+}else{
     this.stateMachine_player1 = new StateMachine('idle', {
             idle: new IdleStateP1(),
             move: new MoveStateP1(),
@@ -4980,17 +5153,18 @@ player1_name=	this.add.text(player1.x, player1.y+20, player1.name, { font: '16px
     		death: new DeathStateP2(),
     		invisible: new InvisibleStateP2(),
           }, [this, player2]);
-    
+    }
+
 blueSpecialAttack_Explosion=this.add.sprite(0,0,'round_explosion_0');
 blueSpecialAttack_Explosion.DelayTimer=0;
 blueSpecialAttack_Explosion.exist=false;
 blueSpecialAttack_Explosion.setVisible(false);
-blueSpecialAttack_Explosion.anims.create({
+/*blueSpecialAttack_Explosion.anims.create({
 	key: 'explosion',
         frames: this.anims.generateFrameNumbers('round_explosion', { start: 0, end: 71 }),
         frameRate: 20,
         repeat: 0
-});
+});*/
 blueSpecialAttack_Explosion.anims.create({
             
 	key: 'explosion',
@@ -5291,84 +5465,10 @@ blueSpecialAttack_Explosion.anims.create({
 	this.listaJugadores;
         this.mensajeError ;
         this.nJugadores;
-
-    */
     }//create
 
   update(){
-    /*
-	//AJAX	
-	
-		if(id!=null){
-			console.log("entra al if del null");
-
-            $(document).ready(function () {
-
-                $.ajax({
-
-                    type: "GET",
-                    url: "http://localhost:8080/player/name/"+id,
-                    dataType: "text"
-
-                }).fail(function () {
-			//console.log("error get lista jugadores");
-
-                    fallosServidor += 1;
-                    if (fallosServidor > 2) {
-
-                        errorServidor = "Servidor desconectado";
-					//console.log(errorServidor);
-
-                    }
-                }).done(function (data) {
-                    errorServidor = "Servidor conectado";
-                    fallosServidor = 0;
-                    player1.name =data;
-                })
-
-            });
-
-        }
-	///////////
-	player1_name.x=player1.x-20;
-	player1_name.y=player1.y-30;
-	if(player1_name.text != player1.name){
-		player1_name.text=player1.name;
-	}
-	onItemRespawnEvent(this);
-	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
-	checkNoLadder();
-	checkTimeSpecial(player1);
-    checkTimeSpecial(player2)
-	checkExplosion();
-	if(chooseP1==='Wasabi'){checkDelayExplosion(player1,this)}
-	if(chooseP2==='Wasabi'){checkDelayExplosion(player2,this)}
-	if(player1.direction!=='right') {  player1.flipX = true; }
-	if(player1.direction!=='left') {  player1.flipX = false; }
-	if(player2.direction!=='right') {  player2.flipX = true;}
-	if(player2.direction!=='left') {  player2.flipX = false; }
-	      this.stateMachine_player1.step();
-	      this.stateMachine_player2.step();
-
-
-    if	(Phaser.Input.Keyboard.JustDown(input_Q)){
-    	if(chooseP1==='Chilli'){pinkSpecialAttack(player1,this);	}
-    	if(chooseP1==='Bernie'){whiteSpecialAttack(player1,player2);	}
-    	if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
     
-    }
-    
-    if	(Phaser.Input.Keyboard.JustDown(input_U)){
-    	if(chooseP2==='Chilli'){pinkSpecialAttack(player2,this);	}
-    	if(chooseP2==='Bernie'){whiteSpecialAttack(player2,player1);	}
-    	if(chooseP2==='Wasabi'){blueSpecialAttack(player2,this);	}
-    
-    }
-    
-    checkDebuffTime(player1, player2);
-    checkBoosts(player1, player2)
-	
-    */
         }//update
         
 
@@ -6586,7 +6686,7 @@ function createAmmo(){
 	
             let x = Phaser.Math.Between(150, 690);
             let y = Phaser.Math.Between(0, 530);
-		items_ammo.create(x,y,'ammo_item').setScale(0.3,0.3).refreshBody(); 
+		items_ammo.create(x,y,'ammo_item').refreshBody(); 
 		if(online){
 			var aux = { name: "amo", x: x, y: y };
 			var auxJSON = JSON.stringify(aux);
@@ -8245,8 +8345,11 @@ console.log(player2.gemsOwned);
         
         
          this.ventanaRev= this.add.image(400, 300, 'ventRevancha').setVisible(false);
-        this.ventanaEsperarRev= this.add.image(200, 300, 'ventEsperarRevancha').setVisible(false);
-        this.aceptRev= this.add.image(360, 320, 'aceptRev').setInteractive();
+         this.ventanaRev.setDepth(2);
+        this.ventanaEsperarRev= this.add.image(400, 300, 'ventEsperarRevancha').setVisible(false);
+        this.ventanaEsperarRev.setDepth(2);
+        this.aceptRev= this.add.image(300, 380, 'aceptRev').setInteractive();
+        this.aceptRev.setDepth(2);
                 this.aceptRev.on('pointerover', () => {
            // this.aceptRev = this.add.image(550, 500, 'bSalirActivado');
 			//this.aceptRev.setScale(0.4);
@@ -8263,7 +8366,8 @@ console.log(player2.gemsOwned);
 				}
         });
         this.aceptRev.setVisible(false);
-        this.rejectRev= this.add.image(440, 330, 'rejectRev').setInteractive();
+        this.rejectRev= this.add.image(500, 380, 'rejectRev').setInteractive();
+        this.rejectRev.setDepth(2);
                 this.rejectRev.on('pointerover', () => {
            // this.aceptRev = this.add.image(550, 500, 'bSalirActivado');
 			//this.aceptRev.setScale(0.4);
