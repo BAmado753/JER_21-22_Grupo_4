@@ -9,7 +9,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-public class SelectPlayerHandler extends TextWebSocketHandler{
+public class SelectionScreensHandler extends TextWebSocketHandler{
 private Map<String, WebSocketSession> sessionList = new ConcurrentHashMap<>();
 private Map<String, Sala> jgSalaList = new ConcurrentHashMap<>();
 
@@ -28,43 +28,37 @@ private Map<String, Sala> jgSalaList = new ConcurrentHashMap<>();
 	}
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		System.out.println((char)34+"Hola"+(char)34);
 		String msg = message.getPayload();
-		System.out.println("SPH MESSAGE: "+msg);
-		if(msg.equals((char)34+"S1"+(char)34)) {
+		//System.out.println("SPH MESSAGE: "+msg);
+		//System.out.println("SPH MESSAGE: "+msg.substring(1, 3));
+		//System.out.println("SPH MESSAGE: "+"S1");
+
+		if(msg.substring(1, 3).equals("S1")) {
 			System.out.println("SPH: Entra al S1");
 			jgSalaList.get(session.getId()).setSala("sala-1");
-			//Comunica al remitente su propio mensaje
 			session.sendMessage(new TextMessage(msg));
-			//Comunica a las demás sesiones el mensaje
 			broadcastMessage(session, message.getPayload());		}
-		else if(msg.equals((char)34+"S2"+(char)34)) {
+		else if(msg.substring(1, 3).equals("S2")) {
 			System.out.println("SPH: Entra al S2");
 			jgSalaList.get(session.getId()).setSala("sala-2");
-			//Comunica al remitente su propio mensaje
 			session.sendMessage(new TextMessage(msg));
-			//Comunica a las demás sesiones el mensaje
 			broadcastMessage(session, message.getPayload());
 		}
-		else if(msg.equals((char)34+"S3"+(char)34)) {
+		else if(msg.substring(1, 3).equals("S3")) {
 			jgSalaList.get(session.getId()).setSala("sala-3");
-			//Comunica al remitente su propio mensaje
 			session.sendMessage(new TextMessage(msg));
-			//Comunica a las demás sesiones el mensaje
 			broadcastMessage(session, message.getPayload());
 		}
-		else if(msg.equals((char)34+"S4"+(char)34)){
+		else if(msg.substring(1, 3).equals("S4")){
 			jgSalaList.get(session.getId()).setSala("sala-4");
-			//Comunica al remitente su propio mensaje
 			session.sendMessage(new TextMessage(msg));
-			//Comunica a las demás sesiones el mensaje
 			broadcastMessage(session, message.getPayload());
 		}
 		else if(msg.equals((char)34+"check"+(char)34)) {
-			System.out.println("SPH: juja size: "+jgSalaList.size());
+			System.out.println("SPH: Entra al check");
 
 			if(jgSalaList.size()>0) {
-				System.out.println("SPH: Entra al for juga ");
+				//System.out.println("SPH: Entra al for juga ");
 
 				for(Sala jugSala_aux : jgSalaList.values()) {
 					if(!jugSala_aux.getSesionID().equals(session.getId())) {
@@ -73,7 +67,11 @@ private Map<String, Sala> jgSalaList = new ConcurrentHashMap<>();
 				}
 			}
 			
-		}else {
+		}
+		else if(msg.equals((char)34+"REVANCHA"+(char)34)){
+			sendMessageOtherInRoom(session, message.getPayload());
+		}
+		else {
 			sendMessageInRoom(session, message.getPayload());	
 
 		}
@@ -97,6 +95,21 @@ private Map<String, Sala> jgSalaList = new ConcurrentHashMap<>();
 		for(Sala jugSala_aux : jgSalaList.values()) {
 			if(jugSala_aux.getSala().equals(sala)) {
 				jugSala_aux.getSesion().sendMessage(new TextMessage(payload));
+			}
+		}
+	}
+	private void sendMessageOtherInRoom(WebSocketSession session, String payload) throws IOException {
+		String sala="null";
+		for(Sala jugSala_aux : jgSalaList.values()) {
+			if(jugSala_aux.getSesionID().equals(session.getId())) {
+				sala=jugSala_aux.getSala();
+			}
+		}
+		for(Sala jugSala_aux : jgSalaList.values()) {
+			if(jugSala_aux.getSala().equals(sala)) {
+				if(!jugSala_aux.getSesionID().equals(session.getId())) {
+					jugSala_aux.getSesion().sendMessage(new TextMessage(payload));
+				}
 			}
 		}
 	}
