@@ -17,7 +17,7 @@ public class TinyTusselApplication implements WebSocketConfigurer {
 		// TODO Auto-generated method stub
 		registry.addHandler(onlineStateHandler(), "/online")
 		.setAllowedOrigins("*");
-		registry.addHandler(selectPlayerHandler(), "/selectPlayer")
+		registry.addHandler(selectionHandler(), "/selections")
 		.setAllowedOrigins("*");
 		registry.addHandler(playerMovementHandler(), "/movePlayer1")
 		.setAllowedOrigins("*");
@@ -29,8 +29,6 @@ public class TinyTusselApplication implements WebSocketConfigurer {
 		.setAllowedOrigins("*");
 		registry.addHandler(itemsRespawnHandler(), "/itemsRespawn")
 		.setAllowedOrigins("*");
-		registry.addHandler(screensHandler(), "/screenPass")
-		.setAllowedOrigins("*");
 	}
 	
 	
@@ -40,8 +38,8 @@ public class TinyTusselApplication implements WebSocketConfigurer {
 	}
 	
 	@Bean
-	public SelectPlayerHandler selectPlayerHandler() {
-		return new SelectPlayerHandler();
+	public SelectionScreensHandler selectionHandler() {
+		return new SelectionScreensHandler();
 	}
 	@Bean
 	public PlayerMovementHandler playerMovementHandler() {
@@ -51,10 +49,7 @@ public class TinyTusselApplication implements WebSocketConfigurer {
 	public ItemsRespawnHandler itemsRespawnHandler() {
 		return new ItemsRespawnHandler();
 	}
-	@Bean
-	public ScreensHandler screensHandler() {
-		return new ScreensHandler();
-	}
+	
 	
 	
 	//API REST

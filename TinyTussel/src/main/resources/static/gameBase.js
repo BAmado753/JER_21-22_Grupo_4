@@ -7,6 +7,7 @@ var url="localhost"
 ///////////////////////////////////////////
 ////Varibles de API REST
 var player_profile=null;
+var o_player_profile=null;
 var profileExists0; 
 	var profileExists1;
 	var profileExists2; 
@@ -14,7 +15,7 @@ var profileExists0;
 	
 //Variables WebSockets
 var connection = new WebSocket('ws://'+url+':8080/online');
-var selectPlayer = new WebSocket('ws://'+url+':8080/selectPlayer');
+var selectPlayer = new WebSocket('ws://'+url+':8080/selections');
 var movePlayer_S1; 
 var movePlayer_S2;
 var movePlayer_S3;
@@ -2122,10 +2123,14 @@ class SalaEspera extends Phaser.Scene{
         });
         
         this.Sala1.on('pointerdown', () => {
-					salaSelect='S1';
 					if(!isSalaSelected){
-						selectPlayer.send(JSON.stringify("S1"));
+						salaSelect='S1';
 						isSalaSelected=true;
+						if(player_profile!==null){
+							selectPlayer.send(JSON.stringify("S1-"+player_profile));
+						}else{
+							selectPlayer.send(JSON.stringify("S1"));
+						}
 					}
           //  this.scene.start('NumeroJugadores')
 				if(isSalaSelected){
@@ -2175,10 +2180,14 @@ class SalaEspera extends Phaser.Scene{
         });
         
         this.Sala2.on('pointerdown', () => {
-					salaSelect='S2';
 					if(!isSalaSelected){
-						selectPlayer.send(JSON.stringify("S2"));
+						salaSelect='S2';
 						isSalaSelected=true;
+						if(player_profile!==null){
+							selectPlayer.send(JSON.stringify("S2-"+player_profile));
+						}else{
+							selectPlayer.send(JSON.stringify("S2"));
+						}
 					}        
 				if(isSalaSelected){
 			console.log('entra en isSelected');
@@ -2225,10 +2234,14 @@ class SalaEspera extends Phaser.Scene{
         });
         
         this.Sala3.on('pointerdown', () => {
-					salaSelect='S3';
 			if(!isSalaSelected){
-						selectPlayer.send(JSON.stringify("S3"));
+									salaSelect='S3';
 						isSalaSelected=true;
+						if(player_profile!==null){
+							selectPlayer.send(JSON.stringify("S3-"+player_profile));
+						}else{
+							selectPlayer.send(JSON.stringify("S3"));
+						}
 					}          //  this.scene.start('NumeroJugadores');
 			if(isSalaSelected){
 			console.log('entra en isSelected');
@@ -2279,6 +2292,11 @@ class SalaEspera extends Phaser.Scene{
 					if(!isSalaSelected){
 						selectPlayer.send(JSON.stringify("S4"));
 						isSalaSelected=true;
+						if(player_profile!==null){
+							selectPlayer.send(JSON.stringify("S4-"+player_profile));
+						}else{
+							selectPlayer.send(JSON.stringify("S4"));
+						}
 					}
 					if(isSalaSelected){
 			console.log('entra en isSelected');
@@ -2323,33 +2341,35 @@ class SalaEspera extends Phaser.Scene{
 				isMsgJSON=false;
 			}
 			if(isMsgJSON){
-				console.log(player_profile);
-				if(JSON.parse(msg.data)==='S1'){
+				//console.log(player_profile);
+				let strAux= new String(JSON.parse(msg.data));
+				console.log(strAux.substring(0, 2));
+				if(strAux.substring(0, 2) ==='S1'){
 					if(jugador1sala1.text!=='null'){
-						if(player_profile!==null ){jugador2sala1.setText(player_profile);}else{jugador2sala1.setText('JugadorAnon');}
+						if(strAux.length>2){jugador2sala1.setText(strAux.substring(3));}else{jugador2sala1.setText('Anónimo');}
 					}else{
-						if(player_profile!==null){jugador1sala1.setText(player_profile);}else{jugador1sala1.setText('JugadorAnon');}
+						if(strAux.length>2){jugador1sala1.setText(strAux.substring(3));}else{jugador1sala1.setText('Anónimo');}
 					}
 				}
-				if(JSON.parse(msg.data)==='S2'){
+				if(strAux.substring(0, 2)==='S2'){
 					if(jugador1sala2.text!=='null'){
-						if(player_profile!==null){jugador2sala2.setText(player_profile);}else{jugador2sala2.setText('JugadorAnon');}
+						if(strAux.length>2){jugador2sala2.setText(strAux.substring(3));}else{jugador2sala2.setText('Anónimo');}
 					}else{
-						if(player_profile!==null){jugador1sala2.setText(player_profile);}else{jugador1sala2.setText('JugadorAnon');}
+						if(strAux.length>2){jugador1sala2.setText(strAux.substring(3));}else{jugador1sala2.setText('Anónimo');}
 					}
 				}
-				if(JSON.parse(msg.data)==='S3'){
+				if(strAux.substring(0, 2)==='S3'){
 					if(jugador1sala3.text!=='null'){
-						if(player_profile!==null){jugador2sala3.setText(player_profile);}else{jugador2sala3.setText('JugadorAnon');}
+						if(strAux.length>2){jugador2sala3.setText(strAux.substring(3));}else{jugador2sala3.setText('Anónimo');}
 					}else{
-						if(player_profile!==null){jugador1sala3.setText(player_profile);}else{jugador1sala3.setText('JugadorAnon');}
+						if(strAux.length>2){jugador1sala3.setText(strAux.substring(3));}else{jugador1sala3.setText('Anónimo');}
 					}
 				}
-				if(JSON.parse(msg.data)==='S4'){
+				if(strAux.substring(0, 2)==='S4'){
 					if(jugador1sala4.text!=='null'){
-						if(player_profile!==null){jugador2sala4.setText(player_profile);}else{jugador2sala4.setText('JugadorAnon');}
+						if(strAux.length>2){jugador2sala4.setText(strAux.substring(3));}else{jugador2sala4.setText('Anónimo');}
 					}else{
-						if(player_profile!==null){jugador1sala4.setText(player_profile);}else{jugador1sala4.setText('JugadorAnon');}
+						if(strAux.length>2){jugador1sala4.setText(strAux.substring(3));}else{jugador1sala4.setText('Anónimo');}
 					}
 				}
 				if(JSON.parse(msg.data)==='NEXT'){
@@ -2360,33 +2380,33 @@ class SalaEspera extends Phaser.Scene{
 				if(msg.data==='sala-1'){
 					console.log('Entra sala-4');
 					if(jugador1sala1.text!=='null'){
-						jugador2sala1.setText('JugadorAnon');
+						jugador2sala1.setText('Jugador');
 					}else{
-						jugador1sala1.setText('JugadorAnon');
+						jugador1sala1.setText('Jugador');
 					}
 				}
 				if(msg.data==='sala-2'){
 					console.log('Entra sala-4');
 					if(jugador1sala2.text!=='null'){
-						jugador2sala2.setText('JugadorAnon');
+						jugador2sala2.setText('Jugador');
 					}else{
-						jugador1sala2.setText('JugadorAnon');
+						jugador1sala2.setText('Jugador');
 					}
 				}
 				if(msg.data==='sala-3'){
 					console.log('Entra sala-4');
 					if(jugador1sala3.text!=='null'){
-						jugador2sala3.setText('JugadorAnon');
+						jugador2sala3.setText('Jugador');
 					}else{
-						jugador1sala3.setText('JugadorAnon');
+						jugador1sala3.setText('Jugador');
 					}
 				}
 				if(msg.data==='sala-4'){
 					console.log('Entra sala-4');
 					if(jugador1sala4.text!=='null'){
-						jugador2sala4.setText('JugadorAnon');
+						jugador2sala4.setText('Jugador Listo');
 					}else{
-						jugador1sala4.setText('JugadorAnon');
+						jugador1sala4.setText('Jugador Listo');
 					}
 				}
 			}	
@@ -2448,12 +2468,23 @@ class MenuPersonajes extends Phaser.Scene{
 
 
     create(){
-	//Abremos la conexion para la de juego pantalla
+	if(online){
+		//Abremos la conexion para la de juego pantalla
 	if(salaSelect==='S1'){movePlayer_S1 = new WebSocket('ws://'+url+':8080/movePlayer1');}
 	if(salaSelect==='S2'){movePlayer_S2 = new WebSocket('ws://'+url+':8080/movePlayer2');}
 	if(salaSelect==='S3'){ movePlayer_S3 = new WebSocket('ws://'+url+':8080/movePlayer3');}
 	if(salaSelect==='S4'){movePlayer_S4 = new WebSocket('ws://'+url+':8080/movePlayer4');}
-	//
+	
+	//Se manda el nomre del perfil para la pantalla de juego
+	if(player_profile!==null){
+			this.aux = { name: "profile", profile: player_profile };
+			this.auxJSON = JSON.stringify(this.aux);
+			selectPlayer.send(this.auxJSON);	
+	}
+			
+	}
+	
+	
 scene4update=this;
        chooseP1='null';
 		chooseP2='null';
@@ -2771,7 +2802,13 @@ scene4update=this;
 	update(){
 		if(online){
 			selectPlayer.onmessage = function(msg) {
-			console.log(JSON.parse(msg.data));
+			//console.log(JSON.parse(msg.data));			
+			
+			var obj=JSON.parse(msg.data);
+			
+			if(obj.name==='profile' && obj.profile!==player_profile){
+				o_player_profile=obj.profile;  
+			}			
 			if(JSON.parse(msg.data)==='Chilli-P1'){
 				chooseP1='Chilli';
 				scene4update.per1.destroy();
@@ -3185,6 +3222,7 @@ function onEvent ()
 //objects
 var player1;
 var player1_name;
+var player2_name;
 var text_p1_UI;
 var profile_p1_UI;
 var spAtk_p1_UI;
@@ -3573,12 +3611,10 @@ class PantallaEscenario1 extends Phaser.Scene{
     player1 = this.physics.add.sprite(respawn_P1.x, respawn_P1.y, chooseP1+'_idl');
 	player1.setBodySize(player1.width *0.5,player1.height *1);
 	player1.tag=1;
-if(player_profile!==null){
+if(player_profile!==null && cargoPj==='player1'){
 	player1.name =player_profile;
-
 }else{
-		player1.name="default";
-
+		player1.name=chooseP1;
 }
 	player1.life = 20;
 	player1.ammo = 10;
@@ -3606,6 +3642,11 @@ player1_name=	this.add.text(player1.body.center.x, player1.y+20, player1.name, {
   	player2 = this.physics.add.sprite(respawn_P2.x, respawn_P2.y, chooseP2+'_idl');
 	player2.setBodySize(player2.width *0.5,player2.height *1);
 	player2.tag=2;
+	if(player_profile!==null && cargoPj==='player2'){
+	player2.name =player_profile;
+}else{
+		player2.name=chooseP2;
+}
 	player2.life = 20;
 	player2.ammo = 10;
 	player2.gemsOwned = 0;
@@ -3625,7 +3666,14 @@ player1_name=	this.add.text(player1.body.center.x, player1.y+20, player1.name, {
 	player2.LastTimeSpecial=0;
 	player2.canSpecial=true;
 	player2.setCollideWorldBounds(true);
-	
+	player2_name=	this.add.text(player2.body.center.x, player2.y+20, player2.name, { font: '16px Courier', fill: '#ffffff' });
+
+	if(o_player_profile!==null && cargoPj==='player1'){
+	player2.name=o_player_profile;
+	}
+	if(o_player_profile!==null && cargoPj==='player2'){
+	player1.name=o_player_profile;
+	}
 	
 	player_Bullets = this.physics.add.group({ classType: Bullet, runChildUpdate: true });
 	
@@ -4440,7 +4488,7 @@ if	(inputSpecial){
     		if(chooseP1==='Wasabi'){blueSpecialAttack(player1,this);	}
 		}
     }
-	}
+	}//End online
 	
 	
 	///////////
@@ -4448,6 +4496,11 @@ if	(inputSpecial){
 	player1_name.y=player1.y-30;
 	if(player1_name.text != player1.name){
 		player1_name.text=player1.name;
+	}
+	player2_name.x=player2.x-20;
+	player2_name.y=player2.y-30;
+	if(player2_name.text != player2.name){
+		player2_name.text=player2.name;
 	}
 	//text_time.setText('Event.progress: ' + timedCountdown.getProgress().toString().substr(0, 4));
 	checkNoLadder();
@@ -8336,7 +8389,16 @@ function getProfileName(id_p){
 
                     }
                 }).done(function (data) {
-                    errorServidor = "Servidor conectado";
+					//console.log(data);
+					if(data==='error'){
+										//	console.log('owo');
+						document.getElementById("perfil"+tt).innerHTML="Vacío";
+					if(id_p===0){ profileExists0=false;}
+					if(id_p===1){profileExists1=false; }
+					if(id_p===2){ profileExists2=false;}
+					if(id_p===3){ profileExists3=false;}
+					}else{
+					errorServidor = "Servidor conectado";
                     fallosServidor = 0;
 					if(id_p===0){ profileExists0=true;}
 					if(id_p===1){profileExists1=true; }
@@ -8345,6 +8407,8 @@ function getProfileName(id_p){
                     player_profile=data;
 					document.getElementById("perfil"+tt).innerHTML=data;
 
+					}
+                    
                 })
 
             });
