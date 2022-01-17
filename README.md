@@ -274,3 +274,7 @@ wobbleboxx.com
   8.Una vez se haya ejecutado la parte del servidor, abrir el navegador Google Chrome y poner en la barra de búsqueda localhost:8080<br>
   <br> ![Instruccion9!](/images/inst9.png) <br>
   <br>
+  
+  ### <h2>Plataformas a las que se ha subido el juego </h2>
+  Itchi.o<br>
+  https://stormedia.itch.io/tiny-tussle
