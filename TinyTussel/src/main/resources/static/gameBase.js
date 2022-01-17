@@ -8498,6 +8498,8 @@ console.log(player2.gemsOwned);
 
 		scene4update=this;
         //Music
+        bg_music_battleground_1.setLoop(false);
+    bg_music_battleground_1.stop();
         bg_music_results_screen = this.sound.add('backgroundResultsMusic');
         bg_music_results_screen.setLoop(true);
         bg_music_results_screen.play();
@@ -8596,12 +8598,14 @@ console.log(player2.gemsOwned);
         });
         
         this.rev.on('pointerdown', () => {
-	bg_music_results_screen.setLoop(false);
-        bg_music_results_screen.stop();
+	
          if(online){
 				this.ventanaEsperarRev.setVisible(true);
 				selectPlayer.send(JSON.stringify("REVANCHA"));
 		}else{
+			bg_music_results_screen.setLoop(false);
+        bg_music_results_screen.stop();
+        
 		    this.scene.start('MenuPersonajes');
 		}
            // this.scene.start('MenuPrincipal');
@@ -8623,6 +8627,11 @@ console.log(player2.gemsOwned);
         });
         
         this.sal.on('pointerdown', () => {
+	bg_music_results_screen.setLoop(false);
+        bg_music_results_screen.stop();
+	 bg_music_selection_screen = this.sound.add('backgroundSelectionMusic');
+        bg_music_selection_screen.setLoop(true);
+        bg_music_selection_screen.play();
 	            this.scene.start('MenuPrincipal');
 
             //Para cerrar la ventana del navegador
@@ -8648,6 +8657,11 @@ console.log(player2.gemsOwned);
         
         this.aceptRev.on('pointerdown', () => {
 	            if(online){
+		bg_music_results_screen.setLoop(false);
+        bg_music_results_screen.stop();
+         bg_music_selection_screen = this.sound.add('backgroundSelectionMusic');
+        bg_music_selection_screen.setLoop(true);
+        bg_music_selection_screen.play();
 				selectPlayer.send(JSON.stringify("NEXT"));
 				}
         });
