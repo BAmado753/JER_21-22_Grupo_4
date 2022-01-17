@@ -25,7 +25,7 @@ Se ha optado por un estilo de dibujo en pixelart suponiendo que es el que mejor 
 
 <h2>Elementos del juego</h2>
 
-### <h3>Storyline </h3>
+### <h3>Historia </h3>
 El planeta de Nulia organiza un torneo donde las tres naciones del mismo mandan a sus mejores guerreros a competir por la custodia de la gema que mantiene la paz en su mundo, la Telkeita, con lo que se juegan el honor de su país y la gran riqueza que supone ganar el torneo.
 Chili, Bernie y Wasabi son los tres guerreros escogidos por las diferentes naciones de Nulia para competir en el gran torneo y defender su orgullo, por lo que deberán emplear todo su potencial para hacerse con la victoria.
 
