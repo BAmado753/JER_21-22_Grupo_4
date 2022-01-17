@@ -68,11 +68,8 @@ private Map<String, Sala> jgSalaList = new ConcurrentHashMap<>();
 			}
 			
 		}
-		else if("pf-"==msg.substring(0, 2)){
-			//String newMsg=msg.substring(msg.indexOf(":") + 1);
-			//session.sendMessage(new TextMessage(msg));
-
-			broadcastMessage(session, message.getPayload());
+		else if(msg.equals((char)34+"REVANCHA"+(char)34)){
+			sendMessageOtherInRoom(session, message.getPayload());
 		}
 		else {
 			sendMessageInRoom(session, message.getPayload());	
@@ -98,6 +95,21 @@ private Map<String, Sala> jgSalaList = new ConcurrentHashMap<>();
 		for(Sala jugSala_aux : jgSalaList.values()) {
 			if(jugSala_aux.getSala().equals(sala)) {
 				jugSala_aux.getSesion().sendMessage(new TextMessage(payload));
+			}
+		}
+	}
+	private void sendMessageOtherInRoom(WebSocketSession session, String payload) throws IOException {
+		String sala="null";
+		for(Sala jugSala_aux : jgSalaList.values()) {
+			if(jugSala_aux.getSesionID().equals(session.getId())) {
+				sala=jugSala_aux.getSala();
+			}
+		}
+		for(Sala jugSala_aux : jgSalaList.values()) {
+			if(jugSala_aux.getSala().equals(sala)) {
+				if(!jugSala_aux.getSesionID().equals(session.getId())) {
+					jugSala_aux.getSesion().sendMessage(new TextMessage(payload));
+				}
 			}
 		}
 	}

@@ -594,6 +594,7 @@ class PantallaCarga extends Phaser.Scene{
         this.load.image('bSalir', './asset/Salir.png');
         this.load.image('bSalirActivado', './asset/SalirActivado.png');
         this.load.image('ventRevancha', './asset/revancha_bg_placeholder.png');
+        this.load.image('ventEsperarRevancha', './asset/revancha_bg_placeholder.png');
         this.load.image('aceptRev', './asset/revancha_acept_placeholder.png');
         this.load.image('rejectRev', './asset/revancha_reject_placeholder.png');
 
@@ -3214,6 +3215,10 @@ function onEvent ()
     if(this.initialTime===0){
         bg_music_battleground_1.setLoop(false);
         bg_music_battleground_1.stop();
+        if(salaSelect==='S1'){movePlayer_S1.close();}
+			if(salaSelect==='S2'){movePlayer_S2.close();}
+			if(salaSelect==='S3'){movePlayer_S3.close();}
+			if(salaSelect==='S4'){movePlayer_S4.close();}
         this.scene.start('Resultados');
     }
 }
@@ -4257,6 +4262,7 @@ blueSpecialAttack_Explosion.anims.create({
     }//create
 
   update(){
+	
 	//PARTIDA ONLINE
 	if(online){
 		if(salaSelect==='S1'){
@@ -4391,6 +4397,8 @@ blueSpecialAttack_Explosion.anims.create({
 						items_ammo.create(obj.x,obj.y,'ammo_item');  
 			}
 			if(obj.name==='ptl'){
+				console.log("j1 Gemas:"+player1.gemsOwned);
+		console.log("j2 Gemas:"+player2.gemsOwned);
 						items_pistol.create(obj.x,obj.y,'pistol_item');  
 			}
 			if(obj.name==='knf'){
@@ -7917,7 +7925,7 @@ class DeathStatePOnline extends State {
 	player.anims.play('death');
 			player.once('animationcomplete', () => {
 			player.setVisible(false);
-			if(cargoPj==='player2'){
+			if(player.tag===1){
 				respawnPlayer1();
 			}else{
 				respawnPlayer2();
@@ -8015,6 +8023,9 @@ class PantallaResultados extends Phaser.Scene{
 
     create(){
 updatePuntuacion();
+console.log(player1.gemsOwned);
+console.log(player2.gemsOwned);
+
 		scene4update=this;
         //Music
         bg_music_results_screen = this.sound.add('backgroundResultsMusic');
@@ -8065,13 +8076,13 @@ updatePuntuacion();
 
 
             if(chooseP1 ==='Chilli'){
-            this.winp1 = this.add.image(430, 145, 'selectChilli');
+            this.winp1 = this.add.image(290, 200, 'selectChilli');
             }
             else if(chooseP1 ==='Bernie'){
-            this.winp1 = this.add.image(430, 145, 'selectBernie');
+            this.winp1 = this.add.image(290, 200, 'selectBernie');
             }
             else{
-            this.winp1 = this.add.image(430, 145, 'selectWasabi');
+            this.winp1 = this.add.image(290, 200, 'selectWasabi');
             }
 
 
@@ -8118,6 +8129,7 @@ updatePuntuacion();
 	bg_music_results_screen.setLoop(false);
         bg_music_results_screen.stop();
          if(online){
+				this.ventanaEsperarRev.setVisible(true);
 				selectPlayer.send(JSON.stringify("REVANCHA"));
 		}else{
 		    this.scene.start('MenuPersonajes');
@@ -8146,7 +8158,10 @@ updatePuntuacion();
             //Para cerrar la ventana del navegador
             //window.close();
         });
+        
+        
          this.ventanaRev= this.add.image(400, 300, 'ventRevancha').setVisible(false);
+        this.ventanaEsperarRev= this.add.image(200, 300, 'ventEsperarRevancha').setVisible(false);
         this.aceptRev= this.add.image(360, 320, 'aceptRev').setInteractive();
                 this.aceptRev.on('pointerover', () => {
            // this.aceptRev = this.add.image(550, 500, 'bSalirActivado');
@@ -8177,7 +8192,7 @@ updatePuntuacion();
         
         this.rejectRev.on('pointerdown', () => {
 	            if(online){
-				selectPlayer.send(JSON.stringify("NEXT"));
+				selectPlayer.send(JSON.stringify("DENIED"));
 				}
         });
         this.rejectRev.setVisible(false);
@@ -8193,9 +8208,20 @@ updatePuntuacion();
         scene4update.rejectRev.setVisible(true);
 		}
 		if(JSON.parse(mssg.data)==='NEXT'){
+			 //chooseP1='null';
+		//chooseP2='null';
+		pjPropioSelec=false;
+			
 		scene4update.scene.start('MenuPersonajes');
 
 		}
+		if(JSON.parse(mssg.data)==='DENIED'){
+		scene4update.ventanaRev.setVisible(false);
+		scene4update.ventanaEsperarRev.setVisible(false);
+        scene4update.aceptRev.setVisible(false);
+        scene4update.rejectRev.setVisible(false);
+		}
+		
 	}	
 	
 	}
@@ -8274,7 +8300,7 @@ function getPuntuacion(id_p){
 }
 function updatePuntuacion(){
 	
-console.log("getPuntuacion"+puntuacion_profile);
+//console.log("getPuntuacion"+puntuacion_profile);
 	if(puntuacion_profile<player1.gemsOwned){
 	let text_point_aux = player1.gemsOwned.toString();
 	console.log(text_point_aux);
