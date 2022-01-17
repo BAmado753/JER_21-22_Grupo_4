@@ -146,7 +146,7 @@ Todas las acciones que se pueden llevar a cabo se activan mediante el teclado ú
    ![Pantalla de ayuda!](/images/pantalla_ayuda.png) <br>
       Se puede acceder a esta pantalla desde muchas otras mediante el símbolo de interrogación. Aquí se dejan los datos de contacto del equipo por si el jugador necesita ayuda<br>
 <br>
-   ![Pantalla de conexión!](/images/pantalla_conexion.png) <br>
+   ![Pantalla de conexión!](/images/PANTALLA_CONEXION.png) <br>
      Aunque actualmente está bloqueado, en esta pantalla se decide si la partida va a ser en conexión local o en online <br><br>
 
    ![Pantalla de cantidad de jugadores!](/images/pantalla_jugadores.png) <br>
