@@ -279,7 +279,7 @@ wobbleboxx.com
   Itchi.o<br>
   https://stormedia.itch.io/tiny-tussle
   <br>Gamejolt<br>
-  https://gamejolt.net/?token=P93LZNNY3pW3ja5xVGaEgDZYnnRLQn
+  https://gamejolt.com/games/TinyTussle/681544
   <br>Newsground<br>
   https://www.newgrounds.com/portal/view/829753
   <br>Indiexpo<br>
