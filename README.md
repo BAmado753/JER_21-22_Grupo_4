@@ -139,26 +139,26 @@ Todas las acciones que se pueden llevar a cabo se activan mediante el teclado ú
    ![Pantalla de menú!](/images/pantallaMenuPrincipal.png) <br>
       Esta pantalla es el hub central que permite acceder a a la ruta de pantallas que llevan al juego y pantallas secundarias. En esta dase se ha cambiado el botón de ajustes por el botón ver datos, que permite consultar los datos del perfil  <br>
  <br>
-   ![Pantalla de créditos!](/images/pantalla_creditos.PNG) <br>
+   ![Pantalla de créditos!](/images/pantalla_creditos.png) <br>
      Aquí se acreditan todos los assets que se han utilizado en la creación del juego <br><br>
-   ![Pantalla de controles!](/images/pantalla_controles.PNG) <br>
+   ![Pantalla de controles!](/images/pantalla_controles.png) <br>
       En esta pantalla se muestran los controles de ambos jugadores en local <br><br>
-   ![Pantalla de ayuda!](/images/pantalla_ayuda.PNG) <br>
+   ![Pantalla de ayuda!](/images/pantalla_ayuda.png) <br>
       Se puede acceder a esta pantalla desde muchas otras mediante el símbolo de interrogación. Aquí se dejan los datos de contacto del equipo por si el jugador necesita ayuda<br>
 <br>
-   ![Pantalla de conexión!](/images/pantalla_conexion.PNG) <br>
+   ![Pantalla de conexión!](/images/pantalla_conexion.png) <br>
      Aunque actualmente está bloqueado, en esta pantalla se decide si la partida va a ser en conexión local o en online <br><br>
 
-   ![Pantalla de cantidad de jugadores!](/images/pantalla_jugadores.PNG) <br>
+   ![Pantalla de cantidad de jugadores!](/images/pantalla_jugadores.png) <br>
       Aquí se selecciona la cantidad de jugadores que van a jugar <br><br>
 
-   ![Pantalla de elección de personajes!](/images/pantalla_personajes.PNG) <br>
+   ![Pantalla de elección de personajes!](/images/pantalla_personajes.png) <br>
       En esta pantalla se seleccionan los personajes que se van a usar en partida. Cuando se pasa el cursor por encima de ellos cada uno muestra su descripción de personaje. <br><br>
 
-   ![Pantalla de personajes elegidos!](/images/pantalla_personajes_elegidos.PNG) <br>
+   ![Pantalla de personajes elegidos!](/images/pantalla_personajes_elegidos.png) <br>
       Esta sería la misma pantalla que la anterior, pero así se ve cuando ambos jugadores han elegido a su personaje. <br><br>
 
-   ![Pantalla de escenario1!](/images/pantalla_escenarios.PNG) <br>
+   ![Pantalla de escenario1!](/images/pantalla_escenarios.png) <br>
      Tras elegir a los personajes, se elige el escenario donde se va a desarrollar la partida <br><br>
 
    ![Pantalla de escenario1!](/images/pantallaJuego.png) <br>
