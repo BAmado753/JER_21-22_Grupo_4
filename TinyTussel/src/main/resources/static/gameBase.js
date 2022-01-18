@@ -4453,7 +4453,7 @@ blueSpecialAttack_Explosion.anims.create({
 			//console.log(JSON.parse(msg.data));
 			
 			if(obj.name==='gem'){
-						gems.create(obj.x,obj.y,'gem');  
+		gems.create(obj.x,obj.y,'gem').setScale(1.2);  
 			}
 			if(obj.name==='stb'){
 						items_strawberry.create(obj.x,obj.y,'strawberry_item');  
@@ -4462,16 +4462,16 @@ blueSpecialAttack_Explosion.anims.create({
 						items_lemon.create(obj.x,obj.y,'lemon_item');  
 			}
 			if(obj.name==='grp'){
-						items_grape.create(obj.x,obj.y,'grape_item');  
+		items_grape.create(obj.x,obj.y,'grape_item').setScale(1.2);  
 			}
 			if(obj.name==='shd'){
-						items_shield.create(obj.x,obj.y,'shield_item');  
+		items_shield.create(obj.x,obj.y,'shield_item').setScale(1.2); 
 			}
 			if(obj.name==='spd'){
-						items_speed.create(obj.x,obj.y,'speed_item');  
+		items_speed.create(obj.x,obj.y,'speed_item').setScale(0.7);  
 			}
 			if(obj.name==='pow'){
-						items_power.create(obj.x,obj.y,'power_item');  
+		items_power.create(obj.x,obj.y,'power_item').setScale(0.7);  
 			}
 			if(obj.name==='amo'){
 						items_ammo.create(obj.x,obj.y,'ammo_item');  
@@ -4479,10 +4479,10 @@ blueSpecialAttack_Explosion.anims.create({
 			if(obj.name==='ptl'){
 				console.log("j1 Gemas:"+player1.gemsOwned);
 		console.log("j2 Gemas:"+player2.gemsOwned);
-						items_pistol.create(obj.x,obj.y,'pistol_item');  
+		items_pistol.create(obj.x,obj.y,'pistol_item').setScale(1.3);  
 			}
 			if(obj.name==='knf'){
-						items_knife.create(obj.x,obj.y,'knife_item');  
+		items_knife.create(obj.x,obj.y,'knife_item').setScale(0.9); 
 			}
 
 	}
@@ -5582,7 +5582,7 @@ blueSpecialAttack_Explosion.anims.create({
 			//console.log(JSON.parse(msg.data));
 			
 			if(obj.name==='gem'){
-						gems.create(obj.x,obj.y,'gem');  
+		gems.create(obj.x,obj.y,'gem').setScale(1.2);  
 			}
 			if(obj.name==='stb'){
 						items_strawberry.create(obj.x,obj.y,'strawberry_item');  
@@ -5591,16 +5591,16 @@ blueSpecialAttack_Explosion.anims.create({
 						items_lemon.create(obj.x,obj.y,'lemon_item');  
 			}
 			if(obj.name==='grp'){
-						items_grape.create(obj.x,obj.y,'grape_item');  
+		items_grape.create(obj.x,obj.y,'grape_item').setScale(1.2);  
 			}
 			if(obj.name==='shd'){
-						items_shield.create(obj.x,obj.y,'shield_item');  
+		items_shield.create(obj.x,obj.y,'shield_item').setScale(1.2); 
 			}
 			if(obj.name==='spd'){
-						items_speed.create(obj.x,obj.y,'speed_item');  
+		items_speed.create(obj.x,obj.y,'speed_item').setScale(0.7);  
 			}
 			if(obj.name==='pow'){
-						items_power.create(obj.x,obj.y,'power_item');  
+		items_power.create(obj.x,obj.y,'power_item').setScale(0.7);  
 			}
 			if(obj.name==='amo'){
 						items_ammo.create(obj.x,obj.y,'ammo_item');  
@@ -5608,10 +5608,10 @@ blueSpecialAttack_Explosion.anims.create({
 			if(obj.name==='ptl'){
 				console.log("j1 Gemas:"+player1.gemsOwned);
 		console.log("j2 Gemas:"+player2.gemsOwned);
-						items_pistol.create(obj.x,obj.y,'pistol_item');  
+		items_pistol.create(obj.x,obj.y,'pistol_item').setScale(1.3);  
 			}
 			if(obj.name==='knf'){
-						items_knife.create(obj.x,obj.y,'knife_item');  
+		items_knife.create(obj.x,obj.y,'knife_item').setScale(0.9); 
 			}
 
 	}
