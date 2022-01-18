@@ -1,4 +1,6 @@
 # Tiny Tussle
+### <h2>Video preview</h2>
+[![Alt text](https://img.youtube.com/vi/hj03RFuFuBs/0.jpg)](https://www.youtube.com/watch?v=hj03RFuFuBs)
 ### <h2>Resumen ejecutivo</h2>
 | Título | Tiny Tussle | 
 |:------------:|:-------------:|
