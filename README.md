@@ -1,4 +1,13 @@
 # Tiny Tussle
+### <h2>Plataformas a las que se ha subido el juego </h2>
+  Itchi.o<br>
+  https://stormedia.itch.io/tiny-tussle
+  <br>Gamejolt<br>
+  https://gamejolt.com/games/TinyTussle/681544
+  <br>Newsground<br>
+  https://www.newgrounds.com/portal/view/829753
+  <br>Indiexpo<br>
+  https://www.indiexpo.net/es/games/tiny-tussel
 ### <h2>Video preview</h2>
 [![Alt text](https://img.youtube.com/vi/hj03RFuFuBs/0.jpg)](https://www.youtube.com/watch?v=hj03RFuFuBs)
 ### <h2>Resumen ejecutivo</h2>
@@ -277,12 +286,3 @@ wobbleboxx.com
   <br> ![Instruccion9!](/images/inst9.png) <br>
   <br>
   
-  ### <h2>Plataformas a las que se ha subido el juego </h2>
-  Itchi.o<br>
-  https://stormedia.itch.io/tiny-tussle
-  <br>Gamejolt<br>
-  https://gamejolt.com/games/TinyTussle/681544
-  <br>Newsground<br>
-  https://www.newgrounds.com/portal/view/829753
-  <br>Indiexpo<br>
-  https://www.indiexpo.net/es/games/tiny-tussel
